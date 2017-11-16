@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+ 
+ 
+
+<title>Login</title>
+
+  
+<style>
+		table, th, td {
+			border: 1px solid black;
+			border-collapse: collapse;
+			font-size: 14px;
+			height:100%;
+		}
+		
+		
+		
+		
+		.title_column{
+	    	position: absolute;
+	    	top: 0px;
+	    	left:0%;
+	    	width: 100%;
+	    	height: 20%;
+	    }
+	    
+	  
+	    
+	    
+	    #his_str{
+	    	position: absolute;
+	    	top: 26%;
+	    	left: 0%;
+	    
+	    }
+	    .left_column{
+	    border: 1px solid #ccc!important;
+	    	position: absolute;
+	    	top: 30%;
+	    	left: 0%;
+	    	width: 35%;
+	    	overflow-y:scroll; 
+	    	height:68%;
+	    }
+	    
+	    
+	    
+	     #bet_str{
+	    	position: absolute;
+	    	top: 26%;
+	    	left: 35%;
+	    
+	    }
+	    #target{
+	    	position: absolute;
+	    	top: 26%;
+	    	left: 40%;
+	    	border: 1px solid #ccc!important;
+	    
+	    }
+	    .center_column{
+	    border: 1px solid #ccc!important;
+	    	position: absolute;
+	    	top: 30%;
+	    	left: 35%;
+	    	width: 35%;
+	    	overflow-y:scroll; 
+	    	height:68%;
+	    }
+	    
+	    
+	   
+	    
+	    
+	    .right_column{
+	    border: 1px solid #ccc!important;
+	    	position: absolute;
+	    	top: 30%;
+	    	left: 70%;
+	    	width: 30%;
+	    	overflow-y:scroll; 
+	    	 height:68%;
+	    }
+	    
+	    #over_str{
+	    	position: absolute;
+	    	top: 26%;
+	    	left: 70%;
+	   
+	    }
+	    
+	    #target2{
+	    	position: absolute;
+	    	top: 26%;
+	    	left: 75%;
+	   	    border: 1px solid #ccc!important;
+	    
+	    }
+	    #target2:hover ,#target:hover {
+		   background-color:gray;
+		}
+	    
+	    
+	    
+	    #connectURL:hover {
+	       background-color:yellow;
+	    }
+	    
+	    .red { 
+	      color: red;  
+  		}
+	    
+		 
+		 
+		 
+		 
+</style>
+</head>
+
+
+<body>
+
+
+<form  > 		
+				 
+		 
+ </form>
+</body>
+</html>
+ 
+<script src="jquery.js"> </script>
+<script src="utils.js"> </script>
+<script src="pro.js"> </script> 
+<script src="jquery.cookie.js"></script>
+<script>
+	 
+//document.cookie="ASP.NET_SessionId=0o3xtrfrsqzwbd1101y1015q, cookiescurrentmlid=2, cookiescurrentlid=0, yunsuo_session_verify=3d8fbc6351330ef94cb623c3e1df550c";
+
+$(document).ready(function(){
+//	let url = 'http://72f-dgw.777ssd.com/cp1-4-mb/ch/main.aspx/GetMembersMbinfo';
+	$.cookie('ASP.NET_SessionId', '0o3xtrfrsqzwbd1101y1015q'); 
+	$.cookie('cookiescurrentmlid', '2'); 
+	$.cookie('cookiescurrentlid', '0'); 
+	$.cookie('yunsuo_session_verify', '3d8fbc6351330ef94cb623c3e1df550c'); 
+	var url = "http://mem1.fpaesf109.pasckr.com:88/Handler/QueryHandler.ashx";
+	
+	//a(url,"POST")
+	//return;
+ 	 $.ajax({ url:  url, 
+ 	//	cache: false,
+ 	// NO setCookies option available, set cookie to document
+ 	//setCookies: "lkfh89asdhjahska7al446dfg5kgfbfgdhfdbfgcvbcbc dfskljvdfhpl",
+ 	//crossDomain: true,
+ 	dataType: 'json',
+ 	xhrFields: {
+ 	    withCredentials: true
+ 	},
+ 	
+ 		//crossDomain: true,
+ 		//xhrFields : {
+ 	   //       withCredentials : true
+ 	   //    },
+ 	        type:"POST",
+ 	        data:{action:'get_ad'},
+ 	    //   dataType: 'jsonp',
+ 	    //   contentType: "application/json",
+ 	    
+ 	      // dataType: "json",
+ 	         beforeSend: function(request) {
+ 	    	  //  request.setRequestHeader("Access-Control-Allow-Origin", "*");
+ 	    	  },
+	        // async: true,
+	         success: function(data) {
+	        	  alert(data)
+	        	    
+
+	         	 } ,
+	         	 error : function(data){
+	         		 
+	         	 }
+	         	 
+    });
+ 	 
+ 	 
+ 	 
+ 	 /*
+     $.ajax(url, {  
+       data: {  
+         'cityname': '襄阳',  
+         'dtype': 'jsonp',  
+         'key': 'xxxx',  
+         '_': new Date().getTime()  
+       },  
+       dataType: 'jsonp',  
+       crossDomain: true,  
+       success: function(data) {  
+         if(data && data.resultcode == '200'){  
+           console.log(data);  
+         }  
+       }  
+     });  
+     
+     
+      
+     $.getJSON(url, {  
+       'cityname': '北京',  
+       'dtype': 'jsonp',  
+       'key': 'xxxx',  
+       '_': new Date().getTime()  
+     }, function(data){  
+       if(data && data.resultcode == '200'){  
+         console.log(data.result.today);  
+       }  
+     });  
+     
+     $.get(url, {  
+       'cityname': '澳门',  
+       'dtype': 'jsonp',  
+       'key': 'xxxx',  
+       '_': new Date().getTime()  
+     }, function(data){  
+       if(data && data.resultcode == '200'){  
+         console.log(data.result.today);  
+       }  
+     }, 'json');  
+ */
+   
+     
+})
+
+function a(url,type){
+	var req = new XMLHttpRequest();
+    req.open(type, url, true); // force XMLHttpRequest2
+    req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+    req.setRequestHeader('Accept', 'application/json');
+    req.withCredentials = true; // pass along cookies
+    alert()
+    req.send(JSON.stringify({action:"get_ad"}));
+    
+    req.onload = function()  {
+        // store token and redirect
+        let json;
+        try {
+            json = JSON.parse(req.responseText);
+        } catch (error) {
+            return reject(error);
+        }
+        resolve(json);
+    };
+	
+}
+</script>

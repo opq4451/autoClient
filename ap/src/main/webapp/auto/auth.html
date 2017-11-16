@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+     
+
+    <title>金星後台管理 </title>
+	<style>
+  	
+  		html,
+		body{
+		    height: 100%;
+		}
+
+	  	body{
+		    background-size: cover;
+		    background-repeat: no-repeat;
+		    background-position: center center;
+		    background-image: url("/img/2.jpg");
+		    
+		}
+
+  	</style>
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+ 
+
+  <body  background="/img/2.jpg">
+
+    <div class="container">
+
+      <table class="form-signin">
+        <h2 class="form-signin-heading">登入</h2>
+        <label class="sr-only">帳號</label>
+        <input id="user" class="form-control" placeholder="帳號" required autofocus>
+        <label class="sr-only">密碼</label>
+        <input type="password" id="pwd" class="form-control" placeholder="密碼" required>
+         
+        <button class="btn btn-lg btn-primary btn-block" id="btn" >確認</button>
+      </table>
+
+    </div> <!-- /container -->
+
+
+    
+  </body>
+</html>
+
+<script src="jquery.js" > </script>
+<script src="utils.js"> </script>
+<script>
+	 
+    var global_url = getUrl(); 
+	$(document).ready(function(){
+		$( "#btn" ).click(function() {
+			let user = document.getElementById("user").value;
+		    let pwd = document.getElementById("pwd").value;
+		    let url = global_url + '/checkAdmin?user='+user+'&pwd='+pwd ; 
+	 
+		    $.get(url, function( data ) {
+			    if(data=='suc'){
+			    		 window.location.href = "/auto/backend.html" ;
+			    }
+			        
+			});
+		});
+
+	    
+	});
+	 
+	 
+
+</script>
