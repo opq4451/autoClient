@@ -690,35 +690,24 @@
 		    	
 		    	var writeFlag = false;
 		    	var betStr="";
-		    	var rate = getRate(ltype);
+		    //	var rate = getRate(ltype);
 		    	var amount = bArray[bIndex[z]%bArray.length] ;
 		     
 		    	for(var b=0;b<betList.length;b++){
 		    		var code = betList[b];
 		    		var sn = i==9 ? 0 : (i+1);
-		    		if(amount  > 1 ){
-		    			
-		    			betStr += sn +"SN" + code + "," + ltype + ",," + rate + ","+amount + ",1," + amount +"@" ;
-		    			//reallyBet(gid,sn,code,bArray[bIndex[z]%bArray.length], (phase_now+1) , c);
-		    			//writeFlag = true;
-		    			//處理過關的log
-		    			//let overLog = (phase_now+1) + "@" + sn + "@" + code ; 
-		    			//saveOverLog(document.getElementById("user").value,encodeURI(overLog),c);
+		    		if(amount  > 9 ){ 
+		    			betStr += sn +"," + code + "," +amount +"@" ; 
 		    		}
 		    			
 		    	}
 		    
-		    if(amount  > 1 ){
+		    if(amount  > 9 ){
 		    		//alert(betStr.substring(0,betStr.length-1))
 		   		reallyBet(gid,sn,betStr.substring(0,betStr.length-1),amount, (phase_now+1) , c , rangeExist[bet_before4].toString());
 		    }
-		   // }
-		   // 	
-		   // 	if(writeFlag)
-		   // 		saveLog(document.getElementById("user").value+"bet",encodeURI(betlog)); //只寫下注成功的log
-		    		
-		    		
-		    //saveLog(document.getElementById("user").value,encodeURI(log));
+		  
+		    
 		    	bIndex[z]++;
 		 
 			
