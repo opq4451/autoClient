@@ -131,6 +131,9 @@ public class Controller {
     public String getTodayWin(@RequestParam("user") String user) {
 
         try {
+            if(h==null) {
+                h = httpClientCookie.getInstance("sd8885", "qaz123123");   
+            }
             String ret = h.getoddsInfo();
             // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
 
@@ -277,7 +280,7 @@ public class Controller {
     @RequestMapping("/getPhase")
     public String getPhase() {
         try {
-
+            
             String ret = h.getoddsInfo();
             // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
 
@@ -482,9 +485,7 @@ public class Controller {
 
             for (int i = 0; i < 10; i++) {
                 int sn = i + 1;
-                if (i == 9) {
-                    sn = 0;
-                }
+                
                 String key = phase + "@" + sn + "@" + c[i];
                 if (configProperty.getProperty(key) != null) {
                     if (overmp.get(user + key) == null) {
