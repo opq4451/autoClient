@@ -11,8 +11,13 @@ import java.time.Instant;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
+import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import org.apache.http.Header;
@@ -80,14 +85,47 @@ public class httpClientCookie {
     }
     
     
-      
+     
 	public static void main(String[] args ){
 		try {
 		    //httpClientCookie a = httpClientCookie.getInstance("sd8885","Aa258369");
 		    httpClientCookie a = httpClientCookie.getInstance("sd8885","qaz123123");
-		    a.getoddsInfo();
-		    a.getoddsInfoForDouble();
-		  
+		    String ret = a.getoddsInfoForDouble();
+		    
+		    JsonParser parser = new JsonParser();
+            JsonObject o = parser.parse(ret).getAsJsonObject();
+            JsonObject data = o.getAsJsonObject("data");
+            JsonObject play_odds = data.getAsJsonObject("play_odds");
+            Set<Entry<String, JsonElement>> entrySet = play_odds.entrySet();
+            int i = 0;
+            Map<Integer, String > m = new TreeMap<Integer, String >();   
+            for(Map.Entry<String,JsonElement> entry : entrySet){
+              String key = (entry.getKey());
+              String k = key.substring(key.indexOf("_")+1,key.length());
+              JsonElement j = entry.getValue();
+              String pl = j.getAsJsonObject().get("pl").getAsString();
+              
+              m.put(i, k+"@"+pl);
+              i++;
+              
+              
+               
+            }
+            Set set = m.entrySet();
+            
+            // Get an iterator
+            Iterator it = set.iterator();
+         
+            // Display elements
+            while(it.hasNext()) {
+              Map.Entry me = (Map.Entry)it.next();
+              System.out.print("Key is: "+me.getKey() + " & ");
+              System.out.println("Value is: "+me.getValue());
+            } 
+            
+            
+          
+		 // a.getoddsInfoForDouble();
 		 /*action:put_money
 		    phaseid:165921
 		    oddsid:1,2
