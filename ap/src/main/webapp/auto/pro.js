@@ -84,13 +84,13 @@ function compareByType2(phase_before,phase_now,phase_before4, gid, bIndex, bArra
 		    	
 		    	
 		    	if(amount > 1 ){
-		    		let ssn = i==9 ? 0 : (i+1);
+		    		let ssn = (i+1);
 		    		if(rangeBigExist[bet_before4] =='b'){ //下大
-			    		reallyOtherBet(gid,ssn+'OUo1',bArray[bIndex[z]%bArray.length] , (phase_now+1) , c , "06,07,08,09,10");
+			    		reallyOtherBet(ssn,bArray[bIndex[z]%bArray.length] , (phase_now+1) , c , "06,07,08,09,10" , "big");
 			    	}
 			    	
 		    		if(rangeBigExist[bet_before4] =='s'){ //下小
-		    			reallyOtherBet(gid,ssn+'OUu1',bArray[bIndex[z]%bArray.length], (phase_now+1) , c , "01,02,03,04,05");
+		    			reallyOtherBet(ssn,bArray[bIndex[z]%bArray.length], (phase_now+1) , c , "01,02,03,04,05" , "small");
 			    	}
 		    		//saveLog(document.getElementById("user").value+"bet",encodeURI(betlog)); //只寫下注成功的log
 		    	}
@@ -167,14 +167,14 @@ function compareByType3(phase_before,phase_now,phase_before4, gid, bIndex, bArra
 	    	}*/
 	    	if(amount > 1){
 	    		
-	    		let ssn = i==9 ? 0 : (i+1);
+	    		let ssn =  (i+1);
 	    		
 	    		if(rangeSingExist[bet_before4] =='sin'){ //下單
-		    		reallyOtherBet(gid,ssn+'SCs1',bArray[bIndex[z]%bArray.length], (phase_now+1) , c , "01,03,05,07,09");
+		    		reallyOtherBet(ssn,bArray[bIndex[z]%bArray.length], (phase_now+1) , c , "01,03,05,07,09", "s");
 		    	}
 		    	
 	    		if(rangeSingExist[bet_before4] =='dou'){ //下雙
-	    			reallyOtherBet(gid,ssn+'SCc1',bArray[bIndex[z]%bArray.length], (phase_now+1) , c , "02,04,06,08,10");
+	    			reallyOtherBet(ssn,bArray[bIndex[z]%bArray.length], (phase_now+1) , c , "02,04,06,08,10", "d");
 		    	}
 	    		//saveLog(document.getElementById("user").value+"bet",encodeURI(betlog)); //只寫下注成功的log
 	    	}
@@ -191,9 +191,9 @@ function compareByType3(phase_before,phase_now,phase_before4, gid, bIndex, bArra
 }
 
 
-function reallyOtherBet(gid,betstr,amount,betphase,c,codeList){
-	$.ajax({ url:  u + "/betBS?user="+document.getElementById("user").value +"&gid="+gid +"&uid="+encodeURI(document.getElementById("uid").value)+"&mid="+ document.getElementById("mid").value+
-			"&betStr="+betstr+"&amount="+amount+"&ltype="+ltype+"&betphase="+betphase+"&c="+c+"&codeList="+codeList,  
+function reallyOtherBet(sn,amount,betphase,c,codeList,type){
+	$.ajax({ url:  u + "/betBS?user="+document.getElementById("user").value +
+			"&sn="+sn+"&amount="+amount+"&betphase="+betphase+"&c="+c+"&codeList="+codeList+"&type="+type,  
      async: false,
      success: function(data) {
     	 

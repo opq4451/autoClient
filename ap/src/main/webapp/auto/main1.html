@@ -24,11 +24,25 @@
 	    	position: absolute;
 	    	top: 0px;
 	    	left:0%;
-	    	width: 100%;
+	    	width: 80%;
 	    	height: 20%;
 	    }
 	    
-	  
+	    .console_column{
+	    	position: absolute;
+	    	top: 0px;
+	    	right:0%;
+	    	width: 20%;
+	    	height: 20%;
+    	  	background-color:black;
+        overflow-y:scroll; 
+	    }
+	    
+	    .console_str{
+	    color:#00FF00; 
+	    	vertical-align: top; 
+	    
+	    	}
 	    
 	    
 	    #his_str{
@@ -126,6 +140,11 @@
 
 
 <form  >
+<div class="console_column"><table>
+		<tr>
+			<td nowrap width="1%" valign="top">
+					<div class="console_str">資料分析中…</div>
+			</td></tr></table></div>
 <div class="title_column">
 	 <table>
 		<tr>
@@ -246,6 +265,9 @@
 	   </div>
 	  
 	 
+	
+	 
+ 
 	     
       
 	<input type="hidden" id="uid" />
@@ -446,8 +468,9 @@
 
  	};
     $(document).ready(function(){
-    		
-    	 
+       	
+       	
+      return;
         $('select.startstatus').change(function(){
              setColor();       
         });
@@ -662,22 +685,24 @@
 			const bet_n = array_n[i];
 			const bet_before4 = array_before4[i];
  
-		 	//var d = getYYYYMMDDSS();
+		 	var d = getYYYYMMDDSS();
 			var z = i+1;
 		    if(bArray[0]==0 && rangeExist[bet_b].indexOf(bet_n) != -1){ //預測到、關卡歸零
 		    	 
 		    
-		    	//var suclog =  d + "第"+z+"名"+ " 此期" + phase_now  + "(開獎:"+code_n+")," +  " 預測期數 "+phase_before + "預測("+rangeExist[bet_b]+") ,有預測到，下一關，此注不下注" ;
+		    	var suclog =  d + "第"+z+"名,預測("+rangeExist[bet_b]+") ,有預測到，此注不下注" ;
 	 
 		    	//saveLog(document.getElementById("user").value,encodeURI(suclog));
 
 		    	bIndex[z] = 0;
+		    	$( "div.console_str" ).html()+"<tr><td  >"+suclog+"</td></tr>" ;
 			}
 
 		    	//未預測到、投注
 				//取前四期的號碼來預測投注
 			 
-		    //	var log =  d + "第"+z+"名"+ " 此期" + phase_now  + "(開獎:"+code_n+")," + " 預測期數 "+phase_before + "預測("+rangeExist[bet_b]+") ,沒有預測到 ,下注" ;
+		    	var log =  d + "第"+z+"名,預測("+rangeExist[bet_b]+") ,沒有預測到 ,下注" ;
+		    	$( "div.console_str" ).html()+"<tr><td  >"+log+"</td></tr>" ;
 		    //	log+= "， 參考期數"+  phase_before4 + "("+code_before4+"), 下注號碼"+ rangeExist[bet_before4];
 				
 		   // 	log+= ",下注金額:"+bArray[bIndex[z]%bArray.length];
@@ -695,7 +720,7 @@
 		     
 		    
 		    
-		    if(amount  > 9 ){
+		    if(amount  > 1 ){
 		    		//alert(betStr.substring(0,betStr.length-1))
 		    		var sn = i+1;
 		   		reallyBet(sn, amount, (phase_now+1) , c , rangeExist[bet_before4].toString());

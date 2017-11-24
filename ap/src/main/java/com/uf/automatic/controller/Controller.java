@@ -53,11 +53,14 @@ public class Controller {
     int bi = 0;
     int over_i = 0;
     httpClientCookie h = null;
+    String user ="";
+    String pwd  ="";
+    String p_id = "";
     Map<Integer, String> normal = new TreeMap<Integer, String>();
     Map<Integer, String> bs = new TreeMap<Integer, String>();
-
+    
     @RequestMapping("/getUid")
-    public String getUid(@RequestParam("user") String user, @RequestParam("pwd") String pwd) {
+    public String getUid(@RequestParam("user") String u, @RequestParam("pwd") String p) {
         //		Map checkLimit = checkLimitDate(user,pwd);
         //		if(!checkLimit.get("OK").toString().equals("Y")) {
         //			return "null";
@@ -73,8 +76,10 @@ public class Controller {
             //			String mid = ret.substring(ret.indexOf("mid") + 4, ret.indexOf("mid") + 8);
             //
             //			return uid+"@"+mid;
-            h = httpClientCookie.getInstance("sd8885", "qaz123123");
-
+            user = u;
+            pwd = p;
+            h =   httpClientCookie.getInstance(user,pwd);
+          
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -132,7 +137,7 @@ public class Controller {
 
         try {
             if(h==null) {
-                h = httpClientCookie.getInstance("sd8885", "qaz123123");   
+                h = httpClientCookie.getInstance(user, pwd);   
             }
             String ret = h.getoddsInfo();
             // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
@@ -292,6 +297,7 @@ public class Controller {
  
 
             String drawIssue = data.get("nn").getAsString();
+            p_id = data.get("p_id").getAsString();
             if (drawIssue != null && !drawIssue.equals("")) {
                 return drawIssue;
             }
@@ -546,7 +552,43 @@ public class Controller {
 
         return "null";
     }
+    public int computeIndex(String sn,String code) { 
+        return  ( Integer.parseInt(sn) - 1 ) * 10 + ( Integer.parseInt(code) - 1 ) ;
+    }
+    public int computeIndexForBs(String sn,String type) { 
+        if (sn.equals("1") && type.equals("big"))    { return 0; }else if(sn.equals("1") && type.equals("small")) {   return 1;  }
+         else if(sn.equals("1") && type.equals("s")) { return 2; }else if(sn.equals("1") && type.equals("d")) {       return 3; }
+        
+         else if (sn.equals("2") && type.equals("big"))    { return 6; }else if(sn.equals("2") && type.equals("small")) {   return 7;  }
+         else if(sn.equals("2") && type.equals("s")) { return 8; }else if(sn.equals("2") && type.equals("d")) {       return 9; }
+        
+         else if (sn.equals("3") && type.equals("big"))    { return 12; }else if(sn.equals("3") && type.equals("small")) {   return 13;  }
+         else if(sn.equals("3") && type.equals("s")) { return 14; }else if(sn.equals("3") && type.equals("d")) {       return 15; }
+        
+         else if (sn.equals("4") && type.equals("big"))    { return 18; }else if(sn.equals("4") && type.equals("small")) {   return 19;  }
+         else if(sn.equals("4") && type.equals("s")) { return 20; }else if(sn.equals("4") && type.equals("d")) {       return 21; }
+        
+         else if (sn.equals("5") && type.equals("big"))    { return 24; }else if(sn.equals("5") && type.equals("small")) {   return 25;  }
+         else if(sn.equals("5") && type.equals("s")) { return 26; }else if(sn.equals("5") && type.equals("d")) {       return 27; }
+        
+         else if (sn.equals("6") && type.equals("big"))    { return 30; }else if(sn.equals("6") && type.equals("small")) {   return 31;  }
+         else if(sn.equals("6") && type.equals("s")) { return 32; }else if(sn.equals("6") && type.equals("d")) {       return 33; }
+        
+         else if (sn.equals("7") && type.equals("big"))    { return 34; }else if(sn.equals("7") && type.equals("small")) {   return 35;  }
+         else if(sn.equals("7") && type.equals("s")) { return 36; }else if(sn.equals("7") && type.equals("d")) {       return 37; }
+        
+         else if (sn.equals("8") && type.equals("big"))    { return 38; }else if(sn.equals("8") && type.equals("small")) {   return 39;  }
+         else if(sn.equals("8") && type.equals("s")) { return 40; }else if(sn.equals("8") && type.equals("d")) {       return 41; }
+        
+         else if (sn.equals("9") && type.equals("big"))    { return 42; }else if(sn.equals("9") && type.equals("small")) {   return 43;  }
+         else if(sn.equals("9") && type.equals("s")) { return 44; }else if(sn.equals("9") && type.equals("d")) {       return 45; }
+        
+         else if (sn.equals("10") && type.equals("big"))    { return 46; }else if(sn.equals("10") && type.equals("small")) {   return 47;  }
+         else if(sn.equals("10") && type.equals("s")) { return 48; }else {       return 49; }
 
+    }
+    
+    
     //sn : 1~ 0 , code : 01~10
     @RequestMapping("/bet")
     public String bet(@RequestParam("user") String user , @RequestParam("sn") String sn,
@@ -556,6 +598,10 @@ public class Controller {
 
         
         try {
+            if(h==null) {
+                h = httpClientCookie.getInstance(user, pwd);   
+            }
+            
 //            //url += URLEncoder.encode(prameter, "UTF-8");
 //
 //            HttpGet httpget = new HttpGet(url + parameter);
@@ -570,11 +616,24 @@ public class Controller {
 
  //               if (ret.indexOf(user) > -1) {
                     String code[] = codeList.split(",");
+                    String ossid="";
+                    String pl="";
+                    String i_index="";
+                    String m="";
+                    int i=0;
                     for (String str : code) {
                         String overLog = betphase + "@" + sn + "@" + str;
                         saveOverLog(user, overLog, c);
+                        //
+                        int index = computeIndex(sn,str);
+                        String id_pl = normal.get(index).toString();  //15@1.963 
+                        ossid += id_pl.split("@")[0] + "," ;
+                        pl += id_pl.split("@")[1] + "," ;
+                        i_index += i + ",";
+                        m += amount + ",";
+                        i++;
                     }
-
+                    String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
                     String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
                                     + "下注金額(" + amount + ")" + "(成功)";
                     saveLog(user + "bet", betlog);
@@ -600,36 +659,37 @@ public class Controller {
     }
 
     @RequestMapping("/betBS")
-    public String betBS(@RequestParam("user") String user, @RequestParam("uid") String uid,
-                        @RequestParam("mid") String mid, @RequestParam("gid") String gid,
-                        @RequestParam("betStr") String betStr, @RequestParam("amount") String amount,
-                        @RequestParam("ltype") String ltype, @RequestParam("betphase") String betphase,
+    public String betBS(@RequestParam("user") String user,  
+                        @RequestParam("sn") String sn, @RequestParam("amount") String amount,
+                        @RequestParam("betphase") String betphase, @RequestParam("type") String type,
                         @RequestParam("c") String c, @RequestParam("codeList") String codeList) {
         //betStr 1OUo1
-        long unixTimestamp = Instant.now().getEpochSecond();
-        String timeStampe = Long.toString(unixTimestamp) + getRandom();
-        String rate = getBSRate(ltype);
-
-        String url = "http://203.160.143.110/www_new/app/CA/CA_bet.php?";
-        String parameter = "smstime=" + timeStampe + "" + "&allms=1117" + "&uid=" + convertUid(uid)
-                           + "&langx=zh-cn&betStr=" + betStr + "," + ltype + ",," + rate + "," + amount + ",1," + amount
-                           + "" + "&gid=" + gid + "" + "&mid=" + mid + "&gtype=CA&active=bet&usertype=a&ltype=" + ltype
-                           + "&username=" + user + "" + "&timestamp=" + timeStampe + "";
-        int phase = 554432 + Integer.parseInt(gid);
+//        long unixTimestamp = Instant.now().getEpochSecond();
+//        String timeStampe = Long.toString(unixTimestamp) + getRandom();
+//        String rate = getBSRate(ltype);
+//
+//        String url = "http://203.160.143.110/www_new/app/CA/CA_bet.php?";
+//        String parameter = "smstime=" + timeStampe + "" + "&allms=1117" + "&uid=" + convertUid(uid)
+//                           + "&langx=zh-cn&betStr=" + betStr + "," + ltype + ",," + rate + "," + amount + ",1," + amount
+//                           + "" + "&gid=" + gid + "" + "&mid=" + mid + "&gtype=CA&active=bet&usertype=a&ltype=" + ltype
+//                           + "&username=" + user + "" + "&timestamp=" + timeStampe + "";
+//        int phase = 554432 + Integer.parseInt(gid);
         try {
             //url += URLEncoder.encode(prameter, "UTF-8");
-
-            HttpGet httpget = new HttpGet(url + parameter);
-            //System.out.println(url + parameter);
-            //httpget.setHeader(HttpHeaders.ACCEPT_ENCODING, "gzip");
-            // 建立HttpPost对象
-            HttpResponse response = new DefaultHttpClient().execute(httpget);
-            // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
-            if (response.getStatusLine().getStatusCode() == 200) {// 如果状态码为200,就是正常返回
-                String ret = EntityUtils.toString(response.getEntity());
+            if(h==null) {
+                h = httpClientCookie.getInstance(user, pwd);   
+            }
+//            HttpGet httpget = new HttpGet(url + parameter);
+//            //System.out.println(url + parameter);
+//            //httpget.setHeader(HttpHeaders.ACCEPT_ENCODING, "gzip");
+//            // 建立HttpPost对象
+//            HttpResponse response = new DefaultHttpClient().execute(httpget);
+//            // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
+//            if (response.getStatusLine().getStatusCode() == 200) {// 如果状态码为200,就是正常返回
+//                String ret = EntityUtils.toString(response.getEntity());
                 bi++;
-                String sn = betStr.substring(0, 1);
-                if (ret.indexOf(user) > -1) {
+//                String sn = betStr.substring(0, 1);
+//                if (ret.indexOf(user) > -1) {
                     String code[] = codeList.split(",");
                     for (String str : code) {
                         String overLog = betphase + "@" + sn + "@" + str;
@@ -639,18 +699,26 @@ public class Controller {
                     String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
                                     + "下注金額(" + amount + ")" + "(成功)";
                     saveLog(user + "bet", betlog);
+                    
+                    int index= computeIndexForBs(sn,type);
+                    String id_pl = bs.get(index).toString();  //15@1.963 
+                    String ossid = id_pl.split("@")[0]  ;
+                    String pl  = id_pl.split("@")[1]   ;
+                    String betRet = h.normalBet(p_id, ossid, pl, "0", amount, "pk10_lmp");
+                     
+                    
                     //String overLog =  betphase + "@" + sn + "@" + code ; 
                     //saveOverLog(user,overLog,c);
                     //saveOverLog(document.getElementById("user").value,encodeURI(overLog),c);
                     //Utils.WritePropertiesFile(user+"bet", fillZero(Integer.toString(bi)), "第"+phase + "期，第" + sn + "名，號碼(" + code + ")，金額(" + amount + ") @" + ret);
-                } else {
-                    saveLog(user + "ERROR", ret);
-                }
+//                } else {
+//                    saveLog(user + "ERROR", ret);
+//                }
 
                 //Utils.WritePropertiesFile(user+"bet", fillZero(Integer.toString(bi)), "第"+phase + "期，" + getBSNAME(betStr) + "名，，金額(" + amount + ") @" + ret);
 
-                return ret;
-            }
+//                return ret;
+//            }
 
         } catch (Exception e) {
             e.printStackTrace();

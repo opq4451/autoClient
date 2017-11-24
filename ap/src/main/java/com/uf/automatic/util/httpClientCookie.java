@@ -63,9 +63,9 @@ public class httpClientCookie {
         setInitCookie();//塞 cookie
     }
     public static httpClientCookie getInstance(String id,String password) {
-        if(instance == null) {
+        //if(instance == null) {
             instance = new httpClientCookie(id,password);
-        }
+        //}
            
         
         return instance;
@@ -90,7 +90,7 @@ public class httpClientCookie {
 		try {
 		    //httpClientCookie a = httpClientCookie.getInstance("sd8885","Aa258369");
 		    httpClientCookie a = httpClientCookie.getInstance("sd8885","qaz123123");
-		    String ret = a.getoddsInfoForDouble();
+		    String ret = a.getoddsInfo();
 		    
 		    JsonParser parser = new JsonParser();
             JsonObject o = parser.parse(ret).getAsJsonObject();
@@ -236,7 +236,28 @@ public class httpClientCookie {
         }
         return "";
 	}
-	 
+	
+	public String normalBet(String phaseid,String ossid,  String pl , String i_index , String m ,String type) {
+	    String query = "http://mem1.fpaesf109.pasckr.com:88/L_PK10/Handler/Handler.ashx?action=put_money&";
+        try {
+            query += "phaseid="+ phaseid+"&" +
+                     "oddsid="+ ossid.substring(0,ossid.length()-1) + "&" +
+                     "uPI_P="+ pl.substring(0,pl.length()-1) + "&" +
+                     "uPI_M="+ m.substring(0,m.length()-1) + "&" +
+                     "i_index="+ i_index.substring(0,i_index.length()-1) + "&playpage="+type+"" ;
+
+            System.out.println(query);
+            String v = instance.httpClientUseCookie(query);
+            JsonParser parser = new JsonParser();
+            JsonObject o = parser.parse(v).getAsJsonObject();
+            JsonObject data = o.getAsJsonObject("data");
+            String t = data.get("JeuValidate").getAsString(); 
+            return instance.httpClientUseCookie(query+"&JeuValidate=" + t );
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+	}
 	
 	
 	public String httpClientUseCookie(String uri) throws Exception {
@@ -260,7 +281,7 @@ public class httpClientCookie {
 			HttpResponse httpresponse = httpClient.execute(httpget);
 			HttpEntity entity = httpresponse.getEntity();
 			result = EntityUtils.toString(entity);
-			System.out.println(result); 
+			System.out.println(result);
 			
 		} catch (Exception e) {
 			throw e;
@@ -291,7 +312,10 @@ public class httpClientCookie {
             HttpEntity entity = httpresponse.getEntity();
             result = EntityUtils.toString(entity);
             System.out.println(result);
-            
+            JsonParser parser = new JsonParser();
+            JsonObject o = parser.parse(result).getAsJsonObject();
+            String code = o.get("success").getAsString();
+            System.out.println(code);
             try {
                 
                 Header[] headers = httpresponse.getHeaders("Set-Cookie");
