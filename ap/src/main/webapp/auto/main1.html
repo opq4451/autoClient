@@ -17,7 +17,10 @@
 			height:100%;
 		}
 		
-		
+		html, body {
+		    max-width: 100%;
+		    overflow-x: hidden;
+		}
 		
 		
 		.title_column{
@@ -25,7 +28,7 @@
 	    	top: 0px;
 	    	left:0%;
 	    	width: 80%;
-	    	height: 20%;
+	    	height: 25%;
 	    }
 	    
 	    .console_column{
@@ -33,7 +36,7 @@
 	    	top: 0px;
 	    	right:0%;
 	    	width: 20%;
-	    	height: 20%;
+	    	height: 25%;
     	  	background-color:black;
         overflow-y:scroll; 
 	    }
@@ -47,12 +50,12 @@
 	    
 	    #his_str{
 	    	position: absolute;
-	    	top: 26%;
+	    	top: 27%;
 	    	left: 0%;
-	    
+    	    font-size: 20px;
 	    }
 	    .left_column{
-	    border: 1px solid #ccc!important;
+	        border: 1px solid black;
 	    	position: absolute;
 	    	top: 30%;
 	    	left: 0%;
@@ -65,19 +68,20 @@
 	    
 	     #bet_str{
 	    	position: absolute;
-	    	top: 26%;
+	    	top: 27%;
 	    	left: 35%;
-	    
+	        font-size: 20px;
 	    }
 	    #target{
 	    	position: absolute;
-	    	top: 26%;
-	    	left: 40%;
+	    	top: 27%;
+	    	left: 42%;
 	    	border: 1px solid #ccc!important;
+	    	font-size: 20px;
 	    
 	    }
 	    .center_column{
-	    border: 1px solid #ccc!important;
+	        border: 1px solid black;
 	    	position: absolute;
 	    	top: 30%;
 	    	left: 35%;
@@ -91,7 +95,7 @@
 	    
 	    
 	    .right_column{
-	    border: 1px solid #ccc!important;
+	     border: 1px solid black;
 	    	position: absolute;
 	    	top: 30%;
 	    	left: 70%;
@@ -104,18 +108,25 @@
 	    	position: absolute;
 	    	top: 26%;
 	    	left: 70%;
-	   
+	        font-size: 20px;
 	    }
 	    
 	    #target2{
 	    	position: absolute;
 	    	top: 26%;
-	    	left: 75%;
+	    	left: 77%;
 	   	    border: 1px solid #ccc!important;
-	    
+	    	font-size: 20px;
 	    }
 	    #target2:hover ,#target:hover {
 		   background-color:gray;
+		}
+		
+		
+		#center_bar{
+			position: absolute; 
+			width: 100%;
+			top:25%;
 		}
 	    
 	    
@@ -136,11 +147,11 @@
 </head>
 
 
-<body>
+<body  style="background-color:powderblue;">
 
 
 <form  >
-<div class="console_column"><table>
+<div class="console_column"><table >
 		<tr>
 			<td nowrap width="1%" valign="top">
 					<div class="console_str">資料分析中…</div>
@@ -244,13 +255,13 @@
 						</select> 
 			</td>
 			
-			<td colspan=2 >
+			<td colspan=2 style="display:none">
 				<div id="connectURL">連結尚銀</div>	  
 			</td>
 			<td  nowrap>
 				使用期限  
 			</td>
-			<td nowrap width="100px;">
+			<td nowrap width="100px;" colspan=3 >
 				<div class="limittime">loading.</div>	  
 			</td>
 			
@@ -275,26 +286,32 @@
 	<input type="hidden" id="mid" />
 	<input type="hidden" id="pwd" />
 	
-	<div  id="his_str" >歷史記錄</div>
-	<div class="left_column">
 	
-	<div class="historyHtml"></div>
+	<div  id="center_bar" > 
+		    <div  id="his_str" >歷史記錄</div>
+			
+			<div id="target">清空記錄</div>
+			<div id="bet_str" >系統記錄</div>
+			
+			
+			<div id="target2">清空記錄</div>
+			<div id="over_str">過關記錄</div>
 	</div>
 	
-	<div id="target">清空記錄</div>
-	<div id="bet_str" >系統記錄</div>
-	<div class="center_column">
 	
 	
-	<div   class="logHtml">loading...</div>
+	<div class="left_column">
+		
+		<div class="historyHtml"></div>
+	</div>
+	
+	<div class="center_column"> 	
+		<div class="logHtml">loading...</div>
 	</div>	
-	
-	<div id="target2">清空記錄</div>
-	<div id="over_str">過關記錄</div>
-	<div class="right_column">
-	
-	
-	<div   class="logOverHtml">loading...</div>
+			
+			
+	<div class="right_column"> 
+		<div class="logOverHtml">loading...</div>
 	</div>			
 				 
 		 
@@ -719,7 +736,8 @@
 		    
 		    
 		    if(amount  > 1 ){
-		    	var log =  d + "第"+z+"名,預測("+rangeExist[bet_b]+") ,沒有預測到 ,下注" ;
+		    	//var log =  d + "第"+z+"名,預測("+rangeExist[bet_b]+") ,沒有預測到 ,下注" ;
+		    	var log =  d + "準備下注" ;
 		    	$( "div.console_str" ).append("<tr><td  >"+log+"</td></tr>") ;
 		    	
 		    		//alert(betStr.substring(0,betStr.length-1))
@@ -927,7 +945,9 @@
 				"&sn="+sn+"&amount="+amount+"&betphase="+betphase+"&c="+c+"&codeList="+codeList,  
          async: false,
          success: function(data) {
-        	 
+        	    var d = getYYYYMMDDSS();
+        	    var log =  d + "下注完成!" ;
+		    	$( "div.console_str" ).append("<tr><td  >"+log+"</td></tr>") ;
          	 }
         });
 		
@@ -1044,14 +1064,14 @@
  		if(stoplose*-1> todayWin*1){ //停損
  			$('td.s_lose').css('background-color', 'red');
  		}else{
- 			$('td.s_lose').css('background-color', 'white');
+ 			$('td.s_lose').css('background-color', 'powderblue');
 
  		}
  		
 		if(stopwin*1 < todayWin*1){ //停利
 			$('td.s_win').css('background-color', 'blue');
  		}else{
- 			$('td.s_win').css('background-color', 'white');
+ 			$('td.s_win').css('background-color', 'powderblue');
 
  		}
  		
