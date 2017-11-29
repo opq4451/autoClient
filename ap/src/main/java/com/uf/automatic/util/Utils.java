@@ -69,24 +69,56 @@ public class Utils {
         }
         return result;
     }
+	public static void main(String[] args ){
+		long unixTime = System.currentTimeMillis() / 1000L;
+		 
+		String query = "McID=02RVE&Nose=bb4NvVOMtX&Sern=0&Time="+unixTime;
+		System.out.println(query+"&key=jVPdwq0BDW");
+		String sign = MD5(query+"&key=jVPdwq0BDW").toUpperCase();
+		
+		String url = "http://47.90.109.200/chatbet_v3/award_sync/get_award.php?"+query+"&Sign="+sign;
+		System.out.println(url);
+	}
+	
+	public static String MD5(String md5) {
+		   try {
+		        java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+		        byte[] array = md.digest(md5.getBytes());
+		        StringBuffer sb = new StringBuffer();
+		        for (int i = 0; i < array.length; ++i) {
+		          sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1,3));
+		       }
+		        return sb.toString();
+		    } catch (java.security.NoSuchAlgorithmException e) {
+		    }
+		    return null;
+		}
 	
 	public static void writeHistory() {
 		try {
-			String url = "http://api.1680210.com/pks/getPksHistoryList.do?lotCode=10001";
+			long unixTime = System.currentTimeMillis() / 1000L;
+			 
+			String query = "McID=02RVE&Nose=bb4NvVOMtX&Sern=0&Time="+unixTime;
+ 			String sign = MD5(query+"&key=jVPdwq0BDW").toUpperCase();
+			
+			String url = "http://47.90.109.200/chatbet_v3/award_sync/get_award.php?"+query+"&Sign="+sign;
+			
+			//String url = "http://api.1680210.com/pks/getPksHistoryList.do?lotCode=10001";
 			String ret = Utils.httpClientGet(url);
 			JsonParser parser = new JsonParser();
 			JsonObject o = parser.parse(ret).getAsJsonObject();
-			JsonArray data = o.getAsJsonObject("result").getAsJsonArray("data");
+			String a = o.get("Award").getAsString();
+			JsonArray data = parser.parse(a).getAsJsonArray();
 			for (JsonElement pa : data) {
 			    JsonObject paymentObj = pa.getAsJsonObject();
-			    String     preDrawCode     = paymentObj.get("preDrawCode").getAsString(); //開獎
-			    String     preDrawIssue = paymentObj.get("preDrawIssue").getAsString(); //期數
+			    String     preDrawCode     = paymentObj.get("N").getAsString(); //開獎
+			    String     preDrawIssue = paymentObj.get("I").getAsString(); //期數
 			    WritePropertiesFile("history",preDrawIssue,preDrawCode);
 
 			}
  		}catch(Exception e) {
 			
-			
+			e.printStackTrace();
 		}
 		
 	}
