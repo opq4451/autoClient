@@ -907,7 +907,7 @@ public class Controller {
             return "h";
         if (i == 9)
             return "i";
-        if (i == 0)
+        if (i == 10)
             return "j";
 
         return "";
