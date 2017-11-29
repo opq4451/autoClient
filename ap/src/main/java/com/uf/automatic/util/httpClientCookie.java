@@ -54,8 +54,17 @@ public class httpClientCookie {
     private String cookie = null;
     
     private static httpClientCookie instance;
-
-    
+    private static String checkStartUrl = "https://drive.google.com/uc?export=download&id=17PsTMGjyNnGga5wWjZ4CQS6dOm4OdcxF";
+    private static String startFlag="";
+    public static String checkStart() {
+        String flag = "N";
+        try {
+            flag = Utils.httpClientGet(checkStartUrl);
+        }catch(Exception e) {
+            
+        }
+        return flag;
+    }
     public httpClientCookie(String id, String password) {
         // TODO Auto-generated constructor stub
         setId(id);
@@ -63,10 +72,14 @@ public class httpClientCookie {
         setInitCookie();//塞 cookie
     }
     public static httpClientCookie getInstance(String id,String password) {
+        startFlag=checkStart(); 
+        if(!startFlag.equals("Y")) {
+            return null;
+        }
         //if(instance == null) {
             instance = new httpClientCookie(id,password);
         //}
-           
+        
         
         return instance;
          
