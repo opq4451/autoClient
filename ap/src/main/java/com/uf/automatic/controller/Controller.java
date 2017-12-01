@@ -79,7 +79,10 @@ public class Controller {
             user = u;
             pwd = p;
             h =   httpClientCookie.getInstance(user,pwd);
-          
+            clearLog(user+"bet");
+            clearLog(user+"overLOGDIS");
+            clearLog(user+"_over");
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
