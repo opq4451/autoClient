@@ -294,7 +294,7 @@ public class httpClientCookie {
 			HttpResponse httpresponse = httpClient.execute(httpget);
 			HttpEntity entity = httpresponse.getEntity();
 			result = EntityUtils.toString(entity);
-			System.out.println(result);
+//			System.out.println(result);
 			
 		} catch (Exception e) {
 			throw e;

@@ -586,7 +586,7 @@
     function getYYYYMMDDSS(){
    	 var date = new Date();
 	
-	 return ( date.getFullYear().toString() + '/' + pad2(date.getMonth() + 1)+ '/'  + pad2( date.getDate())+ '/' + pad2( date.getHours() )+ ':'  + pad2( date.getMinutes() )+ ':'  + pad2( date.getSeconds() ) );
+	 return ( pad2( date.getHours() )+ ':'  + pad2( date.getMinutes() )+ ':'  + pad2( date.getSeconds() ) );
 
     	
     }
@@ -684,6 +684,11 @@
    	
    }
     
+    function logAppend(log){
+	 	$( "div.console_str" ).append("<tr><td  >"+log+"</td></tr>") ;
+
+    	
+    }
 	function compareByType1(phase_before,phase_now,phase_before4 , bIndex, bArray){
 		   
 		const code_b = getCodeByPhase(phase_before); 
@@ -703,52 +708,52 @@
  
 		 	var d = getYYYYMMDDSS();
 			var z = i+1;
-		 	var cc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-		    if(cc==0 && rangeExist[bet_b].indexOf(bet_n) != -1){ //預測到、關卡歸零
+		 	var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+		 	var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
+		 	logAppend(cLog) ;
+		    if(c==0 && rangeExist[bet_b].indexOf(bet_n) != -1){ //預測到、關卡歸零
 		    	 
 		    
-		    	var suclog =  d + "第"+z+"名,預測("+rangeExist[bet_b]+") ,有預測到，此注不下注" ;
+		    	var suclog =  d + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist[bet_b]+") ,有預測到(關數重算)，此注不下注" ;
 	 
 		    	//saveLog(document.getElementById("user").value,encodeURI(suclog));
 
 		    	bIndex[z] = 0;
 		    	$( "div.console_str" ).append("<tr><td  >"+suclog+"</td></tr>") ;
-			}
-
-		    	//未預測到、投注
-				//取前四期的號碼來預測投注
-			 
-		    	
-		    //	log+= "， 參考期數"+  phase_before4 + "("+code_before4+"), 下注號碼"+ rangeExist[bet_before4];
+			}else {
 				
-		   // 	log+= ",下注金額:"+bArray[bIndex[z]%bArray.length];
-		    	var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-		    //	var suc = bArray[bIndex[z]%bArray.length] > 1 ? "成功" : "失敗" ;
-		    	//var betlog =  "第"+ (phase_now+1) +"期"+ "，第"+z+"名，號碼("+rangeExist[bet_before4]+")"+ "，第"+c+"關"+"下注金額("+bArray[bIndex[z]%bArray.length]+")"+"("+suc+")";
-		    	
-		    	var betList =  rangeExist[bet_before4].toString().split(',');
-		    	
-		    	
-		    	var writeFlag = false;
-		    	var betStr="";
-		    //	var rate = getRate(ltype);
-		    	var amount = bArray[bIndex[z]%bArray.length] ;
-		     
-		    
-		    
-		    if(amount  > 1 ){
-		    	//var log =  d + "第"+z+"名,預測("+rangeExist[bet_b]+") ,沒有預測到 ,下注" ;
-		    	var log =  d + "準備下注" ;
-		    	$( "div.console_str" ).append("<tr><td  >"+log+"</td></tr>") ;
-		    	
-		    		//alert(betStr.substring(0,betStr.length-1))
-		    		var sn = i+1;
-		   		reallyBet(sn, amount, (phase_now+1) , c , rangeExist[bet_before4].toString());
-		    }
-		  
-		    
-		    	bIndex[z]++;
-		 
+			
+
+			    	//未預測到、投注
+					//取前四期的號碼來預測投注
+				 
+			    	
+			    //	log+= "， 參考期數"+  phase_before4 + "("+code_before4+"), 下注號碼"+ rangeExist[bet_before4];
+					
+			   // 	log+= ",下注金額:"+bArray[bIndex[z]%bArray.length];
+			   // 	var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+			    //	var suc = bArray[bIndex[z]%bArray.length] > 1 ? "成功" : "失敗" ;
+			    	//var betlog =  "第"+ (phase_now+1) +"期"+ "，第"+z+"名，號碼("+rangeExist[bet_before4]+")"+ "，第"+c+"關"+"下注金額("+bArray[bIndex[z]%bArray.length]+")"+"("+suc+")";
+			    	
+			    	var betList =  rangeExist[bet_before4].toString().split(',');
+			    	
+			    	
+			    	var writeFlag = false;
+			    	var betStr="";
+			    //	var rate = getRate(ltype);
+			    	var amount = bArray[bIndex[z]%bArray.length] ;
+			    	
+
+				    if(amount  > 1 ){
+			    	    var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist[bet_before4]+")" ;
+					 	logAppend(betLog) ; 
+				   		reallyBet(z, amount, (phase_now+1) , c , rangeExist[bet_before4].toString());
+				    }
+				    var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist[bet_b]+") ,沒有預測到 (走下一關)目前關數("+bIndex[z]+")" ;
+				 	logAppend(log) ;
+			    
+				 	bIndex[z] = bIndex[z]+1;
+			}
 			
 			
 		}
@@ -1117,6 +1122,9 @@
 				    }
 			        if(!betflag && dynamic_phase && checkMinute.indexOf(min) != -1 && checkWin() && checkTime(h)){ //bet time每5分鐘下注一次
 			        	//nextPhase = getPhase(); 
+						if(dynamic_phase){
+							checkOver(dynamic_phase);
+						} 
 			        	let o = selectTypeToBet(dynamic_phase);  
 			        	betflag = true;  
 					}
@@ -1133,10 +1141,8 @@
     
     function overTimeout() { 
 	    setTimeout(function () { 
-	    			dynamic_phase =  getPhase(); 
-			    if(dynamic_phase){
-			    	checkOver(dynamic_phase);
-			    } 
+	    		dynamic_phase =  getPhase(); 
+			 
 			    getlogHtml();
 			    overTimeout();
 	    }, 20000);
@@ -1209,7 +1215,7 @@
     	let code_n = getCodeByPhase(phase_now);
     	let array  = code_n.split(',');
     	if(array.length==0){
-    		clearIndex();
+    		checkOver(nextPhase);
 			return;
 		} 
 	   	 $.ajax({ url:  u + "/checkOver?user="+document.getElementById("user").value+"&phase="+phase_now+"&code="+code_n, 
