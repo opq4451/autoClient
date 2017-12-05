@@ -722,7 +722,7 @@
 		    	$( "div.console_str" ).append("<tr><td  >"+suclog+"</td></tr>") ;
 			}else {
 				
-				if(c==0)//第一關是0要先走關，再下注
+				if(bArray[0]==0)//第一關是0要先走關，再下注
 					bIndex[z] = bIndex[z]+1;
 				
 				var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
@@ -755,7 +755,7 @@
 				    var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
 				 	logAppend(log) ;
 				 	
-	 			if(c!=0)//第一關非0要先下注再走關
+	 			if(bArray[0]!=0)//第一關非0要先下注再走關
 					bIndex[z] = bIndex[z]+1; 
 				 	
 			}
