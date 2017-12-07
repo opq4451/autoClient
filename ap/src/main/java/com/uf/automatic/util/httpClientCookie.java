@@ -96,45 +96,64 @@ public class httpClientCookie {
         }
         return "";
     }
-    
+   
+    public static void testBet(httpClientCookie h) {
+        String ret = h.getoddsInfo();
+        // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
+
+        JsonParser parser = new JsonParser();
+        JsonObject o = parser.parse(ret).getAsJsonObject();
+        JsonObject data = o.getAsJsonObject("data");
+        Map<Integer, String> normal = new TreeMap<Integer, String>();
+        Utils.producePl(normal,ret); //產生倍率 for single
+ 
+
+        String drawIssue = data.get("nn").getAsString();
+        String p_id = data.get("p_id").getAsString();
+        System.out.println(normal.toString());
+        String betRet = h.normalBet(p_id, "2,", "9.8", "0,", "1,", "pk10_d1_10");
+        System.out.println(betRet);
+    }
     
      
 	public static void main(String[] args ){
 		try {
 		    //httpClientCookie a = httpClientCookie.getInstance("sd8885","Aa258369");
-		    httpClientCookie a = httpClientCookie.getInstance("sd8885","qaz123123");
-		    String ret = a.getoddsInfo();
-		    
-		    JsonParser parser = new JsonParser();
-            JsonObject o = parser.parse(ret).getAsJsonObject();
-            JsonObject data = o.getAsJsonObject("data");
-            JsonObject play_odds = data.getAsJsonObject("play_odds");
-            Set<Entry<String, JsonElement>> entrySet = play_odds.entrySet();
-            int i = 0;
-            Map<Integer, String > m = new TreeMap<Integer, String >();   
-            for(Map.Entry<String,JsonElement> entry : entrySet){
-              String key = (entry.getKey());
-              String k = key.substring(key.indexOf("_")+1,key.length());
-              JsonElement j = entry.getValue();
-              String pl = j.getAsJsonObject().get("pl").getAsString();
-              
-              m.put(i, k+"@"+pl);
-              i++;
-              
-              
-               
-            }
-            Set set = m.entrySet();
-            
-            // Get an iterator
-            Iterator it = set.iterator();
-         
-            // Display elements
-            while(it.hasNext()) {
-              Map.Entry me = (Map.Entry)it.next();
-              System.out.print("Key is: "+me.getKey() + " & ");
-              System.out.println("Value is: "+me.getValue());
-            } 
+		    httpClientCookie t = httpClientCookie.getInstance("yy8811","qaz123123");
+		    t.getoddsInfo();
+//		    testBet(t);
+//		    String ret = a.getoddsInfo();
+//		    
+//		    JsonParser parser = new JsonParser();
+//            JsonObject o = parser.parse(ret).getAsJsonObject();
+//            JsonObject data = o.getAsJsonObject("data");
+//            JsonObject play_odds = data.getAsJsonObject("play_odds");
+//            Set<Entry<String, JsonElement>> entrySet = play_odds.entrySet();
+//            int i = 0;
+//            Map<Integer, String > m = new TreeMap<Integer, String >();   
+//            for(Map.Entry<String,JsonElement> entry : entrySet){
+//              String key = (entry.getKey());
+//              String k = key.substring(key.indexOf("_")+1,key.length());
+//              JsonElement j = entry.getValue();
+//              String pl = j.getAsJsonObject().get("pl").getAsString();
+//              
+//              m.put(i, k+"@"+pl);
+//              i++;
+//              
+//              
+//               
+//            }
+//            Set set = m.entrySet();
+//            
+//            // Get an iterator
+//            Iterator it = set.iterator();
+//         
+//            // Display elements
+//            while(it.hasNext()) {
+//              Map.Entry me = (Map.Entry)it.next();
+//              System.out.print("Key is: "+me.getKey() + " & ");
+//              System.out.println("Value is: "+me.getValue());
+//            } 
             
             
           
@@ -171,20 +190,20 @@ public class httpClientCookie {
 //			"i_index=0&" +
 //			//"JeuValidate="+a+"&" +
 //			"playpage=pk10_d1_10" ;
-//			 
-//			/*
-//			 * 
-//			 * action:put_money
-//				phaseid:163754
-//				oddsid:2
-//				uPI_P:9.81
-//				uPI_M:10
-//				i_index:0
-//				JeuValidate:11050308464138
-//				playpage:pk10_d1_10
-//			 */
-//			//649096
-//			 //phaseid 163755
+			 
+			/*
+			 * 
+			 * action:put_money
+				phaseid:163754
+				oddsid:2
+				uPI_P:9.81
+				uPI_M:10
+				i_index:0
+				JeuValidate:11050308464138
+				playpage:pk10_d1_10
+			 */
+			//649096
+			 //phaseid 163755
 //			;
 //			String v = httpClientCookieGet(bet);
 //			JsonParser parser = new JsonParser();

@@ -151,6 +151,7 @@ public class Controller {
             JsonObject o = parser.parse(ret).getAsJsonObject();
             JsonObject data = o.getAsJsonObject("data");
             String todayWin = data.get("profit").getAsString();
+            String usable_credit = data.get("usable_credit").getAsString();
             //			String ltype = MemAry.get("ltype").toString();
             //			String cash = MemAry.get("cash").toString();
             //			String maxcredit = MemAry.get("maxcredit").toString().substring(1, MemAry.get("maxcredit").toString().length()-1);
@@ -158,6 +159,8 @@ public class Controller {
 
             JsonObject j = new JsonObject();
             j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(todayWin))));
+            j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
+
             //			j.addProperty("cash", Double.parseDouble(df.format(Double.valueOf(cash))));
             //			j.addProperty("maxcredit", Double.parseDouble(df.format(Double.valueOf(maxcredit))));
             //			j.addProperty("useBet", Double.parseDouble(df.format(Double.valueOf(useBet))));
@@ -625,8 +628,8 @@ public class Controller {
                     String m="";
                     int i=0;
                     for (String str : code) {
-                        String overLog = betphase + "@" + sn + "@" + str;
-                        saveOverLog(user, overLog, c);
+//                        String overLog = betphase + "@" + sn + "@" + str;
+//                        saveOverLog(user, overLog, c);
                         //
                         int index = computeIndex(sn,str);
                         String id_pl = normal.get(index).toString();  //15@1.963 
@@ -637,9 +640,30 @@ public class Controller {
                         i++;
                     }
                     String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
-                    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "下注金額(" + amount + ")" + "(成功)";
-                    saveLog(user + "bet", betlog);
+                    
+                    JsonParser parser = new JsonParser();
+                    JsonObject o = parser.parse(betRet).getAsJsonObject();
+                    String resCode = o.get("success").getAsString();
+                    if(resCode.equals("200")) {
+                        
+                        for (String str : code) {
+                            String overLog = betphase + "@" + sn + "@" + str;
+                            saveOverLog(user, overLog, c);
+                            
+                        }
+                        
+                        String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+                                + "下注金額(" + amount + ")" + "(成功)";
+                        saveLog(user + "bet", betlog); 
+                        
+                    }else {
+                        String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+                                + "下注金額(" + amount + ")" + "(失敗)";
+                        saveLog(user + "bet", betlog); 
+                        
+                    }
+                    
+                    
                     //String overLog =  betphase + "@" + sn + "@" + code ; 
                     //saveOverLog(user,overLog,c);
                     //saveOverLog(document.getElementById("user").value,encodeURI(overLog),c);
