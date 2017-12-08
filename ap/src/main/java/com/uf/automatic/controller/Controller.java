@@ -1082,7 +1082,7 @@ public class Controller {
             return "<tr><td width=\"200px\" align=center style=\"border: 1px solid black\">帳號</td><td width=\"200px\" align=center style=\"border: 1px solid black\">使用期限</td>"
                    + "<td width=\"200px\"  align=center style=\"border: 1px solid black\">系統密碼</td>"
                    + "<td width=\"200px\"  align=center style=\"border: 1px solid black\">初次設定時間</td>"
-                   + "<td width=\"200px\"  align=center style=\"border: 1px solid black\">尚銀密碼</td>" + html.toString();
+                   + "<td width=\"200px\"  align=center style=\"border: 1px solid black\">極速密碼</td>" + html.toString();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -1151,6 +1151,8 @@ public class Controller {
                 j.addProperty("OK", "Y"); 
                 j.addProperty("pwd_in", pwd_in); 
                 j.addProperty("startDate", startDate); 
+                j.addProperty("end_date", date); 
+
             } else {
                 j.addProperty("OK", "N"); 
             }
@@ -1204,6 +1206,40 @@ public class Controller {
         }
 
         return "loading...";
+    }
+    
+    
+    @RequestMapping("/deleteAll")
+    public String deleteAll(@RequestParam("user") String u ) {
+         
+        try {
+           
+            clearLog(user+"bet");
+            clearLog(user+"overLOGDIS");
+            clearLog(user+"_over");
+            try {
+
+                String path = System.getProperty("user.dir");
+                String hisFile = path + "/history.properties";
+                File file = new File(hisFile);
+                //System.out.println(hisFile);
+                //System.out.println(file.exists());
+
+                if (file.exists()) {
+                    file.delete();
+                    System.out.println("delete suc");
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "null";
     }
 
 }

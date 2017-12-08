@@ -70,10 +70,11 @@
 			        		 
 			        	 if(r.OK =='Y'){
 			        		   var pwd_in = r.pwd_in; 
+			        		   var end_date = r.end_date;
 			  			   $.ajax({ url: global_url + '/getUid?user='+user+'&pwd='+pwd_in, 
 			  			         async: false,
 			  			         success: function(data) { 
-			  						 window.location.href = "/auto/main1.html";
+			  						 window.location.href = "/auto/main1.html?user="+user+"&end_date="+end_date;
 			  		         	 }
 			  		        });
 			        	 }else{
