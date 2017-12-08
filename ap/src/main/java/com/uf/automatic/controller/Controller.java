@@ -1096,11 +1096,30 @@ public class Controller {
 
         return "null";
     }
-
-    public Map checkLimitDate(String user, String pwd) {
+    
+    
+    
+    @RequestMapping("/getAuthInformation")
+    public String getAuthInformation(@RequestParam("user") String u, @RequestParam("pwd") String p) { 
+        String url = "http://220.132.126.216:9999/checkLimitDate?user="+u+"&pwd="+p+"";
+        String r = "";
+        try {
+            r = Utils.httpClientGet(url);
+        } catch (Exception e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        return r;
+        
+    }
+    
+    
+    @RequestMapping("/checkLimitDate")
+    public String checkLimitDate(@RequestParam("user") String u, @RequestParam("pwd") String p) { 
+        
         FileInputStream fileIn = null;
         FileOutputStream fileOut = null;
-        Map mp = new HashMap();
+        JsonObject j = new JsonObject(); 
         try {
             Properties configProperty = new Properties() {
                 @Override
@@ -1116,30 +1135,31 @@ public class Controller {
             }
             fileIn = new FileInputStream(file);
             configProperty.load(new InputStreamReader(fileIn, "UTF-8"));
-            if (configProperty.getProperty(user) == null) {
-                mp.put("OK", "N");
-                return mp;
+            if (configProperty.getProperty(u) == null) {
+                j.addProperty("OK", "N"); 
+                return j.toString();
             }
-            String authString = configProperty.getProperty(user);
+            String authString = configProperty.getProperty(u);
             String date = authString.split(",")[0];
             String sysPwd = authString.split(",")[1];
+            String startDate = authString.split(",")[2];
             String pwd_in = authString.split(",")[3];
 
             String sysDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
 
-            if (Integer.parseInt(date) >= Integer.parseInt(sysDate) && pwd.equals(sysPwd)) {
-
-                mp.put("OK", "Y");
-                mp.put("pwd_in", pwd_in);
+            if (Integer.parseInt(date) >= Integer.parseInt(sysDate) && p.equals(sysPwd)) {
+                j.addProperty("OK", "Y"); 
+                j.addProperty("pwd_in", pwd_in); 
+                j.addProperty("startDate", startDate); 
             } else {
-                mp.put("OK", "N");
+                j.addProperty("OK", "N"); 
             }
 
-            return mp;
+            return j.toString();
         } catch (Exception e) {
             e.printStackTrace();
-            mp.put("OK", "N");
-            return mp;
+            j.addProperty("OK", "N"); 
+            return j.toString();
         } finally {
 
             try {

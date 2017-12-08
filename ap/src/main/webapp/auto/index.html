@@ -54,24 +54,37 @@
 <script src="jquery.js" > </script>
 <script src="utils.js"> </script>
 <script>
-	var global_url = getUrl(); 
-
+	var global_url = getUrl();  
 	$(document).ready(function(){
 		$( "#btn" ).click(function() {
 			var r = confirm("貴用戶使用本軟件下載的任何資料.或因外來不可抗拒的因素.而導致損失 疏漏 錯誤.本軟件均不負任何責任與賠償.特此聲明。");
 		    if (r == true) {
 		    	let user = document.getElementById("user").value;
 			    let pwd = document.getElementById("pwd").value;
-			    let url = global_url + '/getUid?user='+user+'&pwd='+pwd ; 
-		 		
-			    
+			    let url = global_url + '/getAuthInformation?user='+user+'&pwd='+pwd ; 
+			   
 			    $.ajax({ url:url, 
 			         async: false,
 			         success: function(data) {
-			        
-						 window.location.href = "/auto/main1.html?user="+user+"&pwd="+pwd;
+			        	 var r = JSON.parse(data)
+			        		 
+			        	 if(r.OK =='Y'){
+			        		   var pwd_in = r.pwd_in; 
+			  			   $.ajax({ url: global_url + '/getUid?user='+user+'&pwd='+pwd_in, 
+			  			         async: false,
+			  			         success: function(data) { 
+			  						 window.location.href = "/auto/main1.html";
+			  		         	 }
+			  		        });
+			        	 }else{
+			        		 alert("驗證失敗，請洽管理員")
+			        	 }
+						// window.location.href = "/auto/main1.html?user="+user+"&pwd="+pwd;
 		         	 }
 		        });
+			    
+			    
+			  
 		    } else {
 		        
 		    }
