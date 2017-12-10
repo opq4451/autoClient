@@ -1598,17 +1598,39 @@
 	   	 $.ajax({ url:  u + "/checkOver?user="+document.getElementById("user").value+"&phase="+phase_now+"&code="+code_n, 
 	         async: false,
 	         success: function(data) { 
+	        	  
 	        	 const json = JSON.parse(data);
-	        	 if(json.a){betIndex[1] = 0;betIndex2[1] = 0;betIndex3[1] = 0;betIndex4[1] = 0;betIndex5[1] = 0; }
-	        	 if(json.b){betIndex[2] = 0;betIndex2[2] = 0;betIndex3[2] = 0;betIndex4[2] = 0;betIndex5[2] = 0; }
-	        	 if(json.c){betIndex[3] = 0;betIndex2[3] = 0;betIndex3[3] = 0;betIndex4[3] = 0;betIndex5[3] = 0; }
-	        	 if(json.d){betIndex[4] = 0;betIndex2[4] = 0;betIndex3[4] = 0;betIndex4[4] = 0;betIndex5[4] = 0; }
-	        	 if(json.e){betIndex[5] = 0;betIndex2[5] = 0;betIndex3[5] = 0;betIndex4[5] = 0;betIndex5[5] = 0; }
-	        	 if(json.f){betIndex[6] = 0;betIndex2[6] = 0;betIndex3[6] = 0;betIndex4[6] = 0;betIndex5[6] = 0; }
-	        	 if(json.g){betIndex[7] = 0;betIndex2[7] = 0;betIndex3[7] = 0;betIndex4[7] = 0;betIndex5[7] = 0; }
-	        	 if(json.h){betIndex[8] = 0;betIndex2[8] = 0;betIndex3[8] = 0;betIndex4[8] = 0;betIndex5[8] = 0; }
-	        	 if(json.i){betIndex[9] = 0;betIndex2[9] = 0;betIndex3[9] = 0;betIndex4[9] = 0;betIndex5[9] = 0; }
-	        	 if(json.j){betIndex[10]= 0;betIndex2[10] = 0;betIndex3[10] = 0;betIndex4[10] = 0;betIndex5[10] = 0; }
+	        	 if(json.a1){betIndex[1] = 0;}  if(json.a2){betIndex2[1] = 0;} 
+	        	 if(json.a3){betIndex3[1] = 0;} if(json.a4){betIndex4[1] = 0;}
+	        	 
+	        	 if(json.b1){betIndex[2] = 0;}  if(json.b2){betIndex2[2] = 0;} 
+	        	 if(json.b3){betIndex3[2] = 0;} if(json.b4){betIndex4[2] = 0;}
+	        	 
+	        	 if(json.c1){betIndex[3] = 0;}  if(json.c2){betIndex2[3] = 0;} 
+	        	 if(json.c3){betIndex3[3] = 0;} if(json.c4){betIndex4[3] = 0;}
+	        	 
+	        	 if(json.d1){betIndex[4] = 0;}  if(json.d2){betIndex2[4] = 0;} 
+	        	 if(json.d3){betIndex3[4] = 0;} if(json.d4){betIndex4[4] = 0;}
+	        	 
+	        	 if(json.e1){betIndex[5] = 0;}  if(json.e2){betIndex2[5] = 0;} 
+	        	 if(json.e3){betIndex3[5] = 0;} if(json.e4){betIndex4[5] = 0;}
+	        	 
+	        	 if(json.f1){betIndex[6] = 0;}  if(json.f2){betIndex2[6] = 0;} 
+	        	 if(json.f3){betIndex3[6] = 0;} if(json.f4){betIndex4[6] = 0;}
+	        	 
+	        	 if(json.g1){betIndex[7] = 0;}  if(json.g2){betIndex2[7] = 0;} 
+	        	 if(json.g3){betIndex3[7] = 0;} if(json.g4){betIndex4[7] = 0;}
+	        	 
+	        	 if(json.h1){betIndex[8] = 0;}  if(json.h2){betIndex2[8] = 0;} 
+	        	 if(json.h3){betIndex3[8] = 0;} if(json.h4){betIndex4[8] = 0;}
+	        	 
+	        	 if(json.i1){betIndex[9] = 0;}  if(json.i2){betIndex2[9] = 0;} 
+	        	 if(json.i3){betIndex3[9] = 0;} if(json.i4){betIndex4[9] = 0;}
+	        	 
+	        	 if(json.j1){betIndex[10] = 0;}  if(json.j2){betIndex2[10] = 0;} 
+	        	 if(json.j3){betIndex3[10] = 0;} if(json.j4){betIndex4[10] = 0;}
+	        	 
+	         
 
          	 }
 	        });
