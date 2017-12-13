@@ -174,7 +174,7 @@
 			<td  align=center valign=middle bgcolor="#00FF00"> <div id="logoutDiv" style="width:50px">登出</div></td>
 	      		    <td nowrap rowspan="5">下注方式</td>
 	
-					<td> <input type="checkbox" name="c1" id="c1" value="1" onclick="return chk(this);">金星-公式1 </td> 
+					<td> <input type="checkbox" name="c1" id="c1" value="1"  >金星-公式1 </td> 
 					<td>下注參數</td> 
 					<td> <input class="betlist" type ="text" size=35/></td> 
         </tr>
@@ -198,7 +198,7 @@
 			<td  style="display:none">
 					 <div  class="cash">loading...</div>
 			</td>
-			        <td> <input type="checkbox" name="c1" id="c2" value="2" onclick="return chk(this);">金星-公式2</td> 
+			        <td> <input type="checkbox" name="c1" id="c2" value="2"  >金星-公式2</td> 
 				    <td>下注參數</td> 
 					<td> <input class="betlist2" type ="text" size=35/></td> 
 		</tr>
@@ -211,7 +211,7 @@
 					 <div  class="toPhase">loading..</div>
 			</td>
 			
-			<td nowrap> <input type="checkbox" name="c1" id="c3" value="3" onclick="return chk(this);">金星-公式3</td>
+			<td nowrap> <input type="checkbox" name="c1" id="c3" value="3"  >金星-公式3</td>
 			<td nowrap>下注參數</td> 
 					<td> <input class="betlist3" type ="text" size=35/></td> 
 		</tr>
@@ -230,7 +230,7 @@
 			</td>
 			
 			
-			 <td nowrap> <input type="checkbox" name="c1" id="c4" value="4" onclick="return chk(this);">金星-公式4</td>
+			 <td nowrap> <input type="checkbox" name="c1" id="c4" value="4"  >金星-公式4</td>
 			 <td nowrap>下注參數</td> 
 			 <td> <input class="betlist4" type ="text" size=35/></td> 
 		</tr>
@@ -240,7 +240,7 @@
 			<td colspan=5>
 					  <div  class="nowCode">loading...</div>
 			</td>
-			 <td nowrap> <input type="checkbox" name="c1" id="c5" value="5" onclick="return chk(this);">金星-單雙</td>
+			 <td nowrap> <input type="checkbox" name="c1" id="c5" value="5"  >金星-單雙</td>
 			<td nowrap >下注參數</td> 
 					<td width="99%" > <input class="betlist5" type ="text" size=35/></td> 
 		</tr>
@@ -334,12 +334,13 @@
 	
   function chk(input){
 
-    for(var i=0;i<document.form1.c1.length;i++)
-    {
-      document.form1.c1[i].checked = false;
-    }
-    
-    input.checked = true;
+	if(input.checked) {
+		input.checked = false;
+	}else {
+		input.checked = true;
+	}
+	  
+	
     saveParam();
     
     //clear
@@ -576,7 +577,8 @@
 		 });
 		 
 		 $( "#logoutDiv" ).click(function() {
-			 logout();
+             window.location.href='/auto/index.html' ;
+
 		 });
 		 
 		 $( "#connectURL" ).click(function() {
@@ -609,13 +611,13 @@
 		setColor();
 	    //return;
 		
-		 $( ".startstatus" ).change(function() {
+		/* $( ".startstatus" ).change(function() {
 			 saveParam();
 		 });
 		   
-		 /*$( ".type" ).change(function() {
+		 $( ".type" ).change(function() {
 			 saveParam();
-		 });*/
+		 });
 		 $( ".betlist" ).change(function() {
 			 saveParam();
 		 });
@@ -636,7 +638,7 @@
 		 });
 		 $( ".stopwin" ).change(function() {
 			 saveParam();
-		 });
+		 });*/
 		  
 		 getPhase();
 		 timeout();//下注timeout
@@ -1407,6 +1409,7 @@
 		 return period*1  ;
 	}
  	function saveParam(){
+ 		 
  		let type = getType();
  		let betParam = getBetListParam();
  		if($( ".stoplose" ).val() && $( ".stopwin" ).val() && $( ".startstatus" ).val() ){
@@ -1421,6 +1424,8 @@
 		        	 alert("設定完成!")
 	         	 }
 	        }); 
+ 		}else {
+ 			alert("請輸入止損金盈、止盈金額!")
  		}
  		
  	}

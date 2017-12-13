@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Collections;
 import java.util.Date;
@@ -81,7 +82,8 @@ public class Utils {
 	}
 	
 	public static String MD5(String md5) {
-		   try {
+		   try { 
+			   
 		        java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
 		        byte[] array = md.digest(md5.getBytes());
 		        StringBuffer sb = new StringBuffer();
@@ -94,8 +96,38 @@ public class Utils {
 		    return null;
 		}
 	
+	public static String getBeforeDayPhase(){
+		Instant now = Instant.now(); //current date
+		Instant before = now.minus(Duration.ofDays(1));
+		Date dateBefore = Date.from(before);
+		String dayBefore = new SimpleDateFormat("yyyy-MM-dd").format(dateBefore);
+		System.out.println(dayBefore);
+		String url = "http://api.api68.com/pks/getPksHistoryList.do?date="+dayBefore+"&lotCode=10001";
+		 
+		try {
+			String ret = Utils.httpClientGet(url);
+			JsonParser parser = new JsonParser();
+			JsonObject o = parser.parse(ret).getAsJsonObject();
+			JsonArray data = o.getAsJsonObject("result").getAsJsonArray("data");
+			for (JsonElement pa : data) {
+			    JsonObject paymentObj = pa.getAsJsonObject();
+			    String     preDrawCode     = paymentObj.get("preDrawCode").getAsString(); //開獎
+			    String     preDrawIssue = paymentObj.get("preDrawIssue").getAsString(); //期數
+			    return preDrawIssue;
+
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
+	}
 	public static void writeHistory() {
 		try {
+			
+			
+			
 			long unixTime = System.currentTimeMillis() / 1000L;
 			 
 			String query = "McID=02RVE&Nose=bb4NvVOMtX&Sern=0&Time="+unixTime;
@@ -109,11 +141,23 @@ public class Utils {
 			JsonObject o = parser.parse(ret).getAsJsonObject();
 			String a = o.get("Award").getAsString();
 			JsonArray data = parser.parse(a).getAsJsonArray();
+			
+			Instant now = Instant.now(); //current date
+		 
+			Date dateToday = Date.from(now);
+			String today = new SimpleDateFormat("yyyy-MM-dd").format(dateToday);
+			 
+			
 			for (JsonElement pa : data) {
 			    JsonObject paymentObj = pa.getAsJsonObject();
-			    String     preDrawCode     = paymentObj.get("N").getAsString(); //開獎
-			    String     preDrawIssue = paymentObj.get("I").getAsString(); //期數
-			    WritePropertiesFile("history",preDrawIssue,preDrawCode);
+			    String     T = paymentObj.get("T").getAsString(); //日期
+			    String yyyy_MM_dd = T.substring(0,10) ;
+			    if(today.equals(yyyy_MM_dd)){
+			    	String     preDrawCode     = paymentObj.get("N").getAsString(); //開獎
+				    String     preDrawIssue = paymentObj.get("I").getAsString(); //期數
+				    WritePropertiesFile("history",preDrawIssue,preDrawCode);
+			    }
+			    
 
 			}
  		}catch(Exception e) {
@@ -122,6 +166,7 @@ public class Utils {
 		}
 		
 	}
+	 
 	
 	public static void WritePropertiesFile(String fileName,String key, String data) {
         FileOutputStream fileOut = null;
