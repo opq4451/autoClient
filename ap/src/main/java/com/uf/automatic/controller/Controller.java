@@ -730,8 +730,8 @@ public class Controller {
 			String m = "";
 			int i = 0;
 			for (String str : code) {
-				// String overLog = betphase + "@" + sn + "@" + str;
-				// saveOverLog(user, overLog, c);
+				String overLog = betphase + "@" + sn + "@" + str;
+				saveOverLog(user, overLog, c);
 				//
 				int index = computeIndex(sn, str);
 				String id_pl = normal.get(index).toString(); // 15@1.963
@@ -748,11 +748,11 @@ public class Controller {
 			String resCode = o.get("success").getAsString();
 			if (resCode.equals("200")) {
 
-				for (String str : code) {
-					String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
-					saveOverLog(user, overLog, c);
-
-				}
+//				for (String str : code) {
+//					String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+//					saveOverLog(user, overLog, c);
+//
+//				}
 
 				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "下注金額("
 						+ amount + ")" + "(成功)" + "(公式" + formu + ")";
@@ -1416,24 +1416,7 @@ public class Controller {
 			clearLog(user + "bet");
 			clearLog(user + "overLOGDIS");
 			clearLog(user + "_over");
-			try {
-
-				String path = System.getProperty("user.dir");
-				String hisFile = path + "/history.properties";
-				File file = new File(hisFile);
-				// System.out.println(hisFile);
-				// System.out.println(file.exists());
-
-				if (file.exists()) {
-					file.delete();
-					System.out.println("delete suc");
-				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-
-			}
+			 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
