@@ -775,7 +775,7 @@
 		 	var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 		 	var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
 		 	logAppend(cLog) ;
-		    if(c==0 && rangeExist[bet_b].indexOf(bet_n) != -1){ //預測到、關卡歸零
+		    /*if(c==0 && rangeExist[bet_b].indexOf(bet_n) != -1){ //預測到、關卡歸零
 		    	 
 		    
 		    	var suclog =  d + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist[bet_b]+") ,有預測到(關數重算)，此注不下注" ;
@@ -787,7 +787,7 @@
 			}else {
 				
 				if(bArray[0]==0)//第一關是0要先走關，再下注
-					bIndex[z] = bIndex[z]+1;
+					bIndex[z] = bIndex[z]+1;*/
 				
 				var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 
@@ -819,10 +819,10 @@
 				    var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
 				 	logAppend(log) ;
 				 	
-	 			if(bArray[0]!=0)//第一關非0要先下注再走關
+	 		//	if(bArray[0]!=0)//第一關非0要先下注再走關
 					bIndex[z] = bIndex[z]+1; 
 				 	
-			}
+			//}
 			
 			
 		}
@@ -851,7 +851,7 @@
 		 	var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 		 	var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
 		 	logAppend(cLog) ;
-		    if(c==0 && rangeExist_pro[bet_b].indexOf(bet_n) != -1){ //預測到、關卡歸零
+		   /* if(c==0 && rangeExist_pro[bet_b].indexOf(bet_n) != -1){ //預測到、關卡歸零
 		    	 
 		    
 		    	var suclog =  d + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro[bet_b]+") ,有預測到(關數重算)，此注不下注" ;
@@ -860,10 +860,10 @@
 
 		    	bIndex[z] = 0;
 		    	$( "div.console_str" ).prepend("<tr><td  >"+suclog+"</td></tr>") ;
-			}else {
+			}else {*/
 				
-				if(bArray[0]==0)//第一關是0要先走關，再下注
-					bIndex[z] = bIndex[z]+1;
+			//	if(bArray[0]==0)//第一關是0要先走關，再下注
+			//		bIndex[z] = bIndex[z]+1;
 				
 				var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 
@@ -895,10 +895,10 @@
 				    var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
 				 	logAppend(log) ;
 				 	
-	 			if(bArray[0]!=0)//第一關非0要先下注再走關
+	 		//	if(bArray[0]!=0)//第一關非0要先下注再走關
 					bIndex[z] = bIndex[z]+1; 
 				 	
-			}
+			//}
 			
 			
 		}
@@ -927,7 +927,7 @@
 		 	var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 		 	var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
 		 	logAppend(cLog) ;
-		    if(c==0 && rangeExist_pro3[bet_b].indexOf(bet_n) != -1){ //預測到、關卡歸零
+		    /*if(c==0 && rangeExist_pro3[bet_b].indexOf(bet_n) != -1){ //預測到、關卡歸零
 		    	 
 		    
 		    	var suclog =  d + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro3[bet_b]+") ,有預測到(關數重算)，此注不下注" ;
@@ -936,10 +936,10 @@
 
 		    	bIndex[z] = 0;
 		    	$( "div.console_str" ).prepend("<tr><td  >"+suclog+"</td></tr>") ;
-			}else {
+			}else {*/
 				
-				if(bArray[0]==0)//第一關是0要先走關，再下注
-					bIndex[z] = bIndex[z]+1;
+			//	if(bArray[0]==0)//第一關是0要先走關，再下注
+			//		bIndex[z] = bIndex[z]+1;
 				
 				var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 
@@ -971,10 +971,10 @@
 				    var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro3[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
 				 	logAppend(log) ;
 				 	
-	 			if(bArray[0]!=0)//第一關非0要先下注再走關
+	 		//	if(bArray[0]!=0)//第一關非0要先下注再走關
 					bIndex[z] = bIndex[z]+1; 
 				 	
-			}
+			//}
 			
 			
 		}
@@ -1003,7 +1003,7 @@
 		 	var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 		 	var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
 		 	logAppend(cLog) ;
-		    if(c==0 && rangeExist_pro4[bet_b].indexOf(bet_n) != -1){ //預測到、關卡歸零
+		    /*if(c==0 && rangeExist_pro4[bet_b].indexOf(bet_n) != -1){ //預測到、關卡歸零
 		    	 
 		    
 		    	var suclog =  d + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro4[bet_b]+") ,有預測到(關數重算)，此注不下注" ;
@@ -1015,7 +1015,7 @@
 			}else {
 				
 				if(bArray[0]==0)//第一關是0要先走關，再下注
-					bIndex[z] = bIndex[z]+1;
+					bIndex[z] = bIndex[z]+1;*/
 				
 				var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 
@@ -1047,10 +1047,10 @@
 				    var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro4[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
 				 	logAppend(log) ;
 				 	
-	 			if(bArray[0]!=0)//第一關非0要先下注再走關
+	 			//if(bArray[0]!=0)//第一關非0要先下注再走關
 					bIndex[z] = bIndex[z]+1; 
 				 	
-			}
+			//}
 			
 			
 		}
