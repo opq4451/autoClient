@@ -730,7 +730,7 @@ public class Controller {
 			String m = "";
 			int i = 0;
 			for (String str : code) {
-				String overLog = betphase + "@" + sn + "@" + str;
+			    String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
 				saveOverLog(user, overLog, c);
 				//
 				int index = computeIndex(sn, str);
