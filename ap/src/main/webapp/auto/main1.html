@@ -174,7 +174,7 @@
 			<td  align=center valign=middle bgcolor="#00FF00"> <div id="logoutDiv" style="width:50px">登出</div></td>
 	      		    <td nowrap rowspan="5">下注方式</td>
 	
-					<td> <input type="checkbox" name="c1" id="c1" value="1" onclick="return chk(this);">金星-公式1 </td> 
+					<td> <input type="checkbox" name="c1" id="c1" value="1"  >金星-公式1 </td> 
 					<td>下注參數</td> 
 					<td> <input class="betlist" type ="text" size=35/></td> 
         </tr>
@@ -198,7 +198,7 @@
 			<td  style="display:none">
 					 <div  class="cash">loading...</div>
 			</td>
-			        <td> <input type="checkbox" name="c1" id="c2" value="2" onclick="return chk(this);">金星-公式2</td> 
+			        <td> <input type="checkbox" name="c1" id="c2" value="2"  >金星-公式2</td> 
 				    <td>下注參數</td> 
 					<td> <input class="betlist2" type ="text" size=35/></td> 
 		</tr>
@@ -211,7 +211,7 @@
 					 <div  class="toPhase">loading..</div>
 			</td>
 			
-			<td nowrap> <input type="checkbox" name="c1" id="c3" value="3" onclick="return chk(this);">金星-公式3</td>
+			<td nowrap> <input type="checkbox" name="c1" id="c3" value="3"  >金星-公式3</td>
 			<td nowrap>下注參數</td> 
 					<td> <input class="betlist3" type ="text" size=35/></td> 
 		</tr>
@@ -230,7 +230,7 @@
 			</td>
 			
 			
-			 <td nowrap> <input type="checkbox" name="c1" id="c4" value="4" onclick="return chk(this);">金星-公式4</td>
+			 <td nowrap> <input type="checkbox" name="c1" id="c4" value="4"  >金星-公式4</td>
 			 <td nowrap>下注參數</td> 
 			 <td> <input class="betlist4" type ="text" size=35/></td> 
 		</tr>
@@ -240,7 +240,7 @@
 			<td colspan=5>
 					  <div  class="nowCode">loading...</div>
 			</td>
-			 <td nowrap> <input type="checkbox" name="c1" id="c5" value="5" onclick="return chk(this);">金星-單雙</td>
+			 <td nowrap> <input type="checkbox" name="c1" id="c5" value="5"  >金星-單雙</td>
 			<td nowrap >下注參數</td> 
 					<td width="99%" > <input class="betlist5" type ="text" size=35/></td> 
 		</tr>
@@ -334,12 +334,13 @@
 	
   function chk(input){
 
-    for(var i=0;i<document.form1.c1.length;i++)
-    {
-      document.form1.c1[i].checked = false;
-    }
-    
-    input.checked = true;
+	if(input.checked) {
+		input.checked = false;
+	}else {
+		input.checked = true;
+	}
+	  
+	
     saveParam();
     
     //clear
@@ -473,16 +474,16 @@
 
  	};
  	const rangeExist = {
- 			'1' : ['9','10','1','2','3'] ,
- 			'2' : ['10','1','2','3','4'] ,
+ 			'1' : ['1','2','3','9','10'] ,
+ 			'2' : ['1','2','3','4','10'] ,
  			'3' : ['1','2','3','4','5'] ,
  			'4' : ['2','3','4','5','6'] ,
  			'5' : ['3','4','5','6','7'] ,
  			'6' : ['4','5','6','7','8'] ,
  			'7' : ['5','6','7','8','9'] ,
  			'8' : ['6','7','8','9','10'] ,
- 			'9' : ['7','8','9','10','1'] ,
- 			'10' : ['8','9','10','1','2'] ,
+ 			'9' : ['1','7','8','9','10'] ,
+ 			'10' :['1','2','8','9','10'] ,
 
  	};
  	
@@ -496,36 +497,36 @@
  			'7' : ['3','6','7','9','10'] ,
  			'8' : ['1','4','7','8','10'] ,
  			'9' : ['1','2','5','8','9'] ,
- 			'10' : ['2','3','6','9','10'] ,
+ 			'10' :['2','3','6','9','10'] ,
 
  	};
  	
  	const rangeExist_pro3  = {
- 			'1' : ['1','4','5','7','8'] ,
- 			'2' : ['2','5','6','8','9'] ,
- 			'3' : ['3','6','7','9','10'] ,
- 			'4' : ['1','4','7','8','10'] ,
- 			'5' : ['1','2','5','8','9'] ,
- 			'6' : ['2','3','6','9','10'] ,
- 			'7' : ['1','3','4','7','10'] ,
- 			'8' : ['1','2','4','5','8'] ,
- 			'9' : ['2','3','5','6','9'] ,
- 			'10' : ['3','4','6','7','10'] ,
+ 			'1' : ['4','5','6','7','8'] ,
+ 			'2' : ['5','6','7','8','9'] ,
+ 			'3' : ['6','7','8','9','10'] ,
+ 			'4' : ['1','7','8','9','10'] ,
+ 			'5' : ['1','2','8','9','10'] ,
+ 			'6' : ['1','2','3','9','10'] ,
+ 			'7' : ['1','2','3','4','10'] ,
+ 			'8' : ['1','2','3','4','5'] ,
+ 			'9' : ['2','3','4','5','6'] ,
+ 			'10' : ['3','4','5','6','7'] ,
 
  	};
  	
  	
  	const rangeExist_pro4  = {  
- 			'1' : ['1','2','5','8','9'] ,
- 			'2' : ['2','3','6','9','10'] ,
- 			'3' : ['1','3','4','7','10'] ,
- 			'4' : ['1','2','4','5','8'] ,
- 			'5' : ['2','3','5','6','9'] ,
- 			'6' : ['3','4','6','7','10'] ,
- 			'7' : ['1','4','5','7','8'] ,
- 			'8' : ['2','5','6','8','9'] ,
- 			'9' : ['3','6','7','9','10'] ,
- 			'10' : ['1','4','7','8','10'] ,
+ 			'1' : ['2','5','6','8','9'] ,
+ 			'2' : ['3','6','7','9','10'] ,
+ 			'3' : ['1','4','7','8','10'] ,
+ 			'4' : ['1','2','5','8','9'] ,
+ 			'5' : ['2','3','6','9','10'] ,
+ 			'6' : ['1','3','4','7','10'] ,
+ 			'7' : ['1','2','4','5','8'] ,
+ 			'8' : ['2','3','5','6','9'] ,
+ 			'9' : ['3','4','6','7','10'] ,
+ 			'10' : ['1','4','5','7','8'] ,
 
  	};
  	
@@ -576,7 +577,8 @@
 		 });
 		 
 		 $( "#logoutDiv" ).click(function() {
-			 logout();
+             window.location.href='/auto/index.html' ;
+
 		 });
 		 
 		 $( "#connectURL" ).click(function() {
@@ -609,13 +611,13 @@
 		setColor();
 	    //return;
 		
-		 $( ".startstatus" ).change(function() {
+		/* $( ".startstatus" ).change(function() {
 			 saveParam();
 		 });
 		   
-		 /*$( ".type" ).change(function() {
+		 $( ".type" ).change(function() {
 			 saveParam();
-		 });*/
+		 });
 		 $( ".betlist" ).change(function() {
 			 saveParam();
 		 });
@@ -636,7 +638,7 @@
 		 });
 		 $( ".stopwin" ).change(function() {
 			 saveParam();
-		 });
+		 });*/
 		  
 		 getPhase();
 		 timeout();//下注timeout
@@ -773,7 +775,7 @@
 		 	var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 		 	var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
 		 	logAppend(cLog) ;
-		    if(c==0 && rangeExist[bet_b].indexOf(bet_n) != -1){ //預測到、關卡歸零
+		    /*if(c==0 && rangeExist[bet_b].indexOf(bet_n) != -1){ //預測到、關卡歸零
 		    	 
 		    
 		    	var suclog =  d + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist[bet_b]+") ,有預測到(關數重算)，此注不下注" ;
@@ -785,7 +787,7 @@
 			}else {
 				
 				if(bArray[0]==0)//第一關是0要先走關，再下注
-					bIndex[z] = bIndex[z]+1;
+					bIndex[z] = bIndex[z]+1;*/
 				
 				var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 
@@ -809,18 +811,18 @@
 			    	var amount = bArray[bIndex[z]%bArray.length] ;
 			    	
 
-				    if(amount  > 1 ){
+				    
 			    	    var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist[bet_before4]+")" ;
 					 	logAppend(betLog) ; 
 				   		reallyBet(z, amount, (phase_now+1) , betc , rangeExist[bet_before4].toString(),'1');
-				    }
+				    
 				    var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
 				 	logAppend(log) ;
 				 	
-	 			if(bArray[0]!=0)//第一關非0要先下注再走關
+	 		//	if(bArray[0]!=0)//第一關非0要先下注再走關
 					bIndex[z] = bIndex[z]+1; 
 				 	
-			}
+			//}
 			
 			
 		}
@@ -849,7 +851,7 @@
 		 	var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 		 	var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
 		 	logAppend(cLog) ;
-		    if(c==0 && rangeExist_pro[bet_b].indexOf(bet_n) != -1){ //預測到、關卡歸零
+		   /* if(c==0 && rangeExist_pro[bet_b].indexOf(bet_n) != -1){ //預測到、關卡歸零
 		    	 
 		    
 		    	var suclog =  d + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro[bet_b]+") ,有預測到(關數重算)，此注不下注" ;
@@ -858,10 +860,10 @@
 
 		    	bIndex[z] = 0;
 		    	$( "div.console_str" ).prepend("<tr><td  >"+suclog+"</td></tr>") ;
-			}else {
+			}else {*/
 				
-				if(bArray[0]==0)//第一關是0要先走關，再下注
-					bIndex[z] = bIndex[z]+1;
+			//	if(bArray[0]==0)//第一關是0要先走關，再下注
+			//		bIndex[z] = bIndex[z]+1;
 				
 				var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 
@@ -885,18 +887,18 @@
 			    	var amount = bArray[bIndex[z]%bArray.length] ;
 			    	
 
-				    if(amount  > 1 ){
+				   
 			    	    var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist_pro[bet_before4]+")" ;
 					 	logAppend(betLog) ; 
 				   		reallyBet(z, amount, (phase_now+1) , betc , rangeExist_pro[bet_before4].toString(),'2');
-				    }
+				   
 				    var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
 				 	logAppend(log) ;
 				 	
-	 			if(bArray[0]!=0)//第一關非0要先下注再走關
+	 		//	if(bArray[0]!=0)//第一關非0要先下注再走關
 					bIndex[z] = bIndex[z]+1; 
 				 	
-			}
+			//}
 			
 			
 		}
@@ -925,7 +927,7 @@
 		 	var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 		 	var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
 		 	logAppend(cLog) ;
-		    if(c==0 && rangeExist_pro3[bet_b].indexOf(bet_n) != -1){ //預測到、關卡歸零
+		    /*if(c==0 && rangeExist_pro3[bet_b].indexOf(bet_n) != -1){ //預測到、關卡歸零
 		    	 
 		    
 		    	var suclog =  d + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro3[bet_b]+") ,有預測到(關數重算)，此注不下注" ;
@@ -934,10 +936,10 @@
 
 		    	bIndex[z] = 0;
 		    	$( "div.console_str" ).prepend("<tr><td  >"+suclog+"</td></tr>") ;
-			}else {
+			}else {*/
 				
-				if(bArray[0]==0)//第一關是0要先走關，再下注
-					bIndex[z] = bIndex[z]+1;
+			//	if(bArray[0]==0)//第一關是0要先走關，再下注
+			//		bIndex[z] = bIndex[z]+1;
 				
 				var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 
@@ -961,18 +963,18 @@
 			    	var amount = bArray[bIndex[z]%bArray.length] ;
 			    	
 
-				    if(amount  > 1 ){
+				    //if(amount  > 1 ){
 			    	    var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist_pro3[bet_before4]+")" ;
 					 	logAppend(betLog) ; 
 				   		reallyBet(z, amount, (phase_now+1) , betc , rangeExist_pro3[bet_before4].toString(), '3');
-				    }
+				    //}
 				    var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro3[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
 				 	logAppend(log) ;
 				 	
-	 			if(bArray[0]!=0)//第一關非0要先下注再走關
+	 		//	if(bArray[0]!=0)//第一關非0要先下注再走關
 					bIndex[z] = bIndex[z]+1; 
 				 	
-			}
+			//}
 			
 			
 		}
@@ -1001,7 +1003,7 @@
 		 	var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 		 	var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
 		 	logAppend(cLog) ;
-		    if(c==0 && rangeExist_pro4[bet_b].indexOf(bet_n) != -1){ //預測到、關卡歸零
+		    /*if(c==0 && rangeExist_pro4[bet_b].indexOf(bet_n) != -1){ //預測到、關卡歸零
 		    	 
 		    
 		    	var suclog =  d + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro4[bet_b]+") ,有預測到(關數重算)，此注不下注" ;
@@ -1013,7 +1015,7 @@
 			}else {
 				
 				if(bArray[0]==0)//第一關是0要先走關，再下注
-					bIndex[z] = bIndex[z]+1;
+					bIndex[z] = bIndex[z]+1;*/
 				
 				var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 
@@ -1037,18 +1039,18 @@
 			    	var amount = bArray[bIndex[z]%bArray.length] ;
 			    	
 
-				    if(amount  > 1 ){
+				    //if(amount  > 1 ){
 			    	    var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist_pro4[bet_before4]+")" ;
 					 	logAppend(betLog) ; 
 				   		reallyBet(z, amount, (phase_now+1) , betc , rangeExist_pro4[bet_before4].toString(), '4');
-				    }
+				   // }
 				    var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro4[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
 				 	logAppend(log) ;
 				 	
-	 			if(bArray[0]!=0)//第一關非0要先下注再走關
+	 			//if(bArray[0]!=0)//第一關非0要先下注再走關
 					bIndex[z] = bIndex[z]+1; 
 				 	
-			}
+			//}
 			
 			
 		}
@@ -1407,6 +1409,7 @@
 		 return period*1  ;
 	}
  	function saveParam(){
+ 		 
  		let type = getType();
  		let betParam = getBetListParam();
  		if($( ".stoplose" ).val() && $( ".stopwin" ).val() && $( ".startstatus" ).val() ){
@@ -1421,6 +1424,8 @@
 		        	 alert("設定完成!")
 	         	 }
 	        }); 
+ 		}else {
+ 			alert("請輸入止損金盈、止盈金額!")
  		}
  		
  	}
@@ -1751,7 +1756,7 @@
 	         async: false,
 	         success: function(data) {
 	        	     
-	        		 $( "div.historyHtml" ).html('');
+	        		 //$( "div.historyHtml" ).html('');
 	        		 $( "div.logHtml" ).html('');
 	        		 $( "div.logOverHtml" ).html('');
 	        		 alert("清除成功!");
