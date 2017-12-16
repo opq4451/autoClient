@@ -73,6 +73,15 @@
 							</td>
 		        </tr>
 		         <tr>
+							<td nowrap>
+								備註
+							</td>
+							<td >
+								  <input id="memo" type ="text" size=35/>
+							</td>
+		        </tr>
+		        
+		         <tr>
 							 
 							<td colspan=2>
 								  <button type="button" onclick="save()">存檔</button>
@@ -92,25 +101,70 @@
 </div>
 <script src="jquery.js"> </script>
 <script src="utils.js"> </script>	  
+
+<link href="https://swisnl.github.io/jQuery-contextMenu/dist/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+ <script src="https://swisnl.github.io/jQuery-contextMenu/dist/jquery.contextMenu.js" type="text/javascript"></script>
+
+  <script src="https://swisnl.github.io/jQuery-contextMenu/dist/jquery.ui.position.min.js" type="text/javascript"></script>
+
+    <script src="https://swisnl.github.io/jQuery-contextMenu/js/main.js" type="text/javascript"></script>
 <script>
 	$(document).ready(function(){
 		load();
+		let u = getUrl();
+		
+		
+
+	         
+	        
 	})
 	
 	 function save(){
+		if(document.getElementById("id").value ==''){alert('請輸入會員帳號'); return;}
+		if(document.getElementById("extendTime").value ==''){alert('請輸入到期時間'); return;}
+		if(document.getElementById("pwd").value ==''){alert('請輸入系統密碼'); return;}
+		if(document.getElementById("pwd_in").value ==''){alert('請輸入極速密碼'); return;}
+		if(document.getElementById("memo").value ==''){alert('請輸入備註'); return;}
+
 		let u = getUrl();
 		 $.ajax({ url:  u + "/saveLIMITDATE?user="+document.getElementById("id").value+"&date="+document.getElementById("extendTime").value
-			 +"&pwd="+document.getElementById("pwd").value+"&pwd_in="+document.getElementById("pwd_in").value, 
+			 +"&pwd="+document.getElementById("pwd").value+"&pwd_in="+document.getElementById("pwd_in").value
+			 +"&memo="+document.getElementById("memo").value, 
 	         async: false,
 	         success: function(data) {
 	        	 document.getElementById("id").value='';
 	        	 document.getElementById("extendTime").value='';
 	        	 document.getElementById("pwd").value='';
 	        	 document.getElementById("pwd_in").value='';
+	        	 document.getElementById("memo").value='';
 	        	 alert("存檔成功!");
 	        	 load();
 	         	 }
 	        });
+	 }
+	
+	function loadID(id){
+	 
+		let u = getUrl();
+		 $.ajax({ url:  u + "/loadID?id="+id, 
+	         async: false,
+	         success: function(data) {
+	        	var limitDate = data.split(',')[0];
+	        	var sysPwd = data.split(',')[1];
+	        	var startDate = data.split(',')[2];
+	        	var pwd = data.split(',')[3];
+	        	var memo = data.split(',')[4];
+
+	        	document.getElementById("id").value = id;
+	        	document.getElementById("extendTime").value = limitDate;
+	        	document.getElementById("pwd").value = sysPwd;
+	        	document.getElementById("pwd_in").value = pwd;
+	        	document.getElementById("memo").value = memo;
+ 
+         	 }
+        });
 	 }
 	
 	function load(){
@@ -119,6 +173,43 @@
 	         async: false,
 	         success: function(data) {
 	        		$( "div.user_block" ).html(data);
+	        		 $.contextMenu({
+	     	            selector: '.context-menu-one', 
+	     	            callback: function(key, options) {
+	     	                var m = "clicked: " + key;
+	     	                var id = decodeURI($(this).text()).trim();
+	     	            
+	     	            	var r = confirm("確定要刪除帳號"+id +"?");
+	     	    		    if (r == true) {
+	     	    		    	 
+	     	    			    let url = u + '/deleteID?id='+id; 
+	     	    			   
+	     	    			    $.ajax({ url:url, 
+	     	    			         async: false,
+	     	    			         success: function(data) {
+	     	    			        	  alert("刪除成功!");
+	     	    			        	  load();
+	     	    			        	  
+	     	    			        	  
+	     	    		         	 }
+	     	    		        });
+	     	    			    
+	     	    			    
+	     	    			  
+	     	    		    }
+	     	            },
+	     	            items: {
+	     	                
+	     	                "delete": {name: "刪除", icon: "delete"},
+	     	                
+	     	            }
+	     	        });
+	        		 
+	        		 $('.context-menu-one').on('click', function(e){
+	     	        	var id = decodeURI($(this).text()).trim();
+	     	        	 
+	     	            loadID(id)
+	     	        })   
 	         	 }
 	        });
 		

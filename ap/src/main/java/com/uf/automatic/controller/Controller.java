@@ -193,6 +193,8 @@ public class Controller {
 				String betlist3 = configProperty.getProperty("betlist3");
 				String betlist4 = configProperty.getProperty("betlist4");
 				String betlist5 = configProperty.getProperty("betlist5");
+				String betlist6 = configProperty.getProperty("betlist6");
+
 				String stoplose = configProperty.getProperty("stoplose");
 				String stopwin = configProperty.getProperty("stopwin");
 				String startstatus = configProperty.getProperty("startstatus");
@@ -203,6 +205,7 @@ public class Controller {
 				j.addProperty("betlist3", betlist3);
 				j.addProperty("betlist4", betlist4);
 				j.addProperty("betlist5", betlist5);
+				j.addProperty("betlist6", betlist6);
 
 				j.addProperty("stoplose", stoplose);
 				j.addProperty("stopwin", stopwin);
@@ -284,7 +287,12 @@ public class Controller {
 					}
 					if (formuStr.equals("(公式5)")) {
 						logHtml.insert(0,
-								"<tr><td bgcolor=\"CC00FF\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
+								"<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
+					}
+					
+					if (formuStr.equals("(公式6)")) {
+						logHtml.insert(0,
+								"<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
 					}
 
 				}
@@ -364,7 +372,7 @@ public class Controller {
 	public String saveParam(@RequestParam("user") String user, @RequestParam("type") String type,
 			@RequestParam("betlist") String betlist, @RequestParam("betlist2") String betlist2,
 			@RequestParam("betlist3") String betlist3, @RequestParam("betlist4") String betlist4,
-			@RequestParam("betlist5") String betlist5, @RequestParam("stoplose") String stoplose,
+			@RequestParam("betlist5") String betlist5,@RequestParam("betlist6") String betlist6, @RequestParam("stoplose") String stoplose,
 			@RequestParam("stopwin") String stopwin, @RequestParam("startstatus") String startstatus) {
 		FileInputStream fileIn = null;
 		FileOutputStream fileOut = null;
@@ -386,6 +394,7 @@ public class Controller {
 			configProperty.setProperty("betlist3", betlist3);
 			configProperty.setProperty("betlist4", betlist4);
 			configProperty.setProperty("betlist5", betlist5);
+			configProperty.setProperty("betlist6", betlist6); 
 			configProperty.setProperty("stoplose", stoplose);
 			configProperty.setProperty("stopwin", stopwin);
 			configProperty.setProperty("startstatus", startstatus);
@@ -518,7 +527,7 @@ public class Controller {
 			for (int i = 0; i < 10; i++) {
 				int sn = i + 1;
 
-				for (int x = 1; x < 5; x++) { // x → 公式幾
+				for (int x = 1; x < 7; x++) { // x → 公式幾
 					String key = phase + "@" + sn + "@" + c[i] + "@" + x;
 					if (configProperty.getProperty(key) != null) {
 						if (overmp.get(user + key) == null) {
@@ -1192,7 +1201,7 @@ public class Controller {
 
 	@RequestMapping("/saveLIMITDATE")
 	public String saveLIMITDATE(@RequestParam("user") String user, @RequestParam("date") String date,
-			@RequestParam("pwd") String pwd, @RequestParam("pwd_in") String pwd_in) {
+			@RequestParam("pwd") String pwd, @RequestParam("pwd_in") String pwd_in, @RequestParam("memo") String memo) {
 		FileInputStream fileIn = null;
 		FileOutputStream fileOut = null;
 
@@ -1224,7 +1233,7 @@ public class Controller {
 				d = sysDate;
 			}
 
-			configProperty.setProperty(user, date + "," + pwd + "," + d + "," + pwd_in);
+			configProperty.setProperty(user, date + "," + pwd + "," + d + "," + pwd_in+ "," + memo);
 
 			fileOut = new FileOutputStream(file);
 			configProperty.store(new OutputStreamWriter(fileOut, "UTF-8"), "sample properties");
@@ -1263,29 +1272,137 @@ public class Controller {
 			fileIn = new FileInputStream(file);
 			configProperty.load(new InputStreamReader(fileIn, "UTF-8"));
 			StringBuilder html = new StringBuilder();
+			
+			Map<String, String> map = new HashMap<String, String>();        
+
 			for (Enumeration e = configProperty.propertyNames(); e.hasMoreElements();) {
 				String key = e.nextElement().toString();
 				String v = configProperty.getProperty(key);
+				
+				
 				String array[] = v.split(",");
 
-				String temp = "<tr><td style=\\\"border: 1px solid black\\\"> " + key + "</td>";
+				String limitDate = array[0].substring(0, 4) + "/" +
+								   array[0].substring(4, 6)
+								   + "/" +  array[0].substring(6, 8) ;
+				
+				String startDate = array[2].substring(0, 4) + "/" +
+						   array[2].substring(4, 6)
+						   + "/" +  array[2].substring(6, 8) ;
+				
+				String temp = "<tr  ><td  align=\"center\" class=\"context-menu-one\" style=\\\"border: 1px solid black\\\"> " + key + "</td>";
 				temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
-						+ array[0] + "</td>";
+						+ limitDate + "</td>";
 				temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
 						+ array[1] + "</td>";
 				temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
-						+ array[2] + "</td>";
+						+ startDate + "</td>";
 				temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
 						+ array[3] + "</td>";
+				temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
+						+ array[4] + "</td>";
 				temp += "</tr>";
+				
+				map.put(array[0] + key, temp);
 
-				html.insert(0, temp);
+				//html.insert(0, temp);
 			}
+			
+			
+			Map<String, String> treeMap = new TreeMap<String, String>(map);
+			for (String str : treeMap.keySet()) {
+			    
+			    html.insert(0, treeMap.get(str).toString());
+			}
+			
 
 			return "<tr><td width=\"200px\" align=center style=\"border: 1px solid black\">帳號</td><td width=\"200px\" align=center style=\"border: 1px solid black\">使用期限</td>"
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">系統密碼</td>"
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">初次設定時間</td>"
-					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">極速密碼</td>" + html.toString();
+					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">極速密碼</td>" 
+					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">備註</td>" + html.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+			try {
+				fileIn.close();
+				fileOut.close();
+			} catch (Exception ex) {
+			}
+		}
+
+		return "null";
+	}
+	
+	
+	@RequestMapping("/deleteID")
+	public String deleteID(@RequestParam("id") String id) {
+		FileInputStream fileIn = null;
+		FileOutputStream fileOut = null;
+
+		try {
+			Properties configProperty = new Properties() {
+				@Override
+				public synchronized Enumeration<Object> keys() {
+					return Collections.enumeration(new TreeSet<Object>(super.keySet()));
+				}
+			};
+			String path = System.getProperty("user.dir");
+			String hisFile = path + "/limit.properties";
+			File file = new File(hisFile);
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+			fileIn = new FileInputStream(file);
+			configProperty.load(new InputStreamReader(fileIn, "UTF-8"));
+			 
+			configProperty.remove(id);
+			fileOut = new FileOutputStream(file);
+			configProperty.store(new OutputStreamWriter(fileOut, "UTF-8"), "sample properties");
+
+		 
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+			try {
+				fileIn.close();
+				fileOut.close();
+			} catch (Exception ex) {
+			}
+		}
+
+		return "null";
+	}
+	
+	@RequestMapping("/loadID")
+	public String loadID(@RequestParam("id") String id) {
+		FileInputStream fileIn = null;
+		FileOutputStream fileOut = null;
+
+		try {
+			Properties configProperty = new Properties() {
+				@Override
+				public synchronized Enumeration<Object> keys() {
+					return Collections.enumeration(new TreeSet<Object>(super.keySet()));
+				}
+			};
+			String path = System.getProperty("user.dir");
+			String hisFile = path + "/limit.properties";
+			File file = new File(hisFile);
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+			fileIn = new FileInputStream(file);
+			configProperty.load(new InputStreamReader(fileIn, "UTF-8"));
+			String v = configProperty.getProperty(id);
+			return v;
+			
+		   
+			
+			
+		 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
