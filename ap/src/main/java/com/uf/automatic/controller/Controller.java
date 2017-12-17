@@ -268,7 +268,11 @@ public class Controller {
 					String v = configProperty.getProperty(e.nextElement().toString());
 
 					String formuStr = v.substring(v.length() - 5, v.length()); // (公式1)
-
+					
+					if(v.indexOf("第0關")>-1){  //下注0的不用顯示在log
+						continue;
+					}
+					
 					if (formuStr.equals("(公式1)")) {
 						logHtml.insert(0,
 								"<tr><td bgcolor=\"FFFF00\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
@@ -524,10 +528,10 @@ public class Controller {
 			if (c.length != 10)
 				return "null";
 
-			for (int i = 0; i < 10; i++) {
-				int sn = i + 1;
+			for (int x = 1; x < 7; x++) { // x → 公式幾
+				for (int i = 0; i < 10; i++) {
+					int sn = i + 1;
 
-				for (int x = 1; x < 7; x++) { // x → 公式幾
 					String key = phase + "@" + sn + "@" + c[i] + "@" + x;
 					if (configProperty.getProperty(key) != null) {
 						if (overmp.get(user + key) == null) {

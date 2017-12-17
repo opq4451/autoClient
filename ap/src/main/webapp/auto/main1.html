@@ -14,7 +14,9 @@
 			border: 1px solid black;
 			border-collapse: collapse;
 			font-size: 14px;
-			height:100%;
+		 
+			  text-align:center;
+			
 		}
 		
 		html, body {
@@ -76,7 +78,7 @@
 	    	position: absolute;
 	    	top: 27%;
 	    	left: 42%;
-	    	border: 1px solid #ccc!important;
+	    	 
 	    	font-size: 20px;
 	    
 	    }
@@ -115,12 +117,10 @@
 	    	position: absolute;
 	    	top: 26%;
 	    	left: 77%;
-	   	    border: 1px solid #ccc!important;
+	   	   
 	    	font-size: 20px;
 	    }
-	    #target2:hover ,#target:hover {
-		   background-color:gray;
-		}
+	    
 		
 		
 		#center_bar{
@@ -151,7 +151,7 @@
 
 
 <form  >
-<div class="console_column"><table >
+<div class="console_column" style="display:none"><table >
 		<tr>
 			<td nowrap width="1%" valign="top">
 					<div class="console_str">資料分析中…</div>
@@ -159,24 +159,15 @@
 <div class="title_column">
 	 <table>
 		<tr>
-			<td nowrap width="1%">
-					今日輸贏 
-			</td>
-			<td>
-					 <div  class="toDayWin">loading...</div>
-			</td>
-			<td nowrap>
-					帳號  
-			</td>
-			<td colspan=2>
-				 <input type="text" id="user" readonly />
-			</td>
-			<td  align=center valign=middle bgcolor="#00FF00"> <div id="logoutDiv" style="width:50px">登出</div></td>
-	      		    <td nowrap rowspan="6">下注方式</td>
-	
-					<td> <input type="checkbox" name="c1" id="c1" value="1"  >金星-公式1 </td> 
-					<td>下注參數</td> 
-					<td> <input class="betlist" type ="text" size=35/></td> 
+			<td nowrap width="1%" height="1%" > 今日輸贏 </td>
+			<td> <div  class="toDayWin" style="	font-size:24px;" >loading...</div> </td>
+			<td nowrap  >帳號</td>
+			<td style="text-align:left"> <input type="text" id="user" readonly size="10"/></td>
+			<td colspan=2 align=center><button type="button" id="logoutDiv" style="width:100px;">登出</button></td>
+    	    <td nowrap rowspan="6">下注方式</td>
+	        <td> <input type="checkbox" name="c1" id="c1" value="1"  >金星-公式1 </td> 
+		    <td>下注參數</td> 
+		    <td style="text-align:left"> <input class="betlist" type ="text" size=45/></td> 
         </tr>
 	 
 		<tr>
@@ -205,7 +196,7 @@
 			</td>
 			        <td> <input type="checkbox" name="c1" id="c2" value="2"  >金星-公式2</td> 
 				    <td>下注參數</td> 
-					<td> <input class="betlist2" type ="text" size=35/></td> 
+					<td style="text-align:left"> <input class="betlist2" type ="text" size=45/></td> 
 		</tr>
 		
 		<tr  >
@@ -218,7 +209,7 @@
 			
 			<td nowrap> <input type="checkbox" name="c1" id="c3" value="3"  >金星-公式3</td>
 			<td nowrap>下注參數</td> 
-					<td> <input class="betlist3" type ="text" size=35/></td> 
+					<td style="text-align:left"> <input class="betlist3" type ="text" size=45/></td> 
 		</tr>
 		<tr  >
 			<td width="1%"nowrap>
@@ -237,7 +228,7 @@
 			
 			 <td nowrap> <input type="checkbox" name="c1" id="c4" value="4"  >金星-公式4</td>
 			 <td nowrap>下注參數</td> 
-			 <td> <input class="betlist4" type ="text" size=35/></td> 
+			 <td style="text-align:left"> <input class="betlist4" type ="text" size=45/></td> 
 		</tr>
 		
 		<tr  >
@@ -247,7 +238,7 @@
 			</td>
 			 <td nowrap> <input type="checkbox" name="c1" id="c5" value="5"  >金星-公式5</td>
 			<td nowrap >下注參數</td> 
-					<td width="99%" > <input class="betlist5" type ="text" size=35/></td> 
+					<td width="99%" style="text-align:left"> <input class="betlist5" type ="text" size=45/></td> 
 		</tr>
 		
 		
@@ -271,12 +262,12 @@
 			<td nowrap width="100px;" colspan=1 >
 				<div class="limittime">loading.</div>  
 			</td>
-			<td colspan=2 ><button type="button" onclick="save_param()">儲存設定</button>
-			<button type="button" onclick="clearAll()">清除記錄</button>	</td>
+			<td colspan=2 ><button type="button" onclick="save_param()">儲存下注設定</button>
+			<button type="button" onclick="clearAll()">清除所有記錄</button>	</td>
 			 
 					<td > <input type="checkbox" name="c1" id="c6" value="5"  >金星-公式6</td> 
 		  <td nowrap>下注參數</td> 
-			 <td> <input class="betlist6" type ="text" size=35/></td> 
+			 <td style="text-align:left"> <input class="betlist6" type ="text" size=45/></td> 
 			 
 		</tr>
 	 </table> 
@@ -296,12 +287,13 @@
 	
 	<div  id="center_bar" > 
 		    <div  id="his_str" >歷史記錄</div>
-			
-			<div id="target">清空記錄</div>
+			<button type="button" id="target" style="width:100px;">清空記錄</button>
+			 
 			<div id="bet_str" >系統記錄</div>
 			
+			<button type="button" id="target2" style="width:100px;">清空記錄</button>
 			
-			<div id="target2">清空記錄</div>
+			 
 			<div id="over_str">過關記錄</div>
 	</div>
 	
@@ -441,7 +433,7 @@
 
  	};
  	
- 	const rangeExist_pro = {
+ 	const rangeExist_pro3 = {
  			'1' : ['1','3','4','7','10'] ,
  			'2' : ['1','2','4','5','8'] ,
  			'3' : ['2','3','5','6','9'] ,
@@ -455,7 +447,7 @@
 
  	};
  	
- 	const rangeExist_pro3  = {
+ 	const rangeExist_pro  = {
  			'1' : ['4','5','6','7','8'] ,
  			'2' : ['5','6','7','8','9'] ,
  			'3' : ['6','7','8','9','10'] ,
@@ -583,7 +575,7 @@
 		 document.getElementById("mid").value = mid;
 		 document.getElementById("pwd").value = pwd;
 		 
-		 getWinFun();
+		 getWinFun(true);
 		 checkWin();
 		 getlogHtml();
 		 setColor();
@@ -607,7 +599,7 @@
     
     
     
-    function getWinFun(){
+    function getWinFun(init_flag){
     	 var url =  u + '/getTodayWin?user='+document.getElementById("user").value;
 		 var flag = true;  
     	 $.ajax({ url:  url, 
@@ -631,12 +623,15 @@
 		    	 	let betType = json.type;
 		    	 	setbetType(betType);
 		    	 	
-		    	 	$( ".betlist" ).val(json.betlist) ;
-		    	 	$( ".betlist2" ).val(json.betlist2) ;
-		    	 	$( ".betlist3" ).val(json.betlist3) ;
-		    	 	$( ".betlist4" ).val(json.betlist4) ;
-		    	 	$( ".betlist5" ).val(json.betlist5) ;
-		    	 	$( ".betlist6" ).val(json.betlist6) ;
+		    	 	if(init_flag){
+		    	 		$( ".betlist" ).val(json.betlist) ;
+			    	 	$( ".betlist2" ).val(json.betlist2) ;
+			    	 	$( ".betlist3" ).val(json.betlist3) ;
+			    	 	$( ".betlist4" ).val(json.betlist4) ;
+			    	 	$( ".betlist5" ).val(json.betlist5) ;
+			    	 	$( ".betlist6" ).val(json.betlist6) ;
+		    	 	}
+		    	 	
 
 		    	 	$( ".stoplose" ).val(json.stoplose) ;
 		    	 	$( ".stopwin" ).val(json.stopwin);
@@ -721,23 +716,23 @@
 			const bet_n = array_n[i];
 			const bet_before4 = array_before4[i];
  
-		 	var d = getYYYYMMDDSS();
+		 	//var d = getYYYYMMDDSS();
 			var z = i+1;
-		 	var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-		 	var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
-		 	logAppend(cLog) ;
+		 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+		 	//var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
+		 	//logAppend(cLog) ;
 		     
 				
 			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-  			var betList =  rangeExist[bet_before4].toString().split(',');
+  			//var betList =  rangeExist[bet_before4].toString().split(',');
 			var writeFlag = false;
-			var betStr="";
+			//var betStr="";
 		    var amount = bArray[bIndex[z]%bArray.length] ;
-		    var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist[bet_before4]+")" ;
-		 	logAppend(betLog) ; 
+		    //var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist[bet_before4]+")" ;
+		 	//logAppend(betLog) ; 
 	   		reallyBet(z, amount, (phase_now+1) , betc , rangeExist[bet_before4].toString(),'1');
-		    var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
-		 	logAppend(log) ;
+		    //var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
+		 	//logAppend(log) ;
 			bIndex[z] = bIndex[z]+1;  
 		}
 		
@@ -760,21 +755,21 @@
 			const bet_n = array_n[i];
 			const bet_before4 = array_before4[i];
  
-		 	var d = getYYYYMMDDSS();
+		 	//var d = getYYYYMMDDSS();
 			var z = i+1;
-		 	var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-		 	var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
-		 	logAppend(cLog) ;
+		 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+		 	//var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
+		 	//logAppend(cLog) ;
 		    var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-            var betList =  rangeExist_pro[bet_before4].toString().split(',');
+            //var betList =  rangeExist_pro[bet_before4].toString().split(',');
 			var writeFlag = false;
-	    	var betStr="";
+	    	//var betStr="";
 		    var amount = bArray[bIndex[z]%bArray.length] ;
-		    var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist_pro[bet_before4]+")" ;
-		 	logAppend(betLog) ; 
+		    //var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist_pro[bet_before4]+")" ;
+		 	//logAppend(betLog) ; 
 	   		reallyBet(z, amount, (phase_now+1) , betc , rangeExist_pro[bet_before4].toString(),'2');
-		    var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
-		 	logAppend(log) ;
+		    //var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
+		 	//logAppend(log) ;
 			bIndex[z] = bIndex[z]+1;  
 			
 		}
@@ -798,21 +793,21 @@
 			const bet_n = array_n[i];
 			const bet_before4 = array_before4[i];
  
-		 	var d = getYYYYMMDDSS();
+		 	//var d = getYYYYMMDDSS();
 			var z = i+1;
-		 	var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-		 	var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
-		 	logAppend(cLog) ;
+		 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+		 	//var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
+		 	//logAppend(cLog) ;
 		    var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-            var betList =  rangeExist_pro3[bet_before4].toString().split(',');
+            //var betList =  rangeExist_pro3[bet_before4].toString().split(',');
 		    var writeFlag = false;
-	    	var betStr="";
+	    	//var betStr="";
 		    var amount = bArray[bIndex[z]%bArray.length] ;
-			var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist_pro3[bet_before4]+")" ;
-		 	logAppend(betLog) ; 
+			//var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist_pro3[bet_before4]+")" ;
+		 	//logAppend(betLog) ; 
 	   		reallyBet(z, amount, (phase_now+1) , betc , rangeExist_pro3[bet_before4].toString(), '3');
-		    var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro3[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
-		 	logAppend(log) ;
+		    //var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro3[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
+		 	//logAppend(log) ;
 			bIndex[z] = bIndex[z]+1; 
 		}
 		
@@ -835,21 +830,21 @@
 			const bet_n = array_n[i];
 			const bet_before4 = array_before4[i];
  
-		 	var d = getYYYYMMDDSS();
+		 	//var d = getYYYYMMDDSS();
 			var z = i+1;
-		 	var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-		 	var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
-		 	logAppend(cLog) ;
+		 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+		 	//var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
+		 	//logAppend(cLog) ;
 		    var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
- 			var betList =  rangeExist_pro4[bet_before4].toString().split(',');
+ 			//var betList =  rangeExist_pro4[bet_before4].toString().split(',');
 		    var writeFlag = false;
-	    	var betStr="";
+	    	//var betStr="";
 			var amount = bArray[bIndex[z]%bArray.length] ;
-		    var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist_pro4[bet_before4]+")" ;
-		 	logAppend(betLog) ; 
+		    //var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist_pro4[bet_before4]+")" ;
+		 	//logAppend(betLog) ; 
 	   		reallyBet(z, amount, (phase_now+1) , betc , rangeExist_pro4[bet_before4].toString(), '4');
-		    var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro4[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
-		 	logAppend(log) ;
+		    //var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro4[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
+		 	//logAppend(log) ;
 		    bIndex[z] = bIndex[z]+1; 
 		}
 		
@@ -872,21 +867,21 @@
 			const bet_n = array_n[i];
 			const bet_before4 = array_before4[i];
  
-		 	var d = getYYYYMMDDSS();
+		 	//var d = getYYYYMMDDSS();
 			var z = i+1;
-		 	var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-		 	var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
-		 	logAppend(cLog) ;
+		 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+		 	//var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
+		 	//logAppend(cLog) ;
 		    var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
- 			var betList =  rangeExist_pro5[bet_before4].toString().split(',');
+ 			//var betList =  rangeExist_pro5[bet_before4].toString().split(',');
 		    var writeFlag = false;
-	    	var betStr="";
+	    	//var betStr="";
 			var amount = bArray[bIndex[z]%bArray.length] ;
-		    var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist_pro5[bet_before4]+")" ;
-		 	logAppend(betLog) ; 
+		    //var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist_pro5[bet_before4]+")" ;
+		 	//logAppend(betLog) ; 
 	   		reallyBet(z, amount, (phase_now+1) , betc , rangeExist_pro5[bet_before4].toString(), '5');
-		    var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro5[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
-		 	logAppend(log) ;
+		    //var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro5[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
+		 	//logAppend(log) ;
 		    bIndex[z] = bIndex[z]+1; 
 		}
 		
@@ -909,21 +904,21 @@
 			const bet_n = array_n[i];
 			const bet_before4 = array_before4[i];
  
-		 	var d = getYYYYMMDDSS();
+		 	//var d = getYYYYMMDDSS();
 			var z = i+1;
-		 	var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-		 	var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
-		 	logAppend(cLog) ;
+		 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+		 	//var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
+		 	//logAppend(cLog) ;
 		    var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
- 			var betList =  rangeExist_pro6[bet_before4].toString().split(',');
+ 			//var betList =  rangeExist_pro6[bet_before4].toString().split(',');
 		    var writeFlag = false;
-	    	var betStr="";
+	    	//var betStr="";
 			var amount = bArray[bIndex[z]%bArray.length] ;
-		    var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist_pro6[bet_before4]+")" ;
-		 	logAppend(betLog) ; 
+		    //var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist_pro6[bet_before4]+")" ;
+		 	//logAppend(betLog) ; 
 	   		reallyBet(z, amount, (phase_now+1) , betc , rangeExist_pro6[bet_before4].toString(), '6');
-		    var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro6[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
-		 	logAppend(log) ;
+		    //var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro6[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
+		 	//logAppend(log) ;
 		    bIndex[z] = bIndex[z]+1; 
 		}
 		
@@ -931,256 +926,11 @@
 	
 	
 	
-	function compareByType1_pro_dyn(phase_before,phase_now,phase_before4 , bIndex, bArray){
-		   
-		const code_b = getCodeByPhase(phase_before); 
-		const code_n = getCodeByPhase(phase_now);
-		const code_before4 = getCodeByPhase(phase_before4);
-		
-		const array_b = code_b.split(',');
-		const array_n = code_n.split(',');
-		const array_before4 = code_before4.split(',');
-		if(array_b.length==0 || array_n.length==0 || array_before4.length==0  ){
-			return;
-		}
-		for(var i=0;i<10;i++){
-			const bet_b = array_b[i];
-			const bet_n = array_n[i];
-			const bet_before4 = array_before4[i];
  
-		 	var d = getYYYYMMDDSS();
-			var z = i+1;
-		 	var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-		 	var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
-		 	logAppend(cLog) ;
-		 	
-		 	var predictIndex = rangeExist_pro4[bet_b];
-		 
-		    if(c==0 && rangeExist_pro3[bet_b].indexOf(bet_n) != -1){ //預測到、關卡歸零
-		    	 
-		    
-		    	var suclog =  d + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro3[bet_b]+") ,有預測到(關數重算)，此注不下注" ;
-	 
-		    	//saveLog(document.getElementById("user").value,encodeURI(suclog));
-
-		    	bIndex[z] = 0;
-		    	$( "div.console_str" ).prepend("<tr><td  >"+suclog+"</td></tr>") ;
-			}else {
-				
-				if(bArray[0]==0)//第一關是0要先走關，再下注
-					bIndex[z] = bIndex[z]+1;
-				
-				var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-
-			    	//未預測到、投注
-					//取前四期的號碼來預測投注
-				 
-			    	
-			    //	log+= "， 參考期數"+  phase_before4 + "("+code_before4+"), 下注號碼"+ rangeExist[bet_before4];
-					
-			   // 	log+= ",下注金額:"+bArray[bIndex[z]%bArray.length];
-			   // 	var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-			    //	var suc = bArray[bIndex[z]%bArray.length] > 1 ? "成功" : "失敗" ;
-			    	//var betlog =  "第"+ (phase_now+1) +"期"+ "，第"+z+"名，號碼("+rangeExist[bet_before4]+")"+ "，第"+c+"關"+"下注金額("+bArray[bIndex[z]%bArray.length]+")"+"("+suc+")";
-			    	
-			    	var betList =  rangeExist_pro3[bet_before4].toString().split(',');
-			    	
-			    	
-			    	var writeFlag = false;
-			    	var betStr="";
-			    //	var rate = getRate(ltype);
-			    	var amount = bArray[bIndex[z]%bArray.length] ;
-			    	
-
-				    if(amount  > 1 ){
-			    	    var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist_pro3[bet_before4]+")" ;
-					 	logAppend(betLog) ; 
-				   		reallyBet(z, amount, (phase_now+1) , betc , rangeExist_pro3[bet_before4].toString());
-				    }
-				    var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro3[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
-				 	logAppend(log) ;
-				 	
-	 			if(bArray[0]!=0)//第一關非0要先下注再走關
-					bIndex[z] = bIndex[z]+1; 
-				 	
-			}
-			
-			
-		}
-		
-	}
 	
+ 
 
-	//大小
-	function compareByType2(phase_before,phase_now,phase_before4, gid, bIndex, bArray){
-			   
-			const code_b = getCodeByPhase(phase_before); 
-			const code_n = getCodeByPhase(phase_now);
-			const code_before4 = getCodeByPhase(phase_before4);
-			
-			const array_b = code_b.split(',');
-			const array_n = code_n.split(',');
-			const array_before4 = code_before4.split(',');
-			if(array_b.length==0 || array_n.length==0 || array_before4.length==0  ){
-				return;
-			}
-			for(var i=0;i<10;i++){
-				const bet_b = array_b[i];
-				const bet_n = array_n[i];
-				const bet_before4 = array_before4[i];
 	 
-			 	//var d = getYYYYMMDDSS();
-				var z = i+1;
-			    if(bArray[0]==0 && rangeBigExist[bet_b] == rangeBigExist[bet_n]){ //預測到、關卡歸零
-			    	 
-			    
-			    var suclog =  d + "第"+z+"名"+ ",預測("+rangeBigExist[bet_b]+") ,有預測到，此注不下注" ;
-			    $( "div.console_str" ).html()+"<tr><td  >"+suclog+"</td></tr>" ;
-			    //	saveLog(document.getElementById("user").value,encodeURI(suclog));
-
-			    	bIndex[z] = 0;
-				}
-
-			    	//未預測到、投注
-					//取前四期的號碼來預測投注
-				 
-			    
-			    	//log+= ",下注金額:"+bArray[bIndex[z]%bArray.length];
-			    	var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-			    //	var suc = bArray[bIndex[z]%bArray.length] > 1 ? "成功" : "失敗" ;
-			    //	var betlog =  "第"+ (phase_now+1) +"期"+ "，第"+z+"名，號碼("+bsCode[rangeBigExist[bet_before4]]+")"+ "，第"+c+"關"+"下注金額("+bArray[bIndex[z]%bArray.length]+")"+"("+suc+")";
-			    	
-			    	var betList =   bsCode[rangeBigExist[bet_before4]].toString().split(',');
-			    	var amount = bArray[bIndex[z]%bArray.length] ; 	
-			    	
-			    /*	var writeFlag = false;
-			    	for(var b=0;b<betList.length;b++){
-			    		var code = betList[b];
-			    		var sn = i==9 ? 0 : (i+1);
-			    		if(bArray[bIndex[z]%bArray.length]  > 0 ){
-			    			//reallyBet(gid,sn,code,bArray[bIndex[z]%bArray.length]);
-			    			writeFlag = true;
-			    			//處理過關的log
-			    			let overLog = (phase_now+1) + "@" + sn + "@" + code ; 
-			    			saveOverLog(document.getElementById("user").value,encodeURI(overLog),c);
-			    		}
-			    			
-			    	}*/
-			    	
-			    	
-			    	
-			    	
-			    	if(amount > 1 ){
-			    		var log =  d + "第"+z+"名,預測("+rangeExist[bet_b]+") ,沒有預測到 ,下注" ;
-				    	$( "div.console_str" ).html()+"<tr><td  >"+log+"</td></tr>" ; "， 參考期數"+  phase_before4 + "("+code_before4+"), 下注號碼"+ bsCode[rangeBigExist[bet_before4]];
-							
-				    	
-			    		let ssn = (i+1);
-			    		if(rangeBigExist[bet_before4] =='b'){ //下大
-				    		reallyOtherBet(ssn,bArray[bIndex[z]%bArray.length] , (phase_now+1) , c , "06,07,08,09,10" , "big");
-				    	}
-				    	
-			    		if(rangeBigExist[bet_before4] =='s'){ //下小
-			    			reallyOtherBet(ssn,bArray[bIndex[z]%bArray.length], (phase_now+1) , c , "01,02,03,04,05" , "small");
-				    	}
-			    		//saveLog(document.getElementById("user").value+"bet",encodeURI(betlog)); //只寫下注成功的log
-			    	}
-			    		
-			    		
-			    		
-			    	//saveLog(document.getElementById("user").value,encodeURI(log));
-			    	bIndex[z]++;
-			 
-				
-				
-			}
-			
-	}
-
-	//單雙
-	function compareByType3(phase_before,phase_now,phase_before4, gid, bIndex, bArray){
-		   
-		const code_b = getCodeByPhase(phase_before); 
-		const code_n = getCodeByPhase(phase_now);
-		const code_before4 = getCodeByPhase(phase_before4);
-		
-		const array_b = code_b.split(',');
-		const array_n = code_n.split(',');
-		const array_before4 = code_before4.split(',');
-		if(array_b.length==0 || array_n.length==0 || array_before4.length==0  ){
-			return;
-		}
-		for(var i=0;i<10;i++){
-			const bet_b = array_b[i];
-			const bet_n = array_n[i];
-			const bet_before4 = array_before4[i];
-
-		 	//var d = getYYYYMMDDSS();
-			var z = i+1;
-		    if(bArray[0]==0 &&  rangeSingExist[bet_b] == rangeSingExist[bet_n]){ //預測到、關卡歸零
-		    	 
-		    
-		    var suclog =  d + "第"+z+"名"+ ",預測("+rangeBigExist[bet_b]+") ,有預測到，此注不下注" ;
-		    $( "div.console_str" ).html()+"<tr><td  >"+suclog+"</td></tr>" ;
-		    	//saveLog(document.getElementById("user").value,encodeURI(suclog));
-
-		    	bIndex[z] = 0;
-			}
-
-		    	//未預測到、投注
-				//取前四期的號碼來預測投注
-			 
-		    	//var log =  d + "第"+z+"名"+ " 此期" + phase_now  + "(開獎:"+code_n+")," + " 預測期數 "+phase_before + "預測("+rangeSingExist[bet_b]+") ,沒有預測到 ,下注" ;
-		    	//log+= "， 參考期數"+  phase_before4 + "("+code_before4+"), 下注號碼"+ sdCode[rangeSingExist[bet_before4]];
-				
-		    //	log+= ",下注金額:"+bArray[bIndex[z]%bArray.length];
-		     
-		    	var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-
-		    	//var suc = bArray[bIndex[z]%bArray.length] > 1 ? "成功" : "失敗" ;
-		    //	var betlog =  "第"+ (phase_now+1) +"期"+ "，第"+z+"名，號碼("+sdCode[rangeSingExist[bet_before4]]+")"+ "，第"+c+"關"+"下注金額("+bArray[bIndex[z]%bArray.length]+")"+"("+suc+")";
-		    	
-		    	var betList =   sdCode[rangeSingExist[bet_before4]].toString().split(',');
-		    	var amount = bArray[bIndex[z]%bArray.length] ; 
-		    	
-		    /*	var writeFlag = false;
-		    	for(var b=0;b<betList.length;b++){
-		    		var code = betList[b];
-		    		var sn = i==9 ? 0 : (i+1);
-		    		if(bArray[bIndex[z]%bArray.length]  > 0 ){
-		    			//reallyBet(gid,sn,code,bArray[bIndex[z]%bArray.length]);
-		    			writeFlag = true;
-		    			//處理過關的log
-		    			let overLog = (phase_now+1) + "@" + sn + "@" + code ; 
-		    			saveOverLog(document.getElementById("user").value,encodeURI(overLog),c);
-		    		}
-		    			
-		    	}*/
-		    	if(amount > 1){
-		    		var log =  d + "第"+z+"名,預測("+rangeExist[bet_b]+") ,沒有預測到 ,下注" ;
-			    	$( "div.console_str" ).html()+"<tr><td  >"+log+"</td></tr>" ;
-		    		let ssn =  (i+1);
-		    		
-		    		if(rangeSingExist[bet_before4] =='sin'){ //下單
-			    		reallyOtherBet(ssn,bArray[bIndex[z]%bArray.length], (phase_now+1) , c , "01,03,05,07,09", "s");
-			    	}
-			    	
-		    		if(rangeSingExist[bet_before4] =='dou'){ //下雙
-		    			reallyOtherBet(ssn,bArray[bIndex[z]%bArray.length], (phase_now+1) , c , "02,04,06,08,10", "d");
-			    	}
-		    		//saveLog(document.getElementById("user").value+"bet",encodeURI(betlog)); //只寫下注成功的log
-		    	}
-		    		
-		    		
-		    		
-		    //	saveLog(document.getElementById("user").value,encodeURI(log));
-		    	bIndex[z]++;
-		 
-			
-			
-		}
-		
-	}
 	
 	
 	function computeCase( f_barray , cc ){
