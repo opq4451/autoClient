@@ -110,7 +110,7 @@ public class httpClientCookie {
 
         String drawIssue = data.get("nn").getAsString();
         String p_id = data.get("p_id").getAsString();
-        System.out.println(normal.toString());
+        //System.out.println(normal.toString());
         String betRet = h.normalBet(p_id, "2,", "9.8", "0,", "1,", "pk10_d1_10");
         System.out.println(betRet);
     }
@@ -278,7 +278,7 @@ public class httpClientCookie {
                      "uPI_M="+ m.substring(0,m.length()-1) + "&" +
                      "i_index="+ i_index.substring(0,i_index.length()-1) + "&playpage="+type+"" ;
 
-            System.out.println(query);
+            //System.out.println(query);
             String v = instance.httpClientUseCookie(query);
             JsonParser parser = new JsonParser();
             JsonObject o = parser.parse(v).getAsJsonObject();
@@ -343,11 +343,11 @@ public class httpClientCookie {
             HttpResponse httpresponse = httpClient.execute(httpget);
             HttpEntity entity = httpresponse.getEntity();
             result = EntityUtils.toString(entity);
-            System.out.println(result);
+            //System.out.println(result);
             JsonParser parser = new JsonParser();
             JsonObject o = parser.parse(result).getAsJsonObject();
             String code = o.get("success").getAsString();
-            System.out.println(code);
+            //System.out.println(code);
             try {
                 
                 Header[] headers = httpresponse.getHeaders("Set-Cookie");

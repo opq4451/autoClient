@@ -275,15 +275,15 @@ public class Controller {
 					
 					if (formuStr.equals("(公式1)")) {
 						logHtml.insert(0,
-								"<tr><td bgcolor=\"FFFF00\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
+								"<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
 					}
 					if (formuStr.equals("(公式2)")) {
 						logHtml.insert(0,
-								"<tr><td bgcolor=\"00FF00\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
+								"<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
 					}
 					if (formuStr.equals("(公式3)")) {
 						logHtml.insert(0,
-								"<tr><td bgcolor=\"FF3333\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
+								"<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
 					}
 					if (formuStr.equals("(公式4)")) {
 						logHtml.insert(0,
