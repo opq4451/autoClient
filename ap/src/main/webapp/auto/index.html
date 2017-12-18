@@ -73,8 +73,9 @@
 			        		   var end_date = r.end_date;
 			  			   $.ajax({ url: global_url + '/getUid?user='+user+'&pwd='+pwd_in, 
 			  			         async: false,
-			  			         success: function(data) { 
-			  						 window.location.href = "/auto/main1.html?user="+user+"&end_date="+end_date;
+			  			         success: function(r) { 
+			  			        	 	if(r == 'Y')
+			  						 	window.location.href = "/auto/main1.html?user="+user+"&end_date="+end_date;
 			  		         	 }
 			  		        });
 			        	 }else{
