@@ -79,7 +79,9 @@ public class Controller {
 			String ret = getAuthInformation(user, pwd);
 			JsonParser parser = new JsonParser();
             JsonObject o = parser.parse(ret).getAsJsonObject();
-            String IFOK = o.getAsJsonObject("OK").getAsString();
+           
+            
+            String IFOK =  o.get("OK").getAsString();
             if(IFOK.equals("Y")) {
                 h = httpClientCookie.getInstance(user, pwd);
                 clearLog(user + "bet");
