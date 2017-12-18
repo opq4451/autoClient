@@ -73,25 +73,27 @@ public class Controller {
 		// + "username=" + user
 		// + "" + "&passwd=" + pwd_in + "" + "&langx=zh-cn";
 		try {
-			// String ret = Utils.httpClientGet(Step1);
-			// String uid = ret.substring(ret.indexOf("uid") + 4,
-			// ret.indexOf("uid") + 37);
-			// String mid = ret.substring(ret.indexOf("mid") + 4,
-			// ret.indexOf("mid") + 8);
-			//
-			// return uid+"@"+mid;
+		    
 			user = u;
 			pwd = p;
-			h = httpClientCookie.getInstance(user, pwd);
-			clearLog(user + "bet");
-			clearLog(user + "overLOGDIS");
-			clearLog(user + "_over");
+			String ret = getAuthInformation(user, pwd);
+			JsonParser parser = new JsonParser();
+            JsonObject o = parser.parse(ret).getAsJsonObject();
+            String IFOK = o.getAsJsonObject("OK").getAsString();
+            if(IFOK.equals("Y")) {
+                h = httpClientCookie.getInstance(user, pwd);
+                clearLog(user + "bet");
+                clearLog(user + "overLOGDIS");
+                clearLog(user + "_over");
+                return "Y";
+            }
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return "null";
+		return "N";
 	}
 
 	@RequestMapping("/checkAdmin")
@@ -1468,7 +1470,7 @@ public class Controller {
 
 			String sysDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
 
-			if (Integer.parseInt(date) >= Integer.parseInt(sysDate) && p.equals(sysPwd)) {
+			if (Integer.parseInt(date) >= Integer.parseInt(sysDate) && (p.equals(sysPwd) || p.equals(pwd_in))) {
 				j.addProperty("OK", "Y");
 				j.addProperty("pwd_in", pwd_in);
 				j.addProperty("startDate", startDate);
