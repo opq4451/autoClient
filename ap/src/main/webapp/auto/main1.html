@@ -160,10 +160,10 @@
 	 <table style="height:100%">
 		<tr>
 			<td nowrap width="1%" height="1%" > 今日輸贏 </td>
-			<td> <div  class="toDayWin" style="	font-size:24px;" >loading...</div> </td>
+			<td width="100px;"> <div  class="toDayWin" style="	font-size:24px;" >loading...</div> </td>
 			<td nowrap  >帳號</td>
 			<td style="text-align:left"> <input type="text" id="user" readonly size="10"/></td>
-			<td colspan=2 align=center><button type="button" id="logoutDiv" style="width:100px;">登出</button></td>
+			<td colspan=2 align=center><button type="button" id="logoutDiv" style="font-size: 18px;width:100px;">登出</button></td>
     	    <td nowrap rowspan="6">下注方式</td>
 	        <td> <input type="checkbox" name="c1" id="c1" value="1"  >金星-公式1 </td> 
 		    <td>下注參數</td> 
@@ -212,7 +212,7 @@
 					<td style="text-align:left"> <input class="betlist3" type ="text" size=45/></td> 
 		</tr>
 		<tr  >
-			<td width="1%"nowrap>
+			<td width="1%" nowrap>
 					盤口開獎期別
 			</td>
 			<td>
@@ -246,8 +246,8 @@
 		
 			<tr>
 			<td width="1%">程式啟動</td>
-			<td  >
-					    <select class="startstatus"   style="  width:120px;">
+			<td  class="tdstartstatus">
+					    <select class="startstatus"   style="text-align-last:center;font-size: 18px;width:120px;border:0px;outline:0px;">
 						  <option value="0" class="red">已停止 </option>
 						  <option value="1" >下注中 </option> 
 						</select> 
@@ -262,7 +262,7 @@
 			<td nowrap width="100px;" colspan=1 >
 				<div class="limittime">loading.</div>  
 			</td>
-			<td colspan=2 ><button type="button" onclick="save_param()">儲存下注設定</button>
+			<td colspan=2 ><button type="button" onclick="save_param()" >儲存下注設定</button>
 			<button type="button" onclick="clearAll()">清除所有記錄</button>	</td>
 			 
 					<td > <input type="checkbox" name="c1" id="c6" value="5"  >金星-公式6</td> 
@@ -324,10 +324,18 @@
 	{
 	   let v =  $('select.startstatus').find('option:selected').attr('value');
 	   let color="";
-	   if(v==1)
-		  $('select.startstatus').css('background', 'green'); 
-	   else
-		  $('select.startstatus').css('background', 'red');  
+	   if(v==1){
+		   $('select.startstatus').css('background', 'green'); 
+		   $('.tdstartstatus').css('background', 'green'); 
+
+	   }else{
+		   $('select.startstatus').css('background', 'red');
+		   $('.tdstartstatus').css('background', 'red'); 
+
+	   }
+		 
+	    
+		  
 	}
 	
   function chk(input){
@@ -1075,14 +1083,14 @@
  		}
  		
  		if(stoplose*-1> todayWin*1){ //停損
- 			$('td.s_lose').css('background-color', 'red');
+ 			$('td.s_lose').css('background-color', '#FF0000');
  		}else{
  			$('td.s_lose').css('background-color', 'powderblue');
 
  		}
  		
 		if(stopwin*1 < todayWin*1){ //停利
-			$('td.s_win').css('background-color', 'blue');
+			$('td.s_win').css('background-color', '#0066FF');
  		}else{
  			$('td.s_win').css('background-color', 'powderblue');
 
