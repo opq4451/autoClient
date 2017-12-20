@@ -1150,7 +1150,7 @@
 				    	betflag = false; 
 				    }
 				    
-				    var checkStartHM = pad2( h.getHours() )+ '0'  + pad2( date.getMinutes() ) ;//超過9:30才能運行
+				    var checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
 				    if( (checkStartHM *1) < 9030){
 				   	 	betflag = true;
 				    }
