@@ -1156,7 +1156,7 @@
 				    }
 				    
 				    
-			        if(!betflag && dynamic_phase && checkMinute.indexOf(min) != -1 && checkWin() && checkTime(h)){ //bet time每5分鐘下注一次
+			        if(!betflag && (dynamic_phase >0) && checkMinute.indexOf(min) != -1 && checkWin() && checkTime(h)){ //bet time每5分鐘下注一次
 			        	//nextPhase = getPhase(); 
 						if(dynamic_phase){
 							checkOver(dynamic_phase);
