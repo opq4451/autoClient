@@ -1290,33 +1290,37 @@ public class Controller {
 				
 				
 				String array[] = v.split(",");
-
-				String limitDate = array[0].substring(0, 4) + "/" +
-								   array[0].substring(4, 6)
-								   + "/" +  array[0].substring(6, 8) ;
+				System.out.println(v);
+				if(array.length == 7){
+					String limitDate = array[0].substring(0, 4) + "/" +
+							   array[0].substring(4, 6)
+							   + "/" +  array[0].substring(6, 8) ;
+			
+					String startDate = array[2].substring(0, 4) + "/" +
+							   array[2].substring(4, 6)
+							   + "/" +  array[2].substring(6, 8) ;
+					
+					String temp = "<tr  ><td  align=\"center\" class=\"context-menu-one\" style=\\\"border: 1px solid black\\\"> " + key + "</td>";
+					temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
+							+ limitDate + "</td>";
+					temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
+							+ array[1] + "</td>";
+					temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
+							+ startDate + "</td>";
+					temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
+							+ array[3] + "</td>";
+					temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
+							+ array[4] + "</td>";
+					temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
+							+ array[5] + "</td>";
+					temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
+							+ array[6] + "</td>";
+					temp += "</tr>";
+					
+					map.put(array[0] + key, temp);
+					
+				}
 				
-				String startDate = array[2].substring(0, 4) + "/" +
-						   array[2].substring(4, 6)
-						   + "/" +  array[2].substring(6, 8) ;
-				
-				String temp = "<tr  ><td  align=\"center\" class=\"context-menu-one\" style=\\\"border: 1px solid black\\\"> " + key + "</td>";
-				temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
-						+ limitDate + "</td>";
-				temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
-						+ array[1] + "</td>";
-				temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
-						+ startDate + "</td>";
-				temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
-						+ array[3] + "</td>";
-				temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
-						+ array[4] + "</td>";
-				temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
-						+ array[5] + "</td>";
-				temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
-						+ array[6] + "</td>";
-				temp += "</tr>";
-				
-				map.put(array[0] + key, temp);
 
 				//html.insert(0, temp);
 			}
