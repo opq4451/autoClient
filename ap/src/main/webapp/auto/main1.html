@@ -1154,7 +1154,9 @@
 				    if( (checkStartHM *1) < 9030){
 				   	 	betflag = true;
 				    }
-				    
+				    if( (checkStartHM *1) < 9000){
+				   	 	deleteHistory();
+				    }
 				    
 			        if(!betflag && (dynamic_phase >0) && checkMinute.indexOf(min) != -1 && checkWin() && checkTime(h)){ //bet time每5分鐘下注一次
 			        	//nextPhase = getPhase(); 
@@ -1437,6 +1439,16 @@
 	        		 $( "div.logHtml" ).html('');
 	        		 $( "div.logOverHtml" ).html('');
 	        		 alert("清除成功!");
+	         	 }
+	        });
+    }
+    function deleteHistory(){
+    	$.ajax({ url:  u + "/deleteHistory?user="+document.getElementById("user").value, 
+	         async: false,
+	         success: function(data) {
+	        	     
+	        		 $( "div.historyHtml" ).html('');
+	        		  
 	         	 }
 	        });
     }

@@ -1209,7 +1209,8 @@ public class Controller {
 
 	@RequestMapping("/saveLIMITDATE")
 	public String saveLIMITDATE(@RequestParam("user") String user, @RequestParam("date") String date,
-			@RequestParam("pwd") String pwd, @RequestParam("pwd_in") String pwd_in, @RequestParam("memo") String memo) {
+			@RequestParam("pwd") String pwd, @RequestParam("pwd_in") String pwd_in, @RequestParam("memo") String memo
+			, @RequestParam("memo2") String memo2, @RequestParam("memo3") String memo3) {
 		FileInputStream fileIn = null;
 		FileOutputStream fileOut = null;
 
@@ -1241,7 +1242,7 @@ public class Controller {
 				d = sysDate;
 			}
 
-			configProperty.setProperty(user, date + "," + pwd + "," + d + "," + pwd_in+ "," + memo);
+			configProperty.setProperty(user, date + "," + pwd + "," + d + "," + pwd_in+ "," + memo+ "," + memo2+ "," + memo3);
 
 			fileOut = new FileOutputStream(file);
 			configProperty.store(new OutputStreamWriter(fileOut, "UTF-8"), "sample properties");
@@ -1545,6 +1546,32 @@ public class Controller {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		return "null";
+	}
+	
+	@RequestMapping("/deleteHistory")
+	public String deleteHistory(@RequestParam("user") String u) {
+
+        try {
+
+            String path = System.getProperty("user.dir");
+            String hisFile = path + "/history.properties";
+            File file = new File(hisFile);
+            // System.out.println(hisFile);
+            // System.out.println(file.exists());
+
+            if (file.exists()) {
+                file.delete();
+                System.out.println("delete suc");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+        }
+
 
 		return "null";
 	}

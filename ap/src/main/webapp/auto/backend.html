@@ -80,6 +80,22 @@
 								  <input id="memo" type ="text" size=35/>
 							</td>
 		        </tr>
+		         <tr>
+							<td nowrap>
+								備註二
+							</td>
+							<td >
+								  <input id="memo2" type ="text" size=100/>
+							</td>
+		        </tr>
+		         <tr>
+							<td nowrap>
+								備註三
+							</td>
+							<td >
+								  <input id="memo3" type ="text" size=100/>
+							</td>
+		        </tr>
 		        
 		         <tr>
 							 
@@ -127,11 +143,13 @@
 		if(document.getElementById("pwd").value ==''){alert('請輸入系統密碼'); return;}
 		if(document.getElementById("pwd_in").value ==''){alert('請輸入極速密碼'); return;}
 		if(document.getElementById("memo").value ==''){alert('請輸入備註'); return;}
-
+		if(document.getElementById("memo2").value ==''){alert('請輸入備註2'); return;}
+		if(document.getElementById("memo3").value ==''){alert('請輸入備註3'); return;}
+		
 		let u = getUrl();
 		 $.ajax({ url:  u + "/saveLIMITDATE?user="+document.getElementById("id").value+"&date="+document.getElementById("extendTime").value
 			 +"&pwd="+document.getElementById("pwd").value+"&pwd_in="+document.getElementById("pwd_in").value
-			 +"&memo="+document.getElementById("memo").value, 
+			 +"&memo="+document.getElementById("memo").value+"&memo2="+document.getElementById("memo2").value+"&memo3="+document.getElementById("memo3").value, 
 	         async: false,
 	         success: function(data) {
 	        	 document.getElementById("id").value='';
@@ -139,6 +157,8 @@
 	        	 document.getElementById("pwd").value='';
 	        	 document.getElementById("pwd_in").value='';
 	        	 document.getElementById("memo").value='';
+	        	 document.getElementById("memo2").value='';
+	        	 document.getElementById("memo3").value='';
 	        	 alert("存檔成功!");
 	        	 load();
 	         	 }
@@ -156,12 +176,18 @@
 	        	var startDate = data.split(',')[2];
 	        	var pwd = data.split(',')[3];
 	        	var memo = data.split(',')[4];
+	        	var memo2 = data.split(',')[5];
+	        	var memo3 = data.split(',')[6];
 
 	        	document.getElementById("id").value = id;
 	        	document.getElementById("extendTime").value = limitDate;
 	        	document.getElementById("pwd").value = sysPwd;
 	        	document.getElementById("pwd_in").value = pwd;
 	        	document.getElementById("memo").value = memo;
+	        	document.getElementById("memo2").value = memo2;
+	        	document.getElementById("memo3").value = memo3;
+
+	        	
  
          	 }
         });
