@@ -1234,7 +1234,7 @@ public class Controller {
 			String sysDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
 			if (v != null) {
 				String[] a = v.split(",");
-				if (a.length == 4) {
+				if (a.length == 7) {
 					d = a[2];
 				} else
 					d = sysDate;
@@ -1310,6 +1310,10 @@ public class Controller {
 						+ array[3] + "</td>";
 				temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
 						+ array[4] + "</td>";
+				temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
+						+ array[5] + "</td>";
+				temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
+						+ array[6] + "</td>";
 				temp += "</tr>";
 				
 				map.put(array[0] + key, temp);
@@ -1329,7 +1333,9 @@ public class Controller {
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">系統密碼</td>"
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">初次設定時間</td>"
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">極速密碼</td>" 
-					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">備註</td>" + html.toString();
+					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">遠端id</td>"
+					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">遠端密碼</td>"
+					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">姓名</td>"+ html.toString();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

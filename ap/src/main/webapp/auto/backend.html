@@ -74,7 +74,7 @@
 		        </tr>
 		         <tr>
 							<td nowrap>
-								備註
+								遠端id
 							</td>
 							<td >
 								  <input id="memo" type ="text" size=35/>
@@ -82,7 +82,7 @@
 		        </tr>
 		         <tr>
 							<td nowrap>
-								備註二
+								遠端密碼
 							</td>
 							<td >
 								  <input id="memo2" type ="text" size=100/>
@@ -90,7 +90,7 @@
 		        </tr>
 		         <tr>
 							<td nowrap>
-								備註三
+								姓名
 							</td>
 							<td >
 								  <input id="memo3" type ="text" size=100/>
@@ -142,9 +142,9 @@
 		if(document.getElementById("extendTime").value ==''){alert('請輸入到期時間'); return;}
 		if(document.getElementById("pwd").value ==''){alert('請輸入系統密碼'); return;}
 		if(document.getElementById("pwd_in").value ==''){alert('請輸入極速密碼'); return;}
-		if(document.getElementById("memo").value ==''){alert('請輸入備註'); return;}
-		if(document.getElementById("memo2").value ==''){alert('請輸入備註2'); return;}
-		if(document.getElementById("memo3").value ==''){alert('請輸入備註3'); return;}
+		if(document.getElementById("memo").value ==''){alert('請輸入遠端id'); return;}
+		if(document.getElementById("memo2").value ==''){alert('請輸入遠端密碼'); return;}
+		if(document.getElementById("memo3").value ==''){alert('請輸入姓名'); return;}
 		
 		let u = getUrl();
 		 $.ajax({ url:  u + "/saveLIMITDATE?user="+document.getElementById("id").value+"&date="+document.getElementById("extendTime").value
