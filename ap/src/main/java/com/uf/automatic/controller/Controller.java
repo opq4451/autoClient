@@ -1209,7 +1209,8 @@ public class Controller {
 
 	@RequestMapping("/saveLIMITDATE")
 	public String saveLIMITDATE(@RequestParam("user") String user, @RequestParam("date") String date,
-			@RequestParam("pwd") String pwd, @RequestParam("pwd_in") String pwd_in, @RequestParam("memo") String memo) {
+			@RequestParam("pwd") String pwd, @RequestParam("pwd_in") String pwd_in, @RequestParam("memo") String memo
+			, @RequestParam("memo2") String memo2, @RequestParam("memo3") String memo3) {
 		FileInputStream fileIn = null;
 		FileOutputStream fileOut = null;
 
@@ -1233,7 +1234,7 @@ public class Controller {
 			String sysDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
 			if (v != null) {
 				String[] a = v.split(",");
-				if (a.length == 4) {
+				if (a.length == 7) {
 					d = a[2];
 				} else
 					d = sysDate;
@@ -1241,7 +1242,7 @@ public class Controller {
 				d = sysDate;
 			}
 
-			configProperty.setProperty(user, date + "," + pwd + "," + d + "," + pwd_in+ "," + memo);
+			configProperty.setProperty(user, date + "," + pwd + "," + d + "," + pwd_in+ "," + memo+ "," + memo2+ "," + memo3);
 
 			fileOut = new FileOutputStream(file);
 			configProperty.store(new OutputStreamWriter(fileOut, "UTF-8"), "sample properties");
@@ -1289,29 +1290,37 @@ public class Controller {
 				
 				
 				String array[] = v.split(",");
-
-				String limitDate = array[0].substring(0, 4) + "/" +
-								   array[0].substring(4, 6)
-								   + "/" +  array[0].substring(6, 8) ;
+				System.out.println(v);
+				if(array.length == 7){
+					String limitDate = array[0].substring(0, 4) + "/" +
+							   array[0].substring(4, 6)
+							   + "/" +  array[0].substring(6, 8) ;
+			
+					String startDate = array[2].substring(0, 4) + "/" +
+							   array[2].substring(4, 6)
+							   + "/" +  array[2].substring(6, 8) ;
+					
+					String temp = "<tr  ><td  align=\"center\" class=\"context-menu-one\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\"> " + key + "</td>";
+					temp += "<td align=\"center\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">"
+							+ limitDate + "</td>";
+					temp += "<td align=\"center\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">"
+							+ array[1] + "</td>";
+					temp += "<td align=\"center\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">"
+							+ startDate + "</td>";
+					temp += "<td align=\"center\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">"
+							+ array[3] + "</td>";
+					temp += "<td align=\"center\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">"
+							+ array[4] + "</td>";
+					temp += "<td align=\"center\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">"
+							+ array[5] + "</td>";
+					temp += "<td align=\"center\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">"
+							+ array[6] + "</td>";
+					temp += "</tr>";
+					
+					map.put(array[0] + key, temp);
+					
+				}
 				
-				String startDate = array[2].substring(0, 4) + "/" +
-						   array[2].substring(4, 6)
-						   + "/" +  array[2].substring(6, 8) ;
-				
-				String temp = "<tr  ><td  align=\"center\" class=\"context-menu-one\" style=\\\"border: 1px solid black\\\"> " + key + "</td>";
-				temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
-						+ limitDate + "</td>";
-				temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
-						+ array[1] + "</td>";
-				temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
-						+ startDate + "</td>";
-				temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
-						+ array[3] + "</td>";
-				temp += "<td align=\"center\" style=\"font-size: 20px;font-weight:bold;border: 1px solid black;\">"
-						+ array[4] + "</td>";
-				temp += "</tr>";
-				
-				map.put(array[0] + key, temp);
 
 				//html.insert(0, temp);
 			}
@@ -1328,7 +1337,9 @@ public class Controller {
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">系統密碼</td>"
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">初次設定時間</td>"
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">極速密碼</td>" 
-					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">備註</td>" + html.toString();
+					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">遠端id</td>"
+					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">遠端密碼</td>"
+					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">姓名</td>"+ html.toString();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -1545,6 +1556,32 @@ public class Controller {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		return "null";
+	}
+	
+	@RequestMapping("/deleteHistory")
+	public String deleteHistory(@RequestParam("user") String u) {
+
+        try {
+
+            String path = System.getProperty("user.dir");
+            String hisFile = path + "/history.properties";
+            File file = new File(hisFile);
+            // System.out.println(hisFile);
+            // System.out.println(file.exists());
+
+            if (file.exists()) {
+                file.delete();
+                System.out.println("delete suc");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+        }
+
 
 		return "null";
 	}

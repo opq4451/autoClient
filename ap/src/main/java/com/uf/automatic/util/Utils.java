@@ -147,6 +147,9 @@ public class Utils {
 			Date dateToday = Date.from(now);
 			String today = new SimpleDateFormat("yyyy-MM-dd").format(dateToday);
 			 
+			//https://api.api68.com/pks/getPksHistoryList.do?date=2017-12-20&lotCode=10001
+			
+			
 			
 			for (JsonElement pa : data) {
 			    JsonObject paymentObj = pa.getAsJsonObject();

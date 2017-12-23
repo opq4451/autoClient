@@ -29,7 +29,7 @@
 	    	position: absolute;
 	    	top: 0px;
 	    	left:0%;
-	    	width: 80%;
+	    	width: 100%;
 	    	height: 25%;
 	    }
 	    
@@ -167,7 +167,7 @@
     	    <td nowrap rowspan="6">下注方式</td>
 	        <td> <input type="checkbox" name="c1" id="c1" value="1"  >金星-公式1 </td> 
 		    <td>下注參數</td> 
-		    <td style="text-align:left"> <input class="betlist" type ="text" size=45/></td> 
+		    <td style="text-align:left"> <input class="betlist" type ="text" style="width:90%"/></td><td nowrap><button type="button" onclick="save_param()" >儲存</button></td> 
         </tr>
 	 
 		<tr>
@@ -196,26 +196,26 @@
 			</td>
 			        <td> <input type="checkbox" name="c1" id="c2" value="2"  >金星-公式2</td> 
 				    <td>下注參數</td> 
-					<td style="text-align:left"> <input class="betlist2" type ="text" size=45/></td> 
+					<td style="text-align:left"> <input class="betlist2" type ="text" style="width:90%"/></td><td><button type="button" onclick="save_param()" >儲存</button></td> 
 		</tr>
 		
 		<tr  >
 			<td width="1%" nowrap>
 					盤口目前期別 
 			</td>
-			<td colspan=5>
+			<td colspan=5 style="text-align:left">
 					 <div  class="toPhase">loading..</div>
 			</td>
 			
 			<td nowrap> <input type="checkbox" name="c1" id="c3" value="3"  >金星-公式3</td>
 			<td nowrap>下注參數</td> 
-					<td style="text-align:left"> <input class="betlist3" type ="text" size=45/></td> 
+					<td style="text-align:left"> <input class="betlist3" type ="text" style="width:90%"/></td><td><button type="button" onclick="save_param()" >儲存</button></td> 
 		</tr>
 		<tr  >
-			<td width="1%" nowrap>
+			<td width="1%" nowrap >
 					盤口開獎期別
 			</td>
-			<td>
+			<td style="text-align:left">
 					 <div  class="toNowPhase">loading...</div>
 			</td>
 			<td nowrap>
@@ -228,17 +228,24 @@
 			
 			 <td nowrap> <input type="checkbox" name="c1" id="c4" value="4"  >金星-公式4</td>
 			 <td nowrap>下注參數</td> 
-			 <td style="text-align:left"> <input class="betlist4" type ="text" size=45/></td> 
+			 <td style="text-align:left"> <input class="betlist4" type ="text" style="width:90%"/></td><td><button type="button" onclick="save_param()" >儲存</button></td> 
 		</tr>
 		
 		<tr  >
 			<td width="1%">開獎號碼</td>
-			<td colspan=5>
+			<td colspan=3>
 					  <div  class="nowCode">loading...</div>
 			</td>
+			<td  nowrap>
+				使用期限  
+			</td>
+			<td nowrap width="100px;" colspan=1 >
+				<div class="limittime">loading.</div>  
+			</td>
+			
 			 <td nowrap> <input type="checkbox" name="c1" id="c5" value="5"  >金星-公式5</td>
 			<td nowrap >下注參數</td> 
-					<td width="99%" style="text-align:left"> <input class="betlist5" type ="text" size=45/></td> 
+					<td width="99%" style="text-align:left"> <input class="betlist5" type ="text" style="width:90%"/></td><td><button type="button" onclick="save_param()" >儲存</button></td> 
 		</tr>
 		
 		
@@ -256,18 +263,16 @@
 			<td colspan=2 style="display:none">
 				<div id="connectURL">連結尚銀</div>	  
 			</td>
-			<td  nowrap>
-				使用期限  
-			</td>
-			<td nowrap width="100px;" colspan=1 >
-				<div class="limittime">loading.</div>  
-			</td>
-			<td colspan=2 ><button type="button" onclick="save_param()" >儲存下注設定</button>
-			<button type="button" onclick="clearAll()">清除所有記錄</button>	</td>
+			
+			 <td colspan=4 > 
+			 <input type="checkbox" name="autoStart" id="autoStart" value="2"  >自動啟動
+			  <input id="s_h" type ="text" size=2 maxlength=2 /> : <input id="s_m" type ="text" size=2 maxlength=2/> 到
+			  <input id="e_h" type ="text" size=2 maxlength=2 /> : <input id="e_m" type ="text" size=2 maxlength=2/>
+			 </td> 
 			 
 					<td > <input type="checkbox" name="c1" id="c6" value="5"  >金星-公式6</td> 
 		  <td nowrap>下注參數</td> 
-			 <td style="text-align:left"> <input class="betlist6" type ="text" size=45/></td> 
+			 <td style="text-align:left"> <input class="betlist6" type ="text" style="width:90%" /></td><td><button type="button" onclick="save_param()" >儲存</button></td> 
 			 
 		</tr>
 	 </table> 
@@ -427,18 +432,17 @@
     var betIndex5  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
     var betIndex6  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
  
- 	const rangeExist = {
- 			'1' : ['1','2','3','9','10'] ,
- 			'2' : ['1','2','3','4','10'] ,
- 			'3' : ['1','2','3','4','5'] ,
- 			'4' : ['2','3','4','5','6'] ,
- 			'5' : ['3','4','5','6','7'] ,
- 			'6' : ['4','5','6','7','8'] ,
- 			'7' : ['5','6','7','8','9'] ,
- 			'8' : ['6','7','8','9','10'] ,
- 			'9' : ['1','7','8','9','10'] ,
- 			'10' :['1','2','8','9','10'] ,
-
+    const rangeExist = {
+ 			'1' : ['1','2','3','7','8'] ,
+ 			'2' : ['2','3','4','8','9'] ,
+ 			'3' : ['3','4','5','9','10'] ,
+ 			'4' : ['1','4','5','6','10'] ,
+ 			'5' : ['1','2','5','6','7'] ,
+ 			'6' : ['2','3','6','7','8'] ,
+ 			'7' : ['3','4','7','8','9'] ,
+ 			'8' : ['4','5','8','9','10'] ,
+ 			'9' : ['1','5','6','9','10'] ,
+ 			'10' :['1','2','6','7','10'] ,
  	};
  	
  	const rangeExist_pro3 = {
@@ -456,17 +460,16 @@
  	};
  	
  	const rangeExist_pro  = {
- 			'1' : ['4','5','6','7','8'] ,
- 			'2' : ['5','6','7','8','9'] ,
- 			'3' : ['6','7','8','9','10'] ,
- 			'4' : ['1','7','8','9','10'] ,
- 			'5' : ['1','2','8','9','10'] ,
- 			'6' : ['1','2','3','9','10'] ,
- 			'7' : ['1','2','3','4','10'] ,
- 			'8' : ['1','2','3','4','5'] ,
- 			'9' : ['2','3','4','5','6'] ,
- 			'10' : ['3','4','5','6','7'] ,
-
+ 			'1' : ['4','5','6','9','10'] ,
+ 			'2' : ['1','5','6','7','10'] ,
+ 			'3' : ['1','2','6','7','8'] ,
+ 			'4' : ['2','3','7','8','9'] ,
+ 			'5' : ['3','4','8','9','10'] ,
+ 			'6' : ['1','4','5','9','10'] ,
+ 			'7' : ['1','2','5','6','10'] ,
+ 			'8' : ['1','2','3','6','7'] ,
+ 			'9' : ['2','3','4','7','8'] ,
+ 			'10' : ['3','4','5','8','9'] ,
  	};
  	
  	
@@ -582,6 +585,13 @@
 		 document.getElementById("user").value = user;
 		 document.getElementById("mid").value = mid;
 		 document.getElementById("pwd").value = pwd;
+		 
+		 $( ".stoplose" ).change(function() {
+			 checkWin(); 
+		 });
+		 $( ".stopwin" ).change(function() {
+			 checkWin();
+		 });
 		 
 		 getWinFun(true);
 		 checkWin();
@@ -1007,7 +1017,7 @@
 			        	 if(data == 'null'){
 			        		 period = 0 ;
 			        		 //解決跳號問題
-			        		 betIndex = {
+			        		 /*betIndex = {
 			      		 			'1' : 0,
 			      		 			'2' : 0,
 			      		 			'3' : 0,
@@ -1020,11 +1030,11 @@
 			      		 			'10' : 0,
 
 			      		 	};
-			        	    betIndex2 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+			        	        betIndex2 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
 			      			betIndex3 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
 			      			betIndex4 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
 			      			betIndex5 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
-			      			betIndex6 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+			      			betIndex6 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };*/
 
 			        	 }else {
 			        		   period = data;
@@ -1075,26 +1085,34 @@
  	}
  	
  	function checkWin(){
- 		if((stoplose*-1 < todayWin*1) && (todayWin*1 < stopwin*1) && ( $( ".startstatus" ).val() == '1'))
- 			return true;
+ 		var sl= $( ".stoplose" ).val();
+ 		var sw= $( ".stopwin" ).val();
  		
- 		if(!(stoplose*-1 < todayWin*1) || !(todayWin*1 < stopwin*1)){
- 			$( ".startstatus" ).val(0) ;
- 		}
- 		
- 		if(stoplose*-1> todayWin*1){ //停損
+ 		if(sl*-1> todayWin*1){ //停損
  			$('td.s_lose').css('background-color', '#FF0000');
  		}else{
  			$('td.s_lose').css('background-color', 'powderblue');
 
  		}
  		
-		if(stopwin*1 < todayWin*1){ //停利
+		if(sw*1 < todayWin*1){ //停利
 			$('td.s_win').css('background-color', '#0066FF');
  		}else{
  			$('td.s_win').css('background-color', 'powderblue');
 
  		}
+		
+ 		if((sl*-1 < todayWin*1) && (todayWin*1 < sw*1) && ( $( ".startstatus" ).val() == '1')){
+ 			return true;
+ 			
+ 		}
+ 			
+ 		
+ 		if(!(sl*-1 < todayWin*1) || !(todayWin*1 < sw*1)){
+ 			$( ".startstatus" ).val(0) ;
+ 		}
+ 		
+ 		
  		
  		
  		return false;
@@ -1136,7 +1154,30 @@
 				    if(falseMinute.indexOf(min) != -1){
 				    	betflag = false; 
 				    }
-			        if(!betflag && dynamic_phase && checkMinute.indexOf(min) != -1 && checkWin() && checkTime(h)){ //bet time每5分鐘下注一次
+				    
+				    var checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
+				    if( (checkStartHM *1) < 9030){
+				   	 	betflag = true;
+				    }
+				    if( (checkStartHM *1) < 9000){
+				   	 	deleteHistory();
+				    }
+				    
+				    if(document.getElementById('autoStart').checked) { //時間不在起迄，不能運行
+				    	 	var sh = document.getElementById("s_h").value;
+				    	 	var sm = document.getElementById("s_m").value;
+				    	 	var eh = document.getElementById("e_h").value;
+				    	 	var em = document.getElementById("e_m").value;
+				    		if(sh!='' && sm!='' && eh!='' && em!='' ){
+				    			var s = sh + '0' + sm ;
+				    			var e = eh + '0' + em ;
+				    			if( ( (s*1) > (checkStartHM *1) )   ||  ( (e*1) < (checkStartHM *1) )){
+				    				betflag = true; 
+				    			}
+				    		}
+				    }
+				    
+			        if(!betflag && (dynamic_phase >0) && checkMinute.indexOf(min) != -1 && checkWin() && checkTime(h)){ //bet time每5分鐘下注一次
 			        	//nextPhase = getPhase(); 
 						if(dynamic_phase){
 							checkOver(dynamic_phase);
@@ -1405,7 +1446,16 @@
     }
     
     function save_param(){
+    	  if(!document.getElementById('c1').checked) {betIndex = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+  	  if(!document.getElementById('c2').checked) {betIndex2 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+  	  if(!document.getElementById('c3').checked) {betIndex3 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+  	  if(!document.getElementById('c4').checked) {betIndex4 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+  	  if(!document.getElementById('c5').checked) {betIndex5 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+  	  if(!document.getElementById('c6').checked) {betIndex6 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+  	  
     	saveParam();
+    	
+    	
     }
     
     function clearAll(){
@@ -1417,6 +1467,16 @@
 	        		 $( "div.logHtml" ).html('');
 	        		 $( "div.logOverHtml" ).html('');
 	        		 alert("清除成功!");
+	         	 }
+	        });
+    }
+    function deleteHistory(){
+    	$.ajax({ url:  u + "/deleteHistory?user="+document.getElementById("user").value, 
+	         async: false,
+	         success: function(data) {
+	        	     
+	        		 $( "div.historyHtml" ).html('');
+	        		  
 	         	 }
 	        });
     }
