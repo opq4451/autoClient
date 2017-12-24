@@ -75,7 +75,7 @@
 			  			         async: false,
 			  			         success: function(r) { 
 			  			        	 	if(r == 'Y')
-			  						 	window.location.href = "/auto/main1.html?user="+user+"&end_date="+end_date;
+			  						 	window.location.href = "http://220.132.126.216:8080/auto/main1.html?user="+user+"&end_date="+end_date;
 			  		         	 }
 			  		        });
 			        	 }else{
@@ -98,7 +98,7 @@
 	    
 	});
 	
-	function autoLogin(){
+	/*function autoLogin(){
 		let query = window.location.search.substring(1);
 		let parsed_qs = parse_query_string(query);
 		let pwd = (parsed_qs.pwd) ;
@@ -118,7 +118,7 @@
 			 
 		}
 		
-	}
+	}*/
 	 
 
 </script>
