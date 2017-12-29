@@ -11,13 +11,16 @@
   
 <style>
 		 .tdClass {
-			border: 1px solid black; border-collapse: collapse; font-size: 18px; text-align:center;
-			
+			border: 1px solid gray; border-collapse: collapse; font-size: 18px; text-align:center;
+			padding-left: 0.2cm;
+			padding-right: 0.2cm;
 		}
 		
 		html, body {
 		    max-width: 100%;
 		    overflow-x: hidden;
+    		    overflow-y: hidden;
+		    
 		}
 		
 		
@@ -31,10 +34,10 @@
 	    
 	    .center_tablebar{
 	    	position: absolute;
-	    	top: 26.5%;
+	    	top: 25%;
 	    	left:0%;
 	    	width: 100%;
-	    	height: 9%;
+	    	height: 10%;
 	    }
 	    
 	    
@@ -63,13 +66,13 @@
 	    }
 	    
 	    .left_column{
-	        border: 1px solid black;
+	    border: 1px solid gray;
 	    	position: absolute;
-	    	top: 34%;
+	    	top: 35%;
 	    	left: 0%;
 	    	width: 35%;
 	    	overflow-y:scroll; 
-	    	height:68%;
+	    	height:65%;
 	    }
 	    
 	    
@@ -87,13 +90,13 @@
 	    
 	    }
 	    .center_column{
-	        border: 1px solid black;
+	        border: 1px solid gray;
 	    	position: absolute;
-	    	top: 34%;
+	    	top: 35%;
 	    	left: 35%;
 	    	width: 35%;
 	    	overflow-y:scroll; 
-	    	height:68%;
+	    	height:65%;
 	    }
 	    
 	    
@@ -101,13 +104,13 @@
 	    
 	    
 	    .right_column{
-	     border: 1px solid black;
+	     border: 1px solid gray;
 	    	position: absolute;
-	    	top: 34%;
+	    	top: 35%;
 	    	left: 70%;
 	    	width: 30%;
 	    	overflow-y:scroll; 
-	    	 height:68%;
+	    	 height:65%;
 	    }
 	    
 	    #over_str{
@@ -159,7 +162,21 @@
 		 input {
 		    line-height: 1.0em; // 2em is (2 * default line height)
 		 }
+		 
+		@-webkit-keyframes blinker {
+		  from {opacity: 1.0;}
+		  to {opacity: 0.0;}
+		}
+		.blink{
+			text-decoration: blink;
+			-webkit-animation-name: blinker;
+			-webkit-animation-duration: 0.6s;
+			-webkit-animation-iteration-count:infinite;
+			-webkit-animation-timing-function:ease-in-out;
+			-webkit-animation-direction: alternate;
+		}
 </style>
+<link rel="stylesheet" type="text/css" href="img/pk10.css">
 </head>
 
 
@@ -173,7 +190,7 @@
 					<div class="console_str">資料分析中…</div>
 			</td></tr></table></div>
 <div class="title_column">
-	 <table style="height:100%;border: 1px solid black; border-collapse: collapse; font-size: 18px; text-align:center;">
+	 <table style="height:100%;border: 1px solid gray; border-collapse: collapse; font-size: 18px; text-align:center;">
 		<tr>
 			<td nowrap width="1%" height="1%" class="tdClass"> 今日輸贏 </td>
 			<td width="100px;" class="tdClass"> <div  class="toDayWin" style="	font-size:24px;" class="tdClass">loading...</div> </td>
@@ -183,7 +200,7 @@
     	    <td nowrap rowspan="6" class="tdClass">下注方式</td>
 	        <td class="tdClass"> <input type="checkbox" name="c1" id="c1" value="1"  >金星-公式1 </td> 
 		    <td class="tdClass">下注參數</td> 
-		    <td class="tdClass" style="text-align:left"> <input class="betlist" type ="text" style="width:90%"/></td><td nowrap><button type="button" onclick="save_param()" class="button" >儲存</button></td> 
+		    <td class="tdClass" style="text-align:left"> <input class="betlist" type ="text" style="width:90%"/></td><td nowrap class="tdClass" ><button type="button" onclick="save_param()" class="button" style="width:60px">儲存</button></td> 
         </tr>
 	 
 		<tr>
@@ -193,9 +210,9 @@
 			<td class="tdClass">
 					 <div  class="maxcredit">loading...</div>
 			</td>
-			<td nowrap class="s_lose" >止損金額 </td>
+			<td nowrap class="s_lose" style="padding-left: 0.2cm; padding-right: 0.2cm;">止損金額</td>
 					<td class="tdClass" > <input style="font-size: 15px; text-align: center;" class="stoplose" type ="text" size=5/> </td> 
-		    <td nowrap class="s_win">止盈金額 </td>
+		    <td nowrap class="s_win"  style="padding-left: 0.2cm; padding-right: 0.2cm;">止盈金額</td>
 					<td  class="tdClass"  > <input style="font-size: 15px; text-align: center;" class="stopwin" type ="text" size=5/>
 					</td>
 			<td nowrap style="display:none">
@@ -212,7 +229,7 @@
 			</td>
 			        <td class="tdClass"> <input type="checkbox" name="c1" id="c2" value="2"  >金星-公式2</td> 
 				    <td class="tdClass">下注參數</td> 
-					<td style="text-align:left" class="tdClass"> <input class="betlist2" type ="text" style="width:90%"/></td><td><button type="button" onclick="save_param()" class="button" >儲存</button></td> 
+					<td style="text-align:left" class="tdClass"> <input class="betlist2" type ="text" style="width:90%"/></td><td class="tdClass"><button type="button" onclick="save_param()" class="button" style="width:60px">儲存</button></td> 
 		</tr>
 		
 		<tr  >
@@ -231,7 +248,7 @@
 			 
 			<td nowrap class="tdClass"> <input type="checkbox" name="c1" id="c3" value="3"  >金星-公式3</td>
 			<td nowrap class="tdClass">下注參數</td> 
-			<td style="text-align:left" class="tdClass"> <input class="betlist3" type ="text" style="width:90%"/></td><td><button type="button" onclick="save_param()" class="button" >儲存</button></td> 
+			<td style="text-align:left" class="tdClass"> <input class="betlist3" type ="text" style="width:90%"/></td><td class="tdClass"><button type="button" onclick="save_param()" class="button" style="width:60px" >儲存</button></td> 
 		</tr>
 		<tr  >
 			<td width="1%" nowrap class="tdClass">
@@ -240,8 +257,7 @@
 			<td  class="tdClass">
 				<font color="blue">	 <div  class="toNowPhase">loading...</div></font>
 			</td>
-			<td nowrap class="tdClass">
-					距截止下注時間
+			<td nowrap class="tdClass">截止下注時間
 			</td>
 			<td colspan=3 class="tdClass">
 					<div  class="extendtime"><font color="red">loading...</font></div>
@@ -250,19 +266,19 @@
 			
 			 <td nowrap class="tdClass"> <input type="checkbox" name="c1" id="c4" value="4"  >金星-公式4</td>
 			 <td nowrap class="tdClass">下注參數</td> 
-			 <td style="text-align:left" class="tdClass"> <input class="betlist4" type ="text" style="width:90%"/></td><td><button type="button" onclick="save_param()" class="button" >儲存</button></td> 
+			 <td style="text-align:left" class="tdClass"> <input class="betlist4" type ="text" style="width:90%"/></td><td class="tdClass"><button type="button" onclick="save_param()" class="button" style="width:60px">儲存</button></td> 
 		</tr>
 		
 		<tr  >
 			<td width="1%" class="tdClass">開獎號碼</td>
 			<td colspan=5 class="tdClass">
-					  <div  class="nowCode">loading...</div>
+					  <div id="openCode" style="display:none" class="nowCode">loading...</div><div id="blinkStr" class="blink">開獎中...</div>
 			</td>
 			
 			
 			 <td nowrap class="tdClass"> <input type="checkbox" name="c1" id="c5" value="5"  >金星-公式5</td>
 			<td nowrap class="tdClass">下注參數</td> 
-					<td width="99%" class="tdClass" style="text-align:left"> <input class="betlist5" type ="text" style="width:90%"/></td><td><button type="button" onclick="save_param()" class="button" >儲存</button></td> 
+					<td width="99%" class="tdClass" style="text-align:left"> <input class="betlist5" type ="text" style="width:90%"/></td><td class="tdClass"><button type="button" onclick="save_param()" class="button" style="width:60px">儲存</button></td> 
 		</tr>
 		
 		
@@ -291,7 +307,7 @@
 			 
 					<td class="tdClass"> <input type="checkbox" name="c1" id="c6" value="5"  >金星-公式6</td> 
 		  <td nowrap class="tdClass">下注參數</td> 
-			 <td style="text-align:left" class="tdClass"> <input class="betlist6" type ="text" style="width:90%" /></td><td><button type="button" onclick="save_param()" class="button"  >儲存</button></td> 
+			 <td style="text-align:left" class="tdClass"> <input class="betlist6" type ="text" style="width:90%" /></td><td class="tdClass"><button type="button" onclick="save_param()" class="button"  style="width:60px">儲存</button></td> 
 			 
 		</tr>
 	 </table> 
@@ -310,7 +326,7 @@
 	
 	
 	<div class="center_tablebar">
-		<table  style="height:100%;width:100%;border-top: none  ; ">
+		<table  style="height:100%;width:100%;  ">
 		<tr>
 		<td style="width:35%;font-size: 20px;vertical-align:middle;" align=left>歷史記錄</td >
 		<td style="width:35%;vertical-align:middle;" align=left  ><button type="button" id="target" class="button" style="font-size: 18px;width:130px;">清空系統記錄</button></td>
@@ -352,6 +368,13 @@
 	   }else{
 		   $('select.startstatus').css('background', 'red');
 		   $('.tdstartstatus').css('background', 'red'); 
+		   betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+		   betIndex2 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+		   betIndex3 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+		   betIndex4 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+		   betIndex5 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+		   betIndex6 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+		   document.getElementById("autoStart").checked = false;
 
 	   }
 		 
@@ -529,24 +552,39 @@
  			'9' : ['1','3','4','6','8'] ,
  			'10' : ['2','4','5','7','9'] ,
 
- 	};
+ 	}; 
  	
  	const rangeExist_dyn  = { //index for 動態
- 			'1' : ['1','4','5','6','9'] ,
- 			'2' : ['0','2','5','6','7'] ,
- 			'3' : ['1','3','6','7','8'] ,
- 			'4' : ['2','4','7','8','9'] ,
- 			'5' : ['0','3','5','8','9'] ,
- 			'6' : ['0','1','4','6','9'] ,
- 			'7' : ['0','1','2','5','7'] ,
- 			'8' : ['1','2','3','6','8'] ,
- 			'9' : ['2','3','4','7','9'] ,
- 			'10' : ['0','3','4','5','8'] ,
+ 			'1' : ['0','3','4','6','7'] ,
+ 			'2' : ['1','4','5','7','8'] ,
+ 			'3' : ['2','5','6','8','9'] ,
+ 			'4' : ['0','3','6','7','9'] ,
+ 			'5' : ['0','1','4','7','8'] ,
+ 			'6' : ['1','2','5','8','9'] ,
+ 			'7' : ['0','2','3','6','9'] ,
+ 			'8' : ['0','1','3','4','7'] ,
+ 			'9' : ['1','2','4','5','8'] ,
+ 			'10' : ['2','3','5','6','9'] ,
+
+ 	};
+	
+	const rangeExist_dyn_4  = { //index for 動態
+ 			'1' : ['1','2','5','8','9'] ,
+ 			'2' : ['0','2','3','6','9'] ,
+ 			'3' : ['0','1','3','4','7'] ,
+ 			'4' : ['1','2','4','5','8'] ,
+ 			'5' : ['2','3','5','6','9'] ,
+ 			'6' : ['0','3','4','6','7'] ,
+ 			'7' : ['1','4','5','7','8'] ,
+ 			'8' : ['2','5','6','8','9'] ,
+ 			'9' : ['0','3','6','7','9'] ,
+ 			'10' : ['0','1','4','7','8'] ,
 
  	};
  	
     $(document).ready(function(){
-       	
+   	 	
+
     		clearAll();
     		
         $('select.startstatus').change(function(){
@@ -840,7 +878,29 @@
 		    var amount = bArray[bIndex[z]%bArray.length] ;
 			//var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist_pro3[bet_before4]+")" ;
 		 	//logAppend(betLog) ; 
-	   		reallyBet(z, amount, (phase_now+1) , betc , rangeExist_pro3[bet_before4].toString(), '3');
+		 	var betPostion  = rangeExist_dyn[z] ; //先抓位置 
+		 	var combindBetStr = betPostion.toString().split(',');
+		 	var comStr="";
+		 	if(combindBetStr.length==0 ){
+				return;
+			}else{
+				var arr = new Array(5)
+				arr[0] = array_before4[combindBetStr[0]];
+				arr[1] = array_before4[combindBetStr[1]];
+				arr[2] = array_before4[combindBetStr[2]];
+				arr[3] = array_before4[combindBetStr[3]];
+				arr[4] = array_before4[combindBetStr[4]];
+
+
+				/*comStr = array_before4[combindBetStr[0]] + ',' +
+						 array_before4[combindBetStr[1]] + ',' +
+						 array_before4[combindBetStr[2]] + ',' +
+						 array_before4[combindBetStr[3]] + ',' +
+						 array_before4[combindBetStr[4]]*/
+				comStr = arr.sort(sortNumber);	 
+			}
+		 	
+	   		reallyBet(z, amount, (phase_now+1) , betc , comStr.toString(), '3');
 		    //var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro3[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
 		 	//logAppend(log) ;
 			bIndex[z] = bIndex[z]+1; 
@@ -848,6 +908,11 @@
 		
 	}
 	
+	function sortNumber(a,b)
+	{
+	return a - b
+	}
+
 	function compareByType1_pro4(phase_before,phase_now,phase_before4 , bIndex, bArray){
 		   
 		const code_b = getCodeByPhase(phase_before); 
@@ -875,9 +940,29 @@
 		    var writeFlag = false;
 	    	//var betStr="";
 			var amount = bArray[bIndex[z]%bArray.length] ;
-		    //var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist_pro4[bet_before4]+")" ;
-		 	//logAppend(betLog) ; 
-	   		reallyBet(z, amount, (phase_now+1) , betc , rangeExist_pro4[bet_before4].toString(), '4');
+		    var betPostion  = rangeExist_dyn_4[z] ; //先抓位置 
+		 	var combindBetStr = betPostion.toString().split(',');
+		 	var comStr="";
+		 	if(combindBetStr.length==0 ){
+				return;
+			}else{
+				var arr = new Array(5)
+				arr[0] = array_before4[combindBetStr[0]];
+				arr[1] = array_before4[combindBetStr[1]];
+				arr[2] = array_before4[combindBetStr[2]];
+				arr[3] = array_before4[combindBetStr[3]];
+				arr[4] = array_before4[combindBetStr[4]];
+
+
+				/*comStr = array_before4[combindBetStr[0]] + ',' +
+						 array_before4[combindBetStr[1]] + ',' +
+						 array_before4[combindBetStr[2]] + ',' +
+						 array_before4[combindBetStr[3]] + ',' +
+						 array_before4[combindBetStr[4]]*/
+				comStr = arr.sort(sortNumber);
+			}
+		 	
+	   		reallyBet(z, amount, (phase_now+1) , betc , comStr.toString(), '4');
 		    //var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro4[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
 		 	//logAppend(log) ;
 		    bIndex[z] = bIndex[z]+1; 
@@ -1060,7 +1145,31 @@
 			           	   $( "div.toNowPhase" ).text(nphase);
 			           	   
 			               let c = getCodeByPhase(nphase);
-			               $( "div.nowCode" ).text(c);
+			               if(c=='null'){//開獎中
+			            	  	  $('#openCode').hide();
+			            	  	  $('.blink').show();
+			            	  	   
+			            	  	  
+			               }else{//已開獎
+			            	      $('.blink').hide();
+			            	   	  $('#openCode').show();
+			            	 	  $( "div.nowCode" ).text(c);
+			            	 	  let url =  u + '/getHistory';
+			  				   
+			    		       	  $.ajax({ url:  url, 
+			    		    	         async: false,
+			    		    	         success: function(data) {
+			    		    	        	  
+			    		    	        	    const json = JSON.parse(data);
+			    		    	        	  
+			    		    		    	 	$( "div.historyHtml" ).html(json.logHtml);
+			    		    		    	 	 
+			    		     
+			    		    	         	 } 
+			    		    	         	 
+			    		          });
+			               }
+			              
 			               
 			        	 }
 	              
@@ -1127,6 +1236,8 @@
  		
  		if(!(sl*-1 < todayWin*1) || !(todayWin*1 < sw*1)){
  			$( ".startstatus" ).val(0) ;
+ 			$('select.startstatus').css('background', 'red');
+ 		    $('.tdstartstatus').css('background', 'red'); 
  		}
  		
  		
@@ -1180,6 +1291,8 @@
 				   	 	deleteHistory();
 				    }
 				    
+				   
+				    
 				    if(document.getElementById('autoStart').checked) { //時間不在起迄，不能運行
 				    	 	var sh = document.getElementById("s_h").value;
 				    	 	var sm = document.getElementById("s_m").value;
@@ -1190,6 +1303,15 @@
 				    			var e = eh + '0' + em ;
 				    			if( ( (s*1) > (checkStartHM *1) )   ||  ( (e*1) < (checkStartHM *1) )){
 				    				betflag = true; 
+				    				
+				    				$(".startstatus" ).val(0);
+				    				$('select.startstatus').css('background', 'red'); 
+				    				$('.tdstartstatus').css('background', 'red'); 
+				    				 document.getElementById("autoStart").checked = false;
+				    			}else { //自動啟動
+				    				$(".startstatus" ).val(1);
+				    				$('select.startstatus').css('background', 'green'); 
+				    				$('.tdstartstatus').css('background', 'green'); 
 				    			}
 				    		}
 				    }

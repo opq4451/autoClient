@@ -1,0 +1,231 @@
+.lot-nums {
+	border: solid 1px #F2DCAF;
+	padding-top: 5px;
+	padding-left: 15px;
+	clear: both;
+	width: 338px;
+	background-color: #fff;
+	height: 32px;
+	line-height:28px;
+	font-size:16px;
+	text-align:center;
+	color:#FF3300
+}
+.lot-nums span {
+	background: url(/auto/img/pk10-nums.gif) no-repeat;
+	width: 25px;
+	height: 25px;
+	float: left;
+	padding-right: 8px;
+}
+.lot-nums .no1, .lot-table .pk-no1 {
+	background-position: 0px 0px !important;
+}
+.lot-nums .no2, .lot-table .pk-no2 {
+	background-position: 0px -27px !important;
+}
+.lot-nums .no3, .lot-table .pk-no3 {
+	background-position: 0px -54px !important;
+}
+.lot-nums .no4, .lot-table .pk-no4 {
+	background-position: 0px -81px !important;
+}
+.lot-nums .no5, .lot-table .pk-no5 {
+	background-position: 0px -108px !important;
+}
+.lot-nums .no6, .lot-table .pk-no6 {
+	background-position: 0px -135px !important;
+}
+.lot-nums .no7, .lot-table .pk-no7 {
+	background-position: 0px -162px !important;
+}
+.lot-nums .no8, .lot-table .pk-no8 {
+	background-position: 0px -189px !important;
+}
+.lot-nums .no9, .lot-table .pk-no9 {
+	background-position: 0px -216px !important;
+}
+.lot-nums .no10, .lot-table .pk-no10 {
+	background-position: 0px -243px !important;
+}
+
+.lot-table {
+	color: #1d1d1d;
+}
+
+.lot-table .span {
+	color: #1d1d1d;
+}
+.lot-table .red {
+	color: red;
+	font-weight: bold;
+}
+.lot-table .blue {
+	color: blue;
+	font-weight: bold;
+}
+.lot-table .green {
+	color: green;
+	font-weight: bold;
+}
+.nums {
+	width: 344px;
+	padding-left: 8px;
+}
+.nums i {
+	background: url(/auto/img/pk10-nums.gif) no-repeat;
+	width: 25px;
+	height: 25px;
+	float: left;
+	padding-right: 4px;
+	padding-left: 5px;
+}
+.shade i {
+    background: url(../../images/pk10-nums-shade.gif) no-repeat;
+}
+
+
+.noshade {
+    background: url(/auto/img/pk10-nums.gif) no-repeat !important;
+}
+
+.nums .output-li {
+    background: url(/auto/img/pk10-nums.gif) no-repeat;
+    width: 35px;
+    height: 25px;
+    float: left;
+    margin-left: 5px;
+    margin-bottom: 4px;
+    padding-right: 3px;
+}
+
+.shade-ds i {
+	background: url(../../images/pk10-ds.png) no-repeat;
+	width: 25px;
+	height: 25px;
+	float: left;
+	padding-right: 4px;
+	padding-left: 5px;
+}
+.shade-dx i {
+	background: url(../../images/pk10-dx.png) no-repeat;
+	width: 25px;
+	height: 25px;
+	float: left;
+	padding-right: 4px;
+	padding-left: 5px;
+}
+/*����ͼ��ʾ������¼*/
+.infos {
+}
+.infos table {
+	width:300px;
+	text-align:center;
+	font-weight:bold;
+	font-size:12px;
+}
+.infos table td {
+	border:1px solid #d3d3d3;
+	font-family:Arial;
+	cursor:default;
+}
+.infos table td {
+	padding:2px 0 2px 0;
+	vertical-align:middle;
+}
+.infos table td.no {
+	font-weight:normal;
+	padding:0 3px 0 3px;
+	background:#FFFFCC
+}
+.infos table .sortDown {
+	width: 250px;
+}
+.infos table .p {
+	float:left;
+	width:24px;
+}
+.infos table .hm {
+	background: url(/auto/img/pk10-nums.gif)  no-repeat;
+	width: 25px;
+	height: 25px;
+	float: left;
+	margin-left:2px
+}
+.infos table .no1 {
+	background-position: 0px 0px !important;
+}
+.infos table .no2 {
+	background-position: 0px -27px !important;
+}
+.infos table .no3 {
+	background-position: 0px -54px !important;
+}
+.infos table .no4 {
+	background-position: 0px -81px !important;
+}
+.infos table .no5 {
+	background-position: 0px -108px !important;
+}
+.infos table .no6 {
+	background-position: 0px -135px !important;
+}
+.infos table .no7 {
+	background-position: 0px -162px !important;
+}
+.infos table .no8 {
+	background-position: 0px -189px !important;
+}
+.infos table .no9 {
+	background-position: 0px -216px !important;
+}
+.infos table .no10 {
+	background-position: 0px -243px !important;
+}
+/*����ֲ�*/
+#chart .hm {
+	background: url(/auto/img/pk10-nums.gif) no-repeat;
+	width: 25px;
+	height: 25px;
+	display:block;
+	overflow:hidden;
+	border:none;
+	margin-left:5px;
+	margin-top:5px;
+}
+#chart td {
+	color:#999
+}
+#chart .no1 {
+	background-position: 0px 0px !important;
+}
+#chart .no2 {
+	background-position: 0px -27px !important;
+}
+#chart .no3 {
+	background-position: 0px -54px !important;
+}
+#chart .no4 {
+	background-position: 0px -81px !important;
+}
+#chart .no5 {
+	background-position: 0px -108px !important;
+}
+#chart .no6 {
+	background-position: 0px -135px !important;
+}
+#chart .no7 {
+	background-position: 0px -162px !important;
+}
+#chart .no8 {
+	background-position: 0px -189px !important;
+}
+#chart .no9 {
+	background-position: 0px -216px !important;
+}
+#chart .no10 {
+	background-position: 0px -243px !important;
+}
+
+
+

@@ -3,6 +3,7 @@ package com.uf.automatic.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URLEncoder;
@@ -336,7 +337,7 @@ public class Controller {
 			JsonObject o = parser.parse(ret).getAsJsonObject();
 			JsonObject data = o.getAsJsonObject("data");
 			Utils.producePl(normal, ret); // 產生倍率 for single
-			Utils.producePl(bs, h.getoddsInfoForDouble()); // 產生倍率 for 大小單雙
+			//Utils.producePl(bs, h.getoddsInfoForDouble()); // 產生倍率 for 大小單雙
 
 			String drawIssue = data.get("nn").getAsString();
 			p_id = data.get("p_id").getAsString();
@@ -371,6 +372,13 @@ public class Controller {
 				return configProperty.getProperty(phase);
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+		    try {
+                fileIn.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 		}
 
 		return "null";
@@ -974,103 +982,93 @@ public class Controller {
 	}
 
 	@RequestMapping("/getHistory")
-	public String getHistory() {
+    public String getHistory() {
 
-		try {
+        try {
 
-			JsonObject j = new JsonObject();
+            JsonObject j = new JsonObject();
 
-			FileInputStream fileIn = null;
-			try {
-				Properties configProperty = new OrderedProperties();
-				String path = System.getProperty("user.dir");
-				String hisFile = path + "/history.properties";
-				File file = new File(hisFile);
-				if (!file.exists())
-					file.createNewFile();
-				fileIn = new FileInputStream(file);
-				configProperty.load(new InputStreamReader(fileIn, "UTF-8"));
+            FileInputStream fileIn = null;
+            try {
+                Properties configProperty = new OrderedProperties();
+                String path = System.getProperty("user.dir");
+                String hisFile = path + "/history.properties";
+                File file = new File(hisFile);
+                if (!file.exists())
+                    file.createNewFile();
+                fileIn = new FileInputStream(file);
+                configProperty.load(new InputStreamReader(fileIn, "UTF-8"));
 
-				// String logHtml="";
-				StringBuilder logHtml = new StringBuilder();
-				// for (Map.Entry<Object, Object> e : configProperty.entrySet())
-				// {
-				// String key = (String) e.getKey();
-				// String value = (String) e.getValue();
-				// System.out.println(value);
-				// logHtml.insert(0, "<tr><td style=\"border: 1px solid
-				// black\">"+value+"</td></tr>");
-				// //logHtml+="<tr><td style=\"border: 1px solid
-				// black\">"+value+"</td></tr>";
-				// }
-				for (Enumeration e = configProperty.propertyNames(); e.hasMoreElements();) {
-					String key = e.nextElement().toString();
-					String v = configProperty.getProperty(key);
-					String array[] = v.split(",");
+                // String logHtml="";
+                StringBuilder logHtml = new StringBuilder();
+                // for (Map.Entry<Object, Object> e : configProperty.entrySet())
+                // {
+                // String key = (String) e.getKey();
+                // String value = (String) e.getValue();
+                // System.out.println(value);
+                // logHtml.insert(0, "<tr><td style=\"border: 1px solid
+                // black\">"+value+"</td></tr>");
+                // //logHtml+="<tr><td style=\"border: 1px solid
+                // black\">"+value+"</td></tr>";
+                // }
+                for (Enumeration e = configProperty.propertyNames(); e.hasMoreElements();) {
+                    String key = e.nextElement().toString();
+                    String v = configProperty.getProperty(key);
+                    String array[] = v.split(",");
 
-					String temp = "<tr><td style=\\\"border: 1px solid black\\\"> " + key + "</td>";
-					for (int i = 0; i < 10; i++) {
-						if (Integer.parseInt(array[i]) == 1)
-							temp += "<td align=\"center\" style=\"font-size: 16px;font-weight:bold;border: 1px solid black;background-color:#FFFF00\">"
-									+ Integer.parseInt(array[i]) + "</td>";
-						if (Integer.parseInt(array[i]) == 2)
-							temp += "<td align=\"center\" style=\"font-size: 16px;font-weight:bold;border: 1px solid black;background-color:#ADD8E6\">"
-									+ Integer.parseInt(array[i]) + "</td>";
-						if (Integer.parseInt(array[i]) == 3)
-							temp += "<td align=\"center\" style=\"font-size: 16px;font-weight:bold;border: 1px solid black;background-color:#F0FFFF\">"
-									+ Integer.parseInt(array[i]) + "</td>";
-						if (Integer.parseInt(array[i]) == 4)
-							temp += "<td align=\"center\" style=\"font-size: 16px;font-weight:bold;border: 1px solid black;background-color:#D2691E\">"
-									+ Integer.parseInt(array[i]) + "</td>";
-						if (Integer.parseInt(array[i]) == 5)
-							temp += "<td align=\"center\" style=\"font-size: 16px;font-weight:bold;border: 1px solid black;background-color:#00FFFF\">"
-									+ Integer.parseInt(array[i]) + "</td>";
-						if (Integer.parseInt(array[i]) == 6)
-							temp += "<td align=\"center\" style=\"font-size: 16px;font-weight:bold;border: 1px solid black;background-color:#8A2BE2\">"
-									+ Integer.parseInt(array[i]) + "</td>";
-						if (Integer.parseInt(array[i]) == 7)
-							temp += "<td align=\"center\" style=\"font-size: 16px;font-weight:bold;border: 1px solid black;background-color:#FFF8DC\">"
-									+ Integer.parseInt(array[i]) + "</td>";
-						if (Integer.parseInt(array[i]) == 8)
-							temp += "<td align=\"center\" style=\"font-size: 16px;font-weight:bold;border: 1px solid black;background-color:#DC143C\">"
-									+ Integer.parseInt(array[i]) + "</td>";
-						if (Integer.parseInt(array[i]) == 9)
-							temp += "<td align=\"center\" style=\"font-size: 16px;font-weight:bold;border: 1px solid black;background-color:#A52A2A\">"
-									+ Integer.parseInt(array[i]) + "</td>";
-						if (Integer.parseInt(array[i]) == 10)
-							temp += "<td align=\"center\" style=\"font-size: 16px;font-weight:bold;border: 1px solid black;background-color:#7FFF00\">"
-									+ Integer.parseInt(array[i]) + "</td>";
+                    String temp = "<tr ><td style=\"border: 1px solid gray;border-collapse: collapse;padding-left: 0.1cm; padding-right: 0.1cm;\"> " + key + "</td>";
+                    temp += "<td class=\"nums\"  nowrap style=\"border: 1px solid gray;border-collapse: collapse;padding-top: 0.1cm; padding-bottom: 0.1cm;\">" ;
+                    for (int i = 0; i < 10; i++) {
+                          
+                        if (Integer.parseInt(array[i]) == 1)
+                            temp += "<i class=\"pk-no" +  Integer.parseInt(array[i]) + "\"></i>";
+                        if (Integer.parseInt(array[i]) == 2)
+                            temp += "<i class=\"pk-no" +  Integer.parseInt(array[i]) + "\"></i>";
+                        if (Integer.parseInt(array[i]) == 3)
+                            temp += "<i class=\"pk-no" +  Integer.parseInt(array[i]) + "\"></i>";
+                        if (Integer.parseInt(array[i]) == 4)
+                            temp += "<i class=\"pk-no" +  Integer.parseInt(array[i]) + "\"></i>";
+                        if (Integer.parseInt(array[i]) == 5)
+                            temp += "<i class=\"pk-no" +  Integer.parseInt(array[i]) + "\"></i>";
+                        if (Integer.parseInt(array[i]) == 6)
+                            temp += "<i class=\"pk-no" +  Integer.parseInt(array[i]) + "\"></i>";
+                        if (Integer.parseInt(array[i]) == 7)
+                            temp += "<i class=\"pk-no" +  Integer.parseInt(array[i]) + "\"></i>";
+                        if (Integer.parseInt(array[i]) == 8)
+                            temp += "<i class=\"pk-no" +  Integer.parseInt(array[i]) + "\"></i>";
+                        if (Integer.parseInt(array[i]) == 9)
+                            temp += "<i class=\"pk-no" +  Integer.parseInt(array[i]) + "\"></i>";
+                        if (Integer.parseInt(array[i]) == 10)
+                            temp += "<i class=\"pk-no" +  Integer.parseInt(array[i]) + "\"></i>";
 
-					}
-					temp += "</tr>";
+                    }
+                    temp += "</td>" ;
+                    temp += "</tr>";
 
-					logHtml.insert(0, temp);
-				}
+                    logHtml.insert(0, temp);
+                }
 
-				String title = "<tr><td nowrap style=\"border: 1px solid black\">開獎期別</td><td nowrap style=\"border: 1px solid black\">第一名</td><td nowrap style=\"border: 1px solid black\">第二名</td><td  nowrap style=\"border: 1px solid black\">第三名</td>"
-						+ "<td nowrap style=\"border: 1px solid black\">第四名</td><td  nowrap style=\"border: 1px solid black\">第五名</td><td  nowrap style=\"border: 1px solid black\">第六名</td>"
-						+ "<td  nowrap style=\"border: 1px solid black\">第七名</td><td  nowrap style=\"border: 1px solid black\">第八名</td><td  nowrap style=\"border: 1px solid black\">第九名</td>"
-						+ "<td  nowrap style=\"border: 1px solid black\">第十名</td>" + "</tr>";
+                String title = "<tr><td nowrap align=center style=\"border: 1px solid gray;border-collapse: collapse;padding-left: 0.2cm; padding-right: 0.2cm;\">開獎期別</td><td nowrap align=center style=\"border: 1px solid gray;border-collapse: collapse;\">開獎號碼</td>" + "</tr>";
 
-				j.addProperty("logHtml", "<table style=\"border-collapse: collapse;\">" + title + logHtml + "</table>");
+                j.addProperty("logHtml", "<table class=\"lot-table\" style=\"border: 1px solid gray;border-collapse: collapse;\">" + title + logHtml + "</table>");
 
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
 
-				try {
-					fileIn.close();
-				} catch (Exception ex) {
-				}
-			}
+                try {
+                    fileIn.close();
+                } catch (Exception ex) {
+                }
+            }
 
-			return j.toString();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+            return j.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		return "null";
-	}
+        return "null";
+    }
 
 	public String getRate(String latter) {
 		if (latter.equals("A"))
