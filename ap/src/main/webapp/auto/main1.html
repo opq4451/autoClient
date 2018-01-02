@@ -175,6 +175,8 @@
 			-webkit-animation-timing-function:ease-in-out;
 			-webkit-animation-direction: alternate;
 		}
+		
+		
 </style>
 <link rel="stylesheet" type="text/css" href="img/pk10.css">
 </head>
@@ -211,9 +213,9 @@
 					 <div  class="maxcredit">loading...</div>
 			</td>
 			<td nowrap class="s_lose" style="padding-left: 0.2cm; padding-right: 0.2cm;">止損金額</td>
-					<td class="tdClass" > <input style="font-size: 15px; text-align: center;" class="stoplose" type ="text" size=5/> </td> 
+					<td class="tdClass" > <input  style=" font-size: 15px; text-align: center;" class="stoplose" type ="text" size=5/> </td> 
 		    <td nowrap class="s_win"  style="padding-left: 0.2cm; padding-right: 0.2cm;">止盈金額</td>
-					<td  class="tdClass"  > <input style="font-size: 15px; text-align: center;" class="stopwin" type ="text" size=5/>
+					<td  class="tdClass" > <input style=" font-size: 15px; text-align: center;" class="stopwin" type ="text" size=5/>
 					</td>
 			<td nowrap style="display:none">
 					已用點數
@@ -237,11 +239,11 @@
 					盤口目前期別 
 			</td>
 			<td colspan=1 class="tdClass">
-					<font color="blue"> <div  class="toPhase">loading..</div></font>
+					 <div  class="toPhase">loading..</div> 
 			</td>
 			
 			<td colspan=4 class="tdClass"> 
-			 <input type="checkbox" name="autoStart" id="autoStart" value="2"  style=" zoom: 1.4;" >自動啟動
+			 <input type="checkbox" name="autoStart" id="autoStart" value="2"  style=" zoom: 1.4;"  >自動啟動
 			  <input id="s_h" type ="text" size=2 maxlength=2 value='09' style="width:30px; font-size: 15px;text-align: center;"/> : <input id="s_m" type ="text" size=2 maxlength=2 value='30' style="width:30px; font-size: 15px;text-align: center;"/> 到
 			  <input id="e_h" type ="text" size=2 maxlength=2 value='23' style="width:30px; font-size: 15px;text-align: center;"/> : <input id="e_m" type ="text" size=2 maxlength=2 value='30' style="width:30px; font-size: 15px;text-align: center;"/>
 			 </td>
@@ -255,7 +257,7 @@
 					盤口開獎期別
 			</td>
 			<td  class="tdClass">
-				<font color="blue">	 <div  class="toNowPhase">loading...</div></font>
+				  <div  class="toNowPhase">loading...</div> 
 			</td>
 			<td nowrap class="tdClass">截止下注時間
 			</td>
@@ -271,8 +273,8 @@
 		
 		<tr  >
 			<td width="1%" class="tdClass">開獎號碼</td>
-			<td colspan=5 class="tdClass">
-					  <div id="openCode" style="display:none"  class="lot-table">loading...</div><div id="blinkStr" class="blink">開獎中...</div>
+			<td colspan=5 class="tdClass" style="padding-left: 1.6cm;">
+					  <div id="openCode" style="display:none;text-align: center;"  class="lot-table">loading...</div><div id="blinkStr" class="blink">開獎中...</div>
 			</td>
 			
 			
@@ -286,7 +288,7 @@
 		
 			<tr>
 			<td width="1%" class="tdClass">程式啟動</td>
-			<td  class="tdstartstatus" colspan=1 style="text-align:left">
+			<td  class="tdstartstatus"   style="text-align:left">
 					    <select class="startstatus"   style="text-align-last:center;font-size: 18px;width:120px;border:0px;outline:0px;">
 						  <option value="0" class="red">已停止 </option>
 						  <option value="1" >下注中 </option> 
@@ -338,16 +340,16 @@
 	
 	<div class="left_column">
 		
-		<div class="historyHtml"></div>
+		<div class="historyHtml" style="width:100%;"></div>
 	</div>
 	
 	<div class="center_column"> 	
-		<div class="logHtml">loading...</div>
+		<div class="logHtml" style="width:100%;">loading...</div>
 	</div>	
 			
 			
 	<div class="right_column"> 
-		<div class="logOverHtml">loading...</div>
+		<div class="logOverHtml" style="width:100%;">loading...</div>
 	</div>			
 				 
 		 
@@ -374,7 +376,7 @@
 		   betIndex4 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
 		   betIndex5 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
 		   betIndex6 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
-		   document.getElementById("autoStart").checked = false;
+		   //document.getElementById("autoStart").checked = false;
 
 	   }
 		 
@@ -584,7 +586,8 @@
  	
     $(document).ready(function(){
    	 	
-
+    	    document.getElementById("autoStart").checked = true;
+ 
     		clearAll();
     		
         $('select.startstatus').change(function(){
@@ -593,7 +596,7 @@
         $( ".startstatus" ).val(0);
        	setExtendTimeTimeout();
        
-	 	let url = 'http://220.132.126.216:9999/getHistory';
+	 	let url = u + '/getHistory';
 		  
       	 $.ajax({ url:  url, 
    	         async: true,
@@ -673,7 +676,7 @@
     
     
     function getWinFun(init_flag){
-    	 var url =  u + '/getTodayWin?user='+document.getElementById("user").value;
+    	 var url =  u + '/getTodayWin?user='+document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value;
 		 var flag = true;  
     	 $.ajax({ url:  url, 
 	         async: false,
@@ -1153,7 +1156,7 @@
 			            	   	  $('#openCode').show();
 			            	   	  //set code
 			            	   	  let codearr = c.split(',');
-			            	   	  let temp= "<div class=\"nums\"  style=\"padding-top: 0.1cm; padding-bottom: 0.1cm;\">";
+			            	   	  let temp= "<div  align=\"center\" class=\"nums\"  style=\"padding-top: 0.1cm; padding-bottom: 0.1cm;\">";
 			            	   
 			            	   	  for(var i=0;i<codearr.length;i++){
 			            	   		  
@@ -1182,7 +1185,7 @@
 			            	      $( "div.lot-table" ).html(temp);
 			            	      
 			            	 	  //$( "div.nowCode" ).text(c);
-		    	 				  let url = 'http://220.132.126.216:9999/getHistory';
+		    	 				  let url = u + '/getHistory';
 			  				   
 			    		       	  $.ajax({ url:  url, 
 			    		    	         async: false,
@@ -1380,7 +1383,7 @@
 		
 	    setTimeout(function () {
     	        
-		    	 	let url = 'http://220.132.126.216:9999/getHistory';
+		    	 	let url = u + '/getHistory';
 				   
 		       	 $.ajax({ url:  url, 
 		    	         async: true,

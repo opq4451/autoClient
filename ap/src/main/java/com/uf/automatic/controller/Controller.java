@@ -145,7 +145,7 @@ public class Controller {
 	}
 
 	@RequestMapping("/getTodayWin")
-	public String getTodayWin(@RequestParam("user") String user) {
+	public String getTodayWin(@RequestParam("user") String user,@RequestParam("pwd") String pwd) {
 
 		try {
 			if (h == null) {
@@ -273,40 +273,83 @@ public class Controller {
 					String v = configProperty.getProperty(e.nextElement().toString());
 
 					String formuStr = v.substring(v.length() - 5, v.length()); // (公式1)
+					String phase = v.substring(1,7);
 					
 					if(v.indexOf("第0關")>-1){  //下注0的不用顯示在log
 						continue;
 					}
 					
+				
+					{
+					    if(m.get(phase) == null) {
+					        i++;
+                            if(i % 2 == 1) {
+                                logHtml.insert(0,"<table  style=\"width:100%;border: 5px solid black;border-collapse: collapse;\">" );
+                            }else {
+                                logHtml.insert(0,"<table style=\"width:100%;border: 1px solid black;border-collapse: collapse;\">" );
+                            }  
+                            logHtml.insert(0,"</table>" ); 
+
+					        
+	                        m.put(phase, phase);
+
+	                     
+	                     
+	                     } 
+	                    
+					}
+					
 					if (formuStr.equals("(公式1)")) {
-						logHtml.insert(0,
+ 						logHtml.insert(0,
 								"<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
 					}
-					if (formuStr.equals("(公式2)")) {
+					if (formuStr.equals("(公式2)")) { 
 						logHtml.insert(0,
 								"<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
 					}
-					if (formuStr.equals("(公式3)")) {
+					if (formuStr.equals("(公式3)")) { 
 						logHtml.insert(0,
 								"<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
 					}
-					if (formuStr.equals("(公式4)")) {
+					if (formuStr.equals("(公式4)")) { 
 						logHtml.insert(0,
 								"<tr><td bgcolor=\"5599FF\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
 					}
-					if (formuStr.equals("(公式5)")) {
+					if (formuStr.equals("(公式5)")) { 
 						logHtml.insert(0,
 								"<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
 					}
 					
-					if (formuStr.equals("(公式6)")) {
+					if (formuStr.equals("(公式6)")) { 
 						logHtml.insert(0,
 								"<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
 					}
+					
+				
+					
+//					if(m.get(phase+"title") == null) {
+////                       
+////                        
+//					    i++;
+//                        if(i % 2 == 1) {
+//                            logHtml.insert(0,"<table  style=\"width:100%;border: 5px solid black;border-collapse: collapse;\">" );
+//                        }else {
+//                            logHtml.insert(0,"<table style=\"width:100%;border: 1px solid black;border-collapse: collapse;\">" );
+//                        }  
+//
+//                        
+//                        m.put(phase+"title", phase);
+//                    
+////                     
+////
+////                     
+////                        
+//                     } 
+					
+				} 
 
-				}
-
-				j.addProperty("logHtml", "<table style=\"border-collapse: collapse;\">" + logHtml + "</table>");
+				j.addProperty("logHtml", "<table style=\"width:100%;border: 1px solid black;border-collapse: collapse;\">" + 
+				              logHtml.toString()  );
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -1017,40 +1060,52 @@ public class Controller {
                     String array[] = v.split(",");
 
                     String temp = "<tr ><td style=\"border: 1px solid gray;border-collapse: collapse;padding-left: 0.1cm; padding-right: 0.1cm;\"> " + key + "</td>";
-                    temp += "<td class=\"nums\"  nowrap style=\"border: 1px solid gray;border-collapse: collapse;padding-top: 0.1cm; padding-bottom: 0.1cm;\">" ;
+                    //temp += "<td class=\"nums\"  colspan=11 nowrap style=\"border: 1px solid gray;border-collapse: collapse;padding-top: 0.1cm; padding-bottom: 0.1cm;\">" ;
                     for (int i = 0; i < 10; i++) {
-                          
                         if (Integer.parseInt(array[i]) == 1)
-                            temp += "<i class=\"pk-no" +  Integer.parseInt(array[i]) + "\"></i>";
+                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 3px solid ;border-style:ridge;background-color:#FFFF00\">"
+                                    + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 2)
-                            temp += "<i class=\"pk-no" +  Integer.parseInt(array[i]) + "\"></i>";
+                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 3px solid ;border-style:ridge;background-color:#ADD8E6\">"
+                                    + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 3)
-                            temp += "<i class=\"pk-no" +  Integer.parseInt(array[i]) + "\"></i>";
+                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 3px solid ;border-style:ridge;background-color:#F0FFFF\">"
+                                    + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 4)
-                            temp += "<i class=\"pk-no" +  Integer.parseInt(array[i]) + "\"></i>";
+                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 3px solid ;border-style:ridge;background-color:#D2691E\">"
+                                    + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 5)
-                            temp += "<i class=\"pk-no" +  Integer.parseInt(array[i]) + "\"></i>";
+                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 3px solid ;border-style:ridge;background-color:#00FFFF\">"
+                                    + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 6)
-                            temp += "<i class=\"pk-no" +  Integer.parseInt(array[i]) + "\"></i>";
+                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 3px solid ;border-style:ridge;background-color:#8A2BE2\">"
+                                    + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 7)
-                            temp += "<i class=\"pk-no" +  Integer.parseInt(array[i]) + "\"></i>";
+                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 3px solid ;border-style:ridge;background-color:#FFF8DC\">"
+                                    + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 8)
-                            temp += "<i class=\"pk-no" +  Integer.parseInt(array[i]) + "\"></i>";
+                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 3px solid ;border-style:ridge;background-color:#DC143C\">"
+                                    + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 9)
-                            temp += "<i class=\"pk-no" +  Integer.parseInt(array[i]) + "\"></i>";
+                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 3px solid ;border-style:ridge;background-color:#A52A2A\">"
+                                    + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 10)
-                            temp += "<i class=\"pk-no" +  Integer.parseInt(array[i]) + "\"></i>";
+                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 3px solid ;border-style:ridge;background-color:#7FFF00\">"
+                                    + Integer.parseInt(array[i]) + "</td>";
 
                     }
-                    temp += "</td>" ;
+
+                   // temp += "</td>" ;
                     temp += "</tr>";
 
                     logHtml.insert(0, temp);
                 }
+                String title = "<tr><td nowrap style=\"border: 1px solid black\">開獎期別</td><td nowrap style=\"border: 1px solid black\">第一名</td><td nowrap style=\"border: 1px solid black\">第二名</td><td  nowrap style=\"border: 1px solid black\">第三名</td>"
+                        + "<td nowrap style=\"border: 1px solid black\">第四名</td><td  nowrap style=\"border: 1px solid black\">第五名</td><td  nowrap style=\"border: 1px solid black\">第六名</td>"
+                        + "<td  nowrap style=\"border: 1px solid black\">第七名</td><td  nowrap style=\"border: 1px solid black\">第八名</td><td  nowrap style=\"border: 1px solid black\">第九名</td>"
+                        + "<td  nowrap style=\"border: 1px solid black\">第十名</td>" + "</tr>";
 
-                String title = "<tr><td nowrap align=center style=\"border: 1px solid gray;border-collapse: collapse;padding-left: 0.2cm; padding-right: 0.2cm;\">開獎期別</td><td nowrap align=center style=\"border: 1px solid gray;border-collapse: collapse;\">開獎號碼</td>" + "</tr>";
-
-                j.addProperty("logHtml", "<table class=\"lot-table\" style=\"border: 1px solid gray;border-collapse: collapse;\">" + title + logHtml + "</table>");
+                j.addProperty("logHtml", "<table class=\"lot-table\" style=\"width:100%;border: 1px solid gray;border-collapse: collapse;\">" + title + logHtml + "</table>");
 
             } catch (Exception e) {
                 e.printStackTrace();
