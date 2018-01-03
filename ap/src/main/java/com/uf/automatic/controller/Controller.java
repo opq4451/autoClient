@@ -583,7 +583,7 @@ public class Controller {
 			if (c.length != 10)
 				return "null";
 
-			for (int x = 1; x < 7; x++) { // x → 公式幾
+			for (int x = 1; x < 11; x++) { // x → 公式幾
 				for (int i = 0; i < 10; i++) {
 					int sn = i + 1;
 

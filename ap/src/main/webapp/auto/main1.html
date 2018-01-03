@@ -34,7 +34,7 @@
 	    
 	    .center_tablebar{
 	    	position: absolute;
-	    	top: 25%;
+	    	top: 45%;
 	    	left:0%;
 	    	width: 100%;
 	    	height: 10%;
@@ -68,7 +68,7 @@
 	    .left_column{
 	    border: 1px solid gray;
 	    	position: absolute;
-	    	top: 35%;
+	    	top: 55%;
 	    	left: 0%;
 	    	width: 35%;
 	    	overflow-y:scroll; 
@@ -92,7 +92,7 @@
 	    .center_column{
 	        border: 1px solid gray;
 	    	position: absolute;
-	    	top: 35%;
+	    	top: 55%;
 	    	left: 35%;
 	    	width: 35%;
 	    	overflow-y:scroll; 
@@ -106,7 +106,7 @@
 	    .right_column{
 	     border: 1px solid gray;
 	    	position: absolute;
-	    	top: 35%;
+	    	top: 55%;
 	    	left: 70%;
 	    	width: 30%;
 	    	overflow-y:scroll; 
@@ -311,6 +311,27 @@
 		  <td nowrap class="tdClass">下注參數</td> 
 			 <td style="text-align:left" class="tdClass"> <input class="betlist6" type ="text" style="width:90%" /></td><td class="tdClass"><button type="button" onclick="save_param()" class="button"  style="width:60px">儲存</button></td> 
 			 
+		</tr>
+		
+		<tr>
+				<td class="tdClass" nowrap> <input type="checkbox" name="c1" id="c7" value="5"  >金星-公式7</td> 
+		 			 <td nowrap class="tdClass">下注參數</td> 
+			    <td style="text-align:left" class="tdClass"> <input class="betlist7" type ="text" style="width:90%" /></td><td class="tdClass"><button type="button" onclick="save_param()" class="button"  style="width:60px">儲存</button></td> 
+				 <td class="tdClass" nowrap> <input type="checkbox" name="c1" id="c8" value="5"  >金星-公式8</td> 
+		 			 <td nowrap class="tdClass">下注參數</td> 
+			     <td style="text-align:left" class="tdClass"> <input class="betlist8" type ="text" style="width:90%" /></td><td class="tdClass"><button type="button" onclick="save_param()" class="button"  style="width:60px">儲存</button></td> 
+			 
+		</tr>
+		<tr>
+				<td class="tdClass" nowrap> <input type="checkbox" name="c1" id="c9" value="5"  >金星-公式9</td> 
+		 			 <td nowrap class="tdClass">下注參數</td> 
+			    <td style="text-align:left" class="tdClass"> <input class="betlist9" type ="text" style="width:90%" /></td><td class="tdClass"><button type="button" onclick="save_param()" class="button"  style="width:60px">儲存</button></td> 
+				 <td class="tdClass" nowrap> <input type="checkbox" name="c1" id="c10" value="5"  >金星-公式10</td> 
+		 			 <td nowrap class="tdClass">下注參數</td> 
+			     <td style="text-align:left" class="tdClass"> <input class="betlist10" type ="text" style="width:90%" /></td><td class="tdClass"><button type="button" onclick="save_param()" class="button"  style="width:60px">儲存</button></td> 
+			 
+		</tr>
+				
 		</tr>
 	 </table> 
 	   </div>
@@ -1650,4 +1671,312 @@
 	         	 }
 	        });
     }
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+
+//7 8
+
+    var betTemp7   = { '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : '', '10' : '', };
+    var betTemp8   = { '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : '', '10' : '', };
+    var betTemp9   = { '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : '', '10' : '', };
+    var betTemp10   = { '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : '', '10' : '', };
+
+    const rangeExist_7  = { //index for 動態
+ 			'1' : ['1','2','3','9','10'] ,
+ 			'2' : ['1','2','3','4','10'] ,
+ 			'3' : ['1','2','3','4','5'] ,
+ 			'4' : ['2','3','4','5','6'] ,
+ 			'5' : ['3','4','5','6','7'] ,
+ 			'6' : ['4','5','6','7','8'] ,
+ 			'7' : ['5','6','7','8','9'] ,
+ 			'8' : ['6','7','8','9','10'] ,
+ 			'9' : ['1','7','8','9','10'] ,
+ 			'10' : ['1','2','8','9','10'] ,
+
+ 	};
+    const rangeExist_8  = {  
+			'1' : ['4','5','6','7','8'] ,
+			'2' : ['5','6','7','8','9'] ,
+			'3' : ['6','7','8','9','10'] ,
+			'4' : ['1','7','8','9','10'] ,
+			'5' : ['1','2','8','9','10'] ,
+			'6' : ['1','2','3','9','10'] ,
+			'7' : ['1','2','3','4','10'] ,
+			'8' : ['1','2','3','4','5'] ,
+			'9' : ['2','3','4','5','6'] ,
+			'10' : ['3','4','5','6','7'] ,
+
+	};
+    
+	
+	function compareByType7(phase_before,phase_now,phase_before4 , bIndex, bArray){
+		   
+		const code_b = getCodeByPhase(phase_before); 
+		const code_n = getCodeByPhase(phase_now);
+		const code_before4 = getCodeByPhase(phase_before4);
+		
+		const array_b = code_b.split(',');
+		const array_n = code_n.split(',');
+		const array_before4 = code_before4.split(',');
+		if(array_b.length==0 || array_n.length==0 || array_before4.length==0  ){
+			return;
+		}
+		for(var i=0;i<10;i++){
+			const bet_b = array_b[i];
+			const bet_n = array_n[i];
+			const bet_before4 = array_before4[i];
+ 
+		 	//var d = getYYYYMMDDSS();
+			var z = i+1;
+		 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+		 	//var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
+		 	//logAppend(cLog) ;
+		     
+				
+			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+  			//var betList =  rangeExist[bet_before4].toString().split(',');
+			var writeFlag = false;
+			//var betStr="";
+		    var amount = bArray[bIndex[z]%bArray.length] ;
+		    //var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist[bet_before4]+")" ;
+		 	//logAppend(betLog) ; 
+		 	
+		 	
+		 	var mid ;
+		 	//alert("第" + z + "名," + mid)
+		 	
+		 	var proessBet = '';
+		 	
+		 	if(betc > 1){
+		 		
+		 	} else {
+		 	    mid = getMid(i,array_before4);
+		 	    betTemp7[i] = rangeExist_7[mid].toString() ; 
+		 	}
+		 	
+	   		reallyBet(z, amount, (phase_now+1) , betc , betTemp7[i].toString(),'7');
+		    //var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
+		 	//logAppend(log) ;
+			bIndex[z] = bIndex[z]+1;  
+		}
+		
+	}
+	
+	
+	function compareByType8(phase_before,phase_now,phase_before4 , bIndex, bArray){
+		   
+		const code_b = getCodeByPhase(phase_before); 
+		const code_n = getCodeByPhase(phase_now);
+		const code_before4 = getCodeByPhase(phase_before4);
+		
+		const array_b = code_b.split(',');
+		const array_n = code_n.split(',');
+		const array_before4 = code_before4.split(',');
+		if(array_b.length==0 || array_n.length==0 || array_before4.length==0  ){
+			return;
+		}
+		for(var i=0;i<10;i++){
+			const bet_b = array_b[i];
+			const bet_n = array_n[i];
+			const bet_before4 = array_before4[i];
+	
+		 	//var d = getYYYYMMDDSS();
+			var z = i+1;
+		 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+		 	//var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
+		 	//logAppend(cLog) ;
+		     
+				
+			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+				//var betList =  rangeExist[bet_before4].toString().split(',');
+			var writeFlag = false;
+			//var betStr="";
+		    var amount = bArray[bIndex[z]%bArray.length] ;
+		    //var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist[bet_before4]+")" ;
+		 	//logAppend(betLog) ; 
+		 	
+		 	
+		 	var mid ;
+		 	//alert("第" + z + "名," + mid)
+		 	
+		 	var proessBet = '';
+		 	
+		 	if(betc > 1){
+		 		
+		 	} else { 
+		 		betTemp8[i] = rangeExist_8[bet_before4].toString() ; 
+		 	}
+		 	
+	   		reallyBet(z, amount, (phase_now+1) , betc , betTemp8[i].toString(),'8');
+		    //var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
+		 	//logAppend(log) ;
+			bIndex[z] = bIndex[z]+1;  
+		}
+		
+	}
+	
+	
+	function getMid(postion,code){
+		let mid = "";
+		if(postion==0){ mid = (code[9]*1 + code[0]*1 + code[1]*1) % 10 }
+		if(postion==1){ mid = (code[0]*1 + code[1]*1 + code[2]*1) % 10 }
+		if(postion==2){ mid = (code[1]*1 + code[2]*1 + code[3]*1) % 10 }
+		if(postion==3){ mid = (code[2]*1 + code[3]*1 + code[4]*1) % 10 }
+		if(postion==4){ mid = (code[3]*1 + code[4]*1 + code[5]*1) % 10 }
+		if(postion==5){ mid = (code[4]*1 + code[5]*1 + code[6]*1) % 10 }
+		if(postion==6){ mid = (code[5]*1 + code[6]*1 + code[7]*1) % 10 }
+		if(postion==7){ mid = (code[6]*1 + code[7]*1 + code[8]*1) % 10 }
+		if(postion==8){ mid = (code[7]*1 + code[8]*1 + code[9]*1) % 10 }
+		if(postion==9){ mid = (code[8]*1 + code[9]*1 + code[0]*1) % 10 }
+		
+		return 10 - mid ;
+
+	}
+	
+	 //9 10
+	
+	    const rangeExist_9  = {  
+				'1' : ['1','2','3','9','10'] ,
+				'2' : ['1','2','3','4','10'] ,
+				'3' : ['1','2','3','4','5'] ,
+				'4' : ['2','3','4','5','6'] ,
+				'5' : ['3','4','6','7','8'] ,
+				'6' : ['4','5','6','7','8'] ,
+				'7' : ['5','6','7','8','9'] ,
+				'8' : ['6','7','8','9','10'] ,
+				'9' : ['1','7','8','9','10'] ,
+				'10' : ['1','2','8','9','10'] ,
+	
+		};
+		 
+
+		function compareByType9(phase_before,phase_now,phase_before4 , bIndex, bArray){
+			   
+			const code_b = getCodeByPhase(phase_before); 
+			const code_n = getCodeByPhase(phase_now);
+			const code_before4 = getCodeByPhase(phase_before4);
+			
+			const array_b = code_b.split(',');
+			const array_n = code_n.split(',');
+			const array_before4 = code_before4.split(',');
+			if(array_b.length==0 || array_n.length==0 || array_before4.length==0  ){
+				return;
+			}
+			for(var i=0;i<10;i++){
+				const bet_b = array_b[i];
+				const bet_n = array_n[i];
+				const bet_before4 = array_before4[i];
+		
+			 	//var d = getYYYYMMDDSS();
+				var z = i+1;
+			 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+			 	//var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
+			 	//logAppend(cLog) ;
+			     
+					
+				var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+					//var betList =  rangeExist[bet_before4].toString().split(',');
+				var writeFlag = false;
+				//var betStr="";
+			    var amount = bArray[bIndex[z]%bArray.length] ;
+			    //var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist[bet_before4]+")" ;
+			 	//logAppend(betLog) ; 
+			 	
+			 	
+			 	var mid ;
+			 	//alert("第" + z + "名," + mid)
+			 	
+			 	var proessBet = '';
+			 	
+			 	if(betc > 1){
+			 		
+			 	} else { 
+			 		betTemp9[i] = rangeExist_9[bet_before4].toString() ; 
+			 	}
+			 	
+		   		reallyBet(z, amount, (phase_now+1) , betc , betTemp9[i].toString(),'9');
+			    //var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
+			 	//logAppend(log) ;
+				bIndex[z] = bIndex[z]+1;  
+			}
+			
+		}
+
+		 
+
+		const rangeExist_10  = {  
+ 			'1' : ['4','5','6','7','8'] ,
+ 			'2' : ['5','6','7','8','9'] ,
+ 			'3' : ['6','7','8','9','10'] ,
+ 			'4' : ['1','7','8','9','10'] ,
+ 			'5' : ['1','2','8','9','10'] ,
+ 			'6' : ['1','2','3','9','10'] ,
+ 			'7' : ['1','2','3','4','10'] ,
+ 			'8' : ['1','2','3','4','5'] ,
+ 			'9' : ['2','3','4','5','6'] ,
+ 			'10' : ['3','4','5','6','7'] ,
+
+ 		};
+ 
+ 		function compareByType10(phase_before,phase_now,phase_before4 , bIndex, bArray){
+		   
+		const code_b = getCodeByPhase(phase_before); 
+		const code_n = getCodeByPhase(phase_now);
+		const code_before4 = getCodeByPhase(phase_before4);
+		
+		const array_b = code_b.split(',');
+		const array_n = code_n.split(',');
+		const array_before4 = code_before4.split(',');
+		if(array_b.length==0 || array_n.length==0 || array_before4.length==0  ){
+			return;
+		}
+		for(var i=0;i<10;i++){
+			const bet_b = array_b[i];
+			const bet_n = array_n[i];
+			const bet_before4 = array_before4[i];
+ 
+		 	//var d = getYYYYMMDDSS();
+			var z = i+1;
+		 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+		 	//var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
+		 	//logAppend(cLog) ;
+		     
+				
+			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+  			//var betList =  rangeExist[bet_before4].toString().split(',');
+			var writeFlag = false;
+			//var betStr="";
+		    var amount = bArray[bIndex[z]%bArray.length] ;
+		    //var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist[bet_before4]+")" ;
+		 	//logAppend(betLog) ; 
+		 	
+		 	
+		 	var mid ;
+		 	//alert("第" + z + "名," + mid)
+		 	
+		 	var proessBet = '';
+		 	
+		 	if(betc > 1){
+		 		
+		 	} else {
+		 	    mid = getMid(i,array_before4);
+		 	    betTemp10[i] = rangeExist_10[mid].toString() ; 
+		 	}
+		 	
+	   		reallyBet(z, amount, (phase_now+1) , betc , betTemp10[i].toString(),'10');
+		    //var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
+		 	//logAppend(log) ;
+			bIndex[z] = bIndex[z]+1;  
+		}
+		
+	}
 </script>
