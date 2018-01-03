@@ -199,6 +199,10 @@ public class Controller {
 				String betlist4 = configProperty.getProperty("betlist4");
 				String betlist5 = configProperty.getProperty("betlist5");
 				String betlist6 = configProperty.getProperty("betlist6");
+                String betlist7 = configProperty.getProperty("betlist7");
+                String betlist8 = configProperty.getProperty("betlist8");
+                String betlist9 = configProperty.getProperty("betlist9");
+                String betlist10 = configProperty.getProperty("betlist10");
 
 				String stoplose = configProperty.getProperty("stoplose");
 				String stopwin = configProperty.getProperty("stopwin");
@@ -211,6 +215,10 @@ public class Controller {
 				j.addProperty("betlist4", betlist4);
 				j.addProperty("betlist5", betlist5);
 				j.addProperty("betlist6", betlist6);
+                j.addProperty("betlist7", betlist7);
+                j.addProperty("betlist8", betlist8);
+                j.addProperty("betlist9", betlist9);
+                j.addProperty("betlist10", betlist10);
 
 				j.addProperty("stoplose", stoplose);
 				j.addProperty("stopwin", stopwin);
@@ -324,6 +332,22 @@ public class Controller {
 						logHtml.insert(0,
 								"<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
 					}
+					if (formuStr.equals("(公式7)")) { 
+                        logHtml.insert(0,
+                                "<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
+                    }
+					if (formuStr.equals("(公式8)")) { 
+                        logHtml.insert(0,
+                                "<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
+                    }
+					if (formuStr.equals("(公式9)")) { 
+                        logHtml.insert(0,
+                                "<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
+                    }
+					if (formuStr.equals("(公式10)")) { 
+                        logHtml.insert(0,
+                                "<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
+                    }
 					
 				
 					
@@ -431,7 +455,11 @@ public class Controller {
 	public String saveParam(@RequestParam("user") String user, @RequestParam("type") String type,
 			@RequestParam("betlist") String betlist, @RequestParam("betlist2") String betlist2,
 			@RequestParam("betlist3") String betlist3, @RequestParam("betlist4") String betlist4,
-			@RequestParam("betlist5") String betlist5,@RequestParam("betlist6") String betlist6, @RequestParam("stoplose") String stoplose,
+			@RequestParam("betlist5") String betlist5,@RequestParam("betlist6") String betlist6, 
+			@RequestParam("betlist7") String betlist7,
+			@RequestParam("betlist8") String betlist8,
+			@RequestParam("betlist9") String betlist9,
+			@RequestParam("betlist10") String betlist10,@RequestParam("stoplose") String stoplose,
 			@RequestParam("stopwin") String stopwin, @RequestParam("startstatus") String startstatus) {
 		FileInputStream fileIn = null;
 		FileOutputStream fileOut = null;
@@ -453,7 +481,12 @@ public class Controller {
 			configProperty.setProperty("betlist3", betlist3);
 			configProperty.setProperty("betlist4", betlist4);
 			configProperty.setProperty("betlist5", betlist5);
-			configProperty.setProperty("betlist6", betlist6); 
+			configProperty.setProperty("betlist6", betlist6);
+            configProperty.setProperty("betlist7", betlist7); 
+	        configProperty.setProperty("betlist8", betlist8); 
+	        configProperty.setProperty("betlist9", betlist9); 
+	        configProperty.setProperty("betlist10", betlist10); 
+
 			configProperty.setProperty("stoplose", stoplose);
 			configProperty.setProperty("stopwin", stopwin);
 			configProperty.setProperty("startstatus", startstatus);
@@ -809,30 +842,33 @@ public class Controller {
 				m += amount + ",";
 				i++;
 			}
-			String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
-
-			JsonParser parser = new JsonParser();
-			JsonObject o = parser.parse(betRet).getAsJsonObject();
-			String resCode = o.get("success").getAsString();
-			if (resCode.equals("200")) {
-
-//				for (String str : code) {
-//					String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
-//					saveOverLog(user, overLog, c);
+			String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "下注金額("
+                    + amount + ")" + "(成功)" + "(公式" + formu + ")";
+            saveLog(user + "bet", betlog);
+//			String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
 //
-//				}
-
-				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "下注金額("
-						+ amount + ")" + "(成功)" + "(公式" + formu + ")";
-				saveLog(user + "bet", betlog);
-
-			} else {
-				System.out.println(o.toString());
-				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "下注金額("
-						+ amount + ")" + "(失敗)" + "(公式" + formu + ")";
-				saveLog(user + "bet", betlog);
-				//recoup(user, sn, amount, betphase, c, codeList, formu);
-			}
+//			JsonParser parser = new JsonParser();
+//			JsonObject o = parser.parse(betRet).getAsJsonObject();
+//			String resCode = o.get("success").getAsString();
+//			if (resCode.equals("200")) {
+//
+////				for (String str : code) {
+////					String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+////					saveOverLog(user, overLog, c);
+////
+////				}
+//
+//				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "下注金額("
+//						+ amount + ")" + "(成功)" + "(公式" + formu + ")";
+//				saveLog(user + "bet", betlog);
+//
+//			} else {
+//				System.out.println(o.toString());
+//				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "下注金額("
+//						+ amount + ")" + "(失敗)" + "(公式" + formu + ")";
+//				saveLog(user + "bet", betlog);
+//				//recoup(user, sn, amount, betphase, c, codeList, formu);
+//			}
 
 			// String overLog = betphase + "@" + sn + "@" + code ;
 			// saveOverLog(user,overLog,c);
