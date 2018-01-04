@@ -284,7 +284,7 @@ public class Controller {
 					    if(m.get(phase) == null) {
 					        i++;
                             if(i % 2 == 1) {
-                                logHtml.insert(0,"<table  style=\"width:100%;border: 5px solid black;border-collapse: collapse;\">" );
+                                logHtml.insert(0,"<table  style=\"width:100%;border: 3px solid black;border-collapse: collapse;\">" );
                             }else {
                                 logHtml.insert(0,"<table style=\"width:100%;border: 1px solid black;border-collapse: collapse;\">" );
                             }  
@@ -347,9 +347,15 @@ public class Controller {
 //                     } 
 					
 				} 
-
-				j.addProperty("logHtml", "<table style=\"width:100%;border: 1px solid black;border-collapse: collapse;\">" + 
-				              logHtml.toString()  );
+				
+				 if(i % 2 == 1) {
+				     j.addProperty("logHtml", "<table style=\"width:100%;border: 1px solid black;border-collapse: collapse;\">" + 
+                             logHtml.toString()  );
+               }else {
+                     j.addProperty("logHtml", "<table style=\"width:100%;border: 3px solid black;border-collapse: collapse;\">" + 
+                           logHtml.toString()  );
+               }  
+				
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -1063,34 +1069,34 @@ public class Controller {
                     //temp += "<td class=\"nums\"  colspan=11 nowrap style=\"border: 1px solid gray;border-collapse: collapse;padding-top: 0.1cm; padding-bottom: 0.1cm;\">" ;
                     for (int i = 0; i < 10; i++) {
                         if (Integer.parseInt(array[i]) == 1)
-                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 3px solid ;border-style:ridge;background-color:#FFFF00\">"
+                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 4px solid ;border-style:ridge;background-color:#FFFF00\">"
                                     + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 2)
-                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 3px solid ;border-style:ridge;background-color:#ADD8E6\">"
+                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 4px solid ;border-style:ridge;background-color:#ADD8E6\">"
                                     + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 3)
-                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 3px solid ;border-style:ridge;background-color:#F0FFFF\">"
+                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 4px solid ;border-style:ridge;background-color:#F0FFFF\">"
                                     + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 4)
-                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 3px solid ;border-style:ridge;background-color:#D2691E\">"
+                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 4px solid ;border-style:ridge;background-color:#D2691E\">"
                                     + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 5)
-                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 3px solid ;border-style:ridge;background-color:#00FFFF\">"
+                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 4px solid ;border-style:ridge;background-color:#00FFFF\">"
                                     + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 6)
-                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 3px solid ;border-style:ridge;background-color:#8A2BE2\">"
+                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 4px solid ;border-style:ridge;background-color:#8A2BE2\">"
                                     + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 7)
-                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 3px solid ;border-style:ridge;background-color:#FFF8DC\">"
+                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 4px solid ;border-style:ridge;background-color:#FFF8DC\">"
                                     + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 8)
-                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 3px solid ;border-style:ridge;background-color:#DC143C\">"
+                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 4px solid ;border-style:ridge;background-color:#DC143C\">"
                                     + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 9)
-                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 3px solid ;border-style:ridge;background-color:#A52A2A\">"
+                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 4px solid ;border-style:ridge;background-color:#A52A2A\">"
                                     + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 10)
-                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 3px solid ;border-style:ridge;background-color:#7FFF00\">"
+                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 4px solid ;border-style:ridge;background-color:#7FFF00\">"
                                     + Integer.parseInt(array[i]) + "</td>";
 
                     }
