@@ -318,11 +318,7 @@
   		}
 	    
 		 
-		 
-		 input[type=checkbox] {
-		    zoom: 1.8;
-		 }
-		 
+		  
 		 .button {
 		    font-size: 18px;width:100px;
 		    
@@ -349,7 +345,40 @@
 			-webkit-animation-direction: alternate;
 		}
 		
+		.container {
+		  white-space:nowrap;
+		  overflow:hidden;
+		  
+		}
 		
+		
+	    	.time span{
+					font-weight:bold;
+					font-family:Verdana,"宋体",Arial,Sans;
+				}
+				 
+				    .time span{
+						
+					          display: inline-block;
+							    width: 25px;
+							    height: 34px;
+							    height: 5px;
+							    us: ;
+							    height: 21px;
+							    ebkit-border-radius: 3px;
+							    border-radius: 4px;
+							    margin: 0px 1px 0px;
+							    line-height: 19px;
+							    text-align: center;
+							    font-size: 18px;
+							    font-family: Verdana,"宋体",Arial,Sans;
+							    -webkit-border-radius: 4px;
+							    -moz-border-radius: 4px;
+							    -webkit-box-shadow: rgba(0,0,0,0.8) 0px 0 10px;
+							    -moz-box-shadow: rgba(0,0,0,0.8) 0 0 10px;
+							    box-shadow: rgba(0,0,0,0.8) 0px -1px 10px;
+							    color: red;
+					}
 </style>
 <link rel="stylesheet" type="text/css" href="img/pk10.css">
 </head>
@@ -367,14 +396,14 @@
 <div class="title_column">
 	 <table style="height:100%;border: 1px solid gray; border-collapse: collapse; font-size: 18px; text-align:center;">
 		<tr>
-			<td nowrap width="1%" height="1%" class="tdClass"> 今日輸贏 </td>
+			<td nowrap width="1%" height="1%" class="tdClass"> 今日點數 </td>
 			<td width="100px;" class="tdClass"> <div  class="toDayWin" style="	font-size:24px;" class="tdClass">loading...</div> </td>
-			<td nowrap  class="tdClass">帳號</td>
+			<td nowrap  class="tdClass">遊戲帳號</td>
 			<td style="text-align:left" class="tdClass"> <input style=" font-size: 15px;text-align: center;" type="text" id="user" readonly size="6"/></td>
 			<td colspan=2 align=center class="tdClass"><button type="button" id="logoutDiv" class="button" style="font-size: 18px;width:100px;">登出</button></td>
-    	    <td nowrap rowspan="6" class="tdClass">下注方式</td>
-	        <td class="tdClass"> <input type="checkbox" name="c1" id="c1" value="1"  >金星-公式1 </td> 
-		    <td class="tdClass">下注參數</td> 
+    	    <td nowrap rowspan="6" class="tdClass">投注方式</td>
+	        <td class="tdClass"  bgcolor="FFFF77"> <input type="checkbox" name="c1" id="c1" value="1"  >金星計劃 </td> 
+		    <td class="tdClass">投注參數</td> 
 		    <td class="tdClass" style="text-align:left"> <input class="betlist" type ="text" style="width:90%"/></td><td nowrap class="tdClass" ><button type="button" onclick="save_param()" class="button" style="width:60px">儲存</button></td> 
         </tr>
 	 
@@ -385,9 +414,9 @@
 			<td class="tdClass">
 					 <div  class="maxcredit">loading...</div>
 			</td>
-			<td nowrap class="s_lose" style="padding-left: 0.2cm; padding-right: 0.2cm;">止損金額</td>
+			<td nowrap class="s_lose" style="padding-left: 0.2cm; padding-right: 0.2cm;">止損點數</td>
 					<td class="tdClass" > <input  style=" font-size: 15px; text-align: center;" class="stoplose" type ="text" size=5/> </td> 
-		    <td nowrap class="s_win"  style="padding-left: 0.2cm; padding-right: 0.2cm;">止盈金額</td>
+		    <td nowrap class="s_win"  style="padding-left: 0.2cm; padding-right: 0.2cm;">止盈點數</td>
 					<td  class="tdClass" > <input style=" font-size: 15px; text-align: center;" class="stopwin" type ="text" size=5/>
 					</td>
 			<td nowrap style="display:none">
@@ -402,8 +431,8 @@
 			<td  style="display:none">
 					 <div  class="cash">loading...</div>
 			</td>
-			        <td class="tdClass"> <input type="checkbox" name="c1" id="c2" value="2"  >金星-公式2</td> 
-				    <td class="tdClass">下注參數</td> 
+			        <td class="tdClass" bgcolor="66FF66"> <input type="checkbox" name="c1" id="c2" value="2"  >木星計劃</td> 
+				    <td class="tdClass">投注參數</td> 
 					<td style="text-align:left" class="tdClass"> <input class="betlist2" type ="text" style="width:90%"/></td><td class="tdClass"><button type="button" onclick="save_param()" class="button" style="width:60px">儲存</button></td> 
 		</tr>
 		
@@ -415,14 +444,15 @@
 					 <div  class="toPhase">loading..</div> 
 			</td>
 			
-			<td colspan=4 class="tdClass"> 
-			 <input type="checkbox" name="autoStart" id="autoStart" value="2"  style=" zoom: 1.4;"  >自動啟動
+			<td colspan=4 class="tdClass">  
+			 <input type="checkbox" name="autoStart" id="autoStart" value="2"    >
+			 自動啟動 
 			  <input id="s_h" type ="text" size=2 maxlength=2 value='09' style="width:30px; font-size: 15px;text-align: center;"/> : <input id="s_m" type ="text" size=2 maxlength=2 value='30' style="width:30px; font-size: 15px;text-align: center;"/> 到
 			  <input id="e_h" type ="text" size=2 maxlength=2 value='23' style="width:30px; font-size: 15px;text-align: center;"/> : <input id="e_m" type ="text" size=2 maxlength=2 value='30' style="width:30px; font-size: 15px;text-align: center;"/>
 			 </td>
 			 
-			<td nowrap class="tdClass"> <input type="checkbox" name="c1" id="c3" value="3"  >金星-公式3</td>
-			<td nowrap class="tdClass">下注參數</td> 
+			<td nowrap class="tdClass" bgcolor="FF8888"> <input type="checkbox" name="c1" id="c3" value="3"  >水星計劃</td>
+			<td nowrap class="tdClass">投注參數</td> 
 			<td style="text-align:left" class="tdClass"> <input class="betlist3" type ="text" style="width:90%"/></td><td class="tdClass"><button type="button" onclick="save_param()" class="button" style="width:60px" >儲存</button></td> 
 		</tr>
 		<tr  >
@@ -432,27 +462,37 @@
 			<td  class="tdClass">
 				  <div  class="toNowPhase">loading...</div> 
 			</td>
-			<td nowrap class="tdClass">截止下注時間
+			<td nowrap class="tdClass">距離封盤
 			</td>
 			<td colspan=3 class="tdClass">
-					<div  class="extendtime"><font color="red">loading...</font></div>
+		 
+		 
+			<label data-time="4" id="closedTime" class="time"><span id="time_m1">0</span><span id="time_m2">0</span>分
+			<span id="time_s1">1</span><span id="time_s2">2</span>秒</label>
+			 
+			 
+					<div  style="display:none;" class="extendtime"><font color="red">loading...</font></div>
 			</td>
 			
 			
-			 <td nowrap class="tdClass"> <input type="checkbox" name="c1" id="c4" value="4"  >金星-公式4</td>
-			 <td nowrap class="tdClass">下注參數</td> 
+			 <td nowrap class="tdClass" bgcolor="5599FF"> <input type="checkbox" name="c1" id="c4" value="4"  >火星計劃</td>
+			 <td nowrap class="tdClass">投注參數</td> 
 			 <td style="text-align:left" class="tdClass"> <input class="betlist4" type ="text" style="width:90%"/></td><td class="tdClass"><button type="button" onclick="save_param()" class="button" style="width:60px">儲存</button></td> 
 		</tr>
 		
 		<tr  >
 			<td width="1%" class="tdClass">開獎號碼</td>
 			<td colspan=5 class="tdClass" style="padding-left: 1.6cm;">
-					  <div id="openCode" style="display:none;text-align: center;"  class="lot-table">loading...</div><div id="blinkStr" class="blink">開獎中...</div>
+					  <div id="openCode" style="display:none;text-align: center;"  class="lot-table">loading...</div>
+					  <div class="container">
+						  <div class="openload" style=" display: inline-block;" >開獎中</div>
+						  <div id="blinkStr" class="blink"  style=" display: inline-block;">...</div>
+					  </div>
 			</td>
 			
 			
-			 <td nowrap class="tdClass"> <input type="checkbox" name="c1" id="c5" value="5"  >金星-公式5</td>
-			<td nowrap class="tdClass">下注參數</td> 
+			 <td nowrap class="tdClass" bgcolor="DDDDDD"> <input type="checkbox" name="c1" id="c5" value="5"  >土星計劃</td>
+			<td nowrap class="tdClass">投注參數</td> 
 					<td width="99%" class="tdClass" style="text-align:left"> <input class="betlist5" type ="text" style="width:90%"/></td><td class="tdClass"><button type="button" onclick="save_param()" class="button" style="width:60px">儲存</button></td> 
 		</tr>
 		
@@ -464,7 +504,7 @@
 			<td  class="tdstartstatus"   style="text-align:left">
 					    <select class="startstatus"   style="text-align-last:center;font-size: 18px;width:120px;border:0px;outline:0px;">
 						  <option value="0" class="red">已停止 </option>
-						  <option value="1" >下注中 </option> 
+						  <option value="1" >投注中 </option> 
 						</select> 
 			</td>
 			<td  nowrap class="tdClass">
@@ -480,8 +520,8 @@
 			
 			  
 			 
-					<td class="tdClass"> <input type="checkbox" name="c1" id="c6" value="5"  >金星-公式6</td> 
-		  <td nowrap class="tdClass">下注參數</td> 
+					<td class="tdClass" nowrap bgcolor="FFB3FF"> <input type="checkbox" name="c1" id="c6" value="5"  >星星計劃</td> 
+		  <td nowrap class="tdClass">投注參數</td> 
 			 <td style="text-align:left" class="tdClass"> <input class="betlist6" type ="text" style="width:90%" /></td><td class="tdClass"><button type="button" onclick="save_param()" class="button"  style="width:60px">儲存</button></td> 
 			 
 		</tr>
@@ -776,7 +816,7 @@
         $( ".startstatus" ).val(0);
        	setExtendTimeTimeout();
        
-	 	let url = u + '/getHistory';
+	 	let url = 'http://220.132.126.216:9999/getHistory';
 		  
       	 $.ajax({ url:  url, 
    	         async: true,
@@ -1329,9 +1369,11 @@
 			           	   
 			               let c = getCodeByPhase(nphase);
 			               if(c=='null'){//開獎中
+			            	   	  $('.openload').show();
 			            	      $('.blink').show();
 			            	   	  $('#openCode').hide(); 
 			               }else{//已開獎
+			            	      $('.openload').hide(); 
 			            	      $('.blink').hide();
 			            	   	  $('#openCode').show();
 			            	   	  //set code
@@ -1365,7 +1407,7 @@
 			            	      $( "div.lot-table" ).html(temp);
 			            	      
 			            	 	  //$( "div.nowCode" ).text(c);
-		    	 				  let url = u + '/getHistory';
+		    	 				  let url ='http://220.132.126.216:9999/getHistory'
 			  				   
 			    		       	  $.ajax({ url:  url, 
 			    		    	         async: false,
@@ -1563,7 +1605,7 @@
 		
 	    setTimeout(function () {
     	        
-		    	 	let url = u + '/getHistory';
+		    	 	let url = 'http://220.132.126.216:9999/getHistory';
 				   
 		       	 $.ajax({ url:  url, 
 		    	         async: true,
@@ -1601,11 +1643,18 @@
 	   	        	  
 	   	        	    let m = Math.floor(data /60);
 	   	        	    let s = data%60 ; 
-	   	        	  
-	   		    	 	$( "div.extendtime" ).html("剩餘 "+ m +" 分 "+ s + "  秒");
-	   		    	    $( "div.extendtime" ).css({ 'color': 'red'  });
+	   	       
+	   	        	
+
+	   	        	
+	   		    	 	//$( "div.extendtime" ).html("剩餘 "+ m +" 分 "+ s + "  秒");
+	   		    	    //$( "div.extendtime" ).css({ 'color': 'red'  });
+		 	   	        $("#time_m1").text(Math.floor(m/10));
+		 	   	        $("#time_m2").text(m%10);
+		 	   	        $("#time_s1").text(Math.floor(s/10));
+		 	   	        $("#time_s2").text(s%10);
+
 	   		    	 
-	    
 	   	         	 } 
 	   	         	 
 	         });

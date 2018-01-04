@@ -284,7 +284,7 @@ public class Controller {
 					    if(m.get(phase) == null) {
 					        i++;
                             if(i % 2 == 1) {
-                                logHtml.insert(0,"<table  style=\"width:100%;border: 3px solid black;border-collapse: collapse;\">" );
+                                logHtml.insert(0,"<table  style=\"width:100%;border: 2px solid black;border-collapse: collapse;\">" );
                             }else {
                                 logHtml.insert(0,"<table style=\"width:100%;border: 1px solid black;border-collapse: collapse;\">" );
                             }  
@@ -352,7 +352,7 @@ public class Controller {
 				     j.addProperty("logHtml", "<table style=\"width:100%;border: 1px solid black;border-collapse: collapse;\">" + 
                              logHtml.toString()  );
                }else {
-                     j.addProperty("logHtml", "<table style=\"width:100%;border: 3px solid black;border-collapse: collapse;\">" + 
+                     j.addProperty("logHtml", "<table style=\"width:100%;border: 2px solid black;border-collapse: collapse;\">" + 
                            logHtml.toString()  );
                }  
 				
@@ -604,7 +604,7 @@ public class Controller {
 							String t = new SimpleDateFormat("HH:mm:ss").format(new Date());
 							Utils.WritePropertiesFile(user + "overLOGDIS_log", fillZero(Integer.toString(over_i)),
 									"第" + phase + "期，第" + sn + "名，已過關!(第" + configProperty.getProperty(key) + "關)"
-											+ "(公式" + x + ")");
+											 );
 
 							j.addProperty(covertIntToLatter(sn) + x, "Y");
 						}
@@ -815,6 +815,10 @@ public class Controller {
 				m += amount + ",";
 				i++;
 			}
+//			String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+//					+ amount + ")" + "(成功)" ;
+//			saveLog(user + "bet", betlog);
+			
 			String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
 
 			JsonParser parser = new JsonParser();
@@ -828,13 +832,13 @@ public class Controller {
 //
 //				}
 
-				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "下注金額("
+				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
 						+ amount + ")" + "(成功)" + "(公式" + formu + ")";
 				saveLog(user + "bet", betlog);
 
 			} else {
 				System.out.println(o.toString());
-				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "下注金額("
+				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
 						+ amount + ")" + "(失敗)" + "(公式" + formu + ")";
 				saveLog(user + "bet", betlog);
 				//recoup(user, sn, amount, betphase, c, codeList, formu);
@@ -918,12 +922,12 @@ public class Controller {
 
 				}
 
-				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "下注金額("
+				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
 						+ amount + ")" + "(補單成功)" + "(公式" + formu + ")";
 				saveLog(user + "bet", betlog);
 
 			} else {
-				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "下注金額("
+				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
 						+ amount + ")" + "(補單失敗)" + "(公式" + formu + ")";
 				saveLog(user + "bet", betlog);
 				 
@@ -993,7 +997,7 @@ public class Controller {
 				saveOverLog(user, overLog, c);
 			}
 
-			String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "下注金額("
+			String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
 					+ amount + ")" + "(成功)";
 			saveLog(user + "bet", betlog);
 
@@ -1069,34 +1073,34 @@ public class Controller {
                     //temp += "<td class=\"nums\"  colspan=11 nowrap style=\"border: 1px solid gray;border-collapse: collapse;padding-top: 0.1cm; padding-bottom: 0.1cm;\">" ;
                     for (int i = 0; i < 10; i++) {
                         if (Integer.parseInt(array[i]) == 1)
-                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 4px solid ;border-style:ridge;background-color:#FFFF00\">"
+                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#FFFF00\">"
                                     + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 2)
-                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 4px solid ;border-style:ridge;background-color:#ADD8E6\">"
+                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#ADD8E6\">"
                                     + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 3)
-                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 4px solid ;border-style:ridge;background-color:#F0FFFF\">"
+                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3;;border-style:outset;background-color:#F0FFFF\">"
                                     + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 4)
-                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 4px solid ;border-style:ridge;background-color:#D2691E\">"
+                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3;;border-style:outset;background-color:#D2691E\">"
                                     + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 5)
-                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 4px solid ;border-style:ridge;background-color:#00FFFF\">"
+                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#00FFFF\">"
                                     + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 6)
-                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 4px solid ;border-style:ridge;background-color:#8A2BE2\">"
+                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#8A2BE2\">"
                                     + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 7)
-                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 4px solid ;border-style:ridge;background-color:#FFF8DC\">"
+                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#FFF8DC\">"
                                     + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 8)
-                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 4px solid ;border-style:ridge;background-color:#DC143C\">"
+                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#DC143C\">"
                                     + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 9)
-                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 4px solid ;border-style:ridge;background-color:#A52A2A\">"
+                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#A52A2A\">"
                                     + Integer.parseInt(array[i]) + "</td>";
                         if (Integer.parseInt(array[i]) == 10)
-                            temp += "<td align=\"center\" style=\" font-size: 16px;font-weight:bold;border: 4px solid ;border-style:ridge;background-color:#7FFF00\">"
+                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#7FFF00\">"
                                     + Integer.parseInt(array[i]) + "</td>";
 
                     }
