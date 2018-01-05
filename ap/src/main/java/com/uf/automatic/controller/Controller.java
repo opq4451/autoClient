@@ -833,13 +833,13 @@ public class Controller {
 //				}
 
 				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-						+ amount + ")" + "(成功)" + "(公式" + formu + ")";
+						+ amount + ")" + "(成功)"  ;
 				saveLog(user + "bet", betlog);
 
 			} else {
 				System.out.println(o.toString());
 				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-						+ amount + ")" + "(失敗)" + "(公式" + formu + ")";
+						+ amount + ")" + "(失敗)"  ;
 				saveLog(user + "bet", betlog);
 				//recoup(user, sn, amount, betphase, c, codeList, formu);
 			}
