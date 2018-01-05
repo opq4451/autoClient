@@ -842,33 +842,34 @@ public class Controller {
 				m += amount + ",";
 				i++;
 			}
-			String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "下注金額("
-                    + amount + ")" + "(成功)" + "(公式" + formu + ")";
-            saveLog(user + "bet", betlog);
-//			String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
+			 
+			if(amount.equals("0")) {
+			    return "";
+			}
+			String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
+
+			JsonParser parser = new JsonParser();
+			JsonObject o = parser.parse(betRet).getAsJsonObject();
+			String resCode = o.get("success").getAsString();
+			if (resCode.equals("200")) {
+
+//				for (String str : code) {
+//					String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+//					saveOverLog(user, overLog, c);
 //
-//			JsonParser parser = new JsonParser();
-//			JsonObject o = parser.parse(betRet).getAsJsonObject();
-//			String resCode = o.get("success").getAsString();
-//			if (resCode.equals("200")) {
-//
-////				for (String str : code) {
-////					String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
-////					saveOverLog(user, overLog, c);
-////
-////				}
-//
-//				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "下注金額("
-//						+ amount + ")" + "(成功)" + "(公式" + formu + ")";
-//				saveLog(user + "bet", betlog);
-//
-//			} else {
-//				System.out.println(o.toString());
-//				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "下注金額("
-//						+ amount + ")" + "(失敗)" + "(公式" + formu + ")";
-//				saveLog(user + "bet", betlog);
-//				//recoup(user, sn, amount, betphase, c, codeList, formu);
-//			}
+//				}
+
+				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "下注金額("
+						+ amount + ")" + "(成功)" + "(公式" + formu + ")";
+				saveLog(user + "bet", betlog);
+
+			} else {
+				System.out.println(o.toString());
+				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "下注金額("
+						+ amount + ")" + "(失敗)" + "(公式" + formu + ")";
+				saveLog(user + "bet", betlog);
+				//recoup(user, sn, amount, betphase, c, codeList, formu);
+			}
 
 			// String overLog = betphase + "@" + sn + "@" + code ;
 			// saveOverLog(user,overLog,c);
