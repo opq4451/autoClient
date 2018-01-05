@@ -301,28 +301,28 @@ public class Controller {
 					
 					if (formuStr.equals("(公式1)")) {
  						logHtml.insert(0,
-								"<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
+								"<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">" + v.substring(v.length()-5,v.length()) + "</td></tr>");
 					}
 					if (formuStr.equals("(公式2)")) { 
 						logHtml.insert(0,
-								"<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
+								"<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">" + v.substring(v.length()-5,v.length()) + "</td></tr>");
 					}
 					if (formuStr.equals("(公式3)")) { 
 						logHtml.insert(0,
-								"<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
+								"<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">" + v.substring(v.length()-5,v.length()) + "</td></tr>");
 					}
 					if (formuStr.equals("(公式4)")) { 
 						logHtml.insert(0,
-								"<tr><td bgcolor=\"5599FF\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
+								"<tr><td bgcolor=\"5599FF\"  style=\"border: 1px solid black\">" + v.substring(v.length()-5,v.length()) + "</td></tr>");
 					}
 					if (formuStr.equals("(公式5)")) { 
 						logHtml.insert(0,
-								"<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
+								"<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">" + v.substring(v.length()-5,v.length()) + "</td></tr>");
 					}
 					
 					if (formuStr.equals("(公式6)")) { 
 						logHtml.insert(0,
-								"<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">" + v + "</td></tr>");
+								"<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">" + v.substring(v.length()-5,v.length()) + "</td></tr>");
 					}
 					
 				
@@ -604,7 +604,7 @@ public class Controller {
 							String t = new SimpleDateFormat("HH:mm:ss").format(new Date());
 							Utils.WritePropertiesFile(user + "overLOGDIS_log", fillZero(Integer.toString(over_i)),
 									"第" + phase + "期，第" + sn + "名，已過關!(第" + configProperty.getProperty(key) + "關)"
-											 );
+									        + "(公式" + x + ")");   
 
 							j.addProperty(covertIntToLatter(sn) + x, "Y");
 						}
@@ -831,15 +831,14 @@ public class Controller {
 //					saveOverLog(user, overLog, c);
 //
 //				}
-
-				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-						+ amount + ")" + "(成功)"  ;
+			    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "下注金額("
+ 			                                    + amount + ")" + "(成功)" + "(公式" + formu + ")"; 
 				saveLog(user + "bet", betlog);
 
 			} else {
 				System.out.println(o.toString());
 				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-						+ amount + ")" + "(失敗)"  ;
+						+ amount + ")" + "(失敗)" + "(公式" + formu + ")"; 
 				saveLog(user + "bet", betlog);
 				//recoup(user, sn, amount, betphase, c, codeList, formu);
 			}
