@@ -486,7 +486,7 @@
 					  <div id="openCode" style="display:none;text-align: center;"  class="lot-table">loading...</div>
 					  <div class="container">
 						  <div class="openload" style=" display: inline-block;" >開獎中</div>
-						  <div id="blinkStr" class="blink"  style=" display: inline-block;">...</div>
+						  <div id="blinkStr" class="blink"  style=" display: inline-block;">.....</div>
 					  </div>
 			</td>
 			
@@ -1559,10 +1559,10 @@
 				    			if( ( (s*1) > (checkStartHM *1) )   ||  ( (e*1) < (checkStartHM *1) )){
 				    				betflag = true; 
 				    				
-				    				/*$(".startstatus" ).val(0);
+				    				$(".startstatus" ).val(0);
 				    				$('select.startstatus').css('background', 'red'); 
-				    				$('.tdstartstatus').css('background', 'red'); 
-				    				 document.getElementById("autoStart").checked = false;*///不在區間內不能停用，會影響自動啟用(一直被取消)
+				    				//$('.tdstartstatus').css('background', 'red'); 
+				    				 //document.getElementById("autoStart").checked = false;*///不在區間內不能停用，會影響自動啟用(一直被取消)
 				    			}else { //自動啟動
 				    				$(".startstatus" ).val(1);
 				    				$('select.startstatus').css('background', 'green'); 
