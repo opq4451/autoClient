@@ -301,28 +301,28 @@ public class Controller {
 					
 					if (formuStr.equals("(公式1)")) {
  						logHtml.insert(0,
-								"<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">" + v.substring(v.length()-5,v.length()) + "</td></tr>");
+								"<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">" + v.substring(0,v.length()-5) + "</td></tr>");
 					}
 					if (formuStr.equals("(公式2)")) { 
 						logHtml.insert(0,
-								"<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">" + v.substring(v.length()-5,v.length()) + "</td></tr>");
+								"<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">" + v.substring(0,v.length()-5) + "</td></tr>");
 					}
 					if (formuStr.equals("(公式3)")) { 
 						logHtml.insert(0,
-								"<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">" + v.substring(v.length()-5,v.length()) + "</td></tr>");
+								"<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">" + v.substring(0,v.length()-5) + "</td></tr>");
 					}
 					if (formuStr.equals("(公式4)")) { 
 						logHtml.insert(0,
-								"<tr><td bgcolor=\"5599FF\"  style=\"border: 1px solid black\">" + v.substring(v.length()-5,v.length()) + "</td></tr>");
+								"<tr><td bgcolor=\"5599FF\"  style=\"border: 1px solid black\">" + v.substring(0,v.length()-5) + "</td></tr>");
 					}
 					if (formuStr.equals("(公式5)")) { 
 						logHtml.insert(0,
-								"<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">" + v.substring(v.length()-5,v.length()) + "</td></tr>");
+								"<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">" + v.substring(0,v.length()-5) + "</td></tr>");
 					}
 					
 					if (formuStr.equals("(公式6)")) { 
 						logHtml.insert(0,
-								"<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">" + v.substring(v.length()-5,v.length()) + "</td></tr>");
+								"<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">" + v.substring(0,v.length()-5) + "</td></tr>");
 					}
 					
 				
@@ -815,10 +815,10 @@ public class Controller {
 				m += amount + ",";
 				i++;
 			}
-//			String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-//					+ amount + ")" + "(成功)" ;
-//			saveLog(user + "bet", betlog);
-			
+			if(amount.equals("0")){
+				return "";
+			}
+			 
 			String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
 
 			JsonParser parser = new JsonParser();
@@ -1072,35 +1072,54 @@ public class Controller {
                     //temp += "<td class=\"nums\"  colspan=11 nowrap style=\"border: 1px solid gray;border-collapse: collapse;padding-top: 0.1cm; padding-bottom: 0.1cm;\">" ;
                     for (int i = 0; i < 10; i++) {
                         if (Integer.parseInt(array[i]) == 1)
-                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#FFFF00\">"
-                                    + Integer.parseInt(array[i]) + "</td>";
+                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#FFFF33\">"
+                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+                                    + Integer.parseInt(array[i]) + "</font></td>";
                         if (Integer.parseInt(array[i]) == 2)
-                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#ADD8E6\">"
-                                    + Integer.parseInt(array[i]) + "</td>";
+                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#0066FF\">"
+                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+
+                            		+ Integer.parseInt(array[i]) + "</font></td>";
                         if (Integer.parseInt(array[i]) == 3)
-                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3;;border-style:outset;background-color:#F0FFFF\">"
-                                    + Integer.parseInt(array[i]) + "</td>";
+                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3;;border-style:outset;background-color:#696969\">"
+                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+
+                            		+ Integer.parseInt(array[i]) + "</font></td>";
                         if (Integer.parseInt(array[i]) == 4)
-                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3;;border-style:outset;background-color:#D2691E\">"
-                                    + Integer.parseInt(array[i]) + "</td>";
+                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3;;border-style:outset;background-color:#FF5511\">"
+                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+
+                            		+ Integer.parseInt(array[i]) + "</font></td>";
                         if (Integer.parseInt(array[i]) == 5)
                             temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#00FFFF\">"
-                                    + Integer.parseInt(array[i]) + "</td>";
+                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+
+                            		+ Integer.parseInt(array[i]) + "</font></td>";
                         if (Integer.parseInt(array[i]) == 6)
-                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#8A2BE2\">"
-                                    + Integer.parseInt(array[i]) + "</td>";
+                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#0000CC\">"
+                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+
+                            		+ Integer.parseInt(array[i]) + "</font></td>";
                         if (Integer.parseInt(array[i]) == 7)
-                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#FFF8DC\">"
-                                    + Integer.parseInt(array[i]) + "</td>";
+                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#DCDCDC\">"
+                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+
+                            		+ Integer.parseInt(array[i]) + "</font></td>";
                         if (Integer.parseInt(array[i]) == 8)
-                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#DC143C\">"
-                                    + Integer.parseInt(array[i]) + "</td>";
+                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#FF0000\">"
+                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+
+                            		+ Integer.parseInt(array[i]) + "</font></td>";
                         if (Integer.parseInt(array[i]) == 9)
-                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#A52A2A\">"
-                                    + Integer.parseInt(array[i]) + "</td>";
+                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#8B0000\">"
+                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+
+                            		+ Integer.parseInt(array[i]) + "</font></td>";
                         if (Integer.parseInt(array[i]) == 10)
-                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#7FFF00\">"
-                                    + Integer.parseInt(array[i]) + "</td>";
+                        	temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#32CD32\">"
+                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+
+                        			+ Integer.parseInt(array[i]) + "</font></td>";
 
                     }
 
@@ -1389,19 +1408,23 @@ public class Controller {
 			
 			
 			Map<String, String> treeMap = new TreeMap<String, String>(map);
+			int count=0;
 			for (String str : treeMap.keySet()) {
-			    
+			    count++;
 			    html.insert(0, treeMap.get(str).toString());
 			}
-			
-
-			return "<tr><td width=\"200px\" align=center style=\"border: 1px solid black\">帳號</td><td width=\"200px\" align=center style=\"border: 1px solid black\">使用期限</td>"
+			JsonObject j = new JsonObject();
+			String returnhtml = "<tr><td width=\"200px\" align=center style=\"border: 1px solid black\">帳號</td><td width=\"200px\" align=center style=\"border: 1px solid black\">使用期限</td>"
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">系統密碼</td>"
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">初次設定時間</td>"
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">極速密碼</td>" 
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">遠端id</td>"
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">遠端密碼</td>"
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">姓名</td>"+ html.toString();
+			j.addProperty("returnhtml", returnhtml);
+			j.addProperty("count", count);
+
+			return j.toString();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

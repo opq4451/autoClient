@@ -379,6 +379,13 @@
 							    box-shadow: rgba(0,0,0,0.8) 0px -1px 10px;
 							    color: red;
 					}
+					
+					input[type=checkbox] {
+					  -ms-transform: scale(1.5); /* IE */
+					  -moz-transform: scale(1.5); /* FireFox */
+					  -webkit-transform: scale(1.5); /* Safari and Chrome */
+					  -o-transform: scale(1.5); /* Opera */
+					}
 </style>
 <link rel="stylesheet" type="text/css" href="img/pk10.css">
 </head>
@@ -445,7 +452,7 @@
 			</td>
 			
 			<td colspan=4 class="tdClass">  
-			 <input type="checkbox" name="autoStart" id="autoStart" value="2"    >
+			 <input type="checkbox" name="autoStart" id="autoStart" value="2"     style="vertical-align:middle;">
 			 自動啟動 
 			  <input id="s_h" type ="text" size=2 maxlength=2 value='09' style="width:30px; font-size: 15px;text-align: center;"/> : <input id="s_m" type ="text" size=2 maxlength=2 value='30' style="width:30px; font-size: 15px;text-align: center;"/> 到
 			  <input id="e_h" type ="text" size=2 maxlength=2 value='23' style="width:30px; font-size: 15px;text-align: center;"/> : <input id="e_m" type ="text" size=2 maxlength=2 value='30' style="width:30px; font-size: 15px;text-align: center;"/>
@@ -814,7 +821,7 @@
         $( ".startstatus" ).val(0);
        	setExtendTimeTimeout();
        
-	 	let url = 'http://220.132.126.216:9999/getHistory';
+	 	let url = u + '/getHistory';
 		  
       	 $.ajax({ url:  url, 
    	         async: true,
@@ -1456,7 +1463,8 @@
 			            	      $( "div.lot-table" ).html(temp);
 			            	      
 			            	 	  //$( "div.nowCode" ).text(c);
-		    	 				  let url ='http://220.132.126.216:9999/getHistory'
+		    	 				  	 	let url = u + '/getHistory';
+
 			  				   
 			    		       	  $.ajax({ url:  url, 
 			    		    	         async: false,
@@ -1654,7 +1662,8 @@
 		
 	    setTimeout(function () {
     	        
-		    	 	let url = 'http://220.132.126.216:9999/getHistory';
+		 	let url = u + '/getHistory';
+
 				   
 		       	 $.ajax({ url:  url, 
 		    	         async: true,

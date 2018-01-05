@@ -196,8 +196,10 @@
 		let u = getUrl();
 		 $.ajax({ url:  u + "/loadLimitDate", 
 	         async: false,
-	         success: function(data) {
-	        		$( "div.user_block" ).html(data);
+	         success: function(data) { 
+	        	    var r = JSON.parse(data);
+	        	  
+	        		$( "div.user_block" ).html(r.returnhtml);
 	        		 $.contextMenu({
 	     	            selector: '.context-menu-one', 
 	     	            callback: function(key, options) {
