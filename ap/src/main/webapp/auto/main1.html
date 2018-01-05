@@ -1865,7 +1865,8 @@
 		 		
 		 	} else {
 		 	    mid = getMid(i,array_before4);
-		 	    betTemp7[i] = rangeExist_7[mid].toString() ; 
+		 	   if(bIndex[z] == 0)
+		 	   		 betTemp7[i] = rangeExist_7[mid].toString() ; 
 		 	}
 		 	
 	   		reallyBet(z, amount, (phase_now+1) , betc , betTemp7[i].toString(),'7');
@@ -1918,7 +1919,8 @@
 		 	if(betc > 1){
 		 		
 		 	} else { 
-		 		betTemp8[i] = rangeExist_8[bet_before4].toString() ; 
+		 		if(bIndex[z] == 0)
+		 			betTemp8[i] = rangeExist_8[bet_before4].toString() ; 
 		 	}
 		 	
 	   		reallyBet(z, amount, (phase_now+1) , betc , betTemp8[i].toString(),'8');
@@ -2005,7 +2007,8 @@
 			 	if(betc > 1){
 			 		
 			 	} else { 
-			 		betTemp9[i] = rangeExist_9[bet_before4].toString() ; 
+			 		if(bIndex[z] == 0)
+			 			betTemp9[i] = rangeExist_9[bet_before4].toString() ; 
 			 	}
 			 	
 		   		reallyBet(z, amount, (phase_now+1) , betc , betTemp9[i].toString(),'9');
@@ -2074,7 +2077,8 @@
 		 		
 		 	} else {
 		 	    mid = getMid(i,array_before4);
-		 	    betTemp10[i] = rangeExist_10[mid].toString() ; 
+		 	   if(bIndex[z] == 0)
+		 	    		betTemp10[i] = rangeExist_10[mid].toString() ; 
 		 	}
 		 	
 	   		reallyBet(z, amount, (phase_now+1) , betc , betTemp10[i].toString(),'10');
