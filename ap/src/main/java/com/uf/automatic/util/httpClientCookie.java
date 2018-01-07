@@ -49,8 +49,8 @@ import com.uf.automatic.controller.Controller;
 
  
 public class httpClientCookie {
-    private String id;
-    private String password;
+    private static String id;
+    private static String password;
     private String cookie = null;
     
     private static httpClientCookie instance;
@@ -69,7 +69,10 @@ public class httpClientCookie {
         // TODO Auto-generated constructor stub
         setId(id);
         setPassword(password); 
-        setInitCookie();//塞 cookie
+        
+        String d =  uraal[urli%5] + "/Handler/LoginHandler.ashx?action=user_login"+
+                "&loginName="+id+"&loginPwd="+password+"";
+        setInitCookie(d);//塞 cookie
     }
     public static httpClientCookie getInstance(String id,String password) {
         startFlag=checkStart(); 
@@ -84,15 +87,32 @@ public class httpClientCookie {
         return instance;
          
     }
+    static String uraal[] = {"http://mem1.fpaesf109.pasckr.com:88/",
+                    "http://mem5.fpaesf109.hfpfky.com/",
+                    "http://mem2.fpaesf109.hfpfky.com:88/",
+                    "http://mem3.fpaesf109.pasckr.com:88/",
+                    "http://mem4.fpaesf109.hfpfky.com/"
+                    }; 
     //sd8885 //Aa258369
-    private String setInitCookie() {
-        String login = "http://mem1.fpaesf109.pasckr.com:88/Handler/LoginHandler.ashx?action=user_login"+
-                "&loginName="+id+"&loginPwd="+password+"";
+    static int urli = 0 ;
+    private String setInitCookie(String url) {
+       
         try {
-            String cookie = getCookieHttpClient(login);
-            setCookie(cookie);
-        }catch(Exception e) {
+             
+            String cookie = getCookieHttpClient(url);
+            System.out.println("************" + urli);
+            System.out.println(cookie);
+            if(!cookie.equals("")) {
+                setCookie(cookie);
+            }else {
+                urli++;
+                String urla = uraal[urli%5] + "Handler/LoginHandler.ashx?action=user_login"+
+                        "&loginName="+id+"&loginPwd="+password+"";
+                setInitCookie(urla);
+            }
             
+        }catch(Exception e) {
+            e.printStackTrace();
         }
         return "";
     }
@@ -119,8 +139,9 @@ public class httpClientCookie {
 	public static void main(String[] args ){
 		try {
 		    //httpClientCookie a = httpClientCookie.getInstance("sd8885","Aa258369");
-		    httpClientCookie t = httpClientCookie.getInstance("yy8811","qaz123123");
-		    t.getoddsInfo();
+		    httpClientCookie t = httpClientCookie.getInstance("qq7711","qaz123123");
+		    String ret = t.getoddsInfo();
+		    System.out.println(ret);
 //		    testBet(t);
 //		    String ret = a.getoddsInfo();
 //		    
@@ -239,7 +260,7 @@ public class httpClientCookie {
 	
 	//單球
 	public String query() {
-	    String query = "http://mem1.fpaesf109.pasckr.com:88/Handler/QueryHandler.ashx?action=get_ad";
+	    String query = uraal[urli%5] + "/Handler/QueryHandler.ashx?action=get_ad";
         try {
             return instance.httpClientUseCookie(query);
         }catch(Exception e) {
@@ -250,7 +271,7 @@ public class httpClientCookie {
 	
 	//兩面ＺＲＵＦ
 	public String getoddsInfoForDouble() {
-        String query = "http://mem1.fpaesf109.pasckr.com:88/L_PK10/Handler/Handler.ashx?action=get_oddsinfo&playid=2%2C3%2C4%2C6%2C7%2C8%2C10%2C11%2C12%2C14%2C15%2C16%2C18%2C19%2C20%2C22%2C23%2C25%2C26%2C28%2C29%2C31%2C32%2C34%2C35%2C37%2C38&playpage=pk10_lmp";
+        String query = uraal[urli%5] + "/L_PK10/Handler/Handler.ashx?action=get_oddsinfo&playid=2%2C3%2C4%2C6%2C7%2C8%2C10%2C11%2C12%2C14%2C15%2C16%2C18%2C19%2C20%2C22%2C23%2C25%2C26%2C28%2C29%2C31%2C32%2C34%2C35%2C37%2C38&playpage=pk10_lmp";
         try {
             return instance.httpClientUseCookie(query);
         }catch(Exception e) {
@@ -260,7 +281,7 @@ public class httpClientCookie {
     }
 	
 	public String getoddsInfo() {
-	    String query = "http://mem1.fpaesf109.pasckr.com:88/L_PK10/Handler/Handler.ashx?action=get_oddsinfo&playid=1%2C5%2C9%2C13%2C17%2C21%2C24%2C27%2C30%2C33&playpage=pk10_d1_10";
+	    String query = uraal[urli%5] + "/L_PK10/Handler/Handler.ashx?action=get_oddsinfo&playid=1%2C5%2C9%2C13%2C17%2C21%2C24%2C27%2C30%2C33&playpage=pk10_d1_10";
         try {
             return instance.httpClientUseCookie(query);
         }catch(Exception e) {
@@ -332,7 +353,7 @@ public class httpClientCookie {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpClientContext context = HttpClientContext.create();
         RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(60000).setConnectTimeout(60000).build();
-        
+        System.out.println(uri);
         HttpPost httpget = new HttpPost(uri);
         httpget.setConfig(requestConfig);
         httpget.setHeader("Cookie",""); 
@@ -347,7 +368,14 @@ public class httpClientCookie {
             JsonParser parser = new JsonParser();
             JsonObject o = parser.parse(result).getAsJsonObject();
             String code = o.get("success").getAsString();
-            //System.out.println(code);
+            System.out.println(code);
+            if(!code.equals("200")) {
+                    urli++;
+                    String urla = uraal[urli%5] + "Handler/LoginHandler.ashx?action=user_login"+
+                            "&loginName="+id+"&loginPwd="+password+"";
+                     
+                    getCookieHttpClient(urla);
+            }
             try {
                 
                 Header[] headers = httpresponse.getHeaders("Set-Cookie");
@@ -361,6 +389,12 @@ public class httpClientCookie {
             }
             
         } catch (Exception e) {
+            System.out.println(e.getMessage());
+            urli++;
+            String urla = uraal[urli%5] + "Handler/LoginHandler.ashx?action=user_login"+
+                    "&loginName="+id+"&loginPwd="+password+"";
+             
+            getCookieHttpClient(urla);
             throw e;
         } finally {
             httpClient.close();

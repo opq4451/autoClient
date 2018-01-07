@@ -28,8 +28,8 @@
 		@media (min-height: 200px) and (max-height: 769px) {
 		    .title_column{
 			    	position: absolute;
-			    	top: 0px;
-			    	left:0%;
+			    	top: 1%;
+			    	left:1%;
 			    	width: 90%;
 			    	height: 25%;
 		    }
@@ -37,7 +37,7 @@
 		    .center_tablebar{
 			    	position: absolute;
 			    	top: 32%;
-			    	left:0%;
+			    	left:1%;
 			    	width: 100%;
 			    	height: 10%;
 		    }
@@ -46,8 +46,8 @@
 			    border: 1px solid gray;
 			    	position: absolute;
 			    	top: 41%;
-			    	left: 0%;
-			    	width: 35%;
+			    	left: 1%;
+			    	width: 34%;
 			    	overflow-y:scroll; 
 			    	height:59%;
 			    }
@@ -71,7 +71,7 @@
 			    	position: absolute;
 			    	top: 41%;
 			    	left: 70%;
-			    	width: 30%;
+			    	width: 29%;
 			    	overflow-y:scroll; 
 			    	 height:59%;
 			    }
@@ -82,8 +82,8 @@
 		@media (min-height: 770px) and (max-height: 800px) {
 		    .title_column{
 			    	position: absolute;
-			    	top: 0px;
-			    	left:0%;
+			    	top: 1%;
+			    	left:1%;
 			    	width: 90%;
 			    	height: 25%;
 		    }
@@ -91,7 +91,7 @@
 		    .center_tablebar{
 			    	position: absolute;
 			    	top: 27%;
-			    	left:0%;
+			    	left:1%;
 			    	width: 100%;
 			    	height: 10%;
 		    }
@@ -100,8 +100,8 @@
 			    border: 1px solid gray;
 			    	position: absolute;
 			    	top: 36%;
-			    	left: 0%;
-			    	width: 35%;
+			    	left: 1%;
+			    	width: 34%;
 			    	overflow-y:scroll; 
 			    	height:64%;
 			    }
@@ -125,7 +125,7 @@
 			    	position: absolute;
 			    	top: 36%;
 			    	left: 70%;
-			    	width: 30%;
+			    	width: 29%;
 			    	overflow-y:scroll; 
 			    	 height:64%;
 			    }
@@ -137,8 +137,8 @@
 		@media (min-height: 800px) and (max-height: 850px) {
 		    .title_column{
 			    	position: absolute;
-			    	top: 0px;
-			    	left:0%;
+			    	top: 1%;
+			    	left:1%;
 			    	width: 90%;
 			    	height: 25%;
 		    }
@@ -146,7 +146,7 @@
 		    .center_tablebar{
 			    	position: absolute;
 			    	top: 25%;
-			    	left:0%;
+			    	left:1%;
 			    	width: 100%;
 			    	height: 20%;
 		    }
@@ -155,8 +155,8 @@
 			    border: 1px solid gray;
 			    	position: absolute;
 			    	top: 40%;
-			    	left: 0%;
-			    	width: 35%;
+			    	left: 1%;
+			    	width: 34%;
 			    	overflow-y:scroll; 
 			    	height:60%;
 			    }
@@ -180,7 +180,7 @@
 			    	position: absolute;
 			    	top: 40%;
 			    	left: 70%;
-			    	width: 30%;
+			    	width: 29%;
 			    	overflow-y:scroll; 
 			    	 height:60%;
 			    }
@@ -191,8 +191,8 @@
 		@media (min-height: 850px) and (max-height: 960px) {
 		    .title_column{
 			    	position: absolute;
-			    	top: 0px;
-			    	left:0%;
+			    top: 1%;
+			    	left:1%;
 			    	width: 90%;
 			    	height: 25%;
 		    }
@@ -200,7 +200,7 @@
 		    .center_tablebar{
 			    	position: absolute;
 			    	top: 24%;
-			    	left:0%;
+			    	left:1%;
 			    	width: 100%;
 			    	height: 10%;
 		    }
@@ -209,8 +209,8 @@
 			    border: 1px solid gray;
 			    	position: absolute;
 			    	top: 33%;
-			    	left: 0%;
-			    	width: 35%;
+			    	left: 1%;
+			    	width: 34%;
 			    	overflow-y:scroll; 
 			    	height:67%;
 			    }
@@ -234,7 +234,7 @@
 			    	position: absolute;
 			    	top: 33%;
 			    	left: 70%;
-			    	width: 30%;
+			    	width: 29%;
 			    	overflow-y:scroll; 
 			    	 height:67%;
 			    }
@@ -386,8 +386,67 @@
 					  -webkit-transform: scale(1.5); /* Safari and Chrome */
 					  -o-transform: scale(1.5); /* Opera */
 					}
+					
+					
+					.spinner {
+					   
+					  width: 70px;
+					  text-align: left;
+					}
+					
+					.spinner > div {
+					  width: 3px;
+					  height: 3px;
+					  background-color: #333;
+					
+					  border-radius: 100%;
+					  display: inline-block;
+					  -webkit-animation: sk-bouncedelay 2s infinite ease-in-out both;
+					  animation: sk-bouncedelay 2s infinite ease-in-out both;
+					}
+					
+					.spinner .bounce1 {
+					  -webkit-animation-delay: -0.80s;
+					  animation-delay: -0.80s;
+					}
+					
+					.spinner .bounce2 {
+					  -webkit-animation-delay: -0.60s;
+					  animation-delay: -0.60s;
+					}
+					
+					.spinner .bounce3 {
+					  -webkit-animation-delay: -0.40s;
+					  animation-delay: -0.40s;
+					}
+					
+					
+					.spinner .bounce4 {
+					  -webkit-animation-delay: -0.20s;
+					  animation-delay: -0.20s;
+					}
+					
+					
+					@-webkit-keyframes sk-bouncedelay {
+					  0%, 80%, 100% { -webkit-transform: scale(0) }
+					  40% { -webkit-transform: scale(1.0) }
+					}
+					
+					@keyframes sk-bouncedelay {
+					  0%, 80%, 100% { 
+					    -webkit-transform: scale(0);
+					    transform: scale(0);
+					  } 40% { 
+					    -webkit-transform: scale(1.0);
+					    transform: scale(1.0);
+					  }
+					}
 </style>
-<link rel="stylesheet" type="text/css" href="img/pk10.css">
+<link rel="stylesheet" type="text/css" href="img/pk10.css"> 
+
+
+
+
 </head>
 
 
@@ -403,13 +462,14 @@
 <div class="title_column">
 	 <table style="height:100%;border: 1px solid gray; border-collapse: collapse; font-size: 18px; text-align:center;">
 		<tr>
-			<td nowrap width="1%" height="1%" class="tdClass"> 今日點數 </td>
+			<td nowrap width="1%" height="1%" class="tdClass"> 今日點數
+			</td>
 			<td width="100px;" class="tdClass"> <div  class="toDayWin" style="	font-size:24px;" class="tdClass">loading...</div> </td>
 			<td nowrap  class="tdClass">遊戲帳號</td>
 			<td style="text-align:left" class="tdClass"> <input style=" font-size: 15px;text-align: center;" type="text" id="user" readonly size="6"/></td>
 			<td colspan=2 align=center class="tdClass"><button type="button" id="logoutDiv" class="button" style="font-size: 18px;width:100px;">登出</button></td>
     	    <td nowrap rowspan="6" class="tdClass">選擇計劃</td>
-	        <td class="tdClass"  bgcolor="FFFF77"> <input type="checkbox" name="c1" id="c1" value="1"  >金星計劃 </td> 
+	        <td class="tdClass"  bgcolor="FFFF77"> <input type="checkbox" name="c1" id="c1" value="1"  >金星計劃</td> 
 		    <td class="tdClass">投注參數</td> 
 		    <td class="tdClass" style="text-align:left"> <input class="betlist" type ="text" style="width:90%"/></td><td nowrap class="tdClass" ><button type="button" onclick="save_param()" class="button" style="width:60px">儲存</button></td> 
         </tr>
@@ -493,7 +553,16 @@
 					  <div id="openCode" style="display:none;text-align: center;"  class="lot-table">loading...</div>
 					  <div class="container">
 						  <div class="openload" style=" display: inline-block;" >開獎中</div>
-						  <div id="blinkStr" class="blink"  style=" display: inline-block;">.....</div>
+						  <div id="blinkStr" class="blink"  style=" display: inline-block;">
+						 	    <div class="spinner">
+								  <div class="bounce1"></div>
+								  <div class="bounce2"></div>
+								  <div class="bounce3"></div>
+								    <div class="bounce4"></div>
+								    <div class="bounce5"></div>
+								  
+								</div> 
+						 </div>
 					  </div>
 			</td>
 			
@@ -856,6 +925,10 @@
 		 
 		 var query = window.location.search.substring(1);
 		 var parsed_qs = parse_query_string(query);
+		 var autocheckbox = (parsed_qs.auto) ;
+		 if(autocheckbox){
+			 document.getElementById("autoStart").checked = true;
+		 }
 		 var uid = (parsed_qs.uid) ;
 		 var pwd = (parsed_qs.pwd) ;
 		 var user= (parsed_qs.user);
@@ -959,6 +1032,15 @@
     	
     }
     
+    String.prototype.replaceAll = function(searchStr, replaceStr) {
+        var str = this;
+        
+        // escape regexp special characters in search string
+        searchStr = searchStr.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        
+        return str.replace(new RegExp(searchStr, 'gi'), replaceStr);
+    };
+    
     function getlogHtml(){
    	 var url =  u + '/getPredictLog?user='+document.getElementById("user").value+"bet";
 		   
@@ -967,8 +1049,8 @@
 	         success: function(data) {
 	        	  
 	        	 const json = JSON.parse(data);
-	        	  
-		    	 	$( "div.logHtml" ).html(json.logHtml);
+	        	    var r = json.logHtml.replaceAll('下注金額','投注點數');
+		    	 	$( "div.logHtml" ).html(r);
 		    	 	 
  
 	         	 } 
@@ -1350,9 +1432,9 @@
 				"&sn="+sn+"&amount="+amount+"&betphase="+betphase+"&c="+c+"&codeList="+codeList+"&formu="+formu,  
          async: false,
          success: function(data) {
-        	    var d = getYYYYMMDDSS();
-        	    var log =  d + "下注完成!" ;
-		    	$( "div.console_str" ).prepend("<tr><td  >"+log+"</td></tr>") ;
+        	   // var d = getYYYYMMDDSS();
+        	   // var log =  d + "下注完成!" ;
+		  //  	$( "div.console_str" ).prepend("<tr><td  >"+log+"</td></tr>") ;
          	 }
         });
 		
@@ -1580,26 +1662,34 @@
    		
 		
 	    setTimeout(function () {
+	    		    var d = new Date();
+			    //var n = d.getMinutes();
+			    var h = d.getHours();
+			    //let nextPhase =  getPhase();
+			    var min = getBetMin();
+			    var checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
+	   	 	if(  document.getElementById("autoStart").checked && (checkStartHM *1) < 9007 && (checkStartHM *1) > 9005){ //relogin
+	             window.location.href="http://220.132.126.216:8080/auto/index.html?user="+
+	             document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value;
+		    }
     	        var winFlag = getWinFun(); 
     	        
 			    if(winFlag){
-		    	        var d = new Date();
-				    //var n = d.getMinutes();
-				    var h = d.getHours();
-				    //let nextPhase =  getPhase();
-				    var min = getBetMin();
+		    	       
 				    
 				    if(falseMinute.indexOf(min) != -1){
 				    	betflag = false; 
 				    }
 				    
-				    var checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
+				   
 				    if( (checkStartHM *1) < 9030){
 				   	 	betflag = true;
 				    }
 				    if( (checkStartHM *1) < 9000){
 				   	 	deleteHistory();
 				    }
+				    
+				    
 				    
 				   
 				    

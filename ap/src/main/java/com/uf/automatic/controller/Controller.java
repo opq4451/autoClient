@@ -831,7 +831,7 @@ public class Controller {
 //					saveOverLog(user, overLog, c);
 //
 //				}
-			    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "下注金額("
+			    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
  			                                    + amount + ")" + "(成功)" + "(公式" + formu + ")"; 
 				saveLog(user + "bet", betlog);
 
@@ -1068,7 +1068,7 @@ public class Controller {
                     String v = configProperty.getProperty(key);
                     String array[] = v.split(",");
 
-                    String temp = "<tr ><td style=\"border: 1px solid gray;border-collapse: collapse;padding-left: 0.1cm; padding-right: 0.1cm;\"> " + key + "</td>";
+                    String temp = "<tr ><td align=center style=\"border: 1px solid gray;border-collapse: collapse;padding-left: 0.1cm; padding-right: 0.1cm;\"> " + key + "</td>";
                     //temp += "<td class=\"nums\"  colspan=11 nowrap style=\"border: 1px solid gray;border-collapse: collapse;padding-top: 0.1cm; padding-bottom: 0.1cm;\">" ;
                     for (int i = 0; i < 10; i++) {
                         if (Integer.parseInt(array[i]) == 1)

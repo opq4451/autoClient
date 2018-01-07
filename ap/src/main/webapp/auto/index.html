@@ -30,7 +30,7 @@
   </head>
  
 
-  <body   background="/img/1.jpg">
+  <body   background="/img/1.jpg" onload="autoLogin()">
 
     <div class="container" style="width:20%;    margin-top: 10%;">
 
@@ -59,31 +59,9 @@
 		$( "#btn" ).click(function() {
 			var r = confirm("貴用戶使用本軟件下載的任何資料.或因外來不可抗拒的因素.而導致損失 疏漏 錯誤.本軟件均不負任何責任與賠償.特此聲明。");
 		    if (r == true) {
-		    	let user = document.getElementById("user").value;
+		    		let user = document.getElementById("user").value;
 			    let pwd = document.getElementById("pwd").value;
-			    let url = global_url + '/getAuthInformation?user='+user+'&pwd='+pwd ; 
-			   
-			    $.ajax({ url:url, 
-			         async: false,
-			         success: function(data) {
-			        	 var r = JSON.parse(data)
-			        		 
-			        	 if(r.OK =='Y'){
-			        		   var pwd_in = r.pwd_in; 
-			        		   var end_date = r.end_date;
-			  			   $.ajax({ url: global_url + '/getUid?user='+user+'&pwd='+pwd_in, 
-			  			         async: false,
-			  			         success: function(r) { 
-			  			        	 	if(r == 'Y')
-			  						 	window.location.href = "http://220.132.126.216:8080/auto/main1.html?user="+user+'&pwd='+pwd_in+"&end_date="+end_date;
-			  		         	 }
-			  		        });
-			        	 }else{
-			        		 alert("驗證失敗，請洽管理員")
-			        	 }
-						// window.location.href = "/auto/main1.html?user="+user+"&pwd="+pwd;
-		         	 }
-		        });
+			    login(user,pwd);
 			    
 			    
 			  
@@ -98,27 +76,44 @@
 	    
 	});
 	
-	/*function autoLogin(){
+	function autoLogin(){
 		let query = window.location.search.substring(1);
 		let parsed_qs = parse_query_string(query);
 		let pwd = (parsed_qs.pwd) ;
 		let user= (parsed_qs.user); 
 		if(pwd && user){
-			let url = global_url + '/getUid?user='+user+'&pwd='+pwd ; 
-			
-			$.ajax({ url:url, 
-		         async: false,
-		         success: function(data) {
-		        	 let uid = ( data.split('@')[0] );
-					 let mid = ( data.split('@')[1] );
-					 //alert("main.html?user="+user+"&pwd="+pwd+"&mid="+mid+"&uid="+encodeURI(uid))
-					 window.location.href = "/auto/main1.html?user="+user+"&pwd="+pwd+"&mid="+mid+"&uid="+encodeURI(uid);
-	         	 }
-	        }); 
+			 login(user,pwd);
 			 
 		}
 		
-	}*/
+	}
+	
+	
+	function login(user,pwd){
+		let url = global_url + '/getAuthInformation?auto=Y&user='+user+'&pwd='+pwd ; 
+		   
+	    $.ajax({ url:url, 
+	         async: false,
+	         success: function(data) {
+	        	 var r = JSON.parse(data)
+	        		 
+	        	 if(r.OK =='Y'){
+	        		   var pwd_in = r.pwd_in; 
+	        		   var end_date = r.end_date;
+	  			   $.ajax({ url: global_url + '/getUid?user='+user+'&pwd='+pwd_in, 
+	  			         async: false,
+	  			         success: function(r) { 
+	  			        	 	if(r == 'Y')
+	  						 	window.location.href = "/auto/main1.html?user="+user+'&pwd='+pwd_in+"&end_date="+end_date;
+	  		         	 }
+	  		        });
+	        	 }else{
+	        		 alert("驗證失敗，請洽管理員")
+	        	 }
+				// window.location.href = "/auto/main1.html?user="+user+"&pwd="+pwd;
+         	 }
+        });
+	}
 	 
 
 </script>
