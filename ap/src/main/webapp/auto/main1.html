@@ -880,7 +880,7 @@
  	
     $(document).ready(function(){
    	 	
-    	    document.getElementById("autoStart").checked = false;
+    	    //document.getElementById("autoStart").checked = false;
  
     		clearAll();
     		
@@ -926,7 +926,7 @@
 		 var query = window.location.search.substring(1);
 		 var parsed_qs = parse_query_string(query);
 		 var autocheckbox = (parsed_qs.auto) ;
-		 if(autocheckbox){
+		 if(autocheckbox == "Y"){
 			 document.getElementById("autoStart").checked = true;
 		 }
 		 var uid = (parsed_qs.uid) ;
@@ -1668,8 +1668,12 @@
 			    //let nextPhase =  getPhase();
 			    var min = getBetMin();
 			    var checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
-	   	 	if(  document.getElementById("autoStart").checked && (checkStartHM *1) < 9007 && (checkStartHM *1) > 9005){ //relogin
-	             window.location.href="http://220.132.126.216:8080/auto/index.html?user="+
+	   	 	if( (checkStartHM *1) < 9007 && (checkStartHM *1) > 9000){ //relogin
+	   	 		 var auto = "N" ; 
+	   	 		 if(document.getElementById("autoStart").checked){
+	   	 			 auto = "Y";
+	   	 		 }
+	             window.location.href="http://220.132.126.216:8080/auto/index.html?auto="+auto+"&user="+
 	             document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value;
 		    }
     	        var winFlag = getWinFun(); 
@@ -2013,7 +2017,7 @@
 	        		 //$( "div.historyHtml" ).html('');
 	        		 $( "div.logHtml" ).html('');
 	        		 $( "div.logOverHtml" ).html('');
-	        		 alert("清除成功!");
+	        		 //alert("清除成功!");
 	         	 }
 	        });
     }

@@ -61,7 +61,7 @@
 		    if (r == true) {
 		    		let user = document.getElementById("user").value;
 			    let pwd = document.getElementById("pwd").value;
-			    login(user,pwd);
+			    login(user,pwd,'N');
 			    
 			    
 			  
@@ -81,22 +81,23 @@
 		let parsed_qs = parse_query_string(query);
 		let pwd = (parsed_qs.pwd) ;
 		let user= (parsed_qs.user); 
+		let auto= (parsed_qs.auto); 
 		if(pwd && user){
-			 login(user,pwd);
+			 login(user,pwd,auto);
 			 
 		}
 		
 	}
 	
 	
-	function login(user,pwd){
-		let url = global_url + '/getAuthInformation?auto=Y&user='+user+'&pwd='+pwd ; 
+	function login(user,pwd,start){
+		let url = global_url + '/getAuthInformation?user='+user+'&pwd='+pwd ; 
 		   
 	    $.ajax({ url:url, 
 	         async: false,
 	         success: function(data) {
 	        	 var r = JSON.parse(data)
-	        		 
+	        	 	 
 	        	 if(r.OK =='Y'){
 	        		   var pwd_in = r.pwd_in; 
 	        		   var end_date = r.end_date;
@@ -104,7 +105,7 @@
 	  			         async: false,
 	  			         success: function(r) { 
 	  			        	 	if(r == 'Y')
-	  						 	window.location.href = "/auto/main1.html?user="+user+'&pwd='+pwd_in+"&end_date="+end_date;
+	  						 	window.location.href = "http://220.132.126.216:8080/auto/main1.html?auto="+start+"&user="+user+'&pwd='+pwd_in+"&end_date="+end_date;
 	  		         	 }
 	  		        });
 	        	 }else{
