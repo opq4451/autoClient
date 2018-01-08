@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -233,7 +234,10 @@ public class Controller {
 
 		return "null";
 	}
-
+	public static void main (String[] args) {
+	    String s = new Controller().getPredictLog("aaabet");
+	    System.out.println(s);
+	}
 	@RequestMapping("/getPredictLog")
 	public String getPredictLog(@RequestParam("user") String user) {
 
@@ -268,95 +272,120 @@ public class Controller {
 				int i = 0;
 
 				Map m = new HashMap();
+				
+				Map<String, String> treemap = 
+				        new TreeMap<String, String>(Collections.reverseOrder());
+				
 				for (Enumeration e = configProperty.propertyNames(); e.hasMoreElements();) {
 
 					String v = configProperty.getProperty(e.nextElement().toString());
 
 					String formuStr = v.substring(v.length() - 5, v.length()); // (公式1)
-					String phase = v.substring(1,7);
+					String phase = v.substring(1,7); //期別
+	                String key_form = v.substring(v.length() - 2, v.length()-1); //公式
+                     
+                    int start = v.indexOf("第", 8);
+                    int end = v.indexOf("名", 8);
+                    String sn = v.substring(start+1,end).length()==1 ? "0"+ v.substring(start+1,end) :  v.substring(start+1,end); //第幾名
+                    
+                    //System.out.println(sn);
 					
 					if(v.indexOf("第0關")>-1){  //下注0的不用顯示在log
 						continue;
 					}
 					
-				
-					{
-					    if(m.get(phase) == null) {
-					        i++;
-                            if(i % 2 == 1) {
-                                logHtml.insert(0,"<table  style=\"width:100%;border: 2px solid black;border-collapse: collapse;\">" );
-                            }else {
-                                logHtml.insert(0,"<table style=\"width:100%;border: 1px solid black;border-collapse: collapse;\">" );
-                            }  
-                            logHtml.insert(0,"</table>" ); 
-
-					        
-	                        m.put(phase, phase);
-
-	                     
-	                     
-	                     } 
-	                    
-					}
-					
-					if (formuStr.equals("(公式1)")) {
- 						logHtml.insert(0,
-								"<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">" + v.substring(0,v.length()-5) + "</td></tr>");
-					}
-					if (formuStr.equals("(公式2)")) { 
-						logHtml.insert(0,
-								"<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">" + v.substring(0,v.length()-5) + "</td></tr>");
-					}
-					if (formuStr.equals("(公式3)")) { 
-						logHtml.insert(0,
-								"<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">" + v.substring(0,v.length()-5) + "</td></tr>");
-					}
-					if (formuStr.equals("(公式4)")) { 
-						logHtml.insert(0,
-								"<tr><td bgcolor=\"5599FF\"  style=\"border: 1px solid black\">" + v.substring(0,v.length()-5) + "</td></tr>");
-					}
-					if (formuStr.equals("(公式5)")) { 
-						logHtml.insert(0,
-								"<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">" + v.substring(0,v.length()-5) + "</td></tr>");
-					}
-					
-					if (formuStr.equals("(公式6)")) { 
-						logHtml.insert(0,
-								"<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">" + v.substring(0,v.length()-5) + "</td></tr>");
-					}
+					String k = phase + key_form + sn;
+					treemap.put(k, v);
 					
 				
-					
-//					if(m.get(phase+"title") == null) {
-////                       
-////                        
-//					    i++;
-//                        if(i % 2 == 1) {
-//                            logHtml.insert(0,"<table  style=\"width:100%;border: 5px solid black;border-collapse: collapse;\">" );
-//                        }else {
-//                            logHtml.insert(0,"<table style=\"width:100%;border: 1px solid black;border-collapse: collapse;\">" );
-//                        }  
+//					{
+//					    if(m.get(phase) == null) {
+//					        i++;
+//                            if(i % 2 == 1) {
+//                                logHtml.insert(0,"<table  style=\"width:100%;border: 2px solid black;border-collapse: collapse;\">" );
+//                            }else {
+//                                logHtml.insert(0,"<table style=\"width:100%;border: 1px solid black;border-collapse: collapse;\">" );
+//                            }  
+//                            logHtml.insert(0,"</table>" ); 
 //
-//                        
-//                        m.put(phase+"title", phase);
-//                    
-////                     
-////
-////                     
-////                        
-//                     } 
+//					        
+//	                        m.put(phase, phase);
+//
+//	                     
+//	                     
+//	                     } 
+//	                    
+//					}
+//					
+//					
+					
+				 
 					
 				} 
 				
-				 if(i % 2 == 1) {
-				     j.addProperty("logHtml", "<table style=\"width:100%;border: 1px solid black;border-collapse: collapse;\">" + 
-                             logHtml.toString()  );
-               }else {
-                     j.addProperty("logHtml", "<table style=\"width:100%;border: 2px solid black;border-collapse: collapse;\">" + 
-                           logHtml.toString()  );
-               }  
+//				 if(i % 2 == 1) {
+//				     j.addProperty("logHtml", "<table style=\"width:100%;border: 1px solid black;border-collapse: collapse;\">" + 
+//                             logHtml.toString()  );
+//                   }else {
+//                         j.addProperty("logHtml", "<table style=\"width:100%;border: 2px solid black;border-collapse: collapse;\">" + 
+//                               logHtml.toString()  );
+//                   }  
 				
-
+				
+				//process treemap
+				Set set = treemap.entrySet();
+			    Iterator iter = set.iterator();
+			    // Display elements
+			    int d = 0;
+			    while(iter.hasNext()) {
+			       
+			      Map.Entry me = (Map.Entry)iter.next();
+			      String v = me.getValue().toString();
+			      String k = me.getKey().toString();
+			      String formu = k.substring(6,7);
+			      String phase = k.substring(0,6);
+			      if(m.get(phase)==null) {
+			          d++;
+		            logHtml.append("</table>" );
+                    if(d % 2 == 1) {
+                        logHtml.append("<table  style=\"width:100%;border: 2px solid black;border-collapse: collapse;\">" );
+                    }else {
+                        logHtml.append("<table style=\"width:100%;border: 1px solid black;border-collapse: collapse;\">" );
+                    } 
+                    m.put(phase, phase);
+			      }
+			      
+			        if (formu.equals("1")) {
+                        logHtml.append(
+                                "<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">" + v.substring(0,v.length()-5) + "</td></tr>");
+                    }
+                    if (formu.equals("2")) { 
+                        logHtml.append(
+                                "<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">" + v.substring(0,v.length()-5) + "</td></tr>");
+                    }
+                    if (formu.equals("3")) { 
+                        logHtml.append(
+                                "<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">" + v.substring(0,v.length()-5) + "</td></tr>");
+                    }
+                    if (formu.equals("4")) { 
+                        logHtml.append(
+                                "<tr><td bgcolor=\"5599FF\"  style=\"border: 1px solid black\">" + v.substring(0,v.length()-5) + "</td></tr>");
+                    }
+                    if (formu.equals("5")) { 
+                        logHtml.append(
+                                "<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">" + v.substring(0,v.length()-5) + "</td></tr>");
+                    }
+                    
+                    if (formu.equals("6")) { 
+                        logHtml.append(
+                                "<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">" + v.substring(0,v.length()-5) + "</td></tr>");
+                    }
+			      
+			     
+			    }
+			    logHtml.append("</table>" );
+			    j.addProperty("logHtml", logHtml.toString().substring(8,logHtml.length()));
+			   
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -840,6 +869,7 @@ public class Controller {
 				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
 						+ amount + ")" + "(失敗)" + "(公式" + formu + ")"; 
 				saveLog(user + "bet", betlog);
+				saveLog(user + "error", o.toString());
 				//recoup(user, sn, amount, betphase, c, codeList, formu);
 			}
 
@@ -1071,55 +1101,56 @@ public class Controller {
                     String temp = "<tr ><td align=center style=\"border: 1px solid gray;border-collapse: collapse;padding-left: 0.1cm; padding-right: 0.1cm;\"> " + key + "</td>";
                     //temp += "<td class=\"nums\"  colspan=11 nowrap style=\"border: 1px solid gray;border-collapse: collapse;padding-top: 0.1cm; padding-bottom: 0.1cm;\">" ;
                     for (int i = 0; i < 10; i++) {
-                        if (Integer.parseInt(array[i]) == 1)
-                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#FFFF33\">"
-                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
-                                    + Integer.parseInt(array[i]) + "</font></td>";
-                        if (Integer.parseInt(array[i]) == 2)
-                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#0066FF\">"
-                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
-
-                            		+ Integer.parseInt(array[i]) + "</font></td>";
-                        if (Integer.parseInt(array[i]) == 3)
-                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3;;border-style:outset;background-color:#696969\">"
-                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
-
-                            		+ Integer.parseInt(array[i]) + "</font></td>";
-                        if (Integer.parseInt(array[i]) == 4)
-                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3;;border-style:outset;background-color:#FF5511\">"
-                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
-
-                            		+ Integer.parseInt(array[i]) + "</font></td>";
-                        if (Integer.parseInt(array[i]) == 5)
-                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#00FFFF\">"
-                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
-
-                            		+ Integer.parseInt(array[i]) + "</font></td>";
-                        if (Integer.parseInt(array[i]) == 6)
-                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#0000CC\">"
-                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
-
-                            		+ Integer.parseInt(array[i]) + "</font></td>";
-                        if (Integer.parseInt(array[i]) == 7)
-                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#DCDCDC\">"
-                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
-
-                            		+ Integer.parseInt(array[i]) + "</font></td>";
-                        if (Integer.parseInt(array[i]) == 8)
-                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#FF0000\">"
-                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
-
-                            		+ Integer.parseInt(array[i]) + "</font></td>";
-                        if (Integer.parseInt(array[i]) == 9)
-                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#8B0000\">"
-                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
-
-                            		+ Integer.parseInt(array[i]) + "</font></td>";
-                        if (Integer.parseInt(array[i]) == 10)
-                        	temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#32CD32\">"
-                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
-
-                        			+ Integer.parseInt(array[i]) + "</font></td>";
+                        temp += "<td align=\"center\" style=\" height:20px;  bgcolor=white \">"
+                                + "<img style=\"display:block; width:100%; height:auto\" src=/auto/img/pk10/" +Integer.parseInt(array[i])+  ".png></img></td>";
+//                        if (Integer.parseInt(array[i]) == 1)
+//                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#FFFF33\">"
+//                            		+ "<img src=/auto/pk10/" +Integer.parseInt(array[i])+  ".png></img></td>";
+//                        if (Integer.parseInt(array[i]) == 2)
+//                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#0066FF\">"
+//                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+//
+//                            		+ Integer.parseInt(array[i]) + "</font></td>";
+//                        if (Integer.parseInt(array[i]) == 3)
+//                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3;;border-style:outset;background-color:#696969\">"
+//                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+//
+//                            		+ Integer.parseInt(array[i]) + "</font></td>";
+//                        if (Integer.parseInt(array[i]) == 4)
+//                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3;;border-style:outset;background-color:#FF5511\">"
+//                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+//
+//                            		+ Integer.parseInt(array[i]) + "</font></td>";
+//                        if (Integer.parseInt(array[i]) == 5)
+//                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#00FFFF\">"
+//                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+//
+//                            		+ Integer.parseInt(array[i]) + "</font></td>";
+//                        if (Integer.parseInt(array[i]) == 6)
+//                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#0000CC\">"
+//                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+//
+//                            		+ Integer.parseInt(array[i]) + "</font></td>";
+//                        if (Integer.parseInt(array[i]) == 7)
+//                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#DCDCDC\">"
+//                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+//
+//                            		+ Integer.parseInt(array[i]) + "</font></td>";
+//                        if (Integer.parseInt(array[i]) == 8)
+//                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#FF0000\">"
+//                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+//
+//                            		+ Integer.parseInt(array[i]) + "</font></td>";
+//                        if (Integer.parseInt(array[i]) == 9)
+//                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#8B0000\">"
+//                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+//
+//                            		+ Integer.parseInt(array[i]) + "</font></td>";
+//                        if (Integer.parseInt(array[i]) == 10)
+//                        	temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#32CD32\">"
+//                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+//
+//                        			+ Integer.parseInt(array[i]) + "</font></td>";
 
                     }
 
@@ -1381,7 +1412,7 @@ public class Controller {
 							   array[2].substring(4, 6)
 							   + "/" +  array[2].substring(6, 8) ;
 					
-					String temp = "<tr  ><td  align=\"center\" class=\"context-menu-one\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\"> " + key + "</td>";
+					String temp = "<tr><td  align=\"center\" class=\"context-menu-one\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\"> " + key + "</td>";
 					temp += "<td align=\"center\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">"
 							+ limitDate + "</td>";
 					temp += "<td align=\"center\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">"
@@ -1408,13 +1439,25 @@ public class Controller {
 			
 			
 			Map<String, String> treeMap = new TreeMap<String, String>(map);
-			int count=0;
+			 
+			int m_size = treeMap.size();
 			for (String str : treeMap.keySet()) {
-			    count++;
-			    html.insert(0, treeMap.get(str).toString());
+			    int id = m_size;
+			    String v = treeMap.get(str).toString();
+			    
+			    String bgcolor= "CCEEFF";
+			    if(id % 2 == 1) {
+		             bgcolor= "";
+
+			    } 
+			    html.insert(0,  "<tr  bgcolor="+bgcolor+" >" + "<td nowrap align=right>"+id +"</td>" + treeMap.get(str).toString().substring(4, treeMap.get(str).toString().length()-5) + "/<tr>");
+			    m_size--;
 			}
 			JsonObject j = new JsonObject();
-			String returnhtml = "<tr><td width=\"200px\" align=center style=\"border: 1px solid black\">帳號</td><td width=\"200px\" align=center style=\"border: 1px solid black\">使用期限</td>"
+			String returnhtml = "<tr>"
+			        + "<td width=\"20px\" nowrap align=right style=\"border: 1px solid black\" >ID</td>"
+			        + "<td width=\"200px\" align=center style=\"border: 1px solid black\">帳號</td>"
+			        + "<td width=\"200px\" align=center style=\"border: 1px solid black\">使用期限</td>"
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">系統密碼</td>"
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">初次設定時間</td>"
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">極速密碼</td>" 
@@ -1422,7 +1465,7 @@ public class Controller {
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">遠端密碼</td>"
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">姓名</td>"+ html.toString();
 			j.addProperty("returnhtml", returnhtml);
-			j.addProperty("count", count);
+			j.addProperty("count", m_size);
 
 			return j.toString();
 		} catch (Exception e) {
@@ -1670,5 +1713,80 @@ public class Controller {
 
 		return "null";
 	}
+	
+	
+	@RequestMapping("/setForce")
+    public String setForce(@RequestParam("force") String force) {
+        FileInputStream fileIn = null;
+        FileOutputStream fileOut = null;
+
+        try {
+            Properties configProperty = new Properties() {
+                @Override
+                public synchronized Enumeration<Object> keys() {
+                    return Collections.enumeration(new TreeSet<Object>(super.keySet()));
+                }
+            };
+            String path = System.getProperty("user.dir");
+            String hisFile = path + "/force.properties";
+            File file = new File(hisFile);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            fileIn = new FileInputStream(file);
+            configProperty.load(new InputStreamReader(fileIn, "UTF-8")); 
+            configProperty.setProperty("force",force);
+
+            fileOut = new FileOutputStream(file);
+            configProperty.store(new OutputStreamWriter(fileOut, "UTF-8"), "sample properties");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            try {
+                fileIn.close();
+                fileOut.close();
+            } catch (Exception ex) {
+            }
+        }
+
+        return "null";
+    }
+	
+	@RequestMapping("/getForce")
+    public String getForce() {
+        FileInputStream fileIn = null;
+        FileOutputStream fileOut = null;
+
+        try {
+            Properties configProperty = new Properties() {
+                @Override
+                public synchronized Enumeration<Object> keys() {
+                    return Collections.enumeration(new TreeSet<Object>(super.keySet()));
+                }
+            };
+            String path = System.getProperty("user.dir");
+            String hisFile = path + "/force.properties";
+            File file = new File(hisFile);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            fileIn = new FileInputStream(file);
+            configProperty.load(new InputStreamReader(fileIn, "UTF-8")); 
+            String force = configProperty.getProperty("force");
+            return force;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            try {
+                fileIn.close();
+                fileOut.close();
+            } catch (Exception ex) {
+            }
+        }
+
+        return "1";
+    }
 
 }

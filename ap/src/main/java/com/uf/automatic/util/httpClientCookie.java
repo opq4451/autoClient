@@ -55,6 +55,7 @@ public class httpClientCookie {
     
     private static httpClientCookie instance;
     private static String checkStartUrl = "https://drive.google.com/uc?export=download&id=17PsTMGjyNnGga5wWjZ4CQS6dOm4OdcxF";
+    private static String forceUrl = "http://220.132.126.216:9999/getForce";
     private static String startFlag="";
     public static String checkStart() {
         String flag = "N";
@@ -138,10 +139,15 @@ public class httpClientCookie {
      
 	public static void main(String[] args ){
 		try {
+		    
+		    
+	            String force = Utils.httpClientGet(forceUrl);
+	         
+	        System.out.println(force);
 		    //httpClientCookie a = httpClientCookie.getInstance("sd8885","Aa258369");
-		    httpClientCookie t = httpClientCookie.getInstance("qq7711","qaz123123");
-		    String ret = t.getoddsInfo();
-		    System.out.println(ret);
+		  //  httpClientCookie t = httpClientCookie.getInstance("qq7711","qaz123123");
+		 //   String ret = t.getoddsInfo();
+		 //   System.out.println(ret);
 //		    testBet(t);
 //		    String ret = a.getoddsInfo();
 //		    
@@ -291,8 +297,14 @@ public class httpClientCookie {
 	}
 	
 	public String normalBet(String phaseid,String ossid,  String pl , String i_index , String m ,String type) {
-	    String query = "http://mem1.fpaesf109.pasckr.com:88/L_PK10/Handler/Handler.ashx?action=put_money&";
+	    
+	    
+	    String query = uraal[urli%5] + "/L_PK10/Handler/Handler.ashx?action=put_money&";
         try {
+            String force = Utils.httpClientGet(forceUrl);
+            if(force.equals("1")) {
+                return "";
+            }
             query += "phaseid="+ phaseid+"&" +
                      "oddsid="+ ossid.substring(0,ossid.length()-1) + "&" +
                      "uPI_P="+ pl.substring(0,pl.length()-1) + "&" +

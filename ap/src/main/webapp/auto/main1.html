@@ -1430,7 +1430,7 @@
 	function reallyBet(sn,amount,betphase,c,codeList,formu){
 		$.ajax({ url:  u + "/bet?user="+document.getElementById("user").value+
 				"&sn="+sn+"&amount="+amount+"&betphase="+betphase+"&c="+c+"&codeList="+codeList+"&formu="+formu,  
-         async: false,
+         async: true,
          success: function(data) {
         	   // var d = getYYYYMMDDSS();
         	   // var log =  d + "下注完成!" ;
