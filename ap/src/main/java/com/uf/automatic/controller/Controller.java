@@ -200,6 +200,10 @@ public class Controller {
 				String betlist4 = configProperty.getProperty("betlist4");
 				String betlist5 = configProperty.getProperty("betlist5");
 				String betlist6 = configProperty.getProperty("betlist6");
+				String s_h = configProperty.getProperty("s_h");
+                String s_m = configProperty.getProperty("s_m");
+                String e_h = configProperty.getProperty("e_h");
+                String e_m = configProperty.getProperty("e_m");
 
 				String stoplose = configProperty.getProperty("stoplose");
 				String stopwin = configProperty.getProperty("stopwin");
@@ -216,6 +220,10 @@ public class Controller {
 				j.addProperty("stoplose", stoplose);
 				j.addProperty("stopwin", stopwin);
 				j.addProperty("startstatus", startstatus);
+				j.addProperty("s_h", s_h);
+                j.addProperty("s_m", s_m);
+                j.addProperty("e_h", e_h);
+                j.addProperty("e_m", e_m);
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -467,7 +475,9 @@ public class Controller {
 			@RequestParam("betlist") String betlist, @RequestParam("betlist2") String betlist2,
 			@RequestParam("betlist3") String betlist3, @RequestParam("betlist4") String betlist4,
 			@RequestParam("betlist5") String betlist5,@RequestParam("betlist6") String betlist6, @RequestParam("stoplose") String stoplose,
-			@RequestParam("stopwin") String stopwin, @RequestParam("startstatus") String startstatus) {
+			@RequestParam("stopwin") String stopwin, @RequestParam("startstatus") String startstatus,
+			@RequestParam("s_h") String s_h, @RequestParam("s_m") String s_m,
+			@RequestParam("e_h") String e_h, @RequestParam("e_m") String e_m) {
 		FileInputStream fileIn = null;
 		FileOutputStream fileOut = null;
 
@@ -492,6 +502,10 @@ public class Controller {
 			configProperty.setProperty("stoplose", stoplose);
 			configProperty.setProperty("stopwin", stopwin);
 			configProperty.setProperty("startstatus", startstatus);
+			configProperty.setProperty("s_h", s_h);
+            configProperty.setProperty("s_m", s_m);
+            configProperty.setProperty("e_h", e_h);
+            configProperty.setProperty("e_m", e_m);
 			fileOut = new FileOutputStream(file);
 			configProperty.store(fileOut, "sample properties");
 		} catch (Exception e) {
@@ -1105,7 +1119,7 @@ public class Controller {
                     //temp += "<td class=\"nums\"  colspan=11 nowrap style=\"border: 1px solid gray;border-collapse: collapse;padding-top: 0.1cm; padding-bottom: 0.1cm;\">" ;
                     for (int i = 0; i < 10; i++) {
                         temp += "<td align=\"center\" style=\" height:5px;  bgcolor=white \">"
-                                + "<img style=\"display:block; width:90%; height:auto\" src=/auto/img/pk10/" +Integer.parseInt(array[i])+  ".png></img></td>";
+                                + "<img style=\"display:block; width:40px; height:40px;\" src=/auto/img/pk10/" +Integer.parseInt(array[i])+  ".png></img></td>";
 //                        if (Integer.parseInt(array[i]) == 1)
 //                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#FFFF33\">"
 //                            		+ "<img src=/auto/pk10/" +Integer.parseInt(array[i])+  ".png></img></td>";

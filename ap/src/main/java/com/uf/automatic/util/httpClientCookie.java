@@ -299,7 +299,7 @@ public class httpClientCookie {
 	public String normalBet(String phaseid,String ossid,  String pl , String i_index , String m ,String type) {
 	    
 	    try {
-            Thread.sleep(400);
+            Thread.sleep(2000);
         } catch (InterruptedException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();

@@ -549,7 +549,7 @@
 		
 		<tr  >
 			<td width="1%" class="tdClass">開獎號碼</td>
-			<td colspan=5 class="tdClass" style="padding-left: 1.6cm;">
+			<td colspan=4 class="tdClass" style="padding-left: 0.3cm;">
 					  <div id="openCode" style="display:none;text-align: center;"  class="lot-table">loading...</div>
 					  <div class="container">
 						  <div class="openload" style=" display: inline-block;" >開獎中</div>
@@ -565,8 +565,9 @@
 						 </div>
 					  </div>
 			</td>
-			
-			
+			  
+			 <td width="1%" nowrap > 
+			  			<div  class="check_status" style="width:95%;background-color:green;border:3px outset">系統正常</div></td>
 			 <td nowrap class="tdClass" bgcolor="DDDDDD"> <input type="checkbox" name="c1" id="c5" value="5"  >土星計劃</td>
 			<td nowrap class="tdClass">投注參數</td> 
 					<td width="99%" class="tdClass" style="text-align:left"> <input class="betlist5" type ="text" style="width:90%"/></td><td class="tdClass"><button type="button" onclick="save_param()" class="button" style="width:60px">儲存</button></td> 
@@ -981,18 +982,29 @@
 	         success: function(data) {
 	        	 if(data == 'null'){
 	        		  flag = false;
-	                  /*if(data == 'null'){
-	                      window.location.href='/auto/index.html?user='+document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value ;
-	                  }*/
+	                  if(data == 'null'){
+	                	  	$(".check_status" ).html('系統異常');
+             		    $('.check_status').css('background', 'red'); 
+
+	                  }
 
 	        		  return;
 	        	 }
+	        	 $(".check_status" ).html('系統正常');
+     		 $('.check_status').css('background', 'green'); 
+
+	        	 
 	        	 const json = JSON.parse(data);
 	        	  
 		    	 	$( "div.toDayWin" ).text(json.todayWin);
 		    	 	$( "div.cash" ).text(json.cash);
 		    	 	$( "div.useBet" ).text(json.useBet);
 		    	 	$( "div.maxcredit" ).text(json.usable_credit);
+		    	 	
+		    	 	document.getElementById("s_h").value = json.s_h;
+		    	 	document.getElementById("s_m").value = json.s_m;
+		    	 	document.getElementById("e_h").value = json.e_h;
+		    	 	document.getElementById("e_m").value = json.e_m;
 
 		    	 	let betType = json.type;
 		    	 	setbetType(betType);
@@ -1576,7 +1588,9 @@
  		if($( ".stoplose" ).val() && $( ".stopwin" ).val() && $( ".startstatus" ).val() ){
  			const url =  u + "/saveParam?" + "user="+document.getElementById("user").value+"&type="+ type+
  			betParam
- 			+"&stoplose="+$( ".stoplose" ).val()+"&stopwin="+$( ".stopwin" ).val()+"&startstatus="+$( ".startstatus" ).val()  ;
+ 			+"&stoplose="+$( ".stoplose" ).val()+"&stopwin="+$( ".stopwin" ).val()+"&startstatus="+$( ".startstatus" ).val() 
+ 			+"&s_h="+document.getElementById("s_h").value+"&s_m="+document.getElementById("s_m").value
+ 			+"&e_h="+document.getElementById("e_h").value+"&e_m="+document.getElementById("e_m").value;
  			 
  			
  			$.ajax({ url:url, 
@@ -1626,11 +1640,11 @@
  		}
  			
  		
- 		if(!(sl*-1 < todayWin*1) || !(todayWin*1 < sw*1)){
- 			$( ".startstatus" ).val(0) ;
- 			$('select.startstatus').css('background', 'red');
+ 		//if(!(sl*-1 < todayWin*1) || !(todayWin*1 < sw*1)){
+ 			//$( ".startstatus" ).val(0) ;
+ 			//$('select.startstatus').css('background', 'red');
  		   // $('.tdstartstatus').css('background', 'red'); 
- 		}
+ 		//}
  		
  		
  		
@@ -1668,7 +1682,9 @@
 			    //let nextPhase =  getPhase();
 			    var min = getBetMin();
 			    var checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
-	   	 	if( (checkStartHM *1) < 9007 && (checkStartHM *1) > 9000){ //relogin
+			    
+			    
+	   	 	if( (checkStartHM *1) == 9000 ){ //relogin
 	   	 		 var auto = "N" ; 
 	   	 		 if(document.getElementById("autoStart").checked){
 	   	 			 auto = "Y";
@@ -1702,21 +1718,27 @@
 				    	 	var sm = document.getElementById("s_m").value;
 				    	 	var eh = document.getElementById("e_h").value;
 				    	 	var em = document.getElementById("e_m").value;
-				    		if(sh!='' && sm!='' && eh!='' && em!='' ){
+				    		if(sh!='' && sm!='' ){
 				    			var s = sh + '0' + sm ;
+				    			 
+				    			if( ( (s*1) == (checkStartHM *1) ) ){
+				    				$(".startstatus" ).val(1);
+				    				$('select.startstatus').css('background', 'green');  
+				    				//$('.tdstartstatus').css('background', 'red'); 
+				    				 //document.getElementById("autoStart").checked = false;*///不在區間內不能停用，會影響自動啟用(一直被取消)
+				    			} 
+				    		}
+				    		
+				    		if(eh!='' && em!='' ){
 				    			var e = eh + '0' + em ;
-				    			if( ( (s*1) > (checkStartHM *1) )   ||  ( (e*1) < (checkStartHM *1) )){
+				    			if( ( (e*1) == (checkStartHM *1) )){
 				    				betflag = true; 
 				    				
 				    				$(".startstatus" ).val(0);
 				    				$('select.startstatus').css('background', 'red'); 
 				    				//$('.tdstartstatus').css('background', 'red'); 
 				    				 //document.getElementById("autoStart").checked = false;*///不在區間內不能停用，會影響自動啟用(一直被取消)
-				    			}else { //自動啟動
-				    				$(".startstatus" ).val(1);
-				    				$('select.startstatus').css('background', 'green'); 
-				    				//$('.tdstartstatus').css('background', 'green'); 
-				    			}
+				    			} 
 				    		}
 				    }
 				    
