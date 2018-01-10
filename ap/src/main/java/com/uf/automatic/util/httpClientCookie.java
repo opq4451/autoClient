@@ -298,12 +298,7 @@ public class httpClientCookie {
 	
 	public synchronized String normalBet(String phaseid,String ossid,  String pl , String i_index , String m ,String type) {
 	    
-	    try {
-            Thread.sleep(500);
-        } catch (InterruptedException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }//Sample: Thread.sleep(1000); 1 second sleep
+	     
 	    String query = uraal[urli%5] + "/L_PK10/Handler/Handler.ashx?action=put_money&";
         try {
             String force = Utils.httpClientGet(forceUrl);

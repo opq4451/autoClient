@@ -549,7 +549,7 @@
 		
 		<tr  >
 			<td width="1%" class="tdClass">開獎號碼</td>
-			<td colspan=4 class="tdClass" style="padding-left: 0.3cm;">
+			<td colspan=5 class="tdClass" style="padding-left: 1.6cm;">
 					  <div id="openCode" style="display:none;text-align: center;"  class="lot-table">loading...</div>
 					  <div class="container">
 						  <div class="openload" style=" display: inline-block;" >開獎中</div>
@@ -566,8 +566,7 @@
 					  </div>
 			</td>
 			  
-			 <td width="1%" nowrap > 
-			  			<div  class="check_status" style="width:95%;background-color:green;border:3px outset">系統正常</div></td>
+			
 			 <td nowrap class="tdClass" bgcolor="DDDDDD"> <input type="checkbox" name="c1" id="c5" value="5"  >土星計劃</td>
 			<td nowrap class="tdClass">投注參數</td> 
 					<td width="99%" class="tdClass" style="text-align:left"> <input class="betlist5" type ="text" style="width:90%"/></td><td class="tdClass"><button type="button" onclick="save_param()" class="button" style="width:60px">儲存</button></td> 
@@ -589,10 +588,11 @@
 			<td  nowrap class="tdClass">
 				使用期限  
 			</td>
-			<td nowrap width="100px;" colspan=3 class="tdClass">
+			<td nowrap width="100px;" colspan=2 class="tdClass">
 				<div class="limittime">loading.</div>  
 			</td>
-			
+			 <td width="1%" nowrap > 
+			  			<div  class="check_status" style="width:95%;background-color:green;border:3px outset">系統正常</div></td>
 			<td colspan=2 style="display:none">
 				<div id="connectURL">連結尚銀</div>	  
 			</td>
@@ -1646,7 +1646,7 @@
  		if(!(sl*-1 < todayWin*1) || !(todayWin*1 < sw*1)){
  			$( ".startstatus" ).val(0) ;
  			$('select.startstatus').css('background', 'red');
- 		    $('.tdstartstatus').css('background', 'red'); 
+ 		    //$('.tdstartstatus').css('background', 'red'); 
  		}
  		
  		

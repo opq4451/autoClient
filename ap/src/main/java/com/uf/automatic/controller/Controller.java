@@ -1115,11 +1115,12 @@ public class Controller {
                     String v = configProperty.getProperty(key);
                     String array[] = v.split(",");
 
-                    String temp = "<tr ><td align=center style=\"border: 1px solid gray;border-collapse: collapse;padding-left: 0.1cm; padding-right: 0.1cm;\"> " + key + "</td>";
+                    String temp = "<tr ><td align=center style=\"border: 1px solid gray;border-collapse: collapse;padding-left: 0.1cm; padding-right: 0.1cm;\"> "
+                            + "<font size=\"5\">" + key + "</font></td>";
                     //temp += "<td class=\"nums\"  colspan=11 nowrap style=\"border: 1px solid gray;border-collapse: collapse;padding-top: 0.1cm; padding-bottom: 0.1cm;\">" ;
                     for (int i = 0; i < 10; i++) {
-                        temp += "<td align=\"center\" style=\" height:5px;  bgcolor=white \">"
-                                + "<img style=\"display:block; width:40px; height:40px;\" src=/auto/img/pk10/" +Integer.parseInt(array[i])+  ".png></img></td>";
+                        temp += "<td align=\"center\" style=\" weight:50px;height:50px;  bgcolor=white \">"
+                                + "<img style=\"display:block; max-width:100%; max-height:100%;\" src=/auto/img/pk10/" +Integer.parseInt(array[i])+  ".png></img></td>";
 //                        if (Integer.parseInt(array[i]) == 1)
 //                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#FFFF33\">"
 //                            		+ "<img src=/auto/pk10/" +Integer.parseInt(array[i])+  ".png></img></td>";
@@ -1176,10 +1177,17 @@ public class Controller {
 
                     logHtml.insert(0, temp);
                 }
-                String title = "<tr><td nowrap style=\"border: 1px solid black\">開獎期別</td><td nowrap style=\"border: 1px solid black\">第一名</td><td nowrap style=\"border: 1px solid black\">第二名</td><td  nowrap style=\"border: 1px solid black\">第三名</td>"
-                        + "<td nowrap style=\"border: 1px solid black\">第四名</td><td  nowrap style=\"border: 1px solid black\">第五名</td><td  nowrap style=\"border: 1px solid black\">第六名</td>"
-                        + "<td  nowrap style=\"border: 1px solid black\">第七名</td><td  nowrap style=\"border: 1px solid black\">第八名</td><td  nowrap style=\"border: 1px solid black\">第九名</td>"
-                        + "<td  nowrap style=\"border: 1px solid black\">第十名</td>" + "</tr>";
+                String title = "<tr><td align=center nowrap style=\"border: 1px solid black\"><font size=\"3\">開獎期別</font></td>"
+                        + "<td align=center nowrap style=\"border: 1px solid black\"><font size=\"3\">第一名</font></td>"
+                        + "<td align=center nowrap style=\"border: 1px solid black\"><font size=\"3\">第二名</font></td>"
+                        + "<td align=center  nowrap style=\"border: 1px solid black\"><font size=\"3\">第三名</font></td>"
+                        + "<td align=center nowrap style=\"border: 1px solid black\"><font size=\"3\">第四名</font></td>"
+                        + "<td align=center  nowrap style=\"border: 1px solid black\"><font size=\"3\">第五名</font></td>"
+                        + "<td align=center nowrap style=\"border: 1px solid black\"><font size=\"3\">第六名</font></td>"
+                        + "<td align=center nowrap style=\"border: 1px solid black\"><font size=\"3\">第七名</font></td>"
+                        + "<td align=center  nowrap style=\"border: 1px solid black\"><font size=\"3\">第八名</font></td>"
+                        + "<td align=center  nowrap style=\"border: 1px solid black\"><font size=\"3\">第九名</font></td>"
+                        + "<td align=center  nowrap style=\"border: 1px solid black\"><font size=\"3\">第十名</font></td>" + "</tr>";
 
                 j.addProperty("logHtml", "<table class=\"lot-table\" style=\"width:100%;border: 1px solid gray;border-collapse: collapse;\">" + title + logHtml + "</table>");
 
