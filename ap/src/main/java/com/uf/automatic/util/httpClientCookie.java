@@ -296,10 +296,10 @@ public class httpClientCookie {
         return "";
 	}
 	
-	public String normalBet(String phaseid,String ossid,  String pl , String i_index , String m ,String type) {
+	public synchronized String normalBet(String phaseid,String ossid,  String pl , String i_index , String m ,String type) {
 	    
 	    try {
-            Thread.sleep(2000);
+            Thread.sleep(500);
         } catch (InterruptedException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
