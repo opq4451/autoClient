@@ -1584,8 +1584,41 @@
 	        });
 		 return period*1  ;
 	}
+	
+	function checkRegular(v){
+		var str = v.replaceAll(',','');
+		 
+	    var regExp = /\D/;
+	    if (regExp.test(str))
+	        return true;
+	    else
+	        return false;  
+	}
  	function saveParam(){
- 		 
+ 		if($( ".betlist" ).val().indexOf(' ')>-1 ||
+		   $( ".betlist2" ).val().indexOf(' ')>-1 ||
+		   $( ".betlist3" ).val().indexOf(' ')>-1 ||	
+		   $( ".betlist4" ).val().indexOf(' ')>-1 ||	
+		   $( ".betlist5" ).val().indexOf(' ')>-1 ||	
+		   $( ".betlist6" ).val().indexOf(' ')>-1 ||
+		   $( ".betlist" ).val().indexOf('.')>-1 ||
+		   $( ".betlist2" ).val().indexOf('.')>-1 ||
+		   $( ".betlist3" ).val().indexOf('.')>-1 ||	
+		   $( ".betlist4" ).val().indexOf('.')>-1 ||	
+		   $( ".betlist5" ).val().indexOf('.')>-1 ||	
+		   $( ".betlist6" ).val().indexOf('.')>-1
+ 		){
+ 			alert('投注參數設定失敗，不能輸入空格!');
+ 			return ;
+ 		} 
+ 		var regulargFlag = checkRegular($( ".betlist" ).val() + $( ".betlist2" ).val() + $( ".betlist3" ).val() +
+ 		 				   $( ".betlist4" ).val() + $( ".betlist5" ).val() + $( ".betlist6" ).val());
+ 		
+ 		if(regulargFlag){
+ 			alert('投注參數設定失敗，不能輸入其它特殊符號!');
+ 			return ;
+ 		}
+ 		
  		let type = getType();
  		let betParam = getBetListParam();
  		if($( ".stoplose" ).val() && $( ".stopwin" ).val() && $( ".startstatus" ).val() ){
