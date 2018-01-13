@@ -1101,12 +1101,13 @@
     function computeOppsite(arra){
         var computeArra = arra.split(',');
         
-           var arr = new Array(5)
-      arr[0] = ((computeArra[0]*1 + 5 ) % 10  == 0 ) ? 10 : (computeArra[0]*1 + 5 ) % 10;
-      arr[1] = ((computeArra[1]*1 + 5 ) % 10  == 0 ) ? 10 : (computeArra[1]*1 + 5 ) % 10;
-      arr[2] = ((computeArra[2]*1 + 5 ) % 10  == 0 ) ? 10 : (computeArra[2]*1 + 5 ) % 10;
-      arr[3] = ((computeArra[3]*1 + 5 ) % 10  == 0 ) ? 10 : (computeArra[3]*1 + 5 ) % 10;
-      arr[4] = ((computeArra[4]*1 + 5 ) % 10  == 0 ) ? 10 : (computeArra[4]*1 + 5 ) % 10;
+           var arr =  ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+           
+           for(var i =0;i <computeArra.length;i++){
+        	   var removeIndex = arr.indexOf(computeArra[i]);
+        	   arr.splice(removeIndex, 1);
+           }
+     
 
  
       return arr.sort(sortNumber);  

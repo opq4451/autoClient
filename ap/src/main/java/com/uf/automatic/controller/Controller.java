@@ -1475,7 +1475,7 @@ public class Controller {
 		             bgcolor= "";
 
 			    } 
-			    html.insert(0,  "<tr  bgcolor="+bgcolor+" >" + "<td nowrap align=right>"+id +"</td>" + treeMap.get(str).toString().substring(4, treeMap.get(str).toString().length()-5) + "/<tr>");
+			    html.insert(0,  "<tr  bgcolor="+bgcolor+" >" + "<td style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\" nowrap align=right>　"+id +"　</td>" + treeMap.get(str).toString().substring(4, treeMap.get(str).toString().length()-5) + "/<tr>");
 			    m_size--;
 			}
 			JsonObject j = new JsonObject();
