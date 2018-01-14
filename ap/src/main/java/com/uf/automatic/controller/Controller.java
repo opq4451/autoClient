@@ -204,6 +204,7 @@ public class Controller {
                 String s_m = configProperty.getProperty("s_m");
                 String e_h = configProperty.getProperty("e_h");
                 String e_m = configProperty.getProperty("e_m");
+                String stoppoint = configProperty.getProperty("stoppoint");
 
 				String stoplose = configProperty.getProperty("stoplose");
 				String stopwin = configProperty.getProperty("stopwin");
@@ -224,6 +225,7 @@ public class Controller {
                 j.addProperty("s_m", s_m);
                 j.addProperty("e_h", e_h);
                 j.addProperty("e_m", e_m);
+                j.addProperty("stoppoint", stoppoint);
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -477,7 +479,10 @@ public class Controller {
 			@RequestParam("betlist5") String betlist5,@RequestParam("betlist6") String betlist6, @RequestParam("stoplose") String stoplose,
 			@RequestParam("stopwin") String stopwin, @RequestParam("startstatus") String startstatus,
 			@RequestParam("s_h") String s_h, @RequestParam("s_m") String s_m,
-			@RequestParam("e_h") String e_h, @RequestParam("e_m") String e_m) {
+			@RequestParam("e_h") String e_h, @RequestParam("e_m") String e_m,
+			@RequestParam("stoppoint") String stoppoint
+			
+			) {
 		FileInputStream fileIn = null;
 		FileOutputStream fileOut = null;
 
@@ -506,6 +511,7 @@ public class Controller {
             configProperty.setProperty("s_m", s_m);
             configProperty.setProperty("e_h", e_h);
             configProperty.setProperty("e_m", e_m);
+            configProperty.setProperty("stoppoint", stoppoint);
 			fileOut = new FileOutputStream(file);
 			configProperty.store(fileOut, "sample properties");
 		} catch (Exception e) {
@@ -882,12 +888,12 @@ public class Controller {
 				saveLog(user + "bet", betlog);
 
 			} else {
-				System.out.println(o.toString());
-				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-						+ amount + ")" + "(失敗)" + "(公式" + formu + ")"; 
-				saveLog(user + "bet", betlog);
+				//System.out.println(o.toString());
+				//String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+				//		+ amount + ")" + "(失敗)" + "(公式" + formu + ")"; 
+				//saveLog(user + "bet", betlog);
 				saveLog(user + "error", o.toString());
-				//recoup(user, sn, amount, betphase, c, codeList, formu);
+				recoup(user, sn, amount, betphase, c, codeList, formu);
 			}
 
 			// String overLog = betphase + "@" + sn + "@" + code ;
@@ -913,94 +919,89 @@ public class Controller {
 		return "";
 	}
 
-//	public String recoup(@RequestParam("user") String user, @RequestParam("sn") String sn,
-//			@RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
-//			@RequestParam("c") String c, @RequestParam("codeList") String codeList,
-//			@RequestParam("formu") String formu) {
-//
-//		try {
-//			if (h == null) {
-//				h = httpClientCookie.getInstance(user, pwd);
-//			}
-//
-//			// //url += URLEncoder.encode(prameter, "UTF-8");
-//			//
-//			// HttpGet httpget = new HttpGet(url + parameter);
-//			// //System.out.println(url + parameter);
-//			// //httpget.setHeader(HttpHeaders.ACCEPT_ENCODING, "gzip");
-//			// // 建立HttpPost对象
-//			// HttpResponse response = new DefaultHttpClient().execute(httpget);
-//			// // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
-//			// if (response.getStatusLine().getStatusCode() == 200) {//
-//			// 如果状态码为200,就是正常返回
-//			// String ret = EntityUtils.toString(response.getEntity());
-//			bi++;
-//
-//			// if (ret.indexOf(user) > -1) {
-//			String code[] = codeList.split(",");
-//			String ossid = "";
-//			String pl = "";
-//			String i_index = "";
-//			String m = "";
-//			int i = 0;
-//			for (String str : code) {
-//				// String overLog = betphase + "@" + sn + "@" + str;
-//				// saveOverLog(user, overLog, c);
-//				//
-//				int index = computeIndex(sn, str);
-//				String id_pl = normal.get(index).toString(); // 15@1.963
-//				ossid += id_pl.split("@")[0] + ",";
-//				pl += id_pl.split("@")[1] + ",";
-//				i_index += i + ",";
-//				m += amount + ",";
-//				i++;
-//			}
-//			String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
-//
-//			JsonParser parser = new JsonParser();
-//			JsonObject o = parser.parse(betRet).getAsJsonObject();
-//			String resCode = o.get("success").getAsString();
-//			if (resCode.equals("200")) {
-//
-//				for (String str : code) {
-//					String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
-//					saveOverLog(user, overLog, c);
-//
-//				}
-//
+	public String recoup(@RequestParam("user") String user, @RequestParam("sn") String sn,
+			@RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
+			@RequestParam("c") String c, @RequestParam("codeList") String codeList,
+			@RequestParam("formu") String formu) {
+
+		try {
+			if (h == null) {
+				h = httpClientCookie.getInstance(user, pwd);
+			}
+
+			// //url += URLEncoder.encode(prameter, "UTF-8");
+			//
+			// HttpGet httpget = new HttpGet(url + parameter);
+			// //System.out.println(url + parameter);
+			// //httpget.setHeader(HttpHeaders.ACCEPT_ENCODING, "gzip");
+			// // 建立HttpPost对象
+			// HttpResponse response = new DefaultHttpClient().execute(httpget);
+			// // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
+			// if (response.getStatusLine().getStatusCode() == 200) {//
+			// 如果状态码为200,就是正常返回
+			// String ret = EntityUtils.toString(response.getEntity());
+			//bi++;
+			String r = h.getoddsInfo();
+			Map<Integer, String> normal = new TreeMap<Integer, String>();
+			Utils.producePl(normal, r); // 產生倍率 for single
+			// if (ret.indexOf(user) > -1) {
+			String code[] = codeList.split(",");
+			String ossid = "";
+			String pl = "";
+			String i_index = "";
+			String m = "";
+			int i = 0;
+			for (String str : code) {
+				// String overLog = betphase + "@" + sn + "@" + str;
+				// saveOverLog(user, overLog, c);
+				//
+				int index = computeIndex(sn, str);
+				String id_pl = normal.get(index).toString(); // 15@1.963
+				ossid += id_pl.split("@")[0] + ",";
+				pl += id_pl.split("@")[1] + ",";
+				i_index += i + ",";
+				m += amount + ",";
+				i++;
+			}
+			String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
+
+			JsonParser parser = new JsonParser();
+			JsonObject o = parser.parse(betRet).getAsJsonObject();
+			String resCode = o.get("success").getAsString();
+			if (resCode.equals("200")) { 
+				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+                         + amount + ")" + "(成功)" + "(公式" + formu + ")"; 
+				saveLog(user + "bet", betlog); 
+
+			} else {
 //				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-//						+ amount + ")" + "(補單成功)" + "(公式" + formu + ")";
+//						+ amount + ")" + "(失敗)" + "(公式" + formu + ")";
 //				saveLog(user + "bet", betlog);
-//
-//			} else {
-//				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-//						+ amount + ")" + "(補單失敗)" + "(公式" + formu + ")";
-//				saveLog(user + "bet", betlog);
-//				 
-//			}
-//
-//			// String overLog = betphase + "@" + sn + "@" + code ;
-//			// saveOverLog(user,overLog,c);
-//			// saveOverLog(document.getElementById("user").value,encodeURI(overLog),c);
-//			// Utils.WritePropertiesFile(user+"bet",
-//			// fillZero(Integer.toString(bi)), "第"+phase + "期，第" + sn + "名，號碼("
-//			// + code + ")，金額(" + amount + ") @" + ret);
-//			// } else {
-//			// saveLog(user + "ERROR", ret);
-//			// }
-//			//
-//			// return ret;
-//			// }
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//
-//		} finally {
-//
-//		}
-//
-//		return "";
-//	}
+				saveLog(user + "error", o.toString());
+			}
+
+			// String overLog = betphase + "@" + sn + "@" + code ;
+			// saveOverLog(user,overLog,c);
+			// saveOverLog(document.getElementById("user").value,encodeURI(overLog),c);
+			// Utils.WritePropertiesFile(user+"bet",
+			// fillZero(Integer.toString(bi)), "第"+phase + "期，第" + sn + "名，號碼("
+			// + code + ")，金額(" + amount + ") @" + ret);
+			// } else {
+			// saveLog(user + "ERROR", ret);
+			// }
+			//
+			// return ret;
+			// }
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+
+		}
+
+		return "";
+	}
 
 	@RequestMapping("/betBS")
 	public String betBS(@RequestParam("user") String user, @RequestParam("sn") String sn,

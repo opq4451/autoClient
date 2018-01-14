@@ -511,7 +511,11 @@
 					 <div  class="toPhase">loading..</div> 
 			</td>
 			
-			<td colspan=4 class="tdClass">  
+			<td nowrap class="s_point" style="border: 1px solid gray; border-collapse: collapse; font-size: 18px; text-align:center;">點數不足</td>
+		    <td class="tdClass" > <input  style=" font-size: 15px; text-align: center;" class="stoppoint" type ="text" size=5/> </td> 
+					
+			
+			<td colspan=2 class="tdClass" nowrap>  
 			 <input type="checkbox" name="autoStart" id="autoStart" value="2"     style="vertical-align:middle;">
 			 自動啟動 
 			  <input id="s_h" type ="text" size=2 maxlength=2 value='09' style="width:30px; font-size: 15px;text-align: center;"/> : <input id="s_m" type ="text" size=2 maxlength=2 value='30' style="width:30px; font-size: 15px;text-align: center;"/> 
@@ -1003,7 +1007,21 @@
 		    	 	$( "div.cash" ).text(json.cash);
 		    	 	$( "div.useBet" ).text(json.useBet);
 		    	 	$( "div.maxcredit" ).text(json.usable_credit);
+		    	 	$( ".stoppoint" ).val(json.stoppoint) ;
 		    	 	
+		    	 	if($( ".stoppoint" ).val()!= ''){
+		    	 		let stoppoint = $( ".stoppoint" ).val();
+		    	 		let max = $( "div.maxcredit" ).text();
+		    	 		if(max * 1 < stoppoint*1){
+		    	 			 $('.s_point').css('background', 'yellow'); 
+		    	 		}else {
+		    	 			 $('.s_point').css('background', 'powderblue'); 
+		    	 		}
+		    	 	}else {
+		    	 		 $('.s_point').css('background', 'powderblue'); 
+		    	 	}
+		    	 	
+		    	 	 
 		    	 	document.getElementById("s_h").value = json.s_h;
 		    	 	document.getElementById("s_m").value = json.s_m;
 		    	 	//document.getElementById("e_h").value = json.e_h;
@@ -1606,16 +1624,23 @@
 		   $( ".betlist3" ).val().indexOf('.')>-1 ||	
 		   $( ".betlist4" ).val().indexOf('.')>-1 ||	
 		   $( ".betlist5" ).val().indexOf('.')>-1 ||	
-		   $( ".betlist6" ).val().indexOf('.')>-1
+		   $( ".betlist6" ).val().indexOf('.')>-1 ||
+		   $( ".betlist" ).val().indexOf(',,')>-1 ||
+		   $( ".betlist2" ).val().indexOf(',,')>-1 ||
+		   $( ".betlist3" ).val().indexOf(',,')>-1 ||	
+		   $( ".betlist4" ).val().indexOf(',,')>-1 ||	
+		   $( ".betlist5" ).val().indexOf(',,')>-1 ||	
+		   $( ".betlist6" ).val().indexOf(',,')>-1
  		){
- 			alert('投注參數設定失敗，不能輸入空格!');
+ 			alert('輸入符號有誤');
  			return ;
  		} 
+ 		
  		var regulargFlag = checkRegular($( ".betlist" ).val() + $( ".betlist2" ).val() + $( ".betlist3" ).val() +
  		 				   $( ".betlist4" ).val() + $( ".betlist5" ).val() + $( ".betlist6" ).val());
  		
  		if(regulargFlag){
- 			alert('投注參數設定失敗，不能輸入其它特殊符號!');
+ 			alert('輸入符號有誤');
  			return ;
  		}
  		
@@ -1626,7 +1651,10 @@
  			betParam
  			+"&stoplose="+$( ".stoplose" ).val()+"&stopwin="+$( ".stopwin" ).val()+"&startstatus="+$( ".startstatus" ).val() 
  			+"&s_h="+document.getElementById("s_h").value+"&s_m="+document.getElementById("s_m").value
- 			+"&e_h="+document.getElementById("e_h").value+"&e_m="+document.getElementById("e_m").value;
+ 			+"&e_h="+document.getElementById("e_h").value+"&e_m="+document.getElementById("e_m").value
+ 			+"&stoppoint="+$( ".stoppoint" ).val()
+ 			
+ 			;
  			 
  			
  			$.ajax({ url:url, 
