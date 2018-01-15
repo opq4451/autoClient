@@ -228,6 +228,7 @@ public class Controller {
                 j.addProperty("stoppoint", stoppoint);
 
 			} catch (Exception e) {
+			    h = httpClientCookie.getInstance(user, pwd);
 				e.printStackTrace();
 			} finally {
 
@@ -434,6 +435,7 @@ public class Controller {
 			}
 
 		} catch (Exception e) {
+		    h = httpClientCookie.getInstance(user, pwd);
 			e.printStackTrace();
 
 		} finally {
