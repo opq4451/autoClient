@@ -980,7 +980,7 @@
     
     
     
-    
+    var systemReloginIndex = 0 ;
     function getWinFun(init_flag){
     	 var url =  u + '/getTodayWin?user='+document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value;
 		 var flag = true;  
@@ -992,7 +992,15 @@
 	                  if(data == 'null'){
 	                	  	$(".check_status" ).html('系統異常');
              		    $('.check_status').css('background', 'red'); 
-
+             		    systemReloginIndex++;
+             		    if(systemReloginIndex >4) {
+	             		    	 var auto = "N" ; 
+	            	   	 		 if(document.getElementById("autoStart").checked){
+	            	   	 			 auto = "Y";
+	            	   	 		 }
+	            	             window.location.href="http://220.132.126.216:8080/auto/index.html?auto="+auto+"&user="+
+	            	             document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value;
+             		    }
 	                  }
 
 	        		  return;

@@ -912,6 +912,8 @@ public class Controller {
 			// }
 
 		} catch (Exception e) {
+		    h = httpClientCookie.getInstance(user, pwd);
+		    bet(user, sn, amount, betphase, c, codeList, formu);
 			e.printStackTrace();
 
 		} finally {
