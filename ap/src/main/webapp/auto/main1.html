@@ -992,17 +992,20 @@
 	        	 if(data == 'null'){
 	        		  flag = false;
 	                  if(data == 'null'){
-	                	  	$(".check_status" ).html('系統異常');
+                	  	$(".check_status" ).html('系統異常');
              		    $('.check_status').css('background', 'red'); 
-             		    systemReloginIndex++;
-             		    if(systemReloginIndex >4) {
-	             		    	 var auto = "N" ; 
-	            	   	 		 if(document.getElementById("autoStart").checked){
-	            	   	 			 auto = "Y";
-	            	   	 		 }
-	            	             window.location.href="http://220.132.126.216:8080/auto/index.html?auto="+auto+"&user="+
-	            	             document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value;
+             		    if(checkTimeflag(9007)){
+             		    	 systemReloginIndex++;
+                  		     if(systemReloginIndex >4) {
+     	             		    	 var auto = "N" ; 
+     	            	   	 		 if(document.getElementById("autoStart").checked){
+     	            	   	 			 auto = "Y";
+     	            	   	 		 }
+     	            	             window.location.href="http://220.132.126.216:8080/auto/index.html?auto="+auto+"&user="+
+     	            	             document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value;
+                  		     } 
              		    }
+             		   
 	                  }
 
 	        		  return;
