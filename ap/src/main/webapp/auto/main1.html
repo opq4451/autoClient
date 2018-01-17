@@ -1113,15 +1113,20 @@
 		    	 	 
 		    	 	if(dynamic_phase){
 		      		  let phase_now = dynamic_phase - 1 ;
-		      	    	  console.log($( "div.logOverHtml" ).html())
+		      	    	//  console.log($( "div.logOverHtml" ).html())
 		      	    	  
 		      	    	$('div.logOverHtml tr').each(function() {
 		      	    		var $tds = $(this).find('td');
 		      	    		if($tds != null) {
-		      	    		//var $currVal = $tds[0].val();
+		      	    		var $outerHTML = $tds[0].outerHTML;
+		      	    		var $outerText = $tds[0].outerText;
+		      	    		var start = $outerText.indexOf("第", 8);
+		                var end = $outerText.indexOf("名", 8); 
+		                var sn =  $outerText.substring(start+1,end); //第幾名
+		                console.log(sn );
 		      	    		//var $currContents= $tds[0].contents();
 		      	    		//var $currText = $tds[0].text();
-		      	    		console.log($tds );
+		      	    		//console.log($tds );
 		      	    		}
 	      	    		});
 		      	    	  
