@@ -1114,14 +1114,45 @@
 	        	  
 		    	 	$( "div.logOverHtml" ).html(json.logHtml);
 		    	 	 
-
-	         	 } 
+		    	 	let phase_now = $( "div.toPhase" ).text()*1 - 1 ;   
+	      	    	$('div.logOverHtml tr').each(function() {
+	      	    		var $tds = $(this).find('td');
+	      	    		if($tds != null) {
+		      	    		var $outerHTML = $tds[0].outerHTML;
+		      	    		var $outerText = $tds[0].outerText;
+		      	    		var start = $outerText.indexOf("第", 8);
+		                var end = $outerText.indexOf("名", 8); 
+		                var sn =  $outerText.substring(start+1,end); //第幾名
+		                var formu = getFormu($outerHTML);
+		                var htmllatestPhase = $outerText.substring(1,7);
+		                if(phase_now == htmllatestPhase){
+		                		 if(formu==1){betIndex[sn]=0;}
+		                		 if(formu==2){betIndex2[sn]=0;}
+		                		 if(formu==3){betIndex3[sn]=0;}
+		                		 if(formu==4){betIndex4[sn]=0;}
+		                		 if(formu==5){betIndex5[sn]=0;}
+		                		 if(formu==6){betIndex6[sn]=0;} 
+		                } 
+	      	    		}
+      	    		});
+         	 } 
 	         	 
      });
    	 
 	     
    	
    }
+    
+    
+    function getFormu(str){
+		if(str.indexOf('FFFF77')>-1){ return '1'; }
+		if(str.indexOf('66FF66')>-1){ return '2'; }
+		if(str.indexOf('FF8888')>-1){ return '3'; }
+		if(str.indexOf('5599FF')>-1){ return '4'; }
+		if(str.indexOf('DDDDDD')>-1){ return '5'; }
+		if(str.indexOf('FFB3FF')>-1){ return '6'; }
+
+	}
     
     function logAppend(log){
 	 	$( "div.console_str" ).prepend("<tr><td  >"+log+"</td></tr>") ;
@@ -1764,7 +1795,7 @@
 				    		 
 				    }
 				    
-			        if(!betflag && (dynamic_phase >0) && checkMinute.indexOf(min) != -1 && checkWin() && checkTime(h)){ //bet time每5分鐘下注一次
+			        if(!betflag && checkMinute.indexOf(min) != -1 && checkWin() && checkTime(h)){ //bet time每5分鐘下注一次
 			            var phase =  $( "div.toPhase" ).text();
 						if(phase){
 							checkOver(phase);
@@ -1881,7 +1912,7 @@
     
     //檢查過關
     function checkOver(nextPhase){
-    	let phase_now = nextPhase - 1 
+    	let phase_now = nextPhase*1 - 1 
     	let code_n = getCodeByPhase(phase_now);
     	let array  = code_n.split(',');
     	if(array.length==0){
@@ -1951,7 +1982,7 @@
 
     }
     function selectTypeToBet(nextPhase){
-    	  const n = nextPhase - 1 ;
+    	  const n = nextPhase*1 - 1 ;
     	  
     	  let obj = {} ; 
     	 
