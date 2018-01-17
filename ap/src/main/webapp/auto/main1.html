@@ -1082,7 +1082,9 @@
         return str.replace(new RegExp(searchStr, 'gi'), replaceStr);
     };
     
-    function getlogHtml(){
+    function getlogHtml(dynamic_phase){
+    	 
+   
    	 var url =  u + '/getPredictLog?user='+document.getElementById("user").value+"bet";
 		   
    	 $.ajax({ url:  url, 
@@ -1109,8 +1111,24 @@
 	        	  
 		    	 	$( "div.logOverHtml" ).html(json.logHtml);
 		    	 	 
+		    	 	if(dynamic_phase){
+		      		  let phase_now = dynamic_phase - 1 ;
+		      	    	  console.log($( "div.logOverHtml" ).html())
+		      	    	  
+		      	    	$('div.logOverHtml tr').each(function() {
+		      	    		var $tds = $(this).find('td');
+		      	    		if($tds != null) {
+		      	    		//var $currVal = $tds[0].val();
+		      	    		//var $currContents= $tds[0].contents();
+		      	    		//var $currText = $tds[0].text();
+		      	    		console.log($tds );
+		      	    		}
+	      	    		});
+		      	    	  
+		      	 }
+		    	 	
 
-	         	 } 
+         	 } 
 	         	 
      });
    	 
@@ -1825,10 +1843,11 @@
     function overTimeout() { 
     	workerTimer_timeout.setInterval(function () { 
 	    			dynamic_phase =  getPhase(); 
+	    			 
 			    if(dynamic_phase){
 			    	checkOver(dynamic_phase);
 			    } 
-			    getlogHtml();
+			    getlogHtml(dynamic_phase);
 			    //overTimeout();
 	    }, 5000);
 	}
@@ -1905,7 +1924,7 @@
     
     //檢查過關
     function checkOver(nextPhase){
-    	let phase_now = nextPhase - 1 
+    	let phase_now = nextPhase - 1 ;
     	let code_n = getCodeByPhase(phase_now);
     	let array  = code_n.split(',');
     	if(array.length==0){
