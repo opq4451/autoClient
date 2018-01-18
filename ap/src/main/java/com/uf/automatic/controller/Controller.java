@@ -227,8 +227,7 @@ public class Controller {
                 j.addProperty("e_m", e_m);
                 j.addProperty("stoppoint", stoppoint);
 
-			} catch (Exception e) {
-			    h = httpClientCookie.getInstance(user, pwd);
+			} catch (Exception e) { 
 				e.printStackTrace();
 			} finally {
 
@@ -240,6 +239,7 @@ public class Controller {
 
 			return j.toString();
 		} catch (Exception e) {
+			h = httpClientCookie.getInstance(user, pwd);
 			e.printStackTrace();
 		}
 
@@ -912,8 +912,7 @@ public class Controller {
 			// }
 
 		} catch (Exception e) {
-		    h = httpClientCookie.getInstance(user, pwd);
-		    bet(user, sn, amount, betphase, c, codeList, formu);
+		    h = httpClientCookie.getInstance(user, pwd); 
 			e.printStackTrace();
 
 		} finally {
@@ -998,6 +997,7 @@ public class Controller {
 			// }
 
 		} catch (Exception e) {
+			h = httpClientCookie.getInstance(user, pwd);
 			e.printStackTrace();
 
 		} finally {
