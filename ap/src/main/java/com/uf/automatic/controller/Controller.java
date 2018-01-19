@@ -239,6 +239,8 @@ public class Controller {
 
 			return j.toString();
 		} catch (Exception e) {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : getToday 斷" ); 
 			h = httpClientCookie.getInstance(user, pwd);
 			e.printStackTrace();
 		}
@@ -435,6 +437,7 @@ public class Controller {
 			}
 
 		} catch (Exception e) {
+            saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : getPhase 斷" ); 
 		    h = httpClientCookie.getInstance(user, pwd);
 			e.printStackTrace();
 
@@ -664,6 +667,12 @@ public class Controller {
 
 				}
 
+			}
+			
+			if(getCode(phase).equals("null")){ //兌不到獎
+			    j.addProperty("checkFlag", "N");
+			}else {
+			    j.addProperty("checkFlag", "Y");
 			}
 			return j.toString();
 
@@ -912,6 +921,7 @@ public class Controller {
 			// }
 
 		} catch (Exception e) {
+            saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : bet 斷" ); 
 		    h = httpClientCookie.getInstance(user, pwd); 
 			e.printStackTrace();
 
@@ -997,6 +1007,7 @@ public class Controller {
 			// }
 
 		} catch (Exception e) {
+            saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : RECOUP 斷" );
 			h = httpClientCookie.getInstance(user, pwd);
 			e.printStackTrace();
 

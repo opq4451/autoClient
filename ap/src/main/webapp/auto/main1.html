@@ -997,12 +997,13 @@
              		    if(checkTimeflag(9007)){
              		    	 systemReloginIndex++;
                   		     if(systemReloginIndex >4) {
-     	             		    	 var auto = "N" ; 
-     	            	   	 		 if(document.getElementById("autoStart").checked){
-     	            	   	 			 auto = "Y";
-     	            	   	 		 }
-     	            	             window.location.href="http://220.132.126.216:8080/auto/index.html?auto="+auto+"&user="+
-     	            	             document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value;
+                  		    	 	 clearIndex();
+     	             		    	 //var auto = "N" ; 
+     	            	   	 		 //if(document.getElementById("autoStart").checked){
+     	            	   	 		 //	 auto = "Y";
+     	            	   	 		 //}
+     	            	             //window.location.href="http://220.132.126.216:8080/auto/index.html?auto="+auto+"&user="+
+     	            	             //document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value;
                   		     } 
              		    }
              		   
@@ -1798,9 +1799,11 @@
 			        if(!betflag && checkMinute.indexOf(min) != -1 && checkWin() && checkTime(h)){ //bet time每5分鐘下注一次
 			            var phase =  $( "div.toPhase" ).text();
 						if(phase){
-							checkOver(phase);
-							let o = selectTypeToBet(phase);  
-				       	 	betflag = true;  
+							if(checkOver(phase)){
+								let o = selectTypeToBet(phase);  
+					       	 	betflag = true;  
+							}
+							 
 						}   
 					}
 			        
@@ -1919,6 +1922,7 @@
     		checkOver(nextPhase);
 			return;
 		} 
+    		 let check = false;
 	   	 $.ajax({ url:  u + "/checkOver?user="+document.getElementById("user").value+"&phase="+phase_now+"&code="+code_n, 
 	         async: false,
 	         success: function(data) { 
@@ -1964,12 +1968,14 @@
 	        	 if(json.j3){betIndex3[10] = 0;} if(json.j4){betIndex4[10] = 0;}
 	        	 if(json.j5){betIndex5[10] = 0;} if(json.j6){betIndex6[10] = 0;}
 
-	         
+	        	 if(json.checkFlag=='Y'){
+	        		 check = true;
+	        	 }
 
          	 }
 	        });
     	
-    	
+    			return check;
     }
     
     function clearIndex(){
