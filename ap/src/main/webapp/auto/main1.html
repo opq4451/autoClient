@@ -1508,7 +1508,7 @@
 	
 	function getPhase(){ //取得期數
 		 let period=""; 
-		 $.ajax({ url:  u + "/getPhase", 
+		 $.ajax({ url:  u + '/getPhase?user='+document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value;
 	         async: false,
 	         success: function(data) {
 			        	 if(data == 'null'){

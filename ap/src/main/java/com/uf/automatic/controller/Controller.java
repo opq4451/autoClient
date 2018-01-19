@@ -418,7 +418,7 @@ public class Controller {
 	}
 
 	@RequestMapping("/getPhase")
-	public String getPhase() {
+	public String getPhase(@RequestParam("user") String user,@RequestParam("pwd") String pwd) {
 		try {
 
 			String ret = h.getoddsInfo();
