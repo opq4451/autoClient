@@ -1116,7 +1116,7 @@
 		    	 	$( "div.logOverHtml" ).html(json.logHtml);
 		    	 	 
 		    	 	let phase_now = $( "div.toPhase" ).text()*1 - 1 ;   
-	      	    	$('div.logOverHtml tr').each(function() {
+	      	    	/*$('div.logOverHtml tr').each(function() {
 	      	    		var $tds = $(this).find('td');
 	      	    		if($tds != null) {
 		      	    		var $outerHTML = $tds[0].outerHTML;
@@ -1135,7 +1135,7 @@
 		                		 if(formu==6){betIndex6[sn]=0;} 
 		                } 
 	      	    		}
-      	    		});
+      	    		});*/
          	 } 
 	         	 
      });
@@ -1211,7 +1211,7 @@
 		 	//logAppend(log) ;
 			bIndex[z] = bIndex[z]+1;  
 		}
-		
+		//console.log(JSON.stringify(betIndex)); 
 	}
 	
 	function compareByType1_pro(phase_before,phase_now,phase_before4 , bIndex, bArray){
@@ -1545,6 +1545,7 @@
 			            	      $('.blink').show();
 			            	   	  $('#openCode').hide(); 
 			               }else{//已開獎
+			            	      checkOver(data);
 			            	      $('.openload').hide(); 
 			            	      $('.blink').hide();
 			            	   	  $('#openCode').show();
@@ -1708,6 +1709,7 @@
  		if(!(sl*-1 < todayWin*1) || !(todayWin*1 < sw*1)){
  			$( ".startstatus" ).val(0) ;
  			$('select.startstatus').css('background', 'red');
+ 			clearIndex();
  		    //$('.tdstartstatus').css('background', 'red'); 
  		}
  		
@@ -1800,6 +1802,10 @@
 			            var phase =  $( "div.toPhase" ).text();
 						if(phase){
 							if(checkOver(phase)){
+								//console.log(JSON.stringify(betIndex)); 
+
+								
+								
 								let o = selectTypeToBet(phase);  
 					       	 	betflag = true;  
 							}
@@ -1821,9 +1827,9 @@
     	workerTimer_timeout.setInterval(function () { 
     			if(checkTimeflag(9007)){
     				dynamic_phase =  getPhase(); 
-    			    if(dynamic_phase != 0){
-    			    	checkOver(dynamic_phase);
-    			    } 
+    			    //if(dynamic_phase != 0){
+    			    	//	checkOver(dynamic_phase);
+    			    //} 
     			    getlogHtml();
     			}
 	    		
@@ -1922,7 +1928,7 @@
     		checkOver(nextPhase);
 			return;
 		} 
-    		 let check = false;
+    		 let check = false; 
 	   	 $.ajax({ url:  u + "/checkOver?user="+document.getElementById("user").value+"&phase="+phase_now+"&code="+code_n, 
 	         async: false,
 	         success: function(data) { 
