@@ -1759,6 +1759,26 @@
 	             window.location.href="http://220.132.126.216:8080/auto/index.html?auto="+auto+"&user="+
 	             document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value;
 		    }
+			    
+		   	if(document.getElementById('autoStart').checked) { //時間不在起迄，不能運行
+		    	 	var sh = document.getElementById("s_h").value;
+		    	 	var sm = document.getElementById("s_m").value;
+		    	 	var eh = document.getElementById("e_h").value;
+		    	 	var em = document.getElementById("e_m").value;
+		    		if(sh!='' && sm!='' ){
+		    			var s = sh + '0' + sm ;
+		    			 
+		    			if( ( (s*1) == (checkStartHM *1) ) ){
+		    				$(".startstatus" ).val(1);
+		    				$('select.startstatus').css('background', 'green');  
+		    				clearIndex();
+		    				//$('.tdstartstatus').css('background', 'red'); 
+		    				 //document.getElementById("autoStart").checked = false;*///不在區間內不能停用，會影響自動啟用(一直被取消)
+		    			} 
+		    		}
+		    		 
+		     }
+	   	 
     	        var winFlag = getWinFun(); 
     	        
 			    if(winFlag){
@@ -1780,23 +1800,7 @@
 				    
 				   
 				    
-				    if(document.getElementById('autoStart').checked) { //時間不在起迄，不能運行
-				    	 	var sh = document.getElementById("s_h").value;
-				    	 	var sm = document.getElementById("s_m").value;
-				    	 	var eh = document.getElementById("e_h").value;
-				    	 	var em = document.getElementById("e_m").value;
-				    		if(sh!='' && sm!='' ){
-				    			var s = sh + '0' + sm ;
-				    			 
-				    			if( ( (s*1) == (checkStartHM *1) ) ){
-				    				$(".startstatus" ).val(1);
-				    				$('select.startstatus').css('background', 'green');  
-				    				//$('.tdstartstatus').css('background', 'red'); 
-				    				 //document.getElementById("autoStart").checked = false;*///不在區間內不能停用，會影響自動啟用(一直被取消)
-				    			} 
-				    		}
-				    		 
-				    }
+				    
 				    
 			        if(!betflag && checkMinute.indexOf(min) != -1 && checkWin() && checkTime(h)){ //bet time每5分鐘下注一次
 			            var phase =  $( "div.toPhase" ).text();
