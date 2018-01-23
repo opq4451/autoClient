@@ -865,8 +865,8 @@ public class Controller {
 			String m = "";
 			int i = 0;
 			for (String str : code) {
-			    String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
-				saveOverLog(user, overLog, c);
+//			    String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+//				saveOverLog(user, overLog, c);
 				//
 				int index = computeIndex(sn, str);
 				String id_pl = normal.get(index).toString(); // 15@1.963
@@ -877,6 +877,10 @@ public class Controller {
 				i++;
 			}
 			if(amount.equals("0")){
+			    for (String str : code) {
+	                String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+	                saveOverLog(user, overLog, c); 
+	            }
 				return "";
 			}
 			 
@@ -888,22 +892,22 @@ public class Controller {
 			String resCode = o.get("success").getAsString();
 			
 			if (resCode.equals("200")) {
-
-//				for (String str : code) {
-//					String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
-//					saveOverLog(user, overLog, c);
-//
-//				}
+			    
+			    for (String str : code) {
+                    String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+                    saveOverLog(user, overLog, c); 
+                }
+			    
 			    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
  			                                    + amount + ")" + "(成功)" + "(公式" + formu + ")"; 
 				saveLog(user + "bet", betlog);
 
 			} else {
 				//System.out.println(o.toString());
-				//String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-				//		+ amount + ")" + "(失敗)" + "(公式" + formu + ")"; 
+				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+						+ amount + ")" + "(失敗)" + "(公式" + formu + ")"; 
 				//saveLog(user + "bet", betlog);
-				saveLog(user + "error", o.toString());
+				saveLog(user + "error", o.toString() + " bet error:" + betlog);
 				recoup(user, sn, amount, betphase, c, codeList, formu);
 			}
 
@@ -982,15 +986,20 @@ public class Controller {
 			JsonObject o = parser.parse(betRet).getAsJsonObject();
 			String resCode = o.get("success").getAsString();
 			if (resCode.equals("200")) { 
+			    for (String str : code) {
+                    String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+                    saveOverLog(user, overLog, c); 
+                }
+			    
 				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
                          + amount + ")" + "(成功)" + "(公式" + formu + ")"; 
 				saveLog(user + "bet", betlog); 
 
 			} else {
-//				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-//						+ amount + ")" + "(失敗)" + "(公式" + formu + ")";
+				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+						+ amount + ")" + "(失敗)" + "(公式" + formu + ")";
 //				saveLog(user + "bet", betlog);
-				saveLog(user + "error", o.toString());
+				saveLog(user + "error", o.toString() + " recoup error:" + betlog);
 			}
 
 			// String overLog = betphase + "@" + sn + "@" + code ;
