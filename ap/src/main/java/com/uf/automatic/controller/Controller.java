@@ -876,7 +876,7 @@ public class Controller {
 				m += amount + ",";
 				i++;
 			}
-			if(amount.equals("0")){
+			if(amount.equals("0") || amount.equals("1")){
 			    for (String str : code) {
 	                String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
 	                saveOverLog(user, overLog, c); 
