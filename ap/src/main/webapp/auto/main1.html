@@ -888,6 +888,19 @@
 
  	};
  	
+ 	const rangeExist_30  = {  
+ 			 '1' : {'1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0} ,
+ 			 '2' : {'1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0} ,
+ 			 '3' : {'1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0} ,
+ 			 '4' : {'1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0} ,
+ 			 '5' : {'1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0} ,
+ 			 '6' : {'1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0} ,
+ 			 '7' : {'1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0} ,
+ 			 '8' : {'1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0} ,
+ 			 '9' : {'1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0} ,
+ 			 '10' : {'1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0} , 
+ 	};
+ 	
     $(document).ready(function(){
    
     	    //document.getElementById("autoStart").checked = false;
@@ -1189,16 +1202,42 @@
 		for(var i=0;i<10;i++){
 			const bet_b = array_b[i];
 			const bet_n = array_n[i];
-			const bet_before4 = array_before4[i];
- 
-		 	//var d = getYYYYMMDDSS();
+			const bet_before4 = array_before4[i]; 
+			
+			
+			
+			
+			
+			
 			var z = i+1;
-		 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-		 	//var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
-		 	//logAppend(cLog) ;
-		     
-				
-			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+			
+			rangeExist_30[z]['1'] ++ ;
+			rangeExist_30[z]['2'] ++ ;
+			rangeExist_30[z]['3'] ++ ;
+			rangeExist_30[z]['4'] ++ ;
+			rangeExist_30[z]['5'] ++ ;
+			rangeExist_30[z]['6'] ++ ;
+			rangeExist_30[z]['7'] ++ ;
+			rangeExist_30[z]['8'] ++ ;
+			rangeExist_30[z]['9'] ++ ;
+			rangeExist_30[z]['10'] ++ ;
+			rangeExist_30[z][bet_before4]  = 0 ;
+			
+			
+			console.log(z + ':' + rangeExist_30[z]['1'] );
+			console.log(z + ':' + rangeExist_30[z]['2'] );
+			console.log(z + ':' + rangeExist_30[z]['3'] );
+			console.log(z + ':' + rangeExist_30[z]['4'] );
+			console.log(z + ':' + rangeExist_30[z]['5'] );
+			console.log(z + ':' + rangeExist_30[z]['6'] );
+			console.log(z + ':' + rangeExist_30[z]['7'] );
+			console.log(z + ':' + rangeExist_30[z]['8'] );
+			console.log(z + ':' + rangeExist_30[z]['9'] );
+			console.log(z + ':' + rangeExist_30[z]['10'] );
+
+			
+		 	 
+			/*var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
   			//var betList =  rangeExist[bet_before4].toString().split(',');
 			var writeFlag = false;
 			//var betStr="";
@@ -1216,7 +1255,7 @@
 	   		reallyBet(z, amount, (phase_now+1) , betc , betTemp1[i].toString(),'1');
 		    //var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
 		 	//logAppend(log) ;
-			bIndex[z] = bIndex[z]+1;  
+			bIndex[z] = bIndex[z]+1;   */
 		}
 		//console.log(JSON.stringify(betIndex)); 
 	}
@@ -2014,8 +2053,8 @@
     	  let obj = {} ; 
     	 
 	    	  if(document.getElementById('c1').checked) { 
-	    		  obj.b = nextPhase - 5 ;
-	    		  obj.fourTh = nextPhase - 4 ;
+	    		  obj.b = nextPhase - 2 ;
+	    		  obj.fourTh = nextPhase - 1 ;
 	    		  const b = obj.b ;
 			  const fourTh = obj.fourTh ;
 			  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
