@@ -8,9 +8,11 @@ import java.io.OutputStreamWriter;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -23,8 +25,11 @@ import java.util.TreeSet;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.protocol.HttpClientContext;
@@ -34,6 +39,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.cookie.BasicClientCookie;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -66,22 +72,34 @@ public class httpClientCookie {
         }
         return flag;
     }
-    public httpClientCookie(String id, String password) {
+    public httpClientCookie(String id, String password, String ValidateCode) {
         // TODO Auto-generated constructor stub
         setId(id);
         setPassword(password); 
         
-        String d =  uraal[urli%5] + "/Handler/LoginHandler.ashx?action=user_login"+
-                "&loginName="+id+"&loginPwd="+password+"";
-        setInitCookie(d);//塞 cookie
+        Map m = new HashMap();
+        m.put("id", id);
+        m.put("password", password);
+        m.put("ValidateCode", ValidateCode);
+
+        String d =  mountain[0] ;
+        setInitCookie(d,m);//塞 cookie
     }
-    public static httpClientCookie getInstance(String id,String password) {
+    
+    public static httpClientCookie getInstance(String id,String password ) {
+         
+        
+        return getInstance( id, password,null);
+         
+    }
+    
+    public static httpClientCookie getInstance(String id,String password,String ValidateCode) {
         startFlag=checkStart(); 
         if(!startFlag.equals("Y")) {
             return null;
         }
         //if(instance == null) {
-            instance = new httpClientCookie(id,password);
+            instance = new httpClientCookie(id,password,ValidateCode);
         //}
         
         
@@ -94,13 +112,14 @@ public class httpClientCookie {
                     "http://mem3.fpaesf109.pasckr.com:88/",
                     "http://mem4.fpaesf109.hfpfky.com/"
                     }; 
+    static String mountain[] = {"http://w1.5a1234.com/?m=logined"};
     //sd8885 //Aa258369
     static int urli = 0 ;
-    private String setInitCookie(String url) {
+    private String setInitCookie(String url,Map m) {
        
         try {
              
-            String cookie = getCookieHttpClient(url);
+            String cookie = getCookieHttpClient(url,m);
             System.out.println("************" + urli);
             System.out.println(cookie);
             if(!cookie.equals("")) {
@@ -109,7 +128,7 @@ public class httpClientCookie {
                 urli++;
                 String urla = uraal[urli%5] + "Handler/LoginHandler.ashx?action=user_login"+
                         "&loginName="+id+"&loginPwd="+password+"";
-                setInitCookie(urla);
+                //setInitCookie(urla);
             }
             
         }catch(Exception e) {
@@ -356,24 +375,41 @@ public class httpClientCookie {
 		return result;
 	}
 	
-	public static String getCookieHttpClient(String uri) throws Exception {
-        BasicCookieStore cookieStore = new BasicCookieStore();
-        HttpClientBuilder builder = HttpClientBuilder.create().setDefaultCookieStore(cookieStore);
+	public static String getCookieHttpClient(String uri,Map m) throws Exception {
+        //BasicCookieStore cookieStore = new BasicCookieStore();
+        //HttpClientBuilder builder = HttpClientBuilder.create().setDefaultCookieStore(cookieStore);
 
        
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpClientContext context = HttpClientContext.create();
+        //HttpClientContext context = HttpClientContext.create();
         RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(60000).setConnectTimeout(60000).build();
         System.out.println(uri);
         HttpPost httpget = new HttpPost(uri);
-        httpget.setConfig(requestConfig);
-        httpget.setHeader("Cookie",""); 
+        //httpget.setConfig(requestConfig);
+        //httpget.setHeader("Cookie",""); 
+        
+        List <NameValuePair> nvps = new ArrayList <NameValuePair>();
+        nvps.add(new BasicNameValuePair("type", "1"));
+        nvps.add(new BasicNameValuePair("ism", "0"));
+        nvps.add(new BasicNameValuePair("loginName", m.get("id").toString()));
+        nvps.add(new BasicNameValuePair("loginPwd",  m.get("password").toString()));
+        nvps.add(new BasicNameValuePair("ValidateCode",  m.get("ValidateCode").toString()));
+
+      
+        
+        
+        //StringEntity entityParams = new StringEntity(transdata, "utf-8");
+      //  HttpEntity entity = new ByteArrayEntity(transdata.getBytes("UTF-8"));
+        
+        httpget.setEntity(new UrlEncodedFormEntity(nvps));
+        
         
         String result = null;
         String cookieString="";
         try {
-            HttpResponse httpresponse = httpClient.execute(httpget);
+            System.out.println("Executing request " + httpget.getRequestLine());
+            CloseableHttpResponse httpresponse = httpClient.execute(httpget);
             HttpEntity entity = httpresponse.getEntity();
             result = EntityUtils.toString(entity);
             //System.out.println(result);
@@ -386,7 +422,7 @@ public class httpClientCookie {
                     String urla = uraal[urli%5] + "Handler/LoginHandler.ashx?action=user_login"+
                             "&loginName="+id+"&loginPwd="+password+"";
                      
-                    getCookieHttpClient(urla);
+                    //getCookieHttpClient(urla);
             }
             try {
                 
@@ -406,7 +442,7 @@ public class httpClientCookie {
             String urla = uraal[urli%5] + "Handler/LoginHandler.ashx?action=user_login"+
                     "&loginName="+id+"&loginPwd="+password+"";
              
-            getCookieHttpClient(urla);
+           // getCookieHttpClient(urla);
             throw e;
         } finally {
             httpClient.close();

@@ -62,7 +62,7 @@ public class Controller {
 	Map<Integer, String> bs = new TreeMap<Integer, String>();
 
 	@RequestMapping("/getUid")
-	public String getUid(@RequestParam("user") String u, @RequestParam("pwd") String p) {
+	public String getUid(@RequestParam("user") String u, @RequestParam("pwd") String p, @RequestParam("ValidateCode") String ValidateCode) {
 		// Map checkLimit = checkLimitDate(user,pwd);
 		// if(!checkLimit.get("OK").toString().equals("Y")) {
 		// return "null";
@@ -85,7 +85,7 @@ public class Controller {
             
             String IFOK =  o.get("OK").getAsString();
             if(IFOK.equals("Y")) {
-                h = httpClientCookie.getInstance(user, pwd);
+                h = httpClientCookie.getInstance(user, pwd, ValidateCode);
                 clearLog(user + "bet");
                 clearLog(user + "overLOGDIS");
                 clearLog(user + "_over");

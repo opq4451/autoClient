@@ -41,6 +41,16 @@
         <label class="sr-only">密碼</label>
         <input type="password" id="pwd" class="form-control" placeholder="密碼" required>
          
+    
+     
+          
+         <div class="form-control" >
+         <input class="tip" type="text" name="ValidateCode"  autocomplete="off" placeholder="驗證碼" id="ValidateCode">
+         <img id="yzm" src="http://w1.5a1234.com/imgcode.php" width="80" height="35" alt="none" title="看不清？点击更换一张验证图片">
+         </div>
+         
+         
+         
         <button class="btn btn-lg btn-primary btn-block" id="btn" >確認</button>
       </table>
 
@@ -101,11 +111,12 @@
 	        	 if(r.OK =='Y'){
 	        		   var pwd_in = r.pwd_in; 
 	        		   var end_date = r.end_date;
-	  			   $.ajax({ url: global_url + '/getUid?user='+user+'&pwd='+pwd_in, 
+	  			   $.ajax({ url: global_url + '/getUid?user='+user+'&pwd='+pwd_in+'&ValidateCode='+document.getElementById("ValidateCode").value, 
 	  			         async: false,
 	  			         success: function(r) { 
-	  			        	 	if(r == 'Y')
-	  						 	window.location.href = "http://220.132.126.216:8080/auto/main1.html?auto="+start+"&user="+user+'&pwd='+pwd_in+"&end_date="+end_date;
+	  			        	 alert()
+	  			        	 	//if(r == 'Y')
+	  						// 	window.location.href = "http://220.132.126.216:8080/auto/main1.html?auto="+start+"&user="+user+'&pwd='+pwd_in+"&end_date="+end_date;
 	  		         	 }
 	  		        });
 	        	 }else{
