@@ -39,6 +39,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -420,21 +421,41 @@ public class Controller {
 	@RequestMapping("/getPhase")
 	public String getPhase(@RequestParam("user") String user,@RequestParam("pwd") String pwd) {
 		try {
+		    if(h==null)
+		        h = httpClientCookie.getInstance(user, pwd);
+//			String ret = h.getoddsInfo();
+//			// 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
+//
+//			JsonParser parser = new JsonParser();
+//			JsonObject o = parser.parse(ret).getAsJsonObject();
+//			JsonObject data = o.getAsJsonObject("data");
+//			//Utils.producePl(normal, ret); // 產生倍率 for single
+//			//Utils.producePl(bs, h.getoddsInfoForDouble()); // 產生倍率 for 大小單雙
+//
+//			String drawIssue = data.get("nn").getAsString();
+//			p_id = data.get("p_id").getAsString();
+//			if (drawIssue != null && !drawIssue.equals("")) {
+//				return drawIssue;
+//			}
+			//
+			 	long unixTime = System.currentTimeMillis() / 1000L;
 
-			String ret = h.getoddsInfo();
-			// 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
+	            String query = "McID=03RGK&Nose=bb4NvVOMtX&Sern=0&Time=" + unixTime;
+	            String sign = Utils.MD5(query + "&key=EUAwtKL0A1").toUpperCase();
 
-			JsonParser parser = new JsonParser();
-			JsonObject o = parser.parse(ret).getAsJsonObject();
-			JsonObject data = o.getAsJsonObject("data");
-			//Utils.producePl(normal, ret); // 產生倍率 for single
-			//Utils.producePl(bs, h.getoddsInfoForDouble()); // 產生倍率 for 大小單雙
+	            String url = "http://47.90.109.200/chatbet_v3/award_sync/get_award.php?" + query + "&Sign=" + sign;
 
-			String drawIssue = data.get("nn").getAsString();
-			p_id = data.get("p_id").getAsString();
-			if (drawIssue != null && !drawIssue.equals("")) {
-				return drawIssue;
-			}
+	            //String url = "http://api.1680210.com/pks/getPksHistoryList.do?lotCode=10001";
+	            String ret = Utils.httpClientGet(url);
+	            JsonParser parser = new JsonParser();
+	            JsonObject o = parser.parse(ret).getAsJsonObject();
+	            String a = o.get("Award").getAsString();
+	            JsonArray data = parser.parse(a).getAsJsonArray();
+	            String drawIssue = data.get(0).getAsJsonObject().get("I").getAsString(); 
+	            if (drawIssue != null && !drawIssue.equals("")) {
+					return Integer.toString(Integer.parseInt(drawIssue) + 1 );
+				}
+	            
 
 		} catch (Exception e) {
             saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : getPhase 斷" ); 

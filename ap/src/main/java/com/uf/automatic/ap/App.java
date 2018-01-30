@@ -38,7 +38,7 @@ public class App {
 		Timer timer = new Timer();
 		NewTimerTask timerTask = new NewTimerTask();
 		// 程序运行后立刻执行任务，每隔100ms执行一次
-		timer.schedule(timerTask, 0, 60000);
+		timer.schedule(timerTask, 0, 30000);
 	}
 
 }
