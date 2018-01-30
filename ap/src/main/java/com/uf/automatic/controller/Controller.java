@@ -421,7 +421,8 @@ public class Controller {
 	@RequestMapping("/getPhase")
 	public String getPhase(@RequestParam("user") String user,@RequestParam("pwd") String pwd) {
 		try {
-
+		    if(h==null)
+		        h = httpClientCookie.getInstance(user, pwd);
 //			String ret = h.getoddsInfo();
 //			// 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
 //
