@@ -844,13 +844,14 @@ public class Controller {
 		}
 
 	}
-
+	
 	// sn : 1~ 0 , code : 01~10
 	@RequestMapping("/bet")
 	public String bet(@RequestParam("user") String user, @RequestParam("sn") String sn,
 			@RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
 			@RequestParam("c") String c, @RequestParam("codeList") String codeList,
-			@RequestParam("formu") String formu) {
+			@RequestParam("formu") String formu,
+            @RequestParam("pwd") String pwd) {
 
 		try {
 			if (h == null) {
@@ -865,6 +866,8 @@ public class Controller {
 			JsonObject data = po.getAsJsonObject("data");
 			Map<Integer, String> normal = new TreeMap<Integer, String>();
 			Utils.producePl(normal, r); // 產生倍率 for single
+			p_id = data.get("p_id").getAsString();
+			
 			// //url += URLEncoder.encode(prameter, "UTF-8");
 			//
 			// HttpGet httpget = new HttpGet(url + parameter);
@@ -903,11 +906,9 @@ public class Controller {
 	                saveOverLog(user, overLog, c); 
 	            }
 				return "";
-			}
-			 
+			} 
 
-			String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
-
+			String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10"); 
 			JsonParser parser = new JsonParser();
 			JsonObject o = parser.parse(betRet).getAsJsonObject();
 			String resCode = o.get("success").getAsString();
@@ -929,24 +930,13 @@ public class Controller {
 						+ amount + ")" + "(失敗)" + "(公式" + formu + ")"; 
 				//saveLog(user + "bet", betlog);
                 saveLog(user + "error", o.toString() + " bet error:" + betlog);
-				recoup(user, sn, amount, betphase, c, codeList, formu);
+				recoup(user, sn, amount, betphase, c, codeList, formu, pwd);
 			}
 
-			// String overLog = betphase + "@" + sn + "@" + code ;
-			// saveOverLog(user,overLog,c);
-			// saveOverLog(document.getElementById("user").value,encodeURI(overLog),c);
-			// Utils.WritePropertiesFile(user+"bet",
-			// fillZero(Integer.toString(bi)), "第"+phase + "期，第" + sn + "名，號碼("
-			// + code + ")，金額(" + amount + ") @" + ret);
-			// } else {
-			// saveLog(user + "ERROR", ret);
-			// }
-			//
-			// return ret;
-			// }
+			 
 
 		} catch (Exception e) {
-            saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : bet 斷" ); 
+            saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : bet 斷" + e.getMessage() ); 
 		    h = httpClientCookie.getInstance(user, pwd); 
 			e.printStackTrace();
 
@@ -960,7 +950,8 @@ public class Controller {
 	public String recoup(@RequestParam("user") String user, @RequestParam("sn") String sn,
 			@RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
 			@RequestParam("c") String c, @RequestParam("codeList") String codeList,
-			@RequestParam("formu") String formu) {
+			@RequestParam("formu") String formu,
+            @RequestParam("pwd") String pwd) {
 
 		try {
 			if (h == null) {
@@ -1021,7 +1012,7 @@ public class Controller {
 						+ amount + ")" + "(失敗)" + "(公式" + formu + ")";
 //				saveLog(user + "bet", betlog);
                 saveLog(user + "error", o.toString() + " recoup error:" + betlog);
-                recoup_two(user, sn, amount, betphase, c, codeList, formu);
+                recoup_two(user, sn, amount, betphase, c, codeList, formu,pwd);
 			}
 
 			// String overLog = betphase + "@" + sn + "@" + code ;
@@ -1052,7 +1043,8 @@ public class Controller {
 	public String recoup_two(@RequestParam("user") String user, @RequestParam("sn") String sn,
 	                     @RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
 	                     @RequestParam("c") String c, @RequestParam("codeList") String codeList,
-	                     @RequestParam("formu") String formu) {
+	                     @RequestParam("formu") String formu,
+	                     @RequestParam("pwd") String pwd) {
 
              try {
                  if (h == null) {
