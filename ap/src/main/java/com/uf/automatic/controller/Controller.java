@@ -201,6 +201,13 @@ public class Controller {
 				String betlist4 = configProperty.getProperty("betlist4");
 				String betlist5 = configProperty.getProperty("betlist5");
 				String betlist6 = configProperty.getProperty("betlist6");
+				String betlist7 = configProperty.getProperty("betlist7");
+				String betlist8 = configProperty.getProperty("betlist8");
+				String betlist9 = configProperty.getProperty("betlist9");
+				String betlist10 = configProperty.getProperty("betlist10");
+				String betlist11 = configProperty.getProperty("betlist11");
+				String betlist12 = configProperty.getProperty("betlist12");
+
 				String s_h = configProperty.getProperty("s_h");
                 String s_m = configProperty.getProperty("s_m");
                 String e_h = configProperty.getProperty("e_h");
@@ -218,6 +225,12 @@ public class Controller {
 				j.addProperty("betlist4", betlist4);
 				j.addProperty("betlist5", betlist5);
 				j.addProperty("betlist6", betlist6);
+				j.addProperty("betlist7", betlist7);
+				j.addProperty("betlist8", betlist8);
+				j.addProperty("betlist9", betlist9);
+				j.addProperty("betlist10", betlist10);
+				j.addProperty("betlist11", betlist11);
+				j.addProperty("betlist12", betlist12);
 
 				j.addProperty("stoplose", stoplose);
 				j.addProperty("stopwin", stopwin);
@@ -249,8 +262,10 @@ public class Controller {
 		return "null";
 	}
 	public static void main (String[] args) {
-	    String s = new Controller().getPredictLog("aaabet");
-	    System.out.println(s);
+	    String s = "sddd(成功)" + "(公式2)";
+	   String a =  s.substring(0, s.lastIndexOf("("));
+	    
+	    System.out.println(a);
 	}
 	@RequestMapping("/getPredictLog")
 	public String getPredictLog(@RequestParam("user") String user) {
@@ -296,8 +311,8 @@ public class Controller {
 
 					String formuStr = v.substring(v.length() - 5, v.length()); // (公式1)
 					String phase = v.substring(1,7); //期別
-	                String key_form = v.substring(v.length() - 2, v.length()-1); //公式
-                     
+	                String key_form = v.substring(v.indexOf("式")+1, v.lastIndexOf(")"));
+	                
                     int start = v.indexOf("第", 8);
                     int end = v.indexOf("名", 8);
                     String sn = v.substring(start+1,end).length()==1 ? "0"+ v.substring(start+1,end) :  v.substring(start+1,end); //第幾名
@@ -308,43 +323,14 @@ public class Controller {
 						continue;
 					}
 					
-					String k = phase + key_form + sn;
+					String k = phase +"@"+ key_form +"@"+ sn;
 					treemap.put(k, v);
 					
-				
-//					{
-//					    if(m.get(phase) == null) {
-//					        i++;
-//                            if(i % 2 == 1) {
-//                                logHtml.insert(0,"<table  style=\"width:100%;border: 2px solid black;border-collapse: collapse;\">" );
-//                            }else {
-//                                logHtml.insert(0,"<table style=\"width:100%;border: 1px solid black;border-collapse: collapse;\">" );
-//                            }  
-//                            logHtml.insert(0,"</table>" ); 
-//
-//					        
-//	                        m.put(phase, phase);
-//
-//	                     
-//	                     
-//	                     } 
-//	                    
-//					}
-//					
-//					
-					
+				 
 				 
 					
 				} 
-				
-//				 if(i % 2 == 1) {
-//				     j.addProperty("logHtml", "<table style=\"width:100%;border: 1px solid black;border-collapse: collapse;\">" + 
-//                             logHtml.toString()  );
-//                   }else {
-//                         j.addProperty("logHtml", "<table style=\"width:100%;border: 2px solid black;border-collapse: collapse;\">" + 
-//                               logHtml.toString()  );
-//                   }  
-				
+				 
 				
 				//process treemap
 				Set set = treemap.entrySet();
@@ -356,8 +342,8 @@ public class Controller {
 			      Map.Entry me = (Map.Entry)iter.next();
 			      String v = me.getValue().toString();
 			      String k = me.getKey().toString();
-			      String formu = k.substring(6,7);
-			      String phase = k.substring(0,6);
+			      String formu = k.split("@")[1];
+			      String phase = k.split("@")[0];
 			      if(m.get(phase)==null) {
 			          d++;
 		            logHtml.append("</table>" );
@@ -371,28 +357,48 @@ public class Controller {
 			      
 			        if (formu.equals("1")) {
                         logHtml.append(
-                                "<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">" + v.substring(0,v.length()-5) + "</td></tr>");
+                                "<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">" + v.substring(0,v.lastIndexOf("(")) + "</td></tr>");
                     }
                     if (formu.equals("2")) { 
                         logHtml.append(
-                                "<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">" + v.substring(0,v.length()-5) + "</td></tr>");
+                                "<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">" + v.substring(0,v.lastIndexOf("(")) + "</td></tr>");
                     }
                     if (formu.equals("3")) { 
                         logHtml.append(
-                                "<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">" + v.substring(0,v.length()-5) + "</td></tr>");
+                                "<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">" + v.substring(0,v.lastIndexOf("(")) + "</td></tr>");
                     }
                     if (formu.equals("4")) { 
                         logHtml.append(
-                                "<tr><td bgcolor=\"5599FF\"  style=\"border: 1px solid black\">" + v.substring(0,v.length()-5) + "</td></tr>");
+                                "<tr><td bgcolor=\"5599FF\"  style=\"border: 1px solid black\">" + v.substring(0,v.lastIndexOf("(")) + "</td></tr>");
                     }
                     if (formu.equals("5")) { 
                         logHtml.append(
-                                "<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">" + v.substring(0,v.length()-5) + "</td></tr>");
+                                "<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">" + v.substring(0,v.lastIndexOf("(")) + "</td></tr>");
                     }
                     
                     if (formu.equals("6")) { 
                         logHtml.append(
-                                "<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">" + v.substring(0,v.length()-5) + "</td></tr>");
+                                "<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">" + v.substring(0,v.lastIndexOf("(")) + "</td></tr>");
+                    }
+                    
+                    if (formu.equals("7")) { 
+                        logHtml.append(
+                                "<tr><td bgcolor=\"DEB887\"  style=\"border: 1px solid black\">" + v.substring(0,v.lastIndexOf("(")) + "</td></tr>");
+                    }
+                    
+                    if (formu.equals("8")) { 
+                        logHtml.append(
+                                "<tr><td bgcolor=\"99FFFF\"  style=\"border: 1px solid black\">" + v.substring(0,v.lastIndexOf("(")) + "</td></tr>");
+                    }
+                    
+                    if (formu.equals("9")) { 
+                        logHtml.append(
+                                "<tr><td bgcolor=\"F0F8FF\"  style=\"border: 1px solid black\">" + v.substring(0,v.lastIndexOf("(")) + "</td></tr>");
+                    }
+                    
+                    if (formu.equals("10")) { 
+                        logHtml.append(
+                                "<tr><td bgcolor=\"66CDAA\"  style=\"border: 1px solid black\">" + v.substring(0,v.lastIndexOf("(")) + "</td></tr>");
                     }
 			      
 			     
@@ -487,7 +493,10 @@ public class Controller {
 	public String saveParam(@RequestParam("user") String user, @RequestParam("type") String type,
 			@RequestParam("betlist") String betlist, @RequestParam("betlist2") String betlist2,
 			@RequestParam("betlist3") String betlist3, @RequestParam("betlist4") String betlist4,
-			@RequestParam("betlist5") String betlist5,@RequestParam("betlist6") String betlist6, @RequestParam("stoplose") String stoplose,
+			@RequestParam("betlist5") String betlist5,@RequestParam("betlist6") String betlist6,
+			@RequestParam("betlist7") String betlist7,@RequestParam("betlist8") String betlist8,
+			@RequestParam("betlist9") String betlist9,@RequestParam("betlist10") String betlist10,
+			@RequestParam("betlist11") String betlist11,@RequestParam("betlist12") String betlist12,@RequestParam("stoplose") String stoplose,
 			@RequestParam("stopwin") String stopwin, @RequestParam("startstatus") String startstatus,
 			@RequestParam("s_h") String s_h, @RequestParam("s_m") String s_m,
 			@RequestParam("e_h") String e_h, @RequestParam("e_m") String e_m,
@@ -515,6 +524,12 @@ public class Controller {
 			configProperty.setProperty("betlist4", betlist4);
 			configProperty.setProperty("betlist5", betlist5);
 			configProperty.setProperty("betlist6", betlist6); 
+			configProperty.setProperty("betlist7", betlist7); 
+			configProperty.setProperty("betlist8", betlist8); 
+			configProperty.setProperty("betlist9", betlist9); 
+			configProperty.setProperty("betlist10", betlist10); 
+			configProperty.setProperty("betlist11", betlist11); 
+			configProperty.setProperty("betlist12", betlist12); 
 			configProperty.setProperty("stoplose", stoplose);
 			configProperty.setProperty("stopwin", stopwin);
 			configProperty.setProperty("startstatus", startstatus);
@@ -649,7 +664,7 @@ public class Controller {
 			if (c.length != 10)
 				return "null";
 
-			for (int x = 1; x < 7; x++) { // x → 公式幾
+			for (int x = 1; x < 11; x++) { // x → 公式幾
 				for (int i = 0; i < 10; i++) {
 					int sn = i + 1;
 
