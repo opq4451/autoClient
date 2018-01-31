@@ -39,6 +39,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -418,35 +419,40 @@ public class Controller {
 	}
 
 	@RequestMapping("/getPhase")
-	public String getPhase(@RequestParam("user") String user,@RequestParam("pwd") String pwd) {
-		try {
+    public String getPhase(@RequestParam("user") String user,@RequestParam("pwd") String pwd) {
+        try {
+            if(h==null)
+                h = httpClientCookie.getInstance(user, pwd); 
+            
+                long unixTime = System.currentTimeMillis() / 1000L;
 
-			String ret = h.getoddsInfo();
-			// 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
+                String query = "McID=03RGK&Nose=bb4NvVOMtX&Sern=0&Time=" + unixTime;
+                String sign = Utils.MD5(query + "&key=EUAwtKL0A1").toUpperCase();
 
-			JsonParser parser = new JsonParser();
-			JsonObject o = parser.parse(ret).getAsJsonObject();
-			JsonObject data = o.getAsJsonObject("data");
-			//Utils.producePl(normal, ret); // 產生倍率 for single
-			//Utils.producePl(bs, h.getoddsInfoForDouble()); // 產生倍率 for 大小單雙
+                String url = "http://47.90.109.200/chatbet_v3/award_sync/get_award.php?" + query + "&Sign=" + sign;
+ 
+                String ret = Utils.httpClientGet(url);
+                JsonParser parser = new JsonParser();
+                JsonObject o = parser.parse(ret).getAsJsonObject();
+                String a = o.get("Award").getAsString();
+                JsonArray data = parser.parse(a).getAsJsonArray();
+                String drawIssue = data.get(0).getAsJsonObject().get("I").getAsString(); 
+                if (drawIssue != null && !drawIssue.equals("")) {
+                    return Integer.toString(Integer.parseInt(drawIssue) + 1 );
+                }
+                
 
-			String drawIssue = data.get("nn").getAsString();
-			p_id = data.get("p_id").getAsString();
-			if (drawIssue != null && !drawIssue.equals("")) {
-				return drawIssue;
-			}
-
-		} catch (Exception e) {
+        } catch (Exception e) {
             saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : getPhase 斷" ); 
-		    h = httpClientCookie.getInstance(user, pwd);
-			e.printStackTrace();
+            h = httpClientCookie.getInstance(user, pwd);
+            e.printStackTrace();
 
-		} finally {
+        } finally {
 
-		}
-		return "null";
+        }
+        return "null";
 
-	}
+    }
 
 	@RequestMapping("/getCode")
 	public String getCode(@RequestParam("phase") String phase) {
@@ -844,17 +850,9 @@ public class Controller {
 			JsonObject data = po.getAsJsonObject("data");
 			Map<Integer, String> normal = new TreeMap<Integer, String>();
 			Utils.producePl(normal, r); // 產生倍率 for single
-			// //url += URLEncoder.encode(prameter, "UTF-8");
-			//
-			// HttpGet httpget = new HttpGet(url + parameter);
-			// //System.out.println(url + parameter);
-			// //httpget.setHeader(HttpHeaders.ACCEPT_ENCODING, "gzip");
-			// // 建立HttpPost对象
-			// HttpResponse response = new DefaultHttpClient().execute(httpget);
-			// // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
-			// if (response.getStatusLine().getStatusCode() == 200) {//
-			// 如果状态码为200,就是正常返回
-			// String ret = EntityUtils.toString(response.getEntity());
+			p_id = data.get("p_id").getAsString();
+			 
+			
 			bi++;
 
 			// if (ret.indexOf(user) > -1) {

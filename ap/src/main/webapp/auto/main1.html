@@ -468,10 +468,14 @@
 			<td nowrap  class="tdClass">遊戲帳號</td>
 			<td style="text-align:left" class="tdClass"> <input style=" font-size: 15px;text-align: center;" type="text" id="user" readonly size="6"/></td>
 			<td colspan=2 align=center class="tdClass"><button type="button" id="logoutDiv" class="button" style="font-size: 18px;width:100px;">登出</button></td>
-    	    <td nowrap rowspan="6" class="tdClass">選擇計劃</td>
-	        <td class="tdClass"  bgcolor="FFFF77"> <input type="checkbox" name="c1" id="c1" value="1"  >金星計劃</td> 
-		    <td class="tdClass">投注參數</td> 
-		    <td class="tdClass" style="text-align:left"> <input class="betlist" type ="text" style="width:90%"/></td><td nowrap class="tdClass" ><button type="button" onclick="save_param()" class="button" style="width:60px">儲存</button></td> 
+    	 
+	        <td class="tdClass"  bgcolor="FFFF77"> <input type="checkbox" name="c1" id="c1" value="1"  >A計劃</td> 
+		    
+		    <td class="tdClass" style="text-align:left"> <input class="betlist" type ="text" style="width:95%;" /></td>
+		    <td class="tdClass" nowrap bgcolor="DEB887" width="1%"> <input type="checkbox" name="c7" id="c7" value="1"  >G計劃</td> 
+		    
+		    <td class="tdClass" style="text-align:left"> <input class="betlist7" type ="text" style="width:95%;"/></td>
+		    <td nowrap class="tdClass" ><button type="button" onclick="save_param()" class="button" style="width:60px">儲存</button></td> 
         </tr>
 	 
 		<tr>
@@ -498,9 +502,13 @@
 			<td  style="display:none">
 					 <div  class="cash">loading...</div>
 			</td>
-			        <td class="tdClass" bgcolor="66FF66"> <input type="checkbox" name="c1" id="c2" value="2"  >木星計劃</td> 
-				    <td class="tdClass">投注參數</td> 
-					<td style="text-align:left" class="tdClass"> <input class="betlist2" type ="text" style="width:90%"/></td><td class="tdClass"><button type="button" onclick="save_param()" class="button" style="width:60px">儲存</button></td> 
+			         <td class="tdClass" bgcolor="66FF66"> <input type="checkbox" name="c1" id="c2" value="2"  >B計劃</td> 
+				     
+					 <td style="text-align:left" class="tdClass"> <input class="betlist2" type ="text" style="width:95%;" /></td>
+					 <td class="tdClass"  bgcolor="99FFFF" width="1%"> <input type="checkbox" name="c8" id="c8" value="1"  >H計劃</td> 
+		    
+		   			 <td class="tdClass" style="text-align:left"> <input class="betlist8" type ="text" style="width:95%;"/></td>
+					 <td class="tdClass"><button type="button" onclick="save_param()" class="button" style="width:60px">儲存</button></td> 
 		</tr>
 		
 		<tr  >
@@ -522,9 +530,14 @@
 			  <input id="e_h" type ="text" size=2 maxlength=2 value='23' style="display:none;width:30px; font-size: 15px;text-align: center;"/>  <input id="e_m" type ="text" size=2 maxlength=2 value='30' style="display:none;width:30px; font-size: 15px;text-align: center;"/>
 			 </td>
 			 
-			<td nowrap class="tdClass" bgcolor="FF8888"> <input type="checkbox" name="c1" id="c3" value="3"  >水星計劃</td>
-			<td nowrap class="tdClass">投注參數</td> 
-			<td style="text-align:left" class="tdClass"> <input class="betlist3" type ="text" style="width:90%"/></td><td class="tdClass"><button type="button" onclick="save_param()" class="button" style="width:60px" >儲存</button></td> 
+			<td nowrap class="tdClass" bgcolor="FF8888"> <input type="checkbox" name="c1" id="c3" value="3"  >C計劃</td>
+		 
+			<td style="text-align:left" class="tdClass"> <input class="betlist3" type ="text"  style="width:95%;"/></td>
+			<td class="tdClass"  bgcolor="F0F8FF" width="1%"> <input type="checkbox" name="c9" id="c9" value="1"  >I 計劃</td> 
+		    
+   			<td class="tdClass" style="text-align:left"> <input class="betlist9" type ="text" style="width:95%;"/></td>
+		   			 
+			<td class="tdClass"><button type="button" onclick="save_param()" class="button" style="width:60px" >儲存</button></td> 
 		</tr>
 		<tr  >
 			<td width="1%" nowrap class="tdClass">
@@ -546,9 +559,14 @@
 			</td>
 			
 			
-			 <td nowrap class="tdClass" bgcolor="5599FF"> <input type="checkbox" name="c1" id="c4" value="4"  >火星計劃</td>
-			 <td nowrap class="tdClass">投注參數</td> 
-			 <td style="text-align:left" class="tdClass"> <input class="betlist4" type ="text" style="width:90%"/></td><td class="tdClass"><button type="button" onclick="save_param()" class="button" style="width:60px">儲存</button></td> 
+			 <td nowrap class="tdClass" bgcolor="5599FF"> <input type="checkbox" name="c1" id="c4" value="4"  >D計劃</td>
+		 
+			 <td style="text-align:left" class="tdClass"> <input class="betlist4" type ="text" style="width:95%;"/></td>
+			 <td class="tdClass"  bgcolor="66CDAA" width="1%"> <input type="checkbox" name="c10" id="c10" value="1"  >J計劃</td> 
+		    
+   			 <td class="tdClass" style="text-align:left"> <input class="betlist10" type ="text" style="width:95%;"/></td>
+   			
+			 <td class="tdClass"><button type="button" onclick="save_param()" class="button" style="width:60px">儲存</button></td> 
 		</tr>
 		
 		<tr  >
@@ -571,9 +589,14 @@
 			</td>
 			  
 			
-			 <td nowrap class="tdClass" bgcolor="DDDDDD"> <input type="checkbox" name="c1" id="c5" value="5"  >土星計劃</td>
-			<td nowrap class="tdClass">投注參數</td> 
-					<td width="99%" class="tdClass" style="text-align:left"> <input class="betlist5" type ="text" style="width:90%"/></td><td class="tdClass"><button type="button" onclick="save_param()" class="button" style="width:60px">儲存</button></td> 
+			 <td nowrap class="tdClass" bgcolor="DDDDDD"> <input type="checkbox" name="c1" id="c5" value="5"  >E計劃</td>
+			 
+					<td  class="tdClass" style="text-align:left"> <input class="betlist5" type ="text" style="width:95%;"/></td>
+					<td class="tdClass"  nowrap bgcolor="FFF0F5" width="1%"> <input type="checkbox" name="c11" id="c11" value="1"  >K計劃</td> 
+		    
+   					 <td class="tdClass" style="text-align:left"> <input class="betlist11" type ="text" style="width:95%;"/></td>
+   			 
+					<td class="tdClass"><button type="button" onclick="save_param()" class="button" style="width:60px">儲存</button></td> 
 		</tr>
 		
 		
@@ -603,9 +626,14 @@
 			
 			  
 			 
-					<td class="tdClass" nowrap bgcolor="FFB3FF"> <input type="checkbox" name="c1" id="c6" value="5"  >星星計劃</td> 
-		  <td nowrap class="tdClass">投注參數</td> 
-			 <td style="text-align:left" class="tdClass"> <input class="betlist6" type ="text" style="width:90%" /></td><td class="tdClass"><button type="button" onclick="save_param()" class="button"  style="width:60px">儲存</button></td> 
+					<td class="tdClass" nowrap bgcolor="FFB3FF"> <input type="checkbox" name="c1" id="c6" value="5"  >F計劃</td> 
+		 
+			 <td style="text-align:left" class="tdClass"> <input class="betlist6" type ="text" style="width:95%;" /></td>
+			 <td class="tdClass"  bgcolor="FFA07A" width="1%"> <input type="checkbox" name="c12" id="c12" value="1"  >L計劃</td> 
+		    
+		 	<td class="tdClass" style="text-align:left"> <input class="betlist12" type ="text" style="width:95%;"/></td>
+   					 
+			 <td class="tdClass"><button type="button" onclick="save_param()" class="button"  style="width:60px">儲存</button></td> 
 			 
 		</tr>
 	 </table> 
@@ -666,12 +694,7 @@
 	   }else{
 		   $('select.startstatus').css('background', 'red');
 		  // $('.tdstartstatus').css('background', 'red'); 
-		   betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
-		   betIndex2 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
-		   betIndex3 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
-		   betIndex4 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
-		   betIndex5 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
-		   betIndex6 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+		    clearIndex();
 		   //document.getElementById("autoStart").checked = false;
 
 	   }
@@ -692,24 +715,7 @@
     saveParam();
     
     //clear
-    betIndex = {
- 			'1' : 0,
- 			'2' : 0,
- 			'3' : 0,
- 			'4' : 0,
- 			'5' : 0,
- 			'6' : 0,
- 			'7' : 0,
- 			'8' : 0,
- 			'9' : 0,
- 			'10' : 0,
-
- 	};
-    betIndex2 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
-	betIndex3 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
-    betIndex4 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
-    betIndex5 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
-    betIndex6 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+    clearIndex();
 
     return true;
   }
@@ -722,6 +728,12 @@
 	  if(document.getElementById('c4').checked) { type+='4@'; }
 	  if(document.getElementById('c5').checked) { type+='5@'; }
 	  if(document.getElementById('c6').checked) { type+='6@'; }
+	  if(document.getElementById('c7').checked) { type+='7@'; }
+	  if(document.getElementById('c8').checked) { type+='8@'; }
+	  if(document.getElementById('c9').checked) { type+='9@'; }
+	  if(document.getElementById('c10').checked) { type+='10@'; }
+	  if(document.getElementById('c11').checked) { type+='11@'; }
+	  if(document.getElementById('c12').checked) { type+='12@'; }
 	  return type.substring(0,type.length-1);
 
   }
@@ -733,6 +745,12 @@
 	  if(t.indexOf('4')!=-1){document.getElementById("c4").checked = true;}
 	  if(t.indexOf('5')!=-1){document.getElementById("c5").checked = true;}
 	  if(t.indexOf('6')!=-1){document.getElementById("c6").checked = true;}
+	  if(t.indexOf('7')!=-1){document.getElementById("c7").checked = true;}
+	  if(t.indexOf('8')!=-1){document.getElementById("c8").checked = true;}
+	  if(t.indexOf('9')!=-1){document.getElementById("c9").checked = true;}
+	  if(t.indexOf('10')!=-1){document.getElementById("c10").checked = true;}
+	  if(t.indexOf('11')!=-1){document.getElementById("c11").checked = true;}
+	  if(t.indexOf('12')!=-1){document.getElementById("c12").checked = true;}
 
   }
   </script>
@@ -760,13 +778,8 @@
     var useBet = ""; 
     var maxcredit = ""; 
     var ltype = "";
-    var betarray = [];
-    var betarray2 = [];
-    var betarray3 = [];
-    var betarray4 = [];
-    var betarray5 = [];
-    var betarray6 = [];
-
+    var betarray = [];  var betarray2 = []; var betarray3 = []; var betarray4 = []; var betarray5 = [];  var betarray6 = [];
+    var betarray7 = []; var betarray8 = []; var betarray9 = []; var betarray10 = []; var betarray11 = [];  var betarray12 = [];
     var dynamic_phase="";
     var betIndex   = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
     var betIndex2  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
@@ -774,6 +787,13 @@
     var betIndex4  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
     var betIndex5  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
     var betIndex6  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+    var betIndex7  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+    var betIndex8  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+    var betIndex9  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+    var betIndex10  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+    var betIndex11  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+    var betIndex12  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+    
  
     const rangeExist = {
  			'1' : ['1','2','3','9','10'] ,
@@ -858,6 +878,32 @@
  			'9' : ['5','6','7','8','9'] ,
  			'10' : ['6','7','8','9','10'] ,
 
+ 	};
+ 	
+ 	const rangeExist_pro7  = {  
+ 			'1' : ['1','2','3','4','5'] ,
+ 			'2' : ['2','3','4','5','6'] ,
+ 			'3' : ['3','4','5','6','7'] ,
+ 			'4' : ['4','5','6','7','8'] ,
+ 			'5' : ['5','6','7','8','9'] ,
+ 			'6' : ['6','7','8','9','10'] ,
+ 			'7' : ['1','7','8','9','10'] ,
+ 			'8' : ['1','2','8','9','10'] ,
+ 			'9' : ['1','2','3','9','10'] ,
+ 			'10' : ['1','2','3','4','10'] ,
+ 	};
+ 	
+ 	const rangeExist_pro8  = {  
+ 			'1' : ['6','7','8','9','10'] ,
+ 			'2' : ['1','7','8','9','10'] ,
+ 			'3' : ['1','2','8','9','10'] ,
+ 			'4' : ['1','2','3','9','10'] ,
+ 			'5' : ['1','2','3','4','10'] ,
+ 			'6' : ['1','2','3','4','5'] ,
+ 			'7' : ['2','3','4','5','6'] ,
+ 			'8' : ['3','4','5','6','7'] ,
+ 			'9' : ['4','5','6','7','8'] ,
+ 			'10' : ['5','6','7','8','9'] ,
  	};
  	
  	const rangeExist_dyn  = { //index for 動態
@@ -1521,24 +1567,7 @@
 			        	 if(data == 'null'){
 			        		 period = 0 ; 
 			        		 //解決跳號問題
-			        		 /*betIndex = {
-			      		 			'1' : 0,
-			      		 			'2' : 0,
-			      		 			'3' : 0,
-			      		 			'4' : 0,
-			      		 			'5' : 0,
-			      		 			'6' : 0,
-			      		 			'7' : 0,
-			      		 			'8' : 0,
-			      		 			'9' : 0,
-			      		 			'10' : 0,
-
-			      		 	};
-			        	        betIndex2 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
-			      			betIndex3 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
-			      			betIndex4 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
-			      			betIndex5 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
-			      			betIndex6 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };*/
+			        		  
 			        		 
 			        	 }else {
 			        		   period = data;
@@ -1622,24 +1651,20 @@
 	        return false;  
 	}
  	function saveParam(){
- 		if($( ".betlist" ).val().indexOf(' ')>-1 ||
-		   $( ".betlist2" ).val().indexOf(' ')>-1 ||
-		   $( ".betlist3" ).val().indexOf(' ')>-1 ||	
-		   $( ".betlist4" ).val().indexOf(' ')>-1 ||	
-		   $( ".betlist5" ).val().indexOf(' ')>-1 ||	
-		   $( ".betlist6" ).val().indexOf(' ')>-1 ||
-		   $( ".betlist" ).val().indexOf('.')>-1 ||
-		   $( ".betlist2" ).val().indexOf('.')>-1 ||
-		   $( ".betlist3" ).val().indexOf('.')>-1 ||	
-		   $( ".betlist4" ).val().indexOf('.')>-1 ||	
-		   $( ".betlist5" ).val().indexOf('.')>-1 ||	
-		   $( ".betlist6" ).val().indexOf('.')>-1 ||
-		   $( ".betlist" ).val().indexOf(',,')>-1 ||
-		   $( ".betlist2" ).val().indexOf(',,')>-1 ||
-		   $( ".betlist3" ).val().indexOf(',,')>-1 ||	
-		   $( ".betlist4" ).val().indexOf(',,')>-1 ||	
-		   $( ".betlist5" ).val().indexOf(',,')>-1 ||	
-		   $( ".betlist6" ).val().indexOf(',,')>-1
+ 		if($( ".betlist" ).val().indexOf(' ')>-1 || $( ".betlist2" ).val().indexOf(' ')>-1 ||   $( ".betlist3" ).val().indexOf(' ')>-1 ||	
+		   $( ".betlist4" ).val().indexOf(' ')>-1 ||	 $( ".betlist5" ).val().indexOf(' ')>-1 ||  $( ".betlist6" ).val().indexOf(' ')>-1 ||
+		   $( ".betlist7" ).val().indexOf(' ')>-1 || $( ".betlist8" ).val().indexOf(' ')>-1 ||   $( ".betlist9" ).val().indexOf(' ')>-1 ||	
+		   $( ".betlist10" ).val().indexOf(' ')>-1 ||	 $( ".betlist11" ).val().indexOf(' ')>-1 ||  $( ".betlist12" ).val().indexOf(' ')>-1 ||
+		   
+		   $( ".betlist" ).val().indexOf('.')>-1 || $( ".betlist2" ).val().indexOf('.')>-1 ||    $( ".betlist3" ).val().indexOf('.')>-1 ||	
+		   $( ".betlist4" ).val().indexOf('.')>-1 ||	  $( ".betlist5" ).val().indexOf('.')>-1 ||	 $( ".betlist6" ).val().indexOf('.')>-1 ||
+		   $( ".betlist7" ).val().indexOf('.')>-1 || $( ".betlist8" ).val().indexOf('.')>-1 ||    $( ".betlist9" ).val().indexOf('.')>-1 ||	
+		   $( ".betlist10" ).val().indexOf('.')>-1 ||	  $( ".betlist11" ).val().indexOf('.')>-1 ||	 $( ".betlist12" ).val().indexOf('.')>-1 ||
+		   
+		   $( ".betlist" ).val().indexOf(',,')>-1 ||  $( ".betlist2" ).val().indexOf(',,')>-1 || $( ".betlist3" ).val().indexOf(',,')>-1 ||	
+		   $( ".betlist4" ).val().indexOf(',,')>-1 || $( ".betlist5" ).val().indexOf(',,')>-1 ||	  $( ".betlist6" ).val().indexOf(',,')>-1 ||
+		   $( ".betlist7" ).val().indexOf(',,')>-1 ||  $( ".betlist8" ).val().indexOf(',,')>-1 || $( ".betlist9" ).val().indexOf(',,')>-1 ||	
+		   $( ".betlist10" ).val().indexOf(',,')>-1 || $( ".betlist11" ).val().indexOf(',,')>-1 ||	  $( ".betlist12" ).val().indexOf(',,')>-1
  		){
  			alert('輸入符號有誤');
  			return ;
@@ -1685,6 +1710,14 @@
  		if($( ".betlist4" ).val()){ p+= "&betlist4="+$( ".betlist4" ).val() ; }else {p+= "&betlist4=0" ;}
  		if($( ".betlist5" ).val()){ p+= "&betlist5="+$( ".betlist5" ).val() ; }else {p+= "&betlist5=0" ;}
  		if($( ".betlist6" ).val()){ p+= "&betlist6="+$( ".betlist6" ).val() ; }else {p+= "&betlist6=0" ;}
+ 		if($( ".betlist7" ).val()){ p+= "&betlist7="+$( ".betlist7" ).val() ; }else {p+= "&betlist7=0" ;}
+ 		if($( ".betlist8" ).val()){ p+= "&betlist8="+$( ".betlist8" ).val() ; }else {p+= "&betlist8=0" ;}
+ 		if($( ".betlist9" ).val()){ p+= "&betlist9="+$( ".betlist9" ).val() ; }else {p+= "&betlist9=0" ;}
+ 		if($( ".betlist10" ).val()){ p+= "&betlist10="+$( ".betlist10" ).val() ; }else {p+= "&betlist10=0" ;}
+ 		if($( ".betlist11" ).val()){ p+= "&betlist11="+$( ".betlist11" ).val() ; }else {p+= "&betlist11=0" ;}
+ 		if($( ".betlist12" ).val()){ p+= "&betlist12="+$( ".betlist12" ).val() ; }else {p+= "&betlist12=0" ;}
+
+
 
  		return p;
  	}
@@ -1732,12 +1765,7 @@
  		if(h*1 > 8 && h*1 < 24) {
  			flag = true;
  		}else {
- 			betIndex = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
- 			betIndex2 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
- 			betIndex3 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
- 			betIndex4 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
- 			betIndex5 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
- 			betIndex6 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+ 			clearIndex();
 
  		}
  		return flag;
@@ -1821,10 +1849,15 @@
 					       	 	betflag = true;  
 							}else { //兌不到獎
 								clearIndex();
+								var d = getYYYYMMDDSS();
+				        	    		var log =  d + "error!" ;
+								saveLog('error_bet','checkover' + log);
 							}
 							 
 						} else { 
-							 
+						    var d = getYYYYMMDDSS();
+				        	    var log =  d + "error!" ;
+							saveLog('error_bet',log);
 						}  
 					}
 			        
@@ -2000,12 +2033,19 @@
     }
     
     function clearIndex(){
-    		betIndex = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+    			betIndex = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
 			betIndex2 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
 			betIndex3 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
 			betIndex4 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
 			betIndex5 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
 			betIndex6 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+			betIndex7 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+			betIndex8 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+			betIndex9 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+			betIndex10 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+			betIndex11 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+			betIndex12 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+
 
     }
     function selectTypeToBet(nextPhase){
@@ -2121,7 +2161,13 @@
   	  if(!document.getElementById('c4').checked) {betIndex4 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
   	  if(!document.getElementById('c5').checked) {betIndex5 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
   	  if(!document.getElementById('c6').checked) {betIndex6 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
-  	  
+  	  if(!document.getElementById('c7').checked) {betIndex7 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+  	  if(!document.getElementById('c8').checked) {betIndex8 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+  	  if(!document.getElementById('c9').checked) {betIndex9 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+  	  if(!document.getElementById('c10').checked) {betIndex10 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+  	  if(!document.getElementById('c11').checked) {betIndex11 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+  	  if(!document.getElementById('c12').checked) {betIndex12 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+
     	saveParam();
     	
     	
