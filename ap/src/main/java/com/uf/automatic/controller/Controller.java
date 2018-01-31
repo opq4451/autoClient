@@ -59,7 +59,7 @@ public class Controller {
 	String user = "";
 	String pwd = "";
 	String p_id = "";
-	
+
 	Map<Integer, String> bs = new TreeMap<Integer, String>();
 
 	@RequestMapping("/getUid")
@@ -76,23 +76,21 @@ public class Controller {
 		// + "username=" + user
 		// + "" + "&passwd=" + pwd_in + "" + "&langx=zh-cn";
 		try {
-		    
+
 			user = u;
 			pwd = p;
 			String ret = getAuthInformation(user, pwd);
 			JsonParser parser = new JsonParser();
-            JsonObject o = parser.parse(ret).getAsJsonObject();
-           
-            
-            String IFOK =  o.get("OK").getAsString();
-            if(IFOK.equals("Y")) {
-                h = httpClientCookie.getInstance(user, pwd);
-                clearLog(user + "bet");
-                clearLog(user + "overLOGDIS");
-                clearLog(user + "_over");
-                return "Y";
-            }
-			
+			JsonObject o = parser.parse(ret).getAsJsonObject();
+
+			String IFOK = o.get("OK").getAsString();
+			if (IFOK.equals("Y")) {
+				h = httpClientCookie.getInstance(user, pwd);
+				clearLog(user + "bet");
+				clearLog(user + "overLOGDIS");
+				clearLog(user + "_over");
+				return "Y";
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -147,7 +145,7 @@ public class Controller {
 	}
 
 	@RequestMapping("/getTodayWin")
-	public String getTodayWin(@RequestParam("user") String user,@RequestParam("pwd") String pwd) {
+	public String getTodayWin(@RequestParam("user") String user, @RequestParam("pwd") String pwd) {
 
 		try {
 			if (h == null) {
@@ -209,10 +207,10 @@ public class Controller {
 				String betlist12 = configProperty.getProperty("betlist12");
 
 				String s_h = configProperty.getProperty("s_h");
-                String s_m = configProperty.getProperty("s_m");
-                String e_h = configProperty.getProperty("e_h");
-                String e_m = configProperty.getProperty("e_m");
-                String stoppoint = configProperty.getProperty("stoppoint");
+				String s_m = configProperty.getProperty("s_m");
+				String e_h = configProperty.getProperty("e_h");
+				String e_m = configProperty.getProperty("e_m");
+				String stoppoint = configProperty.getProperty("stoppoint");
 
 				String stoplose = configProperty.getProperty("stoplose");
 				String stopwin = configProperty.getProperty("stopwin");
@@ -236,12 +234,12 @@ public class Controller {
 				j.addProperty("stopwin", stopwin);
 				j.addProperty("startstatus", startstatus);
 				j.addProperty("s_h", s_h);
-                j.addProperty("s_m", s_m);
-                j.addProperty("e_h", e_h);
-                j.addProperty("e_m", e_m);
-                j.addProperty("stoppoint", stoppoint);
+				j.addProperty("s_m", s_m);
+				j.addProperty("e_h", e_h);
+				j.addProperty("e_m", e_m);
+				j.addProperty("stoppoint", stoppoint);
 
-			} catch (Exception e) { 
+			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
 
@@ -253,20 +251,22 @@ public class Controller {
 
 			return j.toString();
 		} catch (Exception e) {
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : getToday 斷" ); 
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : getToday 斷");
 			h = httpClientCookie.getInstance(user, pwd);
 			e.printStackTrace();
 		}
 
 		return "null";
 	}
-	public static void main (String[] args) {
-	    String s = "sddd(成功)" + "(公式2)";
-	   String a =  s.substring(0, s.lastIndexOf("("));
-	    
-	    System.out.println(a);
+
+	public static void main(String[] args) {
+		String s = "sddd(成功)" + "(公式2)";
+		String a = s.substring(0, s.lastIndexOf("("));
+
+		System.out.println(a);
 	}
+
 	@RequestMapping("/getPredictLog")
 	public String getPredictLog(@RequestParam("user") String user) {
 
@@ -301,111 +301,108 @@ public class Controller {
 				int i = 0;
 
 				Map m = new HashMap();
-				
-				Map<String, String> treemap = 
-				        new TreeMap<String, String>(Collections.reverseOrder());
-				
+
+				Map<String, String> treemap = new TreeMap<String, String>(Collections.reverseOrder());
+
 				for (Enumeration e = configProperty.propertyNames(); e.hasMoreElements();) {
 
 					String v = configProperty.getProperty(e.nextElement().toString());
 
 					String formuStr = v.substring(v.length() - 5, v.length()); // (公式1)
-					String phase = v.substring(1,7); //期別
-	                String key_form = v.substring(v.indexOf("式")+1, v.lastIndexOf(")"));
-	                
-                    int start = v.indexOf("第", 8);
-                    int end = v.indexOf("名", 8);
-                    String sn = v.substring(start+1,end).length()==1 ? "0"+ v.substring(start+1,end) :  v.substring(start+1,end); //第幾名
-                    
-                    //System.out.println(sn);
-					
-					if(v.indexOf("第0關")>-1){  //下注0的不用顯示在log
+					String phase = v.substring(1, 7); // 期別
+					String key_form = v.substring(v.indexOf("式") + 1, v.lastIndexOf(")"));
+
+					int start = v.indexOf("第", 8);
+					int end = v.indexOf("名", 8);
+					String sn = v.substring(start + 1, end).length() == 1 ? "0" + v.substring(start + 1, end)
+							: v.substring(start + 1, end); // 第幾名
+
+					// System.out.println(sn);
+
+					if (v.indexOf("第0關") > -1) { // 下注0的不用顯示在log
 						continue;
 					}
-					
-					String k = phase +"@"+ key_form +"@"+ sn;
+
+					String k = phase + "@" + key_form + "@" + sn;
 					treemap.put(k, v);
-					
-				 
-				 
-					
-				} 
-				 
-				
-				//process treemap
+
+				}
+
+				// process treemap
 				Set set = treemap.entrySet();
-			    Iterator iter = set.iterator();
-			    // Display elements
-			    int d = 0;
-			    while(iter.hasNext()) {
-			       
-			      Map.Entry me = (Map.Entry)iter.next();
-			      String v = me.getValue().toString();
-			      String k = me.getKey().toString();
-			      String formu = k.split("@")[1];
-			      String phase = k.split("@")[0];
-			      if(m.get(phase)==null) {
-			          d++;
-		            logHtml.append("</table>" );
-                    if(d % 2 == 1) {
-                        logHtml.append("<table  style=\"width:100%;border: 2px solid black;border-collapse: collapse;\">" );
-                    }else {
-                        logHtml.append("<table style=\"width:100%;border: 1px solid black;border-collapse: collapse;\">" );
-                    } 
-                    m.put(phase, phase);
-			      }
-			      
-			        if (formu.equals("1")) {
-                        logHtml.append(
-                                "<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">" + v.substring(0,v.lastIndexOf("(")) + "</td></tr>");
-                    }
-                    if (formu.equals("2")) { 
-                        logHtml.append(
-                                "<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">" + v.substring(0,v.lastIndexOf("(")) + "</td></tr>");
-                    }
-                    if (formu.equals("3")) { 
-                        logHtml.append(
-                                "<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">" + v.substring(0,v.lastIndexOf("(")) + "</td></tr>");
-                    }
-                    if (formu.equals("4")) { 
-                        logHtml.append(
-                                "<tr><td bgcolor=\"5599FF\"  style=\"border: 1px solid black\">" + v.substring(0,v.lastIndexOf("(")) + "</td></tr>");
-                    }
-                    if (formu.equals("5")) { 
-                        logHtml.append(
-                                "<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">" + v.substring(0,v.lastIndexOf("(")) + "</td></tr>");
-                    }
-                    
-                    if (formu.equals("6")) { 
-                        logHtml.append(
-                                "<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">" + v.substring(0,v.lastIndexOf("(")) + "</td></tr>");
-                    }
-                    
-                    if (formu.equals("7")) { 
-                        logHtml.append(
-                                "<tr><td bgcolor=\"DEB887\"  style=\"border: 1px solid black\">" + v.substring(0,v.lastIndexOf("(")) + "</td></tr>");
-                    }
-                    
-                    if (formu.equals("8")) { 
-                        logHtml.append(
-                                "<tr><td bgcolor=\"99FFFF\"  style=\"border: 1px solid black\">" + v.substring(0,v.lastIndexOf("(")) + "</td></tr>");
-                    }
-                    
-                    if (formu.equals("9")) { 
-                        logHtml.append(
-                                "<tr><td bgcolor=\"F0F8FF\"  style=\"border: 1px solid black\">" + v.substring(0,v.lastIndexOf("(")) + "</td></tr>");
-                    }
-                    
-                    if (formu.equals("10")) { 
-                        logHtml.append(
-                                "<tr><td bgcolor=\"66CDAA\"  style=\"border: 1px solid black\">" + v.substring(0,v.lastIndexOf("(")) + "</td></tr>");
-                    }
-			      
-			     
-			    }
-			    logHtml.append("</table>" );
-			    j.addProperty("logHtml", logHtml.toString().substring(8,logHtml.length()));
-			   
+				Iterator iter = set.iterator();
+				// Display elements
+				int d = 0;
+				while (iter.hasNext()) {
+
+					Map.Entry me = (Map.Entry) iter.next();
+					String v = me.getValue().toString();
+					String k = me.getKey().toString();
+					String formu = k.split("@")[1];
+					String phase = k.split("@")[0];
+					if (m.get(phase) == null) {
+						d++;
+						logHtml.append("</table>");
+						if (d % 2 == 1) {
+							logHtml.append(
+									"<table  style=\"width:100%;border: 2px solid black;border-collapse: collapse;\">");
+						} else {
+							logHtml.append(
+									"<table style=\"width:100%;border: 1px solid black;border-collapse: collapse;\">");
+						}
+						m.put(phase, phase);
+					}
+
+					if (formu.equals("1")) {
+						logHtml.append("<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">"
+								+ v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+					}
+					if (formu.equals("2")) {
+						logHtml.append("<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">"
+								+ v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+					}
+					if (formu.equals("3")) {
+						logHtml.append("<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">"
+								+ v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+					}
+					if (formu.equals("4")) {
+						logHtml.append("<tr><td bgcolor=\"5599FF\"  style=\"border: 1px solid black\">"
+								+ v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+					}
+					if (formu.equals("5")) {
+						logHtml.append("<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">"
+								+ v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+					}
+
+					if (formu.equals("6")) {
+						logHtml.append("<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">"
+								+ v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+					}
+
+					if (formu.equals("7")) {
+						logHtml.append("<tr><td bgcolor=\"DEB887\"  style=\"border: 1px solid black\">"
+								+ v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+					}
+
+					if (formu.equals("8")) {
+						logHtml.append("<tr><td bgcolor=\"99FFFF\"  style=\"border: 1px solid black\">"
+								+ v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+					}
+
+					if (formu.equals("9")) {
+						logHtml.append("<tr><td bgcolor=\"F0F8FF\"  style=\"border: 1px solid black\">"
+								+ v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+					}
+
+					if (formu.equals("10")) {
+						logHtml.append("<tr><td bgcolor=\"66CDAA\"  style=\"border: 1px solid black\">"
+								+ v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+					}
+
+				}
+				logHtml.append("</table>");
+				j.addProperty("logHtml", logHtml.toString().substring(8, logHtml.length()));
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -425,40 +422,39 @@ public class Controller {
 	}
 
 	@RequestMapping("/getPhase")
-    public String getPhase(@RequestParam("user") String user,@RequestParam("pwd") String pwd) {
-        try {
-            if(h==null)
-                h = httpClientCookie.getInstance(user, pwd); 
-            
-                long unixTime = System.currentTimeMillis() / 1000L;
+	public String getPhase(@RequestParam("user") String user, @RequestParam("pwd") String pwd) {
+		try {
+			if (h == null)
+				h = httpClientCookie.getInstance(user, pwd);
 
-                String query = "McID=03RGK&Nose=bb4NvVOMtX&Sern=0&Time=" + unixTime;
-                String sign = Utils.MD5(query + "&key=EUAwtKL0A1").toUpperCase();
+			long unixTime = System.currentTimeMillis() / 1000L;
 
-                String url = "http://47.90.109.200/chatbet_v3/award_sync/get_award.php?" + query + "&Sign=" + sign;
- 
-                String ret = Utils.httpClientGet(url);
-                JsonParser parser = new JsonParser();
-                JsonObject o = parser.parse(ret).getAsJsonObject();
-                String a = o.get("Award").getAsString();
-                JsonArray data = parser.parse(a).getAsJsonArray();
-                String drawIssue = data.get(0).getAsJsonObject().get("I").getAsString(); 
-                if (drawIssue != null && !drawIssue.equals("")) {
-                    return Integer.toString(Integer.parseInt(drawIssue) + 1 );
-                }
-                
+			String query = "McID=03RGK&Nose=bb4NvVOMtX&Sern=0&Time=" + unixTime;
+			String sign = Utils.MD5(query + "&key=EUAwtKL0A1").toUpperCase();
 
-        } catch (Exception e) {
-            saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : getPhase 斷" ); 
-            h = httpClientCookie.getInstance(user, pwd);
-            e.printStackTrace();
+			String url = "http://47.90.109.200/chatbet_v3/award_sync/get_award.php?" + query + "&Sign=" + sign;
 
-        } finally {
+			String ret = Utils.httpClientGet(url);
+			JsonParser parser = new JsonParser();
+			JsonObject o = parser.parse(ret).getAsJsonObject();
+			String a = o.get("Award").getAsString();
+			JsonArray data = parser.parse(a).getAsJsonArray();
+			String drawIssue = data.get(0).getAsJsonObject().get("I").getAsString();
+			if (drawIssue != null && !drawIssue.equals("")) {
+				return Integer.toString(Integer.parseInt(drawIssue) + 1);
+			}
 
-        }
-        return "null";
+		} catch (Exception e) {
+			saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : getPhase 斷");
+			h = httpClientCookie.getInstance(user, pwd);
+			e.printStackTrace();
 
-    }
+		} finally {
+
+		}
+		return "null";
+
+	}
 
 	@RequestMapping("/getCode")
 	public String getCode(@RequestParam("phase") String phase) {
@@ -478,12 +474,12 @@ public class Controller {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-		    try {
-                fileIn.close();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+			try {
+				fileIn.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		return "null";
@@ -493,16 +489,16 @@ public class Controller {
 	public String saveParam(@RequestParam("user") String user, @RequestParam("type") String type,
 			@RequestParam("betlist") String betlist, @RequestParam("betlist2") String betlist2,
 			@RequestParam("betlist3") String betlist3, @RequestParam("betlist4") String betlist4,
-			@RequestParam("betlist5") String betlist5,@RequestParam("betlist6") String betlist6,
-			@RequestParam("betlist7") String betlist7,@RequestParam("betlist8") String betlist8,
-			@RequestParam("betlist9") String betlist9,@RequestParam("betlist10") String betlist10,
-			@RequestParam("betlist11") String betlist11,@RequestParam("betlist12") String betlist12,@RequestParam("stoplose") String stoplose,
-			@RequestParam("stopwin") String stopwin, @RequestParam("startstatus") String startstatus,
-			@RequestParam("s_h") String s_h, @RequestParam("s_m") String s_m,
-			@RequestParam("e_h") String e_h, @RequestParam("e_m") String e_m,
+			@RequestParam("betlist5") String betlist5, @RequestParam("betlist6") String betlist6,
+			@RequestParam("betlist7") String betlist7, @RequestParam("betlist8") String betlist8,
+			@RequestParam("betlist9") String betlist9, @RequestParam("betlist10") String betlist10,
+			@RequestParam("betlist11") String betlist11, @RequestParam("betlist12") String betlist12,
+			@RequestParam("stoplose") String stoplose, @RequestParam("stopwin") String stopwin,
+			@RequestParam("startstatus") String startstatus, @RequestParam("s_h") String s_h,
+			@RequestParam("s_m") String s_m, @RequestParam("e_h") String e_h, @RequestParam("e_m") String e_m,
 			@RequestParam("stoppoint") String stoppoint
-			
-			) {
+
+	) {
 		FileInputStream fileIn = null;
 		FileOutputStream fileOut = null;
 
@@ -523,21 +519,21 @@ public class Controller {
 			configProperty.setProperty("betlist3", betlist3);
 			configProperty.setProperty("betlist4", betlist4);
 			configProperty.setProperty("betlist5", betlist5);
-			configProperty.setProperty("betlist6", betlist6); 
-			configProperty.setProperty("betlist7", betlist7); 
-			configProperty.setProperty("betlist8", betlist8); 
-			configProperty.setProperty("betlist9", betlist9); 
-			configProperty.setProperty("betlist10", betlist10); 
-			configProperty.setProperty("betlist11", betlist11); 
-			configProperty.setProperty("betlist12", betlist12); 
+			configProperty.setProperty("betlist6", betlist6);
+			configProperty.setProperty("betlist7", betlist7);
+			configProperty.setProperty("betlist8", betlist8);
+			configProperty.setProperty("betlist9", betlist9);
+			configProperty.setProperty("betlist10", betlist10);
+			configProperty.setProperty("betlist11", betlist11);
+			configProperty.setProperty("betlist12", betlist12);
 			configProperty.setProperty("stoplose", stoplose);
 			configProperty.setProperty("stopwin", stopwin);
 			configProperty.setProperty("startstatus", startstatus);
 			configProperty.setProperty("s_h", s_h);
-            configProperty.setProperty("s_m", s_m);
-            configProperty.setProperty("e_h", e_h);
-            configProperty.setProperty("e_m", e_m);
-            configProperty.setProperty("stoppoint", stoppoint);
+			configProperty.setProperty("s_m", s_m);
+			configProperty.setProperty("e_h", e_h);
+			configProperty.setProperty("e_m", e_m);
+			configProperty.setProperty("stoppoint", stoppoint);
 			fileOut = new FileOutputStream(file);
 			configProperty.store(fileOut, "sample properties");
 		} catch (Exception e) {
@@ -679,7 +675,7 @@ public class Controller {
 							String t = new SimpleDateFormat("HH:mm:ss").format(new Date());
 							Utils.WritePropertiesFile(user + "overLOGDIS_log", fillZero(Integer.toString(over_i)),
 									"第" + phase + "期，第" + sn + "名，已過關!(第" + configProperty.getProperty(key) + "關)"
-									        + "(公式" + x + ")");   
+											+ "(公式" + x + ")");
 
 							j.addProperty(covertIntToLatter(sn) + x, "Y");
 						}
@@ -689,11 +685,11 @@ public class Controller {
 				}
 
 			}
-			
-			if(getCode(phase).equals("null")){ //兌不到獎
-			    j.addProperty("checkFlag", "N");
-			}else {
-			    j.addProperty("checkFlag", "Y");
+
+			if (getCode(phase).equals("null")) { // 兌不到獎
+				j.addProperty("checkFlag", "N");
+			} else {
+				j.addProperty("checkFlag", "Y");
 			}
 			return j.toString();
 
@@ -866,8 +862,7 @@ public class Controller {
 			Map<Integer, String> normal = new TreeMap<Integer, String>();
 			Utils.producePl(normal, r); // 產生倍率 for single
 			p_id = data.get("p_id").getAsString();
-			 
-			
+
 			bi++;
 
 			// if (ret.indexOf(user) > -1) {
@@ -878,8 +873,9 @@ public class Controller {
 			String m = "";
 			int i = 0;
 			for (String str : code) {
-			    //String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
-				//saveOverLog(user, overLog, c);
+				// String overLog = betphase + "@" + sn + "@" + str + "@" +
+				// formu;
+				// saveOverLog(user, overLog, c);
 				//
 				int index = computeIndex(sn, str);
 				String id_pl = normal.get(index).toString(); // 15@1.963
@@ -889,38 +885,37 @@ public class Controller {
 				m += amount + ",";
 				i++;
 			}
-			if(amount.equals("0") || amount.equals("1")){
-			    for (String str : code) {
-	                String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
-	                saveOverLog(user, overLog, c); 
-	            }
+			if (amount.equals("0") || amount.equals("1")) {
+				for (String str : code) {
+					String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+					saveOverLog(user, overLog, c);
+				}
 				return "";
 			}
-			 
 
 			String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
 
 			JsonParser parser = new JsonParser();
 			JsonObject o = parser.parse(betRet).getAsJsonObject();
 			String resCode = o.get("success").getAsString();
-			
+
 			if (resCode.equals("200")) {
-			    
-			    for (String str : code) {
-                    String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
-                    saveOverLog(user, overLog, c); 
-                }
-			    
-			    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
- 			                                    + amount + ")" + "(成功)" + "(公式" + formu + ")"; 
+
+				for (String str : code) {
+					String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+					saveOverLog(user, overLog, c);
+				}
+
+				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+						+ amount + ")" + "(成功)" + "(公式" + formu + ")";
 				saveLog(user + "bet", betlog);
 
 			} else {
-				//System.out.println(o.toString());
+				// System.out.println(o.toString());
 				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-						+ amount + ")" + "(失敗)" + "(公式" + formu + ")"; 
-				//saveLog(user + "bet", betlog);
-                saveLog(user + "error", o.toString() + " bet error:" + betlog);
+						+ amount + ")" + "(失敗)" + "(公式" + formu + ")";
+				// saveLog(user + "bet", betlog);
+				saveLog(user + "error", o.toString() + " bet error:" + betlog);
 				recoup(user, sn, amount, betphase, c, codeList, formu);
 			}
 
@@ -938,8 +933,8 @@ public class Controller {
 			// }
 
 		} catch (Exception e) {
-            saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : bet 斷" ); 
-		    h = httpClientCookie.getInstance(user, pwd); 
+			saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : bet 斷");
+			h = httpClientCookie.getInstance(user, pwd);
 			e.printStackTrace();
 
 		} finally {
@@ -970,7 +965,7 @@ public class Controller {
 			// if (response.getStatusLine().getStatusCode() == 200) {//
 			// 如果状态码为200,就是正常返回
 			// String ret = EntityUtils.toString(response.getEntity());
-			//bi++;
+			// bi++;
 			String r = h.getoddsInfo();
 			Map<Integer, String> normal = new TreeMap<Integer, String>();
 			Utils.producePl(normal, r); // 產生倍率 for single
@@ -998,22 +993,22 @@ public class Controller {
 			JsonParser parser = new JsonParser();
 			JsonObject o = parser.parse(betRet).getAsJsonObject();
 			String resCode = o.get("success").getAsString();
-			if (resCode.equals("200")) { 
-			    for (String str : code) {
-                    String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
-                    saveOverLog(user, overLog, c); 
-                }
-			    
+			if (resCode.equals("200")) {
+				for (String str : code) {
+					String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+					saveOverLog(user, overLog, c);
+				}
+
 				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-                         + amount + ")" + "(補單成功)" + "(公式" + formu + ")"; 
-				saveLog(user + "bet", betlog); 
+						+ amount + ")" + "(補單成功)" + "(公式" + formu + ")";
+				saveLog(user + "bet", betlog);
 
 			} else {
 				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
 						+ amount + ")" + "(失敗)" + "(公式" + formu + ")";
-//				saveLog(user + "bet", betlog);
-                saveLog(user + "error", o.toString() + " recoup error:" + betlog);
-                recoup_two(user, sn, amount, betphase, c, codeList, formu);
+				// saveLog(user + "bet", betlog);
+				saveLog(user + "error", o.toString() + " recoup error:" + betlog);
+				recoup_two(user, sn, amount, betphase, c, codeList, formu);
 			}
 
 			// String overLog = betphase + "@" + sn + "@" + code ;
@@ -1030,7 +1025,7 @@ public class Controller {
 			// }
 
 		} catch (Exception e) {
-            saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : RECOUP 斷" );
+			saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : RECOUP 斷");
 			h = httpClientCookie.getInstance(user, pwd);
 			e.printStackTrace();
 
@@ -1040,98 +1035,189 @@ public class Controller {
 
 		return "";
 	}
-	
+
 	public String recoup_two(@RequestParam("user") String user, @RequestParam("sn") String sn,
-	                     @RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
-	                     @RequestParam("c") String c, @RequestParam("codeList") String codeList,
-	                     @RequestParam("formu") String formu) {
+			@RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
+			@RequestParam("c") String c, @RequestParam("codeList") String codeList,
+			@RequestParam("formu") String formu) {
 
-             try {
-                 if (h == null) {
-                     h = httpClientCookie.getInstance(user, pwd);
-                 }
+		try {
+			if (h == null) {
+				h = httpClientCookie.getInstance(user, pwd);
+			}
 
-                 // //url += URLEncoder.encode(prameter, "UTF-8");
-                 //
-                 // HttpGet httpget = new HttpGet(url + parameter);
-                 // //System.out.println(url + parameter);
-                 // //httpget.setHeader(HttpHeaders.ACCEPT_ENCODING, "gzip");
-                 // // 建立HttpPost对象
-                 // HttpResponse response = new DefaultHttpClient().execute(httpget);
-                 // // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
-                 // if (response.getStatusLine().getStatusCode() == 200) {//
-                 // 如果状态码为200,就是正常返回
-                 // String ret = EntityUtils.toString(response.getEntity());
-                 //bi++;
-                 String r = h.getoddsInfo();
-                 Map<Integer, String> normal = new TreeMap<Integer, String>();
-                 Utils.producePl(normal, r); // 產生倍率 for single
-                 // if (ret.indexOf(user) > -1) {
-                 String code[] = codeList.split(",");
-                 String ossid = "";
-                 String pl = "";
-                 String i_index = "";
-                 String m = "";
-                 int i = 0;
-                 for (String str : code) {
-                     // String overLog = betphase + "@" + sn + "@" + str;
-                     // saveOverLog(user, overLog, c);
-                     //
-                     int index = computeIndex(sn, str);
-                     String id_pl = normal.get(index).toString(); // 15@1.963
-                     ossid += id_pl.split("@")[0] + ",";
-                     pl += id_pl.split("@")[1] + ",";
-                     i_index += i + ",";
-                     m += amount + ",";
-                     i++;
-                 }
-                 String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
+			// //url += URLEncoder.encode(prameter, "UTF-8");
+			//
+			// HttpGet httpget = new HttpGet(url + parameter);
+			// //System.out.println(url + parameter);
+			// //httpget.setHeader(HttpHeaders.ACCEPT_ENCODING, "gzip");
+			// // 建立HttpPost对象
+			// HttpResponse response = new DefaultHttpClient().execute(httpget);
+			// // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
+			// if (response.getStatusLine().getStatusCode() == 200) {//
+			// 如果状态码为200,就是正常返回
+			// String ret = EntityUtils.toString(response.getEntity());
+			// bi++;
+			String r = h.getoddsInfo();
+			Map<Integer, String> normal = new TreeMap<Integer, String>();
+			Utils.producePl(normal, r); // 產生倍率 for single
+			// if (ret.indexOf(user) > -1) {
+			String code[] = codeList.split(",");
+			String ossid = "";
+			String pl = "";
+			String i_index = "";
+			String m = "";
+			int i = 0;
+			for (String str : code) {
+				// String overLog = betphase + "@" + sn + "@" + str;
+				// saveOverLog(user, overLog, c);
+				//
+				int index = computeIndex(sn, str);
+				String id_pl = normal.get(index).toString(); // 15@1.963
+				ossid += id_pl.split("@")[0] + ",";
+				pl += id_pl.split("@")[1] + ",";
+				i_index += i + ",";
+				m += amount + ",";
+				i++;
+			}
+			String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
 
-                 JsonParser parser = new JsonParser();
-                 JsonObject o = parser.parse(betRet).getAsJsonObject();
-                 String resCode = o.get("success").getAsString();
-                 if (resCode.equals("200")) { 
-                     for (String str : code) {
-                         String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
-                         saveOverLog(user, overLog, c); 
-                     }
-                     
-                     String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-                              + amount + ")" + "(補單成功)" + "(公式" + formu + ")"; 
-                     saveLog(user + "bet", betlog); 
+			JsonParser parser = new JsonParser();
+			JsonObject o = parser.parse(betRet).getAsJsonObject();
+			String resCode = o.get("success").getAsString();
+			if (resCode.equals("200")) {
+				for (String str : code) {
+					String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+					saveOverLog(user, overLog, c);
+				}
 
-                 } else {
-                     String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-                             + amount + ")" + "(失敗)" + "(公式" + formu + ")";
-//	                       saveLog(user + "bet", betlog);
-                     saveLog(user + "error", o.toString() + " recoup_two error:" + betlog);
-                 }
+				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+						+ amount + ")" + "(補單成功)" + "(公式" + formu + ")";
+				saveLog(user + "bet", betlog);
 
-                 // String overLog = betphase + "@" + sn + "@" + code ;
-                 // saveOverLog(user,overLog,c);
-                 // saveOverLog(document.getElementById("user").value,encodeURI(overLog),c);
-                 // Utils.WritePropertiesFile(user+"bet",
-                 // fillZero(Integer.toString(bi)), "第"+phase + "期，第" + sn + "名，號碼("
-                 // + code + ")，金額(" + amount + ") @" + ret);
-                 // } else {
-                 // saveLog(user + "ERROR", ret);
-                 // }
-                 //
-                 // return ret;
-                 // }
+			} else {
+				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+						+ amount + ")" + "(失敗)" + "(公式" + formu + ")";
+				// saveLog(user + "bet", betlog);
+				saveLog(user + "error", o.toString() + " recoup_two error:" + betlog);
+				recoup_three(user, sn, amount, betphase, c, codeList, formu);
+			}
 
-             } catch (Exception e) {
-                 saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : recoup_two 斷" );
-                 h = httpClientCookie.getInstance(user, pwd);
-                 e.printStackTrace();
+			// String overLog = betphase + "@" + sn + "@" + code ;
+			// saveOverLog(user,overLog,c);
+			// saveOverLog(document.getElementById("user").value,encodeURI(overLog),c);
+			// Utils.WritePropertiesFile(user+"bet",
+			// fillZero(Integer.toString(bi)), "第"+phase + "期，第" + sn + "名，號碼("
+			// + code + ")，金額(" + amount + ") @" + ret);
+			// } else {
+			// saveLog(user + "ERROR", ret);
+			// }
+			//
+			// return ret;
+			// }
 
-             } finally {
+		} catch (Exception e) {
+			saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : recoup_two 斷");
+			h = httpClientCookie.getInstance(user, pwd);
+			e.printStackTrace();
 
-             }
+		} finally {
 
-             return "";
-         }
-	
+		}
+
+		return "";
+	}
+
+	public String recoup_three(@RequestParam("user") String user, @RequestParam("sn") String sn,
+			@RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
+			@RequestParam("c") String c, @RequestParam("codeList") String codeList,
+			@RequestParam("formu") String formu) {
+
+		try {
+			if (h == null) {
+				h = httpClientCookie.getInstance(user, pwd);
+			}
+
+			// //url += URLEncoder.encode(prameter, "UTF-8");
+			//
+			// HttpGet httpget = new HttpGet(url + parameter);
+			// //System.out.println(url + parameter);
+			// //httpget.setHeader(HttpHeaders.ACCEPT_ENCODING, "gzip");
+			// // 建立HttpPost对象
+			// HttpResponse response = new DefaultHttpClient().execute(httpget);
+			// // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
+			// if (response.getStatusLine().getStatusCode() == 200) {//
+			// 如果状态码为200,就是正常返回
+			// String ret = EntityUtils.toString(response.getEntity());
+			// bi++;
+			String r = h.getoddsInfo();
+			Map<Integer, String> normal = new TreeMap<Integer, String>();
+			Utils.producePl(normal, r); // 產生倍率 for single
+			// if (ret.indexOf(user) > -1) {
+			String code[] = codeList.split(",");
+			String ossid = "";
+			String pl = "";
+			String i_index = "";
+			String m = "";
+			int i = 0;
+			for (String str : code) {
+				// String overLog = betphase + "@" + sn + "@" + str;
+				// saveOverLog(user, overLog, c);
+				//
+				int index = computeIndex(sn, str);
+				String id_pl = normal.get(index).toString(); // 15@1.963
+				ossid += id_pl.split("@")[0] + ",";
+				pl += id_pl.split("@")[1] + ",";
+				i_index += i + ",";
+				m += amount + ",";
+				i++;
+			}
+			String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
+
+			JsonParser parser = new JsonParser();
+			JsonObject o = parser.parse(betRet).getAsJsonObject();
+			String resCode = o.get("success").getAsString();
+			if (resCode.equals("200")) {
+				for (String str : code) {
+					String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+					saveOverLog(user, overLog, c);
+				}
+
+				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+						+ amount + ")" + "(補單成功)" + "(公式" + formu + ")";
+				saveLog(user + "bet", betlog);
+
+			} else {
+				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+						+ amount + ")" + "(失敗)" + "(公式" + formu + ")";
+				// saveLog(user + "bet", betlog);
+				saveLog(user + "error", o.toString() + " recoup_three error:" + betlog);
+			}
+
+			// String overLog = betphase + "@" + sn + "@" + code ;
+			// saveOverLog(user,overLog,c);
+			// saveOverLog(document.getElementById("user").value,encodeURI(overLog),c);
+			// Utils.WritePropertiesFile(user+"bet",
+			// fillZero(Integer.toString(bi)), "第"+phase + "期，第" + sn + "名，號碼("
+			// + code + ")，金額(" + amount + ") @" + ret);
+			// } else {
+			// saveLog(user + "ERROR", ret);
+			// }
+			//
+			// return ret;
+			// }
+
+		} catch (Exception e) {
+			saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : recoup_three 斷");
+			h = httpClientCookie.getInstance(user, pwd);
+			e.printStackTrace();
+
+		} finally {
+
+		}
+
+		return "";
+	}
 
 	@RequestMapping("/betBS")
 	public String betBS(@RequestParam("user") String user, @RequestParam("sn") String sn,
@@ -1212,133 +1298,179 @@ public class Controller {
 	}
 
 	@RequestMapping("/getHistory")
-    public String getHistory() {
+	public String getHistory() {
 
-        try {
+		try {
 
-            JsonObject j = new JsonObject();
+			JsonObject j = new JsonObject();
 
-            FileInputStream fileIn = null;
-            try {
-                Properties configProperty = new OrderedProperties();
-                String path = System.getProperty("user.dir");
-                String hisFile = path + "/history.properties";
-                File file = new File(hisFile);
-                if (!file.exists())
-                    file.createNewFile();
-                fileIn = new FileInputStream(file);
-                configProperty.load(new InputStreamReader(fileIn, "UTF-8"));
+			FileInputStream fileIn = null;
+			try {
+				Properties configProperty = new OrderedProperties();
+				String path = System.getProperty("user.dir");
+				String hisFile = path + "/history.properties";
+				File file = new File(hisFile);
+				if (!file.exists())
+					file.createNewFile();
+				fileIn = new FileInputStream(file);
+				configProperty.load(new InputStreamReader(fileIn, "UTF-8"));
 
-                // String logHtml="";
-                StringBuilder logHtml = new StringBuilder();
-                // for (Map.Entry<Object, Object> e : configProperty.entrySet())
-                // {
-                // String key = (String) e.getKey();
-                // String value = (String) e.getValue();
-                // System.out.println(value);
-                // logHtml.insert(0, "<tr><td style=\"border: 1px solid
-                // black\">"+value+"</td></tr>");
-                // //logHtml+="<tr><td style=\"border: 1px solid
-                // black\">"+value+"</td></tr>";
-                // }
-                for (Enumeration e = configProperty.propertyNames(); e.hasMoreElements();) {
-                    String key = e.nextElement().toString();
-                    String v = configProperty.getProperty(key);
-                    String array[] = v.split(",");
+				// String logHtml="";
+				StringBuilder logHtml = new StringBuilder();
+				// for (Map.Entry<Object, Object> e : configProperty.entrySet())
+				// {
+				// String key = (String) e.getKey();
+				// String value = (String) e.getValue();
+				// System.out.println(value);
+				// logHtml.insert(0, "<tr><td style=\"border: 1px solid
+				// black\">"+value+"</td></tr>");
+				// //logHtml+="<tr><td style=\"border: 1px solid
+				// black\">"+value+"</td></tr>";
+				// }
+				for (Enumeration e = configProperty.propertyNames(); e.hasMoreElements();) {
+					String key = e.nextElement().toString();
+					String v = configProperty.getProperty(key);
+					String array[] = v.split(",");
 
-                    String temp = "<tr ><td align=center style=\"border: 1px solid gray;border-collapse: collapse;padding-left: 0.1cm; padding-right: 0.1cm;\"> "
-                            + "<font size=\"5\">" + key + "</font></td>";
-                    //temp += "<td class=\"nums\"  colspan=11 nowrap style=\"border: 1px solid gray;border-collapse: collapse;padding-top: 0.1cm; padding-bottom: 0.1cm;\">" ;
-                    for (int i = 0; i < 10; i++) {
-                        temp += "<td align=\"center\" style=\" weight:50px;height:50px;  bgcolor=white \">"
-                                + "<img style=\"display:block; max-width:100%; max-height:100%;\" src=/auto/img/pk10/" +Integer.parseInt(array[i])+  ".png></img></td>";
-//                        if (Integer.parseInt(array[i]) == 1)
-//                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#FFFF33\">"
-//                            		+ "<img src=/auto/pk10/" +Integer.parseInt(array[i])+  ".png></img></td>";
-//                        if (Integer.parseInt(array[i]) == 2)
-//                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#0066FF\">"
-//                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
-//
-//                            		+ Integer.parseInt(array[i]) + "</font></td>";
-//                        if (Integer.parseInt(array[i]) == 3)
-//                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3;;border-style:outset;background-color:#696969\">"
-//                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
-//
-//                            		+ Integer.parseInt(array[i]) + "</font></td>";
-//                        if (Integer.parseInt(array[i]) == 4)
-//                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3;;border-style:outset;background-color:#FF5511\">"
-//                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
-//
-//                            		+ Integer.parseInt(array[i]) + "</font></td>";
-//                        if (Integer.parseInt(array[i]) == 5)
-//                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#00FFFF\">"
-//                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
-//
-//                            		+ Integer.parseInt(array[i]) + "</font></td>";
-//                        if (Integer.parseInt(array[i]) == 6)
-//                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#0000CC\">"
-//                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
-//
-//                            		+ Integer.parseInt(array[i]) + "</font></td>";
-//                        if (Integer.parseInt(array[i]) == 7)
-//                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#DCDCDC\">"
-//                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
-//
-//                            		+ Integer.parseInt(array[i]) + "</font></td>";
-//                        if (Integer.parseInt(array[i]) == 8)
-//                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#FF0000\">"
-//                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
-//
-//                            		+ Integer.parseInt(array[i]) + "</font></td>";
-//                        if (Integer.parseInt(array[i]) == 9)
-//                            temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#8B0000\">"
-//                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
-//
-//                            		+ Integer.parseInt(array[i]) + "</font></td>";
-//                        if (Integer.parseInt(array[i]) == 10)
-//                        	temp += "<td align=\"center\" style=\" height:29px;font-size: 16px;font-weight:bold;border: 6px outset #c3c3c3; ;border-style:outset;background-color:#32CD32\">"
-//                            		+ "<font color=\"white\" style=\" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
-//
-//                        			+ Integer.parseInt(array[i]) + "</font></td>";
+					String temp = "<tr ><td align=center style=\"border: 1px solid gray;border-collapse: collapse;padding-left: 0.1cm; padding-right: 0.1cm;\"> "
+							+ "<font size=\"5\">" + key + "</font></td>";
+					// temp += "<td class=\"nums\" colspan=11 nowrap
+					// style=\"border: 1px solid gray;border-collapse:
+					// collapse;padding-top: 0.1cm; padding-bottom: 0.1cm;\">" ;
+					for (int i = 0; i < 10; i++) {
+						temp += "<td align=\"center\" style=\" weight:50px;height:50px;  bgcolor=white \">"
+								+ "<img style=\"display:block; max-width:100%; max-height:100%;\" src=/auto/img/pk10/"
+								+ Integer.parseInt(array[i]) + ".png></img></td>";
+						// if (Integer.parseInt(array[i]) == 1)
+						// temp += "<td align=\"center\" style=\"
+						// height:29px;font-size: 16px;font-weight:bold;border:
+						// 6px outset #c3c3c3;
+						// ;border-style:outset;background-color:#FFFF33\">"
+						// + "<img src=/auto/pk10/" +Integer.parseInt(array[i])+
+						// ".png></img></td>";
+						// if (Integer.parseInt(array[i]) == 2)
+						// temp += "<td align=\"center\" style=\"
+						// height:29px;font-size: 16px;font-weight:bold;border:
+						// 6px outset #c3c3c3;
+						// ;border-style:outset;background-color:#0066FF\">"
+						// + "<font color=\"white\" style=\" text-shadow: -1px 0
+						// black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+						//
+						// + Integer.parseInt(array[i]) + "</font></td>";
+						// if (Integer.parseInt(array[i]) == 3)
+						// temp += "<td align=\"center\" style=\"
+						// height:29px;font-size: 16px;font-weight:bold;border:
+						// 6px outset
+						// #c3c3c3;;border-style:outset;background-color:#696969\">"
+						// + "<font color=\"white\" style=\" text-shadow: -1px 0
+						// black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+						//
+						// + Integer.parseInt(array[i]) + "</font></td>";
+						// if (Integer.parseInt(array[i]) == 4)
+						// temp += "<td align=\"center\" style=\"
+						// height:29px;font-size: 16px;font-weight:bold;border:
+						// 6px outset
+						// #c3c3c3;;border-style:outset;background-color:#FF5511\">"
+						// + "<font color=\"white\" style=\" text-shadow: -1px 0
+						// black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+						//
+						// + Integer.parseInt(array[i]) + "</font></td>";
+						// if (Integer.parseInt(array[i]) == 5)
+						// temp += "<td align=\"center\" style=\"
+						// height:29px;font-size: 16px;font-weight:bold;border:
+						// 6px outset #c3c3c3;
+						// ;border-style:outset;background-color:#00FFFF\">"
+						// + "<font color=\"white\" style=\" text-shadow: -1px 0
+						// black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+						//
+						// + Integer.parseInt(array[i]) + "</font></td>";
+						// if (Integer.parseInt(array[i]) == 6)
+						// temp += "<td align=\"center\" style=\"
+						// height:29px;font-size: 16px;font-weight:bold;border:
+						// 6px outset #c3c3c3;
+						// ;border-style:outset;background-color:#0000CC\">"
+						// + "<font color=\"white\" style=\" text-shadow: -1px 0
+						// black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+						//
+						// + Integer.parseInt(array[i]) + "</font></td>";
+						// if (Integer.parseInt(array[i]) == 7)
+						// temp += "<td align=\"center\" style=\"
+						// height:29px;font-size: 16px;font-weight:bold;border:
+						// 6px outset #c3c3c3;
+						// ;border-style:outset;background-color:#DCDCDC\">"
+						// + "<font color=\"white\" style=\" text-shadow: -1px 0
+						// black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+						//
+						// + Integer.parseInt(array[i]) + "</font></td>";
+						// if (Integer.parseInt(array[i]) == 8)
+						// temp += "<td align=\"center\" style=\"
+						// height:29px;font-size: 16px;font-weight:bold;border:
+						// 6px outset #c3c3c3;
+						// ;border-style:outset;background-color:#FF0000\">"
+						// + "<font color=\"white\" style=\" text-shadow: -1px 0
+						// black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+						//
+						// + Integer.parseInt(array[i]) + "</font></td>";
+						// if (Integer.parseInt(array[i]) == 9)
+						// temp += "<td align=\"center\" style=\"
+						// height:29px;font-size: 16px;font-weight:bold;border:
+						// 6px outset #c3c3c3;
+						// ;border-style:outset;background-color:#8B0000\">"
+						// + "<font color=\"white\" style=\" text-shadow: -1px 0
+						// black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+						//
+						// + Integer.parseInt(array[i]) + "</font></td>";
+						// if (Integer.parseInt(array[i]) == 10)
+						// temp += "<td align=\"center\" style=\"
+						// height:29px;font-size: 16px;font-weight:bold;border:
+						// 6px outset #c3c3c3;
+						// ;border-style:outset;background-color:#32CD32\">"
+						// + "<font color=\"white\" style=\" text-shadow: -1px 0
+						// black, 0 1px black, 1px 0 black, 0 -1px black;\">"
+						//
+						// + Integer.parseInt(array[i]) + "</font></td>";
 
-                    }
+					}
 
-                   // temp += "</td>" ;
-                    temp += "</tr>";
+					// temp += "</td>" ;
+					temp += "</tr>";
 
-                    logHtml.insert(0, temp);
-                }
-                String title = "<tr><td align=center nowrap style=\"border: 1px solid black\"><font size=\"3\">開獎期別</font></td>"
-                        + "<td align=center nowrap style=\"border: 1px solid black\"><font size=\"3\">第一名</font></td>"
-                        + "<td align=center nowrap style=\"border: 1px solid black\"><font size=\"3\">第二名</font></td>"
-                        + "<td align=center  nowrap style=\"border: 1px solid black\"><font size=\"3\">第三名</font></td>"
-                        + "<td align=center nowrap style=\"border: 1px solid black\"><font size=\"3\">第四名</font></td>"
-                        + "<td align=center  nowrap style=\"border: 1px solid black\"><font size=\"3\">第五名</font></td>"
-                        + "<td align=center nowrap style=\"border: 1px solid black\"><font size=\"3\">第六名</font></td>"
-                        + "<td align=center nowrap style=\"border: 1px solid black\"><font size=\"3\">第七名</font></td>"
-                        + "<td align=center  nowrap style=\"border: 1px solid black\"><font size=\"3\">第八名</font></td>"
-                        + "<td align=center  nowrap style=\"border: 1px solid black\"><font size=\"3\">第九名</font></td>"
-                        + "<td align=center  nowrap style=\"border: 1px solid black\"><font size=\"3\">第十名</font></td>" + "</tr>";
+					logHtml.insert(0, temp);
+				}
+				String title = "<tr><td align=center nowrap style=\"border: 1px solid black\"><font size=\"3\">開獎期別</font></td>"
+						+ "<td align=center nowrap style=\"border: 1px solid black\"><font size=\"3\">第一名</font></td>"
+						+ "<td align=center nowrap style=\"border: 1px solid black\"><font size=\"3\">第二名</font></td>"
+						+ "<td align=center  nowrap style=\"border: 1px solid black\"><font size=\"3\">第三名</font></td>"
+						+ "<td align=center nowrap style=\"border: 1px solid black\"><font size=\"3\">第四名</font></td>"
+						+ "<td align=center  nowrap style=\"border: 1px solid black\"><font size=\"3\">第五名</font></td>"
+						+ "<td align=center nowrap style=\"border: 1px solid black\"><font size=\"3\">第六名</font></td>"
+						+ "<td align=center nowrap style=\"border: 1px solid black\"><font size=\"3\">第七名</font></td>"
+						+ "<td align=center  nowrap style=\"border: 1px solid black\"><font size=\"3\">第八名</font></td>"
+						+ "<td align=center  nowrap style=\"border: 1px solid black\"><font size=\"3\">第九名</font></td>"
+						+ "<td align=center  nowrap style=\"border: 1px solid black\"><font size=\"3\">第十名</font></td>"
+						+ "</tr>";
 
-                j.addProperty("logHtml", "<table class=\"lot-table\" style=\"width:100%;border: 1px solid gray;border-collapse: collapse;\">" + title + logHtml + "</table>");
+				j.addProperty("logHtml",
+						"<table class=\"lot-table\" style=\"width:100%;border: 1px solid gray;border-collapse: collapse;\">"
+								+ title + logHtml + "</table>");
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
 
-                try {
-                    fileIn.close();
-                } catch (Exception ex) {
-                }
-            }
+				try {
+					fileIn.close();
+				} catch (Exception ex) {
+				}
+			}
 
-            return j.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+			return j.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-        return "null";
-    }
+		return "null";
+	}
 
 	public String getRate(String latter) {
 		if (latter.equals("A"))
@@ -1477,8 +1609,8 @@ public class Controller {
 
 	@RequestMapping("/saveLIMITDATE")
 	public String saveLIMITDATE(@RequestParam("user") String user, @RequestParam("date") String date,
-			@RequestParam("pwd") String pwd, @RequestParam("pwd_in") String pwd_in, @RequestParam("memo") String memo
-			, @RequestParam("memo2") String memo2, @RequestParam("memo3") String memo3) {
+			@RequestParam("pwd") String pwd, @RequestParam("pwd_in") String pwd_in, @RequestParam("memo") String memo,
+			@RequestParam("memo2") String memo2, @RequestParam("memo3") String memo3) {
 		FileInputStream fileIn = null;
 		FileOutputStream fileOut = null;
 
@@ -1510,7 +1642,8 @@ public class Controller {
 				d = sysDate;
 			}
 
-			configProperty.setProperty(user, date + "," + pwd + "," + d + "," + pwd_in+ "," + memo+ "," + memo2+ "," + memo3);
+			configProperty.setProperty(user,
+					date + "," + pwd + "," + d + "," + pwd_in + "," + memo + "," + memo2 + "," + memo3);
 
 			fileOut = new FileOutputStream(file);
 			configProperty.store(new OutputStreamWriter(fileOut, "UTF-8"), "sample properties");
@@ -1549,26 +1682,24 @@ public class Controller {
 			fileIn = new FileInputStream(file);
 			configProperty.load(new InputStreamReader(fileIn, "UTF-8"));
 			StringBuilder html = new StringBuilder();
-			
-			Map<String, String> map = new HashMap<String, String>();        
+
+			Map<String, String> map = new HashMap<String, String>();
 
 			for (Enumeration e = configProperty.propertyNames(); e.hasMoreElements();) {
 				String key = e.nextElement().toString();
 				String v = configProperty.getProperty(key);
-				
-				
+
 				String array[] = v.split(",");
 				System.out.println(v);
-				if(array.length == 7){
-					String limitDate = array[0].substring(0, 4) + "/" +
-							   array[0].substring(4, 6)
-							   + "/" +  array[0].substring(6, 8) ;
-			
-					String startDate = array[2].substring(0, 4) + "/" +
-							   array[2].substring(4, 6)
-							   + "/" +  array[2].substring(6, 8) ;
-					
-					String temp = "<tr><td  align=\"center\" class=\"context-menu-one\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\"> " + key + "</td>";
+				if (array.length == 7) {
+					String limitDate = array[0].substring(0, 4) + "/" + array[0].substring(4, 6) + "/"
+							+ array[0].substring(6, 8);
+
+					String startDate = array[2].substring(0, 4) + "/" + array[2].substring(4, 6) + "/"
+							+ array[2].substring(6, 8);
+
+					String temp = "<tr><td  align=\"center\" class=\"context-menu-one\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\"> "
+							+ key + "</td>";
 					temp += "<td align=\"center\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">"
 							+ limitDate + "</td>";
 					temp += "<td align=\"center\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">"
@@ -1584,42 +1715,41 @@ public class Controller {
 					temp += "<td align=\"center\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">"
 							+ array[6] + "</td>";
 					temp += "</tr>";
-					
-					map.put(array[0] + key, temp);
-					
-				}
-				
 
-				//html.insert(0, temp);
+					map.put(array[0] + key, temp);
+
+				}
+
+				// html.insert(0, temp);
 			}
-			
-			
+
 			Map<String, String> treeMap = new TreeMap<String, String>(map);
-			 
+
 			int m_size = treeMap.size();
 			for (String str : treeMap.keySet()) {
-			    int id = m_size;
-			    String v = treeMap.get(str).toString();
-			    
-			    String bgcolor= "CCEEFF";
-			    if(id % 2 == 1) {
-		             bgcolor= "";
+				int id = m_size;
+				String v = treeMap.get(str).toString();
 
-			    } 
-			    html.insert(0,  "<tr  bgcolor="+bgcolor+" >" + "<td nowrap align=right>"+id +"</td>" + treeMap.get(str).toString().substring(4, treeMap.get(str).toString().length()-5) + "/<tr>");
-			    m_size--;
+				String bgcolor = "CCEEFF";
+				if (id % 2 == 1) {
+					bgcolor = "";
+
+				}
+				html.insert(0, "<tr  bgcolor=" + bgcolor + " >" + "<td nowrap align=right>" + id + "</td>"
+						+ treeMap.get(str).toString().substring(4, treeMap.get(str).toString().length() - 5) + "/<tr>");
+				m_size--;
 			}
 			JsonObject j = new JsonObject();
 			String returnhtml = "<tr>"
-			        + "<td width=\"20px\" nowrap align=right style=\"border: 1px solid black\" >ID</td>"
-			        + "<td width=\"200px\" align=center style=\"border: 1px solid black\">帳號</td>"
-			        + "<td width=\"200px\" align=center style=\"border: 1px solid black\">使用期限</td>"
+					+ "<td width=\"20px\" nowrap align=right style=\"border: 1px solid black\" >ID</td>"
+					+ "<td width=\"200px\" align=center style=\"border: 1px solid black\">帳號</td>"
+					+ "<td width=\"200px\" align=center style=\"border: 1px solid black\">使用期限</td>"
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">系統密碼</td>"
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">初次設定時間</td>"
-					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">極速密碼</td>" 
+					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">極速密碼</td>"
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">遠端id</td>"
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">遠端密碼</td>"
-					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">姓名</td>"+ html.toString();
+					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">姓名</td>" + html.toString();
 			j.addProperty("returnhtml", returnhtml);
 			j.addProperty("count", m_size);
 
@@ -1637,8 +1767,7 @@ public class Controller {
 
 		return "null";
 	}
-	
-	
+
 	@RequestMapping("/deleteID")
 	public String deleteID(@RequestParam("id") String id) {
 		FileInputStream fileIn = null;
@@ -1659,12 +1788,11 @@ public class Controller {
 			}
 			fileIn = new FileInputStream(file);
 			configProperty.load(new InputStreamReader(fileIn, "UTF-8"));
-			 
+
 			configProperty.remove(id);
 			fileOut = new FileOutputStream(file);
 			configProperty.store(new OutputStreamWriter(fileOut, "UTF-8"), "sample properties");
 
-		 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -1678,7 +1806,7 @@ public class Controller {
 
 		return "null";
 	}
-	
+
 	@RequestMapping("/loadID")
 	public String loadID(@RequestParam("id") String id) {
 		FileInputStream fileIn = null;
@@ -1701,11 +1829,7 @@ public class Controller {
 			configProperty.load(new InputStreamReader(fileIn, "UTF-8"));
 			String v = configProperty.getProperty(id);
 			return v;
-			
-		   
-			
-			
-		 
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -1836,113 +1960,111 @@ public class Controller {
 			clearLog(user + "bet");
 			clearLog(user + "overLOGDIS");
 			clearLog(user + "_over");
-			 
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		return "null";
 	}
-	
+
 	@RequestMapping("/deleteHistory")
 	public String deleteHistory(@RequestParam("user") String u) {
 
-        try {
+		try {
 
-            String path = System.getProperty("user.dir");
-            String hisFile = path + "/history.properties";
-            File file = new File(hisFile);
-            // System.out.println(hisFile);
-            // System.out.println(file.exists());
+			String path = System.getProperty("user.dir");
+			String hisFile = path + "/history.properties";
+			File file = new File(hisFile);
+			// System.out.println(hisFile);
+			// System.out.println(file.exists());
 
-            if (file.exists()) {
-                file.delete();
-                System.out.println("delete suc");
-            }
+			if (file.exists()) {
+				file.delete();
+				System.out.println("delete suc");
+			}
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
 
-        }
-
+		}
 
 		return "null";
 	}
-	
-	
+
 	@RequestMapping("/setForce")
-    public String setForce(@RequestParam("force") String force) {
-        FileInputStream fileIn = null;
-        FileOutputStream fileOut = null;
+	public String setForce(@RequestParam("force") String force) {
+		FileInputStream fileIn = null;
+		FileOutputStream fileOut = null;
 
-        try {
-            Properties configProperty = new Properties() {
-                @Override
-                public synchronized Enumeration<Object> keys() {
-                    return Collections.enumeration(new TreeSet<Object>(super.keySet()));
-                }
-            };
-            String path = System.getProperty("user.dir");
-            String hisFile = path + "/force.properties";
-            File file = new File(hisFile);
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            fileIn = new FileInputStream(file);
-            configProperty.load(new InputStreamReader(fileIn, "UTF-8")); 
-            configProperty.setProperty("force",force);
+		try {
+			Properties configProperty = new Properties() {
+				@Override
+				public synchronized Enumeration<Object> keys() {
+					return Collections.enumeration(new TreeSet<Object>(super.keySet()));
+				}
+			};
+			String path = System.getProperty("user.dir");
+			String hisFile = path + "/force.properties";
+			File file = new File(hisFile);
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+			fileIn = new FileInputStream(file);
+			configProperty.load(new InputStreamReader(fileIn, "UTF-8"));
+			configProperty.setProperty("force", force);
 
-            fileOut = new FileOutputStream(file);
-            configProperty.store(new OutputStreamWriter(fileOut, "UTF-8"), "sample properties");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
+			fileOut = new FileOutputStream(file);
+			configProperty.store(new OutputStreamWriter(fileOut, "UTF-8"), "sample properties");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
 
-            try {
-                fileIn.close();
-                fileOut.close();
-            } catch (Exception ex) {
-            }
-        }
+			try {
+				fileIn.close();
+				fileOut.close();
+			} catch (Exception ex) {
+			}
+		}
 
-        return "null";
-    }
-	
+		return "null";
+	}
+
 	@RequestMapping("/getForce")
-    public String getForce() {
-        FileInputStream fileIn = null;
-        FileOutputStream fileOut = null;
+	public String getForce() {
+		FileInputStream fileIn = null;
+		FileOutputStream fileOut = null;
 
-        try {
-            Properties configProperty = new Properties() {
-                @Override
-                public synchronized Enumeration<Object> keys() {
-                    return Collections.enumeration(new TreeSet<Object>(super.keySet()));
-                }
-            };
-            String path = System.getProperty("user.dir");
-            String hisFile = path + "/force.properties";
-            File file = new File(hisFile);
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            fileIn = new FileInputStream(file);
-            configProperty.load(new InputStreamReader(fileIn, "UTF-8")); 
-            String force = configProperty.getProperty("force");
-            return force;
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
+		try {
+			Properties configProperty = new Properties() {
+				@Override
+				public synchronized Enumeration<Object> keys() {
+					return Collections.enumeration(new TreeSet<Object>(super.keySet()));
+				}
+			};
+			String path = System.getProperty("user.dir");
+			String hisFile = path + "/force.properties";
+			File file = new File(hisFile);
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+			fileIn = new FileInputStream(file);
+			configProperty.load(new InputStreamReader(fileIn, "UTF-8"));
+			String force = configProperty.getProperty("force");
+			return force;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
 
-            try {
-                fileIn.close();
-                fileOut.close();
-            } catch (Exception ex) {
-            }
-        }
+			try {
+				fileIn.close();
+				fileOut.close();
+			} catch (Exception ex) {
+			}
+		}
 
-        return "1";
-    }
+		return "1";
+	}
 
 }
