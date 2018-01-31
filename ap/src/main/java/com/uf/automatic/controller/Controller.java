@@ -1,12 +1,16 @@
 package com.uf.automatic.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,18 +29,26 @@ import java.util.TreeSet;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
+import org.apache.http.util.EntityUtils; 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.JsonElement;
@@ -1931,5 +1943,58 @@ public class Controller {
 
         return "1";
     }
+	
+	
+	@RequestMapping("/imgcode")
+	public @ResponseBody byte[] getImage() throws IOException {
+	    String im = "";
+	    CloseableHttpResponse httpresponse = null ;
+	    
+	        CloseableHttpClient httpclient = HttpClients.createDefault();
+	        
+	        HttpGet HttpGet = new HttpGet("http://w1.5a1234.com");
+            
+            String c = "";
+            httpresponse = httpclient.execute(HttpGet);
+            c = setCookie(httpresponse); 
+            System.out.println(c);
+            
+	        HttpGet get2 = new HttpGet("http://w1.5a1234.com/imgcode.php");
+	        get2.setHeader("Cookie", c );
+
+	       
+	        httpresponse = httpclient.execute(get2);
+	           
+	        System.out.println(c);
+	        
+	        return IOUtils.toByteArray( httpresponse.getEntity().getContent());
+	        
+	        
+	         
+	    
+	}
+	
+	
+	 public static Map<String,String> cookieMap = new HashMap<String, String>(64);
+	    //从响应信息中获取cookie
+	    public static String setCookie(HttpResponse httpResponse)
+	    {
+	        System.out.println("----setCookieStore");
+	        Header headers[] = httpResponse.getHeaders("Set-Cookie");
+	        if (headers == null || headers.length==0)
+	        {
+	            System.out.println("----there are no cookies");
+	            return null;
+	        }
+	        String cookie = "";
+	       
+            for (Header h : headers) {
+                cookie+=h.getValue().toString()+";";
+                System.out.println(h.getValue().toString());  
+            }
+	 
+	        return cookie;
+	    }
+	
 
 }

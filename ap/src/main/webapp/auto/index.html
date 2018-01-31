@@ -46,7 +46,7 @@
           
          <div class="form-control" >
          <input class="tip" type="text" name="ValidateCode"  autocomplete="off" placeholder="驗證碼" id="ValidateCode">
-         <img id="yzm" src="http://w1.5a1234.com/imgcode.php" width="80" height="35" alt="none" title="看不清？点击更换一张验证图片">
+         <img id="yzm" width="80" height="35" alt="none" title="看不清？点击更换一张验证图片">
          </div>
          
          
@@ -82,9 +82,18 @@
 		   
 		     
 		});
-
+	
+		$("#ValidateCode").focus(function(){
+			if($(this).val() == "验证码"){
+				$(this).removeClass('tip').val('')
+			}
+		 
+			$("#yzm").attr('src','/imgcode');
+		});
+		
 	    
 	});
+	
 	
 	function autoLogin(){
 		let query = window.location.search.substring(1);
