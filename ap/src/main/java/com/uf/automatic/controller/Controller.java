@@ -51,6 +51,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -71,6 +72,7 @@ public class Controller {
 	String user = "";
 	String pwd = "";
 	String p_id = "";
+	String mainType = "";
 	
 	Map<Integer, String> bs = new TreeMap<Integer, String>();
 
@@ -106,7 +108,7 @@ public class Controller {
                     return "N";
                 }
                 mountain_token_sessid = token + mountain_php_cookid ;
-               
+                mainType = "1";
                 
                 clearLog(user + "bet");
                 clearLog(user + "overLOGDIS");
@@ -171,32 +173,43 @@ public class Controller {
 	public String getTodayWin(@RequestParam("user") String user,@RequestParam("pwd") String pwd) {
 
 		try {
-			if (h == null) {
-				h = httpClientCookie.getInstance(user, pwd);
-			}
+		    JsonObject j = new JsonObject();
+		    JsonParser parser = new JsonParser();
+		    DecimalFormat df = new DecimalFormat("##.00");
+		    if(mainType.equals("2")) {
+		        if (h == null) {
+	                h = httpClientCookie.getInstance(user, pwd);
+	            }
+		        
+		        String ret = h.getoddsInfo();
+	            // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
+
+	            
+
+	           
+	            JsonObject o = parser.parse(ret).getAsJsonObject();
+	            JsonObject data = o.getAsJsonObject("data");
+	            String todayWin = data.get("profit").getAsString();
+	            String usable_credit = data.get("usable_credit").getAsString(); 
+	             
+	            j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(todayWin))));
+	            j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
+	            
+		    }else if (mainType.equals("1")) { //華山
+		        String ret = MoutainHttpClient.httpGet(mountain_token_sessid, mountain_url + "/?m=acc&gameId=2");
+		        JsonObject o = parser.parse(ret).getAsJsonObject();
+		         
+		        int usable_credit =  o.get("balance").getAsInt(); 
+		        int unbalancedMoney =  o.get("unbalancedMoney").getAsInt(); 
+                j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
+                j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(unbalancedMoney))));
+
+                
+		    }
 			
-			String a = MoutainHttpClient.httpGet(mountain_token_sessid, mountain_url + "/?m=acc&gameId=2");
-            System.out.println(a);
-			String ret = h.getoddsInfo();
-			// 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
-
-			DecimalFormat df = new DecimalFormat("##.00");
-
-			JsonParser parser = new JsonParser();
-			JsonObject o = parser.parse(ret).getAsJsonObject();
-			JsonObject data = o.getAsJsonObject("data");
-			String todayWin = data.get("profit").getAsString();
-			String usable_credit = data.get("usable_credit").getAsString();
-			// String ltype = MemAry.get("ltype").toString();
-			// String cash = MemAry.get("cash").toString();
-			// String maxcredit =
-			// MemAry.get("maxcredit").toString().substring(1,
-			// MemAry.get("maxcredit").toString().length()-1);
-			// String useBet = MemAry.get("useBet").toString() ;
-
-			JsonObject j = new JsonObject();
-			j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(todayWin))));
-			j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
+			
+			
+			
 
 			// j.addProperty("cash",
 			// Double.parseDouble(df.format(Double.valueOf(cash))));
@@ -266,7 +279,7 @@ public class Controller {
 		} catch (Exception e) {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : getToday 斷" ); 
-			h = httpClientCookie.getInstance(user, pwd);
+			//h = httpClientCookie.getInstance(user, pwd);
 			e.printStackTrace();
 		}
 
@@ -446,20 +459,26 @@ public class Controller {
 	public String getPhase(@RequestParam("user") String user,@RequestParam("pwd") String pwd) {
 		try {
 
-			String ret = h.getoddsInfo();
-			// 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
+            if(h==null)
+                h = httpClientCookie.getInstance(user, pwd); 
+            
+                long unixTime = System.currentTimeMillis() / 1000L;
 
-			JsonParser parser = new JsonParser();
-			JsonObject o = parser.parse(ret).getAsJsonObject();
-			JsonObject data = o.getAsJsonObject("data");
-			//Utils.producePl(normal, ret); // 產生倍率 for single
-			//Utils.producePl(bs, h.getoddsInfoForDouble()); // 產生倍率 for 大小單雙
+                String query = "McID=03RGK&Nose=bb4NvVOMtX&Sern=0&Time=" + unixTime;
+                String sign = Utils.MD5(query + "&key=EUAwtKL0A1").toUpperCase();
 
-			String drawIssue = data.get("nn").getAsString();
-			p_id = data.get("p_id").getAsString();
-			if (drawIssue != null && !drawIssue.equals("")) {
-				return drawIssue;
-			}
+                String url = "http://47.90.109.200/chatbet_v3/award_sync/get_award.php?" + query + "&Sign=" + sign;
+ 
+                String ret = Utils.httpClientGet(url);
+                JsonParser parser = new JsonParser();
+                JsonObject o = parser.parse(ret).getAsJsonObject();
+                String a = o.get("Award").getAsString();
+                JsonArray data = parser.parse(a).getAsJsonArray();
+                String drawIssue = data.get(0).getAsJsonObject().get("I").getAsString(); 
+                if (drawIssue != null && !drawIssue.equals("")) {
+                    return Integer.toString(Integer.parseInt(drawIssue) + 1 );
+            }
+
 
 		} catch (Exception e) {
             saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : getPhase 斷" ); 
