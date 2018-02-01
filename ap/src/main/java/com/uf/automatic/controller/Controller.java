@@ -323,7 +323,7 @@ public class Controller {
 						continue;
 					}
 
-					String k = phase + "@" + key_form + "@" + sn;
+					String k = phase + "@" + (key_form.length()==1?("0"+key_form):key_form) + "@" + sn;
 					treemap.put(k, v);
 
 				}
@@ -353,44 +353,44 @@ public class Controller {
 						m.put(phase, phase);
 					}
 
-					if (formu.equals("1")) {
+					if (formu.equals("01")) {
 						logHtml.append("<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">"
 								+ v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
 					}
-					if (formu.equals("2")) {
+					if (formu.equals("02")) {
 						logHtml.append("<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">"
 								+ v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
 					}
-					if (formu.equals("3")) {
+					if (formu.equals("03")) {
 						logHtml.append("<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">"
 								+ v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
 					}
-					if (formu.equals("4")) {
+					if (formu.equals("04")) {
 						logHtml.append("<tr><td bgcolor=\"5599FF\"  style=\"border: 1px solid black\">"
 								+ v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
 					}
-					if (formu.equals("5")) {
+					if (formu.equals("05")) {
 						logHtml.append("<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">"
 								+ v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
 					}
 
-					if (formu.equals("6")) {
+					if (formu.equals("06")) {
 						logHtml.append("<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">"
 								+ v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
 					}
 
-					if (formu.equals("7")) {
+					if (formu.equals("07")) {
 						logHtml.append("<tr><td bgcolor=\"DEB887\"  style=\"border: 1px solid black\">"
 								+ v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
 					}
 
-					if (formu.equals("8")) {
+					if (formu.equals("08")) {
 						logHtml.append("<tr><td bgcolor=\"99FFFF\"  style=\"border: 1px solid black\">"
 								+ v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
 					}
 
-					if (formu.equals("9")) {
-						logHtml.append("<tr><td bgcolor=\"F0F8FF\"  style=\"border: 1px solid black\">"
+					if (formu.equals("09")) {
+						logHtml.append("<tr><td bgcolor=\"A9A9A9\"  style=\"border: 1px solid black\">"
 								+ v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
 					}
 
