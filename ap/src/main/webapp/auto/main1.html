@@ -599,7 +599,7 @@
    					 <div style="font-size: 15px;">關卡歸零說明:</div> <div style="line-height:10%;"><br></div>
    					 
    					 <div style="display: table; margin-right: auto; margin-left: auto;">
-	   					 <div style="text-align:left;font-size: 15px;">　1.程式登出後再登入。　4.下注中跳至已停止。</div>
+	   					 <div style="text-align:left;font-size: 15px;">　1.程式登出後再登入。　4.投注中跳至已停止。</div>
 	   					 		<div style="line-height:10%;"><br></div>
 	   					 <div style="text-align:left;font-size: 15px;">　2.該項計劃打勾取消。　5.網站或是網路斷線。</div>
 						 		<div style="line-height:10%;"><br></div>
@@ -1737,7 +1737,7 @@
 	}
 	function reallyBet(sn,amount,betphase,c,codeList,formu){
 		$.ajax({ url:  u + "/bet?user="+document.getElementById("user").value+
-				"&sn="+sn+"&amount="+amount+"&betphase="+betphase+"&c="+c+"&codeList="+codeList+"&formu="+formu,  
+				"&sn="+sn+"&amount="+amount+"&betphase="+betphase+"&c="+c+"&codeList="+codeList+"&formu="+formu+'&pwd='+document.getElementById("pwd").value,  
          async: false,
          success: function(data) {
         	   // var d = getYYYYMMDDSS();

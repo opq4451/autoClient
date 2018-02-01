@@ -846,7 +846,7 @@ public class Controller {
 	public String bet(@RequestParam("user") String user, @RequestParam("sn") String sn,
 			@RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
 			@RequestParam("c") String c, @RequestParam("codeList") String codeList,
-			@RequestParam("formu") String formu) {
+			@RequestParam("formu") String formu,@RequestParam("pwd") String pwd) {
 
 		try {
 			if (h == null) {
