@@ -181,11 +181,7 @@ public class Controller {
 	                h = httpClientCookie.getInstance(user, pwd);
 	            }
 		        
-		        String ret = h.getoddsInfo();
-	            // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
-
-	            
-
+		        String ret = h.getoddsInfo(); 
 	           
 	            JsonObject o = parser.parse(ret).getAsJsonObject();
 	            JsonObject data = o.getAsJsonObject("data");
@@ -205,20 +201,8 @@ public class Controller {
                 j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(unbalancedMoney))));
 
                 
-		    }
-			
-			
-			
-			
-
-			// j.addProperty("cash",
-			// Double.parseDouble(df.format(Double.valueOf(cash))));
-			// j.addProperty("maxcredit",
-			// Double.parseDouble(df.format(Double.valueOf(maxcredit))));
-			// j.addProperty("useBet",
-			// Double.parseDouble(df.format(Double.valueOf(useBet))));
-
-			// j.addProperty("ltype", ltype.substring(1, 2));
+		    } 
+			 
 
 			FileInputStream fileIn = null;
 			try {
