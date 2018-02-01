@@ -1964,8 +1964,7 @@ public class Controller {
 
 	       
 	        httpresponse = httpclient.execute(get2);
-	           
-	        System.out.println(c);
+	        
 	        
 	        return IOUtils.toByteArray( httpresponse.getEntity().getContent());
 	        
@@ -1989,8 +1988,7 @@ public class Controller {
 	        String cookie = "";
 	       
             for (Header h : headers) {
-                cookie+=h.getValue().toString()+";";
-                System.out.println(h.getValue().toString());  
+                cookie+=h.getValue().toString()+";"; 
             }
 	 
 	        return cookie;
