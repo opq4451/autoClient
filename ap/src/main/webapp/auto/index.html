@@ -84,11 +84,8 @@
 		});
 	
 		$("#ValidateCode").focus(function(){
-			if($(this).val() == "验证码"){
-				$(this).removeClass('tip').val('')
-			}
-		 
-			$("#yzm").attr('src','/imgcode');
+			 
+			$("#yzm").attr('src','/imgcode?_='+(new Date()).getTime());
 		});
 		
 	    
@@ -123,9 +120,9 @@
 	  			   $.ajax({ url: global_url + '/getUid?user='+user+'&pwd='+pwd_in+'&ValidateCode='+document.getElementById("ValidateCode").value, 
 	  			         async: false,
 	  			         success: function(r) { 
-	  			        	 alert()
-	  			        	 	//if(r == 'Y')
-	  						// 	window.location.href = "http://220.132.126.216:8080/auto/main1.html?auto="+start+"&user="+user+'&pwd='+pwd_in+"&end_date="+end_date;
+	  			       
+	  			        	 	if(r == 'Y')
+	  						 	window.location.href = "http://220.132.126.216:8080/auto/main1.html?auto="+start+"&user="+user+'&pwd='+pwd_in+"&end_date="+end_date;
 	  		         	 }
 	  		        });
 	        	 }else{

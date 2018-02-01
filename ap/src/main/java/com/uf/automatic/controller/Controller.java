@@ -57,6 +57,7 @@ import com.google.gson.JsonParser;
 import com.uf.automatic.ap.OrderedProperties;
 import com.uf.automatic.util.Utils;
 import com.uf.automatic.util.httpClientCookie;
+import com.uf.automatic.util.mountain.MoutainHttpClient;
 
 @RestController
 public class Controller {
@@ -97,7 +98,16 @@ public class Controller {
             
             String IFOK =  o.get("OK").getAsString();
             if(IFOK.equals("Y")) {
-                h = httpClientCookie.getInstance(user, pwd, ValidateCode);
+                token = MoutainHttpClient.httpPostGetToken( mountain_url + "/?m=logined", mountain_php_cookid  
+                                                        ,  ValidateCode
+                                                       ,  u
+                                                       ,  p);
+                if(token.equals("")) {
+                    return "N";
+                }
+                mountain_token_sessid = token + mountain_php_cookid ;
+               
+                
                 clearLog(user + "bet");
                 clearLog(user + "overLOGDIS");
                 clearLog(user + "_over");
@@ -164,6 +174,9 @@ public class Controller {
 			if (h == null) {
 				h = httpClientCookie.getInstance(user, pwd);
 			}
+			
+			String a = MoutainHttpClient.httpGet(mountain_token_sessid, mountain_url + "/?m=acc&gameId=2");
+            System.out.println(a);
 			String ret = h.getoddsInfo();
 			// 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
 
@@ -1945,24 +1958,27 @@ public class Controller {
     }
 	
 	
-	String mountail_url = "http://w1.5a1234.com";
-	String mountail_php_cookid = "";
+	String mountain_url = "http://w1.5a1234.com";
+	String mountain_php_cookid = "";
+	String mountain_token_sessid = "";
+	String token = "";
 	@RequestMapping("/imgcode")
-	public @ResponseBody byte[] getImage() throws IOException {
+	public @ResponseBody byte[] getImage(@RequestParam("_") String force) throws IOException {
 	    String im = "";
 	    CloseableHttpResponse httpresponse = null ;
 	    
 	        CloseableHttpClient httpclient = HttpClients.createDefault();
 	        
-	        HttpGet HttpGet = new HttpGet(mountail_url);
+	        HttpGet HttpGet = new HttpGet(mountain_url);
             
-            String c = "";
+           
             httpresponse = httpclient.execute(HttpGet);
-            mountail_php_cookid = setCookie(httpresponse); 
-            System.out.println(mountail_php_cookid);
+            mountain_php_cookid = MoutainHttpClient.setCookie(httpresponse); 
+            System.out.println(mountain_php_cookid);
             
-	        HttpGet get2 = new HttpGet(mountail_url +  "/imgcode.php");
-	        get2.setHeader("Cookie", mountail_php_cookid );
+	        HttpGet get2 = new HttpGet(mountain_url +  "/imgcode.php");
+	        
+	        get2.setHeader("Cookie", mountain_php_cookid );
 
 	       
 	        httpresponse = httpclient.execute(get2);
