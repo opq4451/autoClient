@@ -1945,6 +1945,8 @@ public class Controller {
     }
 	
 	
+	String mountail_url = "http://w1.5a1234.com";
+	String mountail_php_cookid = "";
 	@RequestMapping("/imgcode")
 	public @ResponseBody byte[] getImage() throws IOException {
 	    String im = "";
@@ -1952,15 +1954,15 @@ public class Controller {
 	    
 	        CloseableHttpClient httpclient = HttpClients.createDefault();
 	        
-	        HttpGet HttpGet = new HttpGet("http://w1.5a1234.com");
+	        HttpGet HttpGet = new HttpGet(mountail_url);
             
             String c = "";
             httpresponse = httpclient.execute(HttpGet);
-            c = setCookie(httpresponse); 
-            System.out.println(c);
+            mountail_php_cookid = setCookie(httpresponse); 
+            System.out.println(mountail_php_cookid);
             
-	        HttpGet get2 = new HttpGet("http://w1.5a1234.com/imgcode.php");
-	        get2.setHeader("Cookie", c );
+	        HttpGet get2 = new HttpGet(mountail_url +  "/imgcode.php");
+	        get2.setHeader("Cookie", mountail_php_cookid );
 
 	       
 	        httpresponse = httpclient.execute(get2);
@@ -1972,27 +1974,7 @@ public class Controller {
 	         
 	    
 	}
-	
-	
-	 public static Map<String,String> cookieMap = new HashMap<String, String>(64);
-	    //从响应信息中获取cookie
-	    public static String setCookie(HttpResponse httpResponse)
-	    {
-	        System.out.println("----setCookieStore");
-	        Header headers[] = httpResponse.getHeaders("Set-Cookie");
-	        if (headers == null || headers.length==0)
-	        {
-	            System.out.println("----there are no cookies");
-	            return null;
-	        }
-	        String cookie = "";
-	       
-            for (Header h : headers) {
-                cookie+=h.getValue().toString()+";"; 
-            }
 	 
-	        return cookie;
-	    }
 	
 
 }
