@@ -1000,7 +1000,7 @@ public class Controller {
 				}
 
 				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-						+ amount + ")" + "(補單成功)" + "(公式" + formu + ")";
+						+ amount + ")" + "(成功)" + "(公式" + formu + ")";
 				saveLog(user + "bet", betlog);
 
 			} else {
@@ -1092,7 +1092,7 @@ public class Controller {
 				}
 
 				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-						+ amount + ")" + "(補單成功)" + "(公式" + formu + ")";
+						+ amount + ")" + "(成功)" + "(公式" + formu + ")";
 				saveLog(user + "bet", betlog);
 
 			} else {
@@ -1184,7 +1184,7 @@ public class Controller {
 				}
 
 				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-						+ amount + ")" + "(補單成功)" + "(公式" + formu + ")";
+						+ amount + ")" + "(成功)" + "(公式" + formu + ")";
 				saveLog(user + "bet", betlog);
 
 			} else {
