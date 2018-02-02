@@ -110,6 +110,10 @@ public class Controller {
                 mountain_token_sessid = token + mountain_php_cookid ;
                 mainType = "1";
                 
+                
+                
+                
+                MoutainHttpClient.httpPostBet( mountain_url + "/?m=bet" , mountain_token_sessid);
                 clearLog(user + "bet");
                 clearLog(user + "overLOGDIS");
                 clearLog(user + "_over");
@@ -196,7 +200,7 @@ public class Controller {
 		        JsonObject o = parser.parse(ret).getAsJsonObject();
 		         
 		        int usable_credit =  o.get("balance").getAsInt(); 
-		        int unbalancedMoney =  o.get("unbalancedMoney").getAsInt(); 
+		        int unbalancedMoney =  o.get("totalTotalMoney").getAsInt(); 
                 j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
                 j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(unbalancedMoney))));
 
