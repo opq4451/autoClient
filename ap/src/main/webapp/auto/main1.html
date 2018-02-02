@@ -748,20 +748,13 @@
 
   }
   
-  function setbetType(t){
-	  if(t.indexOf('1')!=-1){document.getElementById("c1").checked = true;}
-	  if(t.indexOf('2')!=-1){document.getElementById("c2").checked = true;}
-	  if(t.indexOf('3')!=-1){document.getElementById("c3").checked = true;}
-	  if(t.indexOf('4')!=-1){document.getElementById("c4").checked = true;}
-	  if(t.indexOf('5')!=-1){document.getElementById("c5").checked = true;}
-	  if(t.indexOf('6')!=-1){document.getElementById("c6").checked = true;}
-	  if(t.indexOf('7')!=-1){document.getElementById("c7").checked = true;}
-	  if(t.indexOf('8')!=-1){document.getElementById("c8").checked = true;}
-	  if(t.indexOf('9')!=-1){document.getElementById("c9").checked = true;}
-	  if(t.indexOf('10')!=-1){document.getElementById("c10").checked = true;}
-	  if(t.indexOf('11')!=-1){document.getElementById("c11").checked = true;}
-	  if(t.indexOf('12')!=-1){document.getElementById("c12").checked = true;}
-
+  function setbetType(t){ 
+	  var total = t.split('@'); 
+	  for(var i=0 ; i<total.length; i++){
+		  var id = total[i]; 
+		  document.getElementById("c"+total[i]).checked = true;
+		  
+	  } 
   }
   </script>
   
@@ -1143,10 +1136,10 @@
 		    	 	betarray4.splice(0, 0, '0');
 		    	 	betarray5.splice(0, 0, '0');
 		    	 	betarray6.splice(0, 0, '0');
-		    	 	betarray7.splice(0, 0, '0');
-		    	 	betarray8.splice(0, 0, '0');
-		    	 	betarray9.splice(0, 0, '0');
-		    	 	betarray10.splice(0, 0, '0');
+		    	 	//betarray7.splice(0, 0, '0');
+		    	 	//betarray8.splice(0, 0, '0');
+		    	 	//betarray9.splice(0, 0, '0');
+		    	 	//betarray10.splice(0, 0, '0');
 		    	 	betarray11.splice(0, 0, '0');
 		    	 	betarray12.splice(0, 0, '0');
 		    	 	
