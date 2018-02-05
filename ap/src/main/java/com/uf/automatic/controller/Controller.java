@@ -446,9 +446,11 @@ public class Controller {
 	@RequestMapping("/getPhase")
 	public String getPhase(@RequestParam("user") String user,@RequestParam("pwd") String pwd) {
 		try {
-
-            if(h==null)
-                h = httpClientCookie.getInstance(user, pwd); 
+		    if(mainType.equals("2")) {
+		        if(h==null)
+	                h = httpClientCookie.getInstance(user, pwd); 
+		    }
+        
             
                 long unixTime = System.currentTimeMillis() / 1000L;
 
@@ -470,7 +472,9 @@ public class Controller {
 
 		} catch (Exception e) {
             saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : getPhase 斷" ); 
-		    h = httpClientCookie.getInstance(user, pwd);
+            if(mainType.equals("2")) {
+                h = httpClientCookie.getInstance(user, pwd);
+            } 
 			e.printStackTrace();
 
 		} finally {
