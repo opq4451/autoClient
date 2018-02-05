@@ -1060,6 +1060,7 @@
 
 	        		  return;
 	        	 }
+	         
 	        	 $(".check_status" ).html('系統正常');
      		 $('.check_status').css('background', 'green'); 
 
@@ -1118,30 +1119,37 @@
 		    	 	stopwin = json.stopwin;
 		    	 	todayWin = json.todayWin;
 		    	 	cash = json.cash;
-		    	 	betarray = json.betlist.split(',');
-		    	 	betarray2 = json.betlist2.split(',');
-		    	 	betarray3 = json.betlist3.split(',');
-		    	 	betarray4 = json.betlist4.split(',');
-		    	 	betarray5 = json.betlist5.split(',');
-		    	 	betarray6 = json.betlist6.split(',');
-		    	 	betarray7 = json.betlist7.split(',');
-		    	 	betarray8 = json.betlist8.split(',');
-		    	 	betarray9 = json.betlist9.split(',');
-		    	 	betarray10 = json.betlist10.split(',');
-		    	 	betarray11 = json.betlist11.split(',');
-		    	 	betarray12 = json.betlist12.split(',');
+		    	 	
+		    	 	try{
+		    	 		betarray = json.betlist.split(',');
+			    	 	betarray2 = json.betlist2.split(',');
+			    	 	betarray3 = json.betlist3.split(',');
+			    	 	betarray4 = json.betlist4.split(',');
+			    	 	betarray5 = json.betlist5.split(',');
+			    	 	betarray6 = json.betlist6.split(',');
+			    	 	betarray7 = json.betlist7.split(',');
+			    	 	betarray8 = json.betlist8.split(',');
+			    	 	betarray9 = json.betlist9.split(',');
+			    	 	betarray10 = json.betlist10.split(',');
+			    	 	betarray11 = json.betlist11.split(',');
+			    	 	betarray12 = json.betlist12.split(',');
+		    	 	}catch(err) {
+			    	 	  console.log(err);
+		    	 	}
+		    	 	 
+		    	 
 		    	 	betarray.splice(0, 0, '0');
 		    	 	betarray2.splice(0, 0, '0');
 		    	 	betarray3.splice(0, 0, '0');
 		    	 	betarray4.splice(0, 0, '0');
-		    	 	betarray5.splice(0, 0, '0');
+		    	 	betarray5.splice(0, 0, '0'); 
 		    	 	betarray6.splice(0, 0, '0');
 		    	 	betarray7.splice(0, 0, '0');
 		    	 	betarray8.splice(0, 0, '0');
 		    	 	//betarray9.splice(0, 0, '0');
 		    	 	//betarray10.splice(0, 0, '0');
-		    	 	betarray11.splice(0, 0, '0');
-		    	 	betarray12.splice(0, 0, '0');
+		    	 	//betarray11.splice(0, 0, '0');
+		    	 	//betarray12.splice(0, 0, '0');
 		    	 	
 		    	 	ltype = json.ltype;
 	         	 } 
@@ -1467,6 +1475,8 @@
 		 	//	if(bIndex[z] == 0)
 		 	   		 betTemp5[i] = rangeExist_pro7[bet_before4].toString(); 
 		 	//}
+			
+			console.log(amount);
 	   		reallyBet(z, amount, (phase_now+1) , betc , betTemp5[i].toString(), '5');
 		    //var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro5[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
 		 	//logAppend(log) ;
