@@ -113,7 +113,7 @@ public class Controller {
                 
                 
                 
-                MoutainHttpClient.httpPostBet( mountain_url + "/?m=bet" , mountain_token_sessid);
+              
                 clearLog(user + "bet");
                 clearLog(user + "overLOGDIS");
                 clearLog(user + "_over");
@@ -864,18 +864,42 @@ public class Controller {
 			@RequestParam("formu") String formu) {
 
 		try {
-			if (h == null) {
-				h = httpClientCookie.getInstance(user, pwd);
-			}
+		    String code[] = codeList.split(",");
+		    if(mainType.equals("2")) {
+		        if (h == null) {
+	                h = httpClientCookie.getInstance(user, pwd);
+	            }
 
-			String r = h.getoddsInfo();
-			// 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
+	            String r = h.getoddsInfo();
+	            // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
 
-			JsonParser pr = new JsonParser();
-			JsonObject po = pr.parse(r).getAsJsonObject();
-			JsonObject data = po.getAsJsonObject("data");
-			Map<Integer, String> normal = new TreeMap<Integer, String>();
-			Utils.producePl(normal, r); // 產生倍率 for single
+	            JsonParser pr = new JsonParser();
+	            JsonObject po = pr.parse(r).getAsJsonObject();
+	            JsonObject data = po.getAsJsonObject("data");
+	            Map<Integer, String> normal = new TreeMap<Integer, String>();
+	            Utils.producePl(normal, r); // 產生倍率 for single
+	            
+	            
+	            String ossid = "";
+	            String pl = "";
+	            String i_index = "";
+	            String m = "";
+	            int i = 0;
+	            for (String str : code) {
+	                //String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+	                //saveOverLog(user, overLog, c);
+	                //
+	                int index = computeIndex(sn, str);
+	                String id_pl = normal.get(index).toString(); // 15@1.963
+	                ossid += id_pl.split("@")[0] + ",";
+	                pl += id_pl.split("@")[1] + ",";
+	                i_index += i + ",";
+	                m += amount + ",";
+	                i++;
+	            }
+		    }
+			
+			
 			// //url += URLEncoder.encode(prameter, "UTF-8");
 			//
 			// HttpGet httpget = new HttpGet(url + parameter);
@@ -890,24 +914,7 @@ public class Controller {
 			bi++;
 
 			// if (ret.indexOf(user) > -1) {
-			String code[] = codeList.split(",");
-			String ossid = "";
-			String pl = "";
-			String i_index = "";
-			String m = "";
-			int i = 0;
-			for (String str : code) {
-			    //String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
-				//saveOverLog(user, overLog, c);
-				//
-				int index = computeIndex(sn, str);
-				String id_pl = normal.get(index).toString(); // 15@1.963
-				ossid += id_pl.split("@")[0] + ",";
-				pl += id_pl.split("@")[1] + ",";
-				i_index += i + ",";
-				m += amount + ",";
-				i++;
-			}
+			
 			if(amount.equals("0") || amount.equals("1")){
 			    for (String str : code) {
 	                String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
