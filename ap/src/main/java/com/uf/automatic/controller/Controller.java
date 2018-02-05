@@ -865,6 +865,17 @@ public class Controller {
 
 		try {
 		    String code[] = codeList.split(",");
+		    bi++;
+		    JsonParser parser = new JsonParser();
+		    JsonParser pr = new JsonParser();
+		    if(amount.equals("0") || amount.equals("1")){
+                for (String str : code) {
+                    String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+                    saveOverLog(user, overLog, c); 
+                }
+                return "";
+            }
+		    
 		    if(mainType.equals("2")) {
 		        if (h == null) {
 	                h = httpClientCookie.getInstance(user, pwd);
@@ -873,7 +884,7 @@ public class Controller {
 	            String r = h.getoddsInfo();
 	            // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
 
-	            JsonParser pr = new JsonParser();
+	            
 	            JsonObject po = pr.parse(r).getAsJsonObject();
 	            JsonObject data = po.getAsJsonObject("data");
 	            Map<Integer, String> normal = new TreeMap<Integer, String>();
@@ -897,58 +908,58 @@ public class Controller {
 	                m += amount + ",";
 	                i++;
 	            }
+	            
+	            String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
+	            
+	           
+	            JsonObject o = parser.parse(betRet).getAsJsonObject();
+	            String resCode = o.get("success").getAsString();
+	            
+	            if (resCode.equals("200")) {
+	                
+	                for (String str : code) {
+	                    String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+	                    saveOverLog(user, overLog, c); 
+	                }
+	                
+	                String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+	                                                + amount + ")" + "(成功)" + "(公式" + formu + ")"; 
+	                saveLog(user + "bet", betlog);
+
+	            } else {
+	                //System.out.println(o.toString());
+	                String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+	                        + amount + ")" + "(失敗)" + "(公式" + formu + ")"; 
+	                //saveLog(user + "bet", betlog);
+	                saveLog(user + "error", o.toString() + " bet error:" + betlog);
+	                recoup(user, sn, amount, betphase, c, codeList, formu);
+	            }
+		    }else  if(mainType.equals("1")) {
+		        
+		        String r = MoutainHttpClient.httpPostBet( mountain_url + "/?m=bet", mountain_token_sessid, betphase , amount, sn, code);
+		        JsonObject po = pr.parse(r).getAsJsonObject();
+                String s = po.get("msg").getAsString();
+                if(s.equals("投注成功")) {
+                    for (String str : code) {
+                        String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+                        saveOverLog(user, overLog, c); 
+                    }
+                    
+                    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+                                                    + amount + ")" + "(成功)" + "(公式" + formu + ")"; 
+                    saveLog(user + "bet", betlog);
+                }
+		        
 		    }
 			
 			
-			// //url += URLEncoder.encode(prameter, "UTF-8");
-			//
-			// HttpGet httpget = new HttpGet(url + parameter);
-			// //System.out.println(url + parameter);
-			// //httpget.setHeader(HttpHeaders.ACCEPT_ENCODING, "gzip");
-			// // 建立HttpPost对象
-			// HttpResponse response = new DefaultHttpClient().execute(httpget);
-			// // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
-			// if (response.getStatusLine().getStatusCode() == 200) {//
-			// 如果状态码为200,就是正常返回
-			// String ret = EntityUtils.toString(response.getEntity());
-			bi++;
-
-			// if (ret.indexOf(user) > -1) {
+			  
 			
-			if(amount.equals("0") || amount.equals("1")){
-			    for (String str : code) {
-	                String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
-	                saveOverLog(user, overLog, c); 
-	            }
-				return "";
-			}
 			 
 
-			String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
-
-			JsonParser parser = new JsonParser();
-			JsonObject o = parser.parse(betRet).getAsJsonObject();
-			String resCode = o.get("success").getAsString();
 			
-			if (resCode.equals("200")) {
-			    
-			    for (String str : code) {
-                    String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
-                    saveOverLog(user, overLog, c); 
-                }
-			    
-			    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
- 			                                    + amount + ")" + "(成功)" + "(公式" + formu + ")"; 
-				saveLog(user + "bet", betlog);
 
-			} else {
-				//System.out.println(o.toString());
-				String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-						+ amount + ")" + "(失敗)" + "(公式" + formu + ")"; 
-				//saveLog(user + "bet", betlog);
-                saveLog(user + "error", o.toString() + " bet error:" + betlog);
-				recoup(user, sn, amount, betphase, c, codeList, formu);
-			}
+			
 
 			// String overLog = betphase + "@" + sn + "@" + code ;
 			// saveOverLog(user,overLog,c);
@@ -965,7 +976,7 @@ public class Controller {
 
 		} catch (Exception e) {
             saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : bet 斷" ); 
-		    h = httpClientCookie.getInstance(user, pwd); 
+		    //h = httpClientCookie.getInstance(user, pwd); 
 			e.printStackTrace();
 
 		} finally {
