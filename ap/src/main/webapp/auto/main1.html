@@ -1461,12 +1461,12 @@
 			var amount = bArray[bIndex[z]%bArray.length] ;
 		    //var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist_pro5[bet_before4]+")" ;
 		 	//logAppend(betLog) ; 
-			if(betc > 1){
+			//if(betc > 1){
 		 		
-		 	} else {
-		 		if(bIndex[z] == 0)
-		 	   		 betTemp5[i] = rangeExist_pro5[bet_before4].toString(); 
-		 	}
+		 	//} else {
+		 	//	if(bIndex[z] == 0)
+		 	   		 betTemp5[i] = rangeExist_pro7[bet_before4].toString(); 
+		 	//}
 	   		reallyBet(z, amount, (phase_now+1) , betc , betTemp5[i].toString(), '5');
 		    //var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro5[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
 		 	//logAppend(log) ;
@@ -1504,12 +1504,12 @@
 			var amount = bArray[bIndex[z]%bArray.length] ;
 		    //var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist_pro6[bet_before4]+")" ;
 		 	//logAppend(betLog) ; 
-			if(betc > 1){
+			//if(betc > 1){
 		 		
-		 	} else {
-		 		if(bIndex[z] == 0)
-		 	    		betTemp6[i] = rangeExist_pro6[bet_before4].toString(); 
-		 	}
+		 	//} else {
+		 	//	if(bIndex[z] == 0)
+		 	    		betTemp6[i] = rangeExist_pro8[bet_before4].toString(); 
+		 	//}
 	   		reallyBet(z, amount, (phase_now+1) , betc , betTemp6[i].toString(), '6');
 		    //var log =  d + "" + "第"+z+"名,此期("+phase_now+")-預期期數("+phase_before+")預測("+rangeExist_pro6[bet_b]+") ,沒有預測到,目前關數("+bIndex[z]+")" ;
 		 	//logAppend(log) ;
@@ -2333,8 +2333,8 @@
 		  }
 		  
 		  if(document.getElementById('c5').checked) {
-			  obj.b = nextPhase - 5 ;
-			  obj.fourTh = nextPhase - 4 ; 
+			  obj.b = nextPhase - 2 ;
+			  obj.fourTh = nextPhase - 1 ; 
 			  const b = obj.b ;
 			  const fourTh = obj.fourTh ;
 			  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
@@ -2343,8 +2343,8 @@
 		  }
 		  
 		  if(document.getElementById('c6').checked) {
-			  obj.b = nextPhase - 5 ;
-			  obj.fourTh = nextPhase - 4 ; 
+			  obj.b = nextPhase - 2 ;
+			  obj.fourTh = nextPhase - 1 ; 
 			  const b = obj.b ;
 			  const fourTh = obj.fourTh ;
 			  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
