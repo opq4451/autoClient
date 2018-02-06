@@ -117,10 +117,13 @@
 	        		   var end_date = r.end_date;
 	  			   $.ajax({ url: global_url + '/getUid?user='+user+'&pwd='+pwd_in+'&ValidateCode='+document.getElementById("ValidateCode").value, 
 	  			         async: false,
-	  			         success: function(r) { 
-	  			       
-	  			        	 	if(r == 'Y')
-	  						 	window.location.href = "http://localhost:9999/auto/main1.html?auto="+start+"&user="+user+'&pwd='+pwd_in+"&end_date="+end_date;
+	  			         success: function(r) {  
+	  			        	 	if(r == 'Y'){
+		  						 	window.location.href = "http://localhost:9999/auto/main1.html?auto="+start+"&user="+user+'&pwd='+pwd_in+"&end_date="+end_date;
+
+	  			        	 	}else {
+	  			        	 			 alert("驗證碼錯誤");
+	  			        	 	}
 	  		         	 }
 	  		        });
 	        	 }else{
