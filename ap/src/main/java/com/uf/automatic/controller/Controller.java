@@ -199,8 +199,8 @@ public class Controller {
 		        String ret = MoutainHttpClient.httpGet(mountain_token_sessid, mountain_url + "/?m=acc&gameId=2");
 		        JsonObject o = parser.parse(ret).getAsJsonObject();
 		         
-		        int usable_credit =  o.get("balance").getAsInt(); 
-		        int unbalancedMoney =  o.get("totalTotalMoney").getAsInt(); 
+		        String usable_credit =  o.get("balance").getAsString(); 
+		        String unbalancedMoney =  o.get("totalTotalMoney").getAsString(); 
                 j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
                 j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(unbalancedMoney))));
 
@@ -872,7 +872,7 @@ public class Controller {
 		    bi++;
 		    JsonParser parser = new JsonParser();
 		    JsonParser pr = new JsonParser();
-		    if(amount.equals("0") || amount.equals("1")){
+		    if(amount.equals("0") ){
                 for (String str : code) {
                     String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
                     saveOverLog(user, overLog, c); 
@@ -952,6 +952,8 @@ public class Controller {
                     String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
                                                     + amount + ")" + "(成功)" + "(公式" + formu + ")"; 
                     saveLog(user + "bet", betlog);
+                }else {
+                    saveLog(user + "bet error", r.toString() );
                 }
 		        
 		    }
