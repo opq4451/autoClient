@@ -1229,11 +1229,11 @@
 			//var betStr="";
 		    var amount = bArray[bIndex[z]%bArray.length] ;
 		    
-			if(betc > 1){
-		 		
+			if(betc < 6){
+				     betTemp1[i] = '1,2,3,4,5'  ; 
 		 	} else {
-		 	    if(bIndex[z] == 0)
-		 	   		 betTemp1[i] = rangeExist[bet_before4].toString() ; 
+		 	    
+		 	   		 betTemp1[i] = '6,7,8,9,10'  ; 
 		 	}
 		 	
 		    //var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist[bet_before4]+")" ;
@@ -1273,11 +1273,11 @@
 			var writeFlag = false;
 	    	//var betStr="";
 		    var amount = bArray[bIndex[z]%bArray.length] ;
-			if(betc > 1){
-		 		
+		    if(betc < 6){
+			     betTemp2[i] = '6,7,8,9,10'  ; 
 		 	} else {
-		 		if(bIndex[z] == 0)
-		 	    		betTemp2[i] = rangeExist_pro[bet_before4].toString() ; 
+		 	    
+		 	   		 betTemp2[i] = '1,2,3,4,5'  ; 
 		 	}
 		 	
 		    //var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist[bet_before4]+")" ;
@@ -1320,11 +1320,11 @@
 		    
 		 	
 		    var amount = bArray[bIndex[z]%bArray.length] ;
-			if(betc > 1){
-		 		
+		    if(betc < 6){
+			     betTemp3[i] = '2,4,6,8,10'  ; 
 		 	} else {
-		 		if(bIndex[z] == 0)
-		 			betTemp3[i] = rangeExist_pro3[bet_before4].toString() ; 
+		 	    
+		 	   		 betTemp3[i] = '1,3,5,7,9'  ; 
 		 	}
 		 	
 		    //var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist[bet_before4]+")" ;
@@ -1370,11 +1370,11 @@
  			//var betList =  rangeExist_pro4[bet_before4].toString().split(',');
 		    var writeFlag = false;
 		    var amount = bArray[bIndex[z]%bArray.length] ;
-			if(betc > 1){
-		 		
+		    if(betc < 6){
+			     betTemp4[i] = '1,3,5,7,9'  ; 
 		 	} else {
-		 		if(bIndex[z] == 0)
-		 			betTemp4[i] = rangeExist_pro4[bet_before4].toString() ; 
+		 	    
+		 	   		 betTemp4[i] = '2,4,6,8,10'  ; 
 		 	}
 			
 	   		reallyBet(z, amount, (phase_now+1) , betc , betTemp4[i].toString(), '4');
