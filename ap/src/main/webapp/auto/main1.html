@@ -801,17 +801,18 @@
     var betIndex6  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
  
     const rangeExist = {
- 			'1' : ['1','2','4','9','10'] ,
- 			'2' : ['1','2','3','5','10'] ,
- 			'3' : ['1','2','3','4','6'] ,
- 			'4' : ['2','3','4','5','7'] ,
- 			'5' : ['3','4','5','6','8'] ,
- 			'6' : ['4','5','6','7','9'] ,
- 			'7' : ['5','6','7','8','10'] ,
- 			'8' : ['1','6','7','8','9'] ,
- 			'9' : ['2','7','8','9','10'] ,
- 			'10' :['1','3','8','9','10'] ,
+ 			'1' : ['1','2','3','9','10'] ,
+ 			'2' : ['1','2','3','4','10'] ,
+ 			'3' : ['1','2','3','4','5'] ,
+ 			'4' : ['2','3','4','5','6'] ,
+ 			'5' : ['3','4','5','6','7'] ,
+ 			'6' : ['4','5','6','7','8'] ,
+ 			'7' : ['5','6','7','8','9'] ,
+ 			'8' : ['6','7','8','9','10'] ,
+ 			'9' : ['1','7','8','9','10'] ,
+ 			'10' :['1','2','8','9','10'] ,
  	};
+
  	
     const rangeExist_pro  = {
  			'1' : ['4','5','6','7','8'] ,
@@ -862,28 +863,29 @@
  			'2' : ['3','4','5','6','7'] ,
  			'3' : ['4','5','6','7','8'] ,
  			'4' : ['5','6','7','8','9'] ,
- 			'5' : ['1','2','3','4','5'] ,
+ 			'5' : ['6','7','8','9','10'] ,
  			'6' : ['1','7','8','9','10'] ,
  			'7' : ['1','2','8','9','10'] ,
  			'8' : ['1','2','3','9','10'] ,
  			'9' : ['1','2','3','4','10'] ,
- 			'10' : ['6','7','8','9','10'] ,
+ 			'10' : ['1','2','3','4','5'] ,
 
  	};
  	
  	const rangeExist_pro6  = {  
- 			'1' : ['1','6','8','9','10'] ,
- 			'2' : ['1','2','7','9','10'] ,
- 			'3' : ['1','2','3','8','10'] ,
- 			'4' : ['1','2','3','4','9'] ,
- 			'5' : ['2','3','4','5','10'] ,
- 			'6' : ['1','3','4','5','6'] ,
- 			'7' : ['2','4','5','6','7'] ,
- 			'8' : ['3','5','6','7','8'] ,
- 			'9' : ['4','6','7','8','9'] ,
- 			'10' : ['5','7','8','9','10'] ,
+ 			'1' : ['1','7','8','9','10'] ,
+ 			'2' : ['1','2','8','9','10'] ,
+ 			'3' : ['1','2','3','9','10'] ,
+ 			'4' : ['1','2','3','4','10'] ,
+ 			'5' : ['1','2','3','4','5'] ,
+ 			'6' : ['2','3','4','5','6'] ,
+ 			'7' : ['3','4','5','6','7'] ,
+ 			'8' : ['4','5','6','7','8'] ,
+ 			'9' : ['5','6','7','8','9'] ,
+ 			'10' : ['6','7','8','9','10'] ,
 
  	};
+
  	
  	const rangeExist_dyn  = { //index for 動態
  			'1' : ['0','3','4','6','7'] ,
@@ -1920,7 +1922,41 @@
 	    }, 30000);
 	}
 	
-	
+	function getSec(){
+		
+		var nowdate=new Date();    //now date
+		var m =   nowdate.getMinutes() ;
+		
+		var endM="";
+		var h = nowdate.getHours();
+		
+		if(m*1 >= 57){h=h+1; endM = 2}
+		else if(m*1 >= 52){ endM = 57}
+		else if(m*1 >= 47){ endM = 52}
+		else if(m*1 >= 42){ endM = 47}
+		else if(m*1 >= 37){ endM = 42}
+		else if(m*1 >= 32){ endM = 37}
+		else if(m*1 >= 27){ endM = 32}
+		else if(m*1 >= 22){ endM = 27}
+		else if(m*1 >= 17){ endM = 22}
+		else if(m*1 >= 12){ endM = 17}
+		else if(m*1 >= 7){ endM = 12}
+		else if(m*1 >= 2){ endM = 7}
+		else if(m*1 >= 0){ endM = 2}
+		
+	 	var year = nowdate.getFullYear();
+	 	var month = nowdate.getMonth() + 1;
+	 	var d = nowdate.getDate();
+	 	
+	 	
+		var end = new Date(year+"-"+pad2(month)+"-"+pad2(d)+" "+pad2(h )+":"+pad2(endM)+":00" );
+		
+		var s3 = end.getTime() - nowdate.getTime();
+		console.log(year+"-"+pad2(month)+"-"+pad2(d)+" "+pad2( h )+":"+pad2(endM)+":00")
+		console.log(s3)
+		
+		return Math.floor(s3/1000);
+	}
 	function setExtendTimeTimeout() {
     	
    		
@@ -1932,29 +1968,46 @@
    	   			$( "div.toDayWin" ).css('color', 'red');  
    	   		}
    			
-	    		let url =  u + '/getBETTIME';
-			   
-	      	 $.ajax({ url:  url, 
-	   	         async: false,
-	   	         success: function(data) {
-	   	        	  
-	   	        	    let m = Math.floor(data /60);
-	   	        	    let s = data%60 ; 
-	   	       
-	   	        	
+	    		//let url =  u + '/getBETTIME';
+	    		var data = getSec();
+	    		    let m = Math.floor(data /60);
+	        	    let s = data%60 ; 
+	       
+	        	
 
-	   	        	
-	   		    	 	//$( "div.extendtime" ).html("剩餘 "+ m +" 分 "+ s + "  秒");
-	   		    	    //$( "div.extendtime" ).css({ 'color': 'red'  });
-		 	   	        $("#time_m1").text(Math.floor(m/10));
-		 	   	        $("#time_m2").text(m%10);
-		 	   	        $("#time_s1").text(Math.floor(s/10));
-		 	   	        $("#time_s2").text(s%10);
+	        	
+		    	 	//$( "div.extendtime" ).html("剩餘 "+ m +" 分 "+ s + "  秒");
+		    	    //$( "div.extendtime" ).css({ 'color': 'red'  });
+	 	   	        $("#time_m1").text(Math.floor(m/10));
+	 	   	        $("#time_m2").text(m%10);
+	 	   	        $("#time_s1").text(Math.floor(s/10));
+	 	   	        $("#time_s2").text(s%10);
+	 	   	        
+	      	 /*$.ajax({ url:  url, 
+	   	         async: true,
+	   	         success: function(data) {
+	   	        	    try{
+	   	        	        let m = Math.floor(data /60);
+		   	        	    let s = data%60 ; 
+		   	       
+		   	        	
+
+		   	        	
+		   		    	 	//$( "div.extendtime" ).html("剩餘 "+ m +" 分 "+ s + "  秒");
+		   		    	    //$( "div.extendtime" ).css({ 'color': 'red'  });
+			 	   	        $("#time_m1").text(Math.floor(m/10));
+			 	   	        $("#time_m2").text(m%10);
+			 	   	        $("#time_s1").text(Math.floor(s/10));
+			 	   	        $("#time_s2").text(s%10);
+	   	        	    }catch(err){
+	   	        	    	
+	   	        	    }
+	   	        	   
 
 	   		    	 
 	   	         	 } 
 	   	         	 
-	         });
+	         });*/
 		        
 	      	//setExtendTimeTimeout();
 	    }, 1000); 
