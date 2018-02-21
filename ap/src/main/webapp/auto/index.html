@@ -14,6 +14,7 @@
   		html,
 		body{
 		    height: 100%;
+	        overflow:hidden;
 		}
 
 	  	body{
@@ -22,6 +23,13 @@
 		    background-position: center center;
 		    background-image: url("/auto/img/1.jpg");
 		    
+		}
+		
+		.ui-dialog .ui-dialog-buttonpane { 
+		    text-align: center;
+		}
+		.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset { 
+		    float: none;
 		}
 
   	</style>
@@ -46,35 +54,88 @@
 
     </div> <!-- /container -->
 
-
+<div id="dialog" title="［免責聲明］"  style="display:none" >
+  
+  自動程式提供之用意.主要是提供輔助取代人工下錯注單的風險.並非全功能替代人工.如果因程式外延伸出的問題造成下注錯誤.導致損失遺漏.本程式不負任何責任與賠償.<font color="red">輸贏結果請自負</font>.會員務必清楚了解謹慎操作.特此聲明。</p>
+</div>
     
   </body>
 </html>
-
+<link rel="stylesheet" href="jquery.ui-1.6/themes/default/ui.all.css">
 <script src="jquery.js" > </script>
+<script type="text/javascript" src="jquery.ui-1.6/ui/ui.core.js"></script>
+
+<script src="jquery.ui-1.6/ui/ui.dialog.js"></script> 
+
+
 <script src="utils.js"> </script>
 <script>
 	var global_url = getUrl();  
 	$(document).ready(function(){
+		
+		
+			 
 		$( "#btn" ).click(function() {
-			var r = confirm("貴用戶使用本軟件下載的任何資料.或因外來不可抗拒的因素.而導致損失 疏漏 錯誤.本軟件均不負任何責任與賠償.特此聲明。");
-		    if (r == true) {
-		    		let user = document.getElementById("user").value;
-			    let pwd = document.getElementById("pwd").value;
-			    login(user,pwd,'N');
+			let user = document.getElementById("user").value;
+		    let pwd = document.getElementById("pwd").value;
+		    login(user,pwd,'N');
+		 
+			 
+			//var r = confirm("貴用戶使用本軟件下載的任何資料.或因外來不可抗拒的因素.而導致損失 疏漏 錯誤.本軟件均不負任何責任與賠償.特此聲明。");
+		    //if (r == true) {
+		    		
 			    
 			    
 			  
-		    } else {
+		    //} else {
 		        
-		    }
+		    //}
 			
-		   
+			
 		     
 		});
 
-	    
+		
 	});
+	
+	function openDialog(user,pwd,start,pwd_in,end_date){
+		document.getElementById("dialog").style.display='';
+		 $( "#dialog" ).dialog({
+			 	width: 600,
+		        height: 300,
+		        position: ['center',80],
+		        closeOnEscape: false,
+		        buttons: {  
+		            "10": function() {     
+		            		var t = $( ".ui-dialog-buttonpane" ).find("button").text();
+		            		if(t == '確定'){
+		            			let user = document.getElementById("user").value;
+		        			    let pwd = document.getElementById("pwd").value;
+		        			    login(user,pwd,'N');
+		            		}
+		            	
+		            } 
+		        }
+		 });
+		 
+		 var f = 10;
+			function fiveSecond(){
+				  setTimeout(function(){
+					  fiveSecond();
+						
+						if(f==0){
+							//$( ".ui-dialog-buttonpane" ).find("button").text('確定');
+  						 	window.location.href = "http://220.132.126.216:8080/auto/main1.html?auto="+start+"&user="+user+'&pwd='+pwd_in+"&end_date="+end_date;
+
+						}else {
+							$( ".ui-dialog-buttonpane" ).find("button").text(f);
+							f--;
+						}
+			        },1000)
+			        
+			}
+			fiveSecond();
+	}
 	
 	function autoLogin(){
 		let query = window.location.search.substring(1);
@@ -104,8 +165,10 @@
 	  			   $.ajax({ url: global_url + '/getUid?user='+user+'&pwd='+pwd_in, 
 	  			         async: false,
 	  			         success: function(r) { 
-	  			        	 	if(r == 'Y')
-	  						 	window.location.href = "http://220.132.126.216:8080/auto/main1.html?auto="+start+"&user="+user+'&pwd='+pwd_in+"&end_date="+end_date;
+	  			        	 	if(r == 'Y'){
+	  			        	 		openDialog(user,pwd,start,pwd_in,end_date);
+
+	  			        	 	}
 	  		         	 }
 	  		        });
 	        	 }else{
