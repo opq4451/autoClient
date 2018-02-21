@@ -112,8 +112,18 @@
 							<td nowrap>
 								&nbsp;&nbsp;&nbsp;&nbsp;遠端密碼
 							</td>
-							<td colspan=3>
-								  <input id="memo2" type ="text" size=100/>
+							<td  >
+								  <input id="memo2" type ="text" size=35/>
+							</td>
+							
+							<td nowrap>
+								&nbsp;&nbsp;&nbsp;&nbsp;板
+							</td>
+							<td  >
+								    <select class="board" >
+									  <option value="0" >極速</option>
+									  <option value="1" >華山</option> 
+									</select> 
 							</td>
 		        </tr>
 		         <tr>
@@ -193,7 +203,7 @@
 		 $.ajax({ url:  u + "/saveLIMITDATE?user="+document.getElementById("id").value+"&date="+document.getElementById("extendTime").value
 			 +"&pwd="+document.getElementById("pwd").value+"&pwd_in="+document.getElementById("pwd_in").value
 			 +"&memo="+document.getElementById("memo").value+"&memo2="+document.getElementById("memo2").value+"&memo3="+document.getElementById("memo3").value
-			 +"&key="+(str?'':document.getElementById("key").value) +"&boss="+$( ".boss" ).val()  , 
+			 +"&key="+(str?'':document.getElementById("key").value) +"&boss="+$( ".boss" ).val()  +"&board="+$( ".board" ).val()  , 
 	         async: false,
 	         success: function(data) {
 	        	 document.getElementById("id").value='';
@@ -223,6 +233,8 @@
 	        	var memo2 = data.split(',')[5];
 	        	var memo3 = data.split(',')[6];
 	        	var boss = data.split(',')[7];
+	        	var board = data.split(',')[8];
+	        
 	        	document.getElementById("id").value = id;
 	        	document.getElementById("extendTime").value = limitDate;
 	        	document.getElementById("pwd").value = sysPwd;
@@ -231,8 +243,9 @@
 	        	document.getElementById("memo2").value = memo2;
 	        	document.getElementById("memo3").value = memo3;
          	document.getElementById("key").value = id;
+         	 
          	$( ".boss" ).val(boss) ;
- 
+         	$( ".board" ).val(board) ;
          	 }
         });
 	 }

@@ -1551,7 +1551,8 @@ public class Controller {
 	public String saveLIMITDATE(@RequestParam("user") String user, @RequestParam("date") String date,
 			@RequestParam("pwd") String pwd, @RequestParam("pwd_in") String pwd_in, @RequestParam("memo") String memo
 			, @RequestParam("memo2") String memo2, @RequestParam("memo3") String memo3
-			, @RequestParam("key") String key, @RequestParam("boss") String boss) {
+			, @RequestParam("key") String key, @RequestParam("boss") String boss
+			, @RequestParam("board") String board) {
 		FileInputStream fileIn = null;
 		FileOutputStream fileOut = null;
 
@@ -1579,7 +1580,7 @@ public class Controller {
 			String sysDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
 			if (v != null) {
 				String[] a = v.split(",");
-				if (a.length == 8) {
+				if (a.length == 9) {
 					d = a[2];
 				} else
 					d = sysDate;
@@ -1587,7 +1588,7 @@ public class Controller {
 				d = sysDate;
 			}
 
-			configProperty.setProperty(user, date + "," + pwd + "," + d + "," + pwd_in+ "," + memo+ "," + memo2+ "," + memo3+ "," + boss);
+			configProperty.setProperty(user, date + "," + pwd + "," + d + "," + pwd_in+ "," + memo+ "," + memo2+ "," + memo3+ "," + boss+ "," + board);
 
 			fileOut = new FileOutputStream(file);
 			configProperty.store(new OutputStreamWriter(fileOut, "UTF-8"), "sample properties");
@@ -1636,7 +1637,7 @@ public class Controller {
 				
 				String array[] = v.split(",");
 				System.out.println(v);
-				if(array.length == 8){
+				if(array.length == 9){
 				    String b = array[7];
 				    if(!b.equals(boss)) {
 				        continue;
