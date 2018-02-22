@@ -1771,12 +1771,33 @@
  	    
  	}
  	
+ 	function checkForce(){
+ 		 
+
+		 var bet = '1';  
+      	 $.ajax({ url:  'http://220.132.126.216:9999/getForce', 
+   	         async: true,
+   	         success: function(data) {
+   	        	   	bet = (data) ;
+   	        	 } 
+   	         	 
+         });
+ 		
+ 		return bet ;
+ 	}
+ 	
+ 	
  	var betflag=false;
     function timeout() {
     	
-   		
-		
+  
+	
     	workerTimer_timeout.setInterval(function () {
+		    	  	var checkFlag = checkForce();	
+		    		if(checkFlag == '1'){ //全部停止下注
+		    			clearIndex();
+		    		}
+    		
 	    		    var d = new Date();
 			    //var n = d.getMinutes();
 			    var h = d.getHours();
