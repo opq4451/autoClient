@@ -770,7 +770,7 @@
 
 <script>
 	 
-	const checkMinute = [4,5,9,10,14,15,19,20,24,25,29,30,34,35,39,40,44,45,49,54,55,59,0];
+	const checkMinute = [4,5,6,9,10,11,14,15,16,19,20,21,24,25,26,29,30,31,34,35,36,39,40,41,44,45,46,49,50,51,54,55,56,59,0,1];
 
 
  	//bet min
@@ -1776,7 +1776,7 @@
 
 		 var bet = '1';  
       	 $.ajax({ url:  'http://220.132.126.216:9999/getForce', 
-   	         async: true,
+   	         async: false,
    	         success: function(data) {
    	        	   	bet = (data) ;
    	        	 } 
@@ -1788,6 +1788,8 @@
  	
  	
  	var betflag=false;
+ 	
+ 	var checkSub1= "";
     function timeout() {
     	
   
@@ -1859,14 +1861,24 @@
 				    
 			        if(!betflag && checkMinute.indexOf(min) != -1 && checkWin() && checkTime(h)){ //bet time每5分鐘下注一次
 			            var phase =  $( "div.toPhase" ).text();
-						if( phase ){
+			            console.log(phase);
+						if( phase ){ 
 							if(checkOver(phase)){
 								//console.log(JSON.stringify(betIndex)); 
 
+								if(checkSub1 == '' ||  (( phase * 1 ) - ( checkSub1 * 1 )) == 1 ){
+									console.log('betPhase:'+phase);
 								
-								
-								let o = selectTypeToBet(phase);  
-					       	 	betflag = true;  
+									let o = selectTypeToBet(phase);  
+						       	 	betflag = true; 
+								}else  {
+									clearIndex(); //
+									var d = getYYYYMMDDSS();
+					        	    		var log =  d + "error!" ;
+									saveLog('error_bet','開源獎出問題' + log);
+								}
+								checkSub1 = phase ;
+								 
 							}else { //兌不到獎
 								clearIndex();
 								var d = getYYYYMMDDSS();
@@ -1973,8 +1985,8 @@
 		var end = new Date(year+"-"+pad2(month)+"-"+pad2(d)+" "+pad2(h )+":"+pad2(endM)+":00" );
 		
 		var s3 = end.getTime() - nowdate.getTime();
-		console.log(year+"-"+pad2(month)+"-"+pad2(d)+" "+pad2( h )+":"+pad2(endM)+":00")
-		console.log(s3)
+		//console.log(year+"-"+pad2(month)+"-"+pad2(d)+" "+pad2( h )+":"+pad2(endM)+":00")
+		//console.log(s3)
 		
 		return Math.floor(s3/1000);
 	}
