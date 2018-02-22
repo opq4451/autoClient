@@ -74,7 +74,7 @@
 	$(document).ready(function(){
 		
 		
-			 
+	 
 		$( "#btn" ).click(function() {
 			let user = document.getElementById("user").value;
 		    let pwd = document.getElementById("pwd").value;
@@ -99,36 +99,39 @@
 	});
 	
 	function openDialog(user,pwd,start,pwd_in,end_date){
+		
+
 		document.getElementById("dialog").style.display='';
 		 $( "#dialog" ).dialog({
 			 	width: 600,
-		        height: 300,
-		        position: ['center',80],
+		        height: 200,
+		        position: ['center',120],
 		        closeOnEscape: false,
 		        buttons: {  
 		            "10": function() {     
-		            		var t = $( ".ui-dialog-buttonpane" ).find("button").text();
-		            		if(t == '確定'){
-		            			let user = document.getElementById("user").value;
-		        			    let pwd = document.getElementById("pwd").value;
-		        			    login(user,pwd,'N');
+		            		var t = $( ".ui-dialog-buttonpane" ).find("button").eq(0).text();
+		            		if(t == '同意'){
+	  						 	window.location.href = "http://220.132.126.216:8080/auto/main1.html?auto="+start+"&user="+user+'&pwd='+pwd_in+"&end_date="+end_date; 
 		            		}
 		            	
-		            } 
+		            },
+		            "不同意": function() { 
+		            		$( "#dialog" ).dialog('close');
+	            		} 
 		        }
 		 });
-		 
+		 $("#dialog").dialog('open');
 		 var f = 10;
 			function fiveSecond(){
 				  setTimeout(function(){
 					  fiveSecond();
 						
 						if(f==0){
-							//$( ".ui-dialog-buttonpane" ).find("button").text('確定');
-  						 	window.location.href = "http://220.132.126.216:8080/auto/main1.html?auto="+start+"&user="+user+'&pwd='+pwd_in+"&end_date="+end_date;
+							$( ".ui-dialog-buttonpane" ).find("button").eq(0).text('同意');
+  						 	//window.location.href = "http://220.132.126.216:8080/auto/main1.html?auto="+start+"&user="+user+'&pwd='+pwd_in+"&end_date="+end_date;
 
-						}else {
-							$( ".ui-dialog-buttonpane" ).find("button").text(f);
+						}else if(f > 0){ 
+							$( ".ui-dialog-buttonpane" ).find("button").eq(0).text(f);
 							f--;
 						}
 			        },1000)
@@ -144,14 +147,14 @@
 		let user= (parsed_qs.user); 
 		let auto= (parsed_qs.auto); 
 		if(pwd && user){
-			 login(user,pwd,auto);
+			 login(user,pwd,auto,'noResponse');
 			 
 		}
 		
 	}
 	
 	
-	function login(user,pwd,start){
+	function login(user,pwd,start,no){
 		let url = global_url + '/getAuthInformation?user='+user+'&pwd='+pwd ; 
 		   
 	    $.ajax({ url:url, 
@@ -165,7 +168,10 @@
 	  			   $.ajax({ url: global_url + '/getUid?user='+user+'&pwd='+pwd_in, 
 	  			         async: false,
 	  			         success: function(r) { 
-	  			        	 	if(r == 'Y'){
+	  			        	 	if(no && r == 'Y'){
+	  						 	window.location.href = "http://220.132.126.216:8080/auto/main1.html?auto="+start+"&user="+user+'&pwd='+pwd_in+"&end_date="+end_date; 
+
+	  			        	 	}else if(r == 'Y'){
 	  			        	 		openDialog(user,pwd,start,pwd_in,end_date);
 
 	  			        	 	}

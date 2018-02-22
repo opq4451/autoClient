@@ -1550,7 +1550,9 @@ public class Controller {
 	@RequestMapping("/saveLIMITDATE")
 	public String saveLIMITDATE(@RequestParam("user") String user, @RequestParam("date") String date,
 			@RequestParam("pwd") String pwd, @RequestParam("pwd_in") String pwd_in, @RequestParam("memo") String memo
-			, @RequestParam("memo2") String memo2, @RequestParam("memo3") String memo3) {
+			, @RequestParam("memo2") String memo2, @RequestParam("memo3") String memo3
+			, @RequestParam("key") String key, @RequestParam("boss") String boss
+			, @RequestParam("board") String board) {
 		FileInputStream fileIn = null;
 		FileOutputStream fileOut = null;
 
@@ -1569,12 +1571,16 @@ public class Controller {
 			}
 			fileIn = new FileInputStream(file);
 			configProperty.load(new InputStreamReader(fileIn, "UTF-8"));
+			if(!key.equals("") && configProperty.containsKey(key))
+			    configProperty.remove(key);
+
+			
 			String v = configProperty.getProperty(user);
 			String d = "";
 			String sysDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
 			if (v != null) {
 				String[] a = v.split(",");
-				if (a.length == 7) {
+				if (a.length == 9) {
 					d = a[2];
 				} else
 					d = sysDate;
@@ -1582,7 +1588,7 @@ public class Controller {
 				d = sysDate;
 			}
 
-			configProperty.setProperty(user, date + "," + pwd + "," + d + "," + pwd_in+ "," + memo+ "," + memo2+ "," + memo3);
+			configProperty.setProperty(user, date + "," + pwd + "," + d + "," + pwd_in+ "," + memo+ "," + memo2+ "," + memo3+ "," + boss+ "," + board);
 
 			fileOut = new FileOutputStream(file);
 			configProperty.store(new OutputStreamWriter(fileOut, "UTF-8"), "sample properties");
@@ -1601,7 +1607,7 @@ public class Controller {
 	}
 
 	@RequestMapping("/loadLimitDate")
-	public String loadLimitDate() {
+	public String loadLimitDate(@RequestParam("boss") String boss) {
 		FileInputStream fileIn = null;
 		FileOutputStream fileOut = null;
 
@@ -1631,7 +1637,12 @@ public class Controller {
 				
 				String array[] = v.split(",");
 				System.out.println(v);
-				if(array.length == 7){
+				if(array.length == 9){
+				    String b = array[7];
+				    if(!b.equals(boss)) {
+				        continue;
+				    }
+				    
 					String limitDate = array[0].substring(0, 4) + "/" +
 							   array[0].substring(4, 6)
 							   + "/" +  array[0].substring(6, 8) ;
@@ -1640,24 +1651,28 @@ public class Controller {
 							   array[2].substring(4, 6)
 							   + "/" +  array[2].substring(6, 8) ;
 					
-					String temp = "<tr><td  align=\"center\" class=\"context-menu-one\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\"> " + key + "</td>";
-					temp += "<td align=\"center\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">"
+					String temp = "<tr><td  align=\"center\" class=\"context-menu-one\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\"> " + key + "</td>"; //帳號
+					
+					temp += "<td align=\"center\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">" //姓名
+                            + array[6] + "</td>";
+					
+					temp += "<td align=\"center\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">" //使用期限
 							+ limitDate + "</td>";
 					temp += "<td align=\"center\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">"
 							+ array[1] + "</td>";
-					temp += "<td align=\"center\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">"
-							+ startDate + "</td>";
+					//temp += "<td align=\"center\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">" //初次使用時間
+					//		+ startDate + "</td>";
 					temp += "<td align=\"center\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">"
 							+ array[3] + "</td>";
 					temp += "<td align=\"center\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">"
 							+ array[4] + "</td>";
 					temp += "<td align=\"center\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">"
 							+ array[5] + "</td>";
-					temp += "<td align=\"center\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">"
-							+ array[6] + "</td>";
+					temp += "<td style=\"display:none;\">"
+                            + array[7] + "</td>";
 					temp += "</tr>";
 					
-					map.put(array[0] + key, temp);
+					map.put(key, temp);
 					
 				}
 				
@@ -1678,20 +1693,20 @@ public class Controller {
 		             bgcolor= "";
 
 			    } 
-			    html.insert(0,  "<tr  bgcolor="+bgcolor+" >" + "<td nowrap align=right>"+id +"</td>" + treeMap.get(str).toString().substring(4, treeMap.get(str).toString().length()-5) + "/<tr>");
+			    html.append( "<tr  bgcolor="+bgcolor+" >"  + treeMap.get(str).toString().substring(4, treeMap.get(str).toString().length()-5) + "<td style=\"padding-left:4px;padding-right:4px;font-size: 24px;font-weight:bold;border: 1px solid black;\" nowrap align=right>"+id +"</td>" +  "/<tr>");
 			    m_size--;
 			}
 			JsonObject j = new JsonObject();
-			String returnhtml = "<tr>"
-			        + "<td width=\"20px\" nowrap align=right style=\"border: 1px solid black\" >ID</td>"
+			String returnhtml = "<tr>" 
 			        + "<td width=\"200px\" align=center style=\"border: 1px solid black\">帳號</td>"
+			        + "<td width=\"200px\" align=center style=\"border: 1px solid black\">姓名</td>"
 			        + "<td width=\"200px\" align=center style=\"border: 1px solid black\">使用期限</td>"
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">系統密碼</td>"
-					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">初次設定時間</td>"
+					//+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">初次設定時間</td>"
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">極速密碼</td>" 
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">遠端id</td>"
 					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">遠端密碼</td>"
-					+ "<td width=\"200px\"  align=center style=\"border: 1px solid black\">姓名</td>"+ html.toString();
+					+ "<td width=\"20px\"  align=center style=\"border: 1px solid black\">ID</td>"+ html.toString();
 			j.addProperty("returnhtml", returnhtml);
 			j.addProperty("count", m_size);
 
