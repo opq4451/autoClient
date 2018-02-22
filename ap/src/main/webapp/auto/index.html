@@ -147,14 +147,14 @@
 		let user= (parsed_qs.user); 
 		let auto= (parsed_qs.auto); 
 		if(pwd && user){
-			 login(user,pwd,auto);
+			 login(user,pwd,auto,'noResponse');
 			 
 		}
 		
 	}
 	
 	
-	function login(user,pwd,start){
+	function login(user,pwd,start,no){
 		let url = global_url + '/getAuthInformation?user='+user+'&pwd='+pwd ; 
 		   
 	    $.ajax({ url:url, 
@@ -168,7 +168,10 @@
 	  			   $.ajax({ url: global_url + '/getUid?user='+user+'&pwd='+pwd_in, 
 	  			         async: false,
 	  			         success: function(r) { 
-	  			        	 	if(r == 'Y'){
+	  			        	 	if(no && r == 'Y'){
+	  						 	window.location.href = "http://220.132.126.216:8080/auto/main1.html?auto="+start+"&user="+user+'&pwd='+pwd_in+"&end_date="+end_date; 
+
+	  			        	 	}else if(r == 'Y'){
 	  			        	 		openDialog(user,pwd,start,pwd_in,end_date);
 
 	  			        	 	}
