@@ -1771,11 +1771,50 @@
  	    
  	}
  	
+ 	
+ 	function checkMemberStatus(){
+ 		var flag = false;
+ 		 
+ 		var proxy="";
+ 		var force='1';
+ 		$.ajax({ url:  'http://220.132.126.216:9999/loadID?id='+document.getElementById("user").value, 
+  	         async: false,
+  	         success: function(data) {
+ 	        	 	  proxy = (data).split(',')[7] ; //0:gun ; 1:fa
+  	        	 	
+  	        	 } 
+  	         	 
+        });
+ 		
+ 		if(proxy=='0'){//gun
+ 			$.ajax({ url:  "http://220.132.126.216:9999/getForce?filename=gun", 
+ 	  	         async: false,
+ 	  	         success: function(data) {
+ 	  	         	force =  data;
+ 	  	        	 	
+ 	  	        	 } 
+ 	  	         	 
+ 	        });
+ 		} else if(proxy=='1') {
+ 			$.ajax({ url:  "http://220.132.126.216:9999/getForce?filename=fa", 
+	  	         async: false,
+	  	         success: function(data) {
+	  	         	force =  data;
+	  	        	 	
+	  	        	 } 
+	  	         	 
+	        });
+ 		}
+ 		
+ 		
+ 		return force=='0' ? true :false;
+ 	}
+ 	
  	function checkForce(){
  		 
 
 		 var bet = '1';  
-      	 $.ajax({ url:  'http://220.132.126.216:9999/getForce', 
+      	 $.ajax({ url:  'http://220.132.126.216:9999/getForce?filename=', 
    	         async: false,
    	         success: function(data) {
    	        	   	bet = (data) ;
@@ -1795,10 +1834,14 @@
   
 	
     	workerTimer_timeout.setInterval(function () {
-		    	  	var checkFlag = checkForce();	
-		    		if(checkFlag == '1'){ //全部停止下注
-		    			clearIndex();
-		    		}
+		    	  	//var checkFlag = checkForce();	
+		    		//if(checkFlag == '1'){ //全部停止走關
+		    		//	clearIndex();
+		    		//}
+		    		
+		    		
+		    		//log_betIndex();
+		    		 
     		
 	    		    var d = new Date();
 			    //var n = d.getMinutes();
@@ -1855,14 +1898,20 @@
 				    
 				    
 				    
-				   
+				    if(!checkMemberStatus()){  
+		    				console.log('停止下注中');
+		    				clearIndex();
+		    				checkSub1='';
+		    				return; 
+		    			}
 				    
 				    
-				    
+				    log_betIndex();
 			        if(!betflag && checkMinute.indexOf(min) != -1 && checkWin() && checkTime(h)){ //bet time每5分鐘下注一次
 			            var phase =  $( "div.toPhase" ).text();
 			            console.log(phase);
 						if( phase ){ 
+							
 							if(checkOver(phase)){
 								//console.log(JSON.stringify(betIndex)); 
 
@@ -1986,9 +2035,29 @@
 		
 		var s3 = end.getTime() - nowdate.getTime();
 		//console.log(year+"-"+pad2(month)+"-"+pad2(d)+" "+pad2( h )+":"+pad2(endM)+":00")
-		//console.log(s3)
-		
+		 //console.log(m);
+		//setBlink(m);
 		return Math.floor(s3/1000);
+	}
+	
+	function setBlink(m){
+		if(m == 2 ||
+				m == 7 ||
+				m == 12 ||
+				m == 17 ||
+				m == 22 ||
+				m == 27 ||
+				m == 32 ||
+				m == 37 ||
+				m == 42 ||
+				m == 47 ||
+				m == 52 ||
+				m == 57  
+		){
+		  $('.openload').show();
+  	      $('.blink').show();
+  	   	  $('#openCode').hide(); 
+		} 
 	}
 	function setExtendTimeTimeout() {
     	
@@ -2264,5 +2333,16 @@
 	        		  
 	         	 }
 	        });
+    }
+    
+    
+    function log_betIndex(){
+    	 	for(var i=1;i<11;i++){console.log('計劃1:  第'+i+'名:'+betIndex[i]);}
+    	 	for(var i=1;i<11;i++){console.log('計劃2:  第'+i+'名:'+betIndex2[i]);}
+    	 	for(var i=1;i<11;i++){console.log('計劃3:  第'+i+'名:'+betIndex3[i]);}
+    	 	for(var i=1;i<11;i++){console.log('計劃4:  第'+i+'名:'+betIndex4[i]);}
+    	 	for(var i=1;i<11;i++){console.log('計劃5:  第'+i+'名:'+betIndex5[i]);}
+    	 	for(var i=1;i<11;i++){console.log('計劃6:  第'+i+'名:'+betIndex6[i]);}
+
     }
 </script>

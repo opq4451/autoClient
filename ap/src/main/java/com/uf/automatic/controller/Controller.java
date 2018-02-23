@@ -1959,7 +1959,7 @@ public class Controller {
 	
 	
 	@RequestMapping("/setForce")
-    public String setForce(@RequestParam("force") String force) {
+    public String setForce(@RequestParam("filename") String filename,@RequestParam("force") String force) {
         FileInputStream fileIn = null;
         FileOutputStream fileOut = null;
 
@@ -1971,7 +1971,7 @@ public class Controller {
                 }
             };
             String path = System.getProperty("user.dir");
-            String hisFile = path + "/force.properties";
+            String hisFile = path + "/"+filename+"force.properties";
             File file = new File(hisFile);
             if (!file.exists()) {
                 file.createNewFile();
@@ -1997,7 +1997,7 @@ public class Controller {
     }
 	
 	@RequestMapping("/getForce")
-    public String getForce() {
+    public String getForce(@RequestParam("filename") String filename) {
         FileInputStream fileIn = null;
         FileOutputStream fileOut = null;
 
@@ -2009,7 +2009,7 @@ public class Controller {
                 }
             };
             String path = System.getProperty("user.dir");
-            String hisFile = path + "/force.properties";
+            String hisFile = path + "/"+filename+"force.properties";
             File file = new File(hisFile);
             if (!file.exists()) {
                 file.createNewFile();
@@ -2031,5 +2031,8 @@ public class Controller {
 
         return "1";
     }
+	
+	
+	
 
 }
