@@ -1809,7 +1809,7 @@ public class Controller {
 
 	@RequestMapping("/getAuthInformation")
 	public String getAuthInformation(@RequestParam("user") String u, @RequestParam("pwd") String p) {
-		String url = "http://220.132.126.216:9999/checkLimitDate?user=" + u + "&pwd=" + p + "";
+		String url = "http://www.sd8888.net:9999/checkLimitDate?user=" + u + "&pwd=" + p + "";
 		String r = "";
 		try {
 			r = Utils.httpClientGet(url);

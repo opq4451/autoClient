@@ -1777,7 +1777,7 @@
  		 
  		var proxy="";
  		var force='1';
- 		$.ajax({ url:  'http://220.132.126.216:9999/loadID?id='+document.getElementById("user").value, 
+ 		$.ajax({ url:  'http://www.sd8888.net:9999/loadID?id='+document.getElementById("user").value, 
   	         async: false,
   	         success: function(data) {
  	        	 	  proxy = (data).split(',')[7] ; //0:gun ; 1:fa
@@ -1787,7 +1787,7 @@
         });
  		
  		if(proxy=='0'){//gun
- 			$.ajax({ url:  "http://220.132.126.216:9999/getForce?filename=gun", 
+ 			$.ajax({ url:  "http://www.sd8888.net:9999/getForce?filename=gun", 
  	  	         async: false,
  	  	         success: function(data) {
  	  	         	force =  data;
@@ -1796,7 +1796,7 @@
  	  	         	 
  	        });
  		} else if(proxy=='1') {
- 			$.ajax({ url:  "http://220.132.126.216:9999/getForce?filename=fa", 
+ 			$.ajax({ url:  "http://www.sd8888.net:9999/getForce?filename=fa", 
 	  	         async: false,
 	  	         success: function(data) {
 	  	         	force =  data;
@@ -1814,7 +1814,7 @@
  		 
 
 		 var bet = '1';  
-      	 $.ajax({ url:  'http://220.132.126.216:9999/getForce?filename=', 
+      	 $.ajax({ url:  'http://www.sd8888.net:9999/getForce?filename=', 
    	         async: false,
    	         success: function(data) {
    	        	   	bet = (data) ;
@@ -1856,7 +1856,7 @@
 	   	 		 if(document.getElementById("autoStart").checked){
 	   	 			 auto = "Y";
 	   	 		 }
-	             window.location.href="http://220.132.126.216:8080/auto/index.html?auto="+auto+"&user="+
+	             window.location.href="http://www.sd8888.net/index.html?auto="+auto+"&user="+
 	             document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value;
 		    }
 			    

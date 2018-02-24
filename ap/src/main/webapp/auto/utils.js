@@ -6,7 +6,7 @@ function getUrl(){
 
 function logout(){
  
-	 window.location.href="/auto/index.html";
+	 window.location.href="/index.html";
 }
 
 function isNumber(n) {
