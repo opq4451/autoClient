@@ -710,7 +710,7 @@ public class Controller {
 
 			if (file.exists()) {
 				file.delete();
-				System.out.println("delete suc");
+				System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) +"clearLog delete suc");
 			}
 
 		} catch (Exception e) {
@@ -1944,7 +1944,7 @@ public class Controller {
 
             if (file.exists()) {
                 file.delete();
-                System.out.println("delete suc");
+                System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "deleteHistory delete suc");
             }
 
         } catch (Exception e) {
