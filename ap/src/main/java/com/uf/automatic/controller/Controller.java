@@ -923,7 +923,7 @@ public class Controller {
 				saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : bet 斷");
 				//h = httpClientCookie.getInstance(user, pwd);
 				e.printStackTrace();
-
+				return "error";
 			} finally {
 
 			}
@@ -1015,7 +1015,7 @@ public class Controller {
             saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : RECOUP 斷" );
 			//h = httpClientCookie.getInstance(user, pwd);
 			e.printStackTrace();
-
+			return "error";
 		} finally {
 
 		}
@@ -1107,7 +1107,7 @@ public class Controller {
                  saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : recoup_two 斷" );
                 // h = httpClientCookie.getInstance(user, pwd);
                  e.printStackTrace();
-
+                 return "error";
              } finally {
 
              }
@@ -1197,7 +1197,7 @@ public class Controller {
 			saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : recoup_three 斷");
 			//h = httpClientCookie.getInstance(user, pwd);
 			e.printStackTrace();
-
+			return "error";
 		} finally {
 
 		}

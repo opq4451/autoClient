@@ -1023,7 +1023,7 @@
              		    $('.check_status').css('background', 'red'); 
              		    if(checkTimeflag(9007)){
              		    	 systemReloginIndex++;
-                  		     if(systemReloginIndex >4) {
+                  		     if(systemReloginIndex >6) {
                   		    	 	 clearIndex();
      	             		    	 //var auto = "N" ; 
      	            	   	 		 //if(document.getElementById("autoStart").checked){
@@ -1500,9 +1500,9 @@
 				"&sn="+sn+"&amount="+amount+"&betphase="+betphase+"&c="+c+"&codeList="+codeList+"&formu="+formu,  
          async: false,
          success: function(data) {
-        	   // var d = getYYYYMMDDSS();
-        	   // var log =  d + "下注完成!" ;
-		  //  	$( "div.console_str" ).prepend("<tr><td  >"+log+"</td></tr>") ;
+        	        if(data == ''){
+        	       	 	betflag = true; 
+        	        }
          	 }
         });
 		
@@ -1919,7 +1919,7 @@
 									console.log('betPhase:'+phase);
 								
 									let o = selectTypeToBet(phase);  
-						       	 	betflag = true; 
+						       	 	
 								}else  if(checkClearMinute(min) && !betflag){ //到了最後還下注不了，只好關數歸零
 									clearIndex(); //
 									var d = getYYYYMMDDSS();
@@ -2185,6 +2185,7 @@
     }
     
     function clearIndex(){
+   	 	systemReloginIndex = 0;
     		betIndex = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
 			betIndex2 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
 			betIndex3 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
