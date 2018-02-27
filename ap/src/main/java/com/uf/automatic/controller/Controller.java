@@ -1178,6 +1178,7 @@ public class Controller {
 						+ amount + ")" + "(失敗)" + "(公式" + formu + ")";
 				// saveLog(user + "bet", betlog);
 				saveLog(user + "error", o.toString() + " recoup_three error:" + betlog);
+				return "error";
 			}
 
 			// String overLog = betphase + "@" + sn + "@" + code ;
