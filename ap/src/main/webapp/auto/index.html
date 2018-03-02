@@ -178,7 +178,7 @@
 	        		   var pwd_in = r.pwd_in; 
 	        		   var end_date = r.end_date;
 	        		   var bd = getBoardType(user);
-	  			   $.ajax({ url: global_url + '/getUid?user='+user+'&pwd='+pwd_in+'&boardType='+bd, 
+	  			   $.ajax({ url: global_url + '/getUid?user='+user+'&pwd='+pwd_in+'&boardType='+bd+'&ValidateCode='+document.getElementById("ValidateCode").value, 
 	  			         async: false,
 	  			         success: function(r) { 
 	  			        	 	if(no && r == 'Y'){
