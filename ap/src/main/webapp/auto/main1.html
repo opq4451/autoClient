@@ -1631,17 +1631,17 @@
 			           	   $( "div.toNowPhase" ).text(nphase);
 			           	   
 			               let c = getCodeByPhase(nphase);
-			               //console.log("blinkPhase"+blinkPhase);
+			               console.log("blinkPhase"+blinkPhase);
 			               if(c=='null'){//開獎中
-			            	   	  $('.openload').show();
-			            	      $('.blink').show();
-			            	   	  $('#openCode').hide(); 
+			            	   	  //$('.openload').show();
+			            	      //$('.blink').show();
+			            	   	  //$('#openCode').hide(); 
 			               }else if(blinkPhase=='' ||  (nphase* 1 - blinkPhase*1 ) > 0){ //已開獎
 			            	      blinkPhase = nphase ;
 			            	      checkOver(data);
 			            	      $('.openload').hide(); 
 			            	      $('.blink').hide();
-			            	   	  $('#openCode').show();
+			            	   	  $('#openCode').show(); 
 			            	   	  //set code
 			            	   	  let codearr = c.split(',');
 			            	   	  let temp= "<div  align=\"center\" class=\"nums\"  style=\"padding-top: 0.1cm; padding-bottom: 0.1cm;\">";
@@ -2092,20 +2092,21 @@
 	 	var year = nowdate.getFullYear();
 	 	var month = nowdate.getMonth() + 1;
 	 	var d = nowdate.getDate();
-	 	
+	 	var sec = nowdate.getSeconds();
 	 	
 		var end = new Date(year+"-"+pad2(month)+"-"+pad2(d)+" "+pad2(h )+":"+pad2(endM)+":00" );
 		
 		var s3 = end.getTime() - nowdate.getTime();
 		//console.log(year+"-"+pad2(month)+"-"+pad2(d)+" "+pad2( h )+":"+pad2(endM)+":00")
-		 //console.log(m);
-		setBlink(m);
+		if(sec>0 && sec<30)
+			setBlink(m);
 		return Math.floor(s3/1000);
 	}
 	
 	let blinkPhase = '';
+	 
 	function setBlink(m){
-		if(m == 2 ||
+		if( (m == 2 ||
 				m == 7 ||
 				m == 12 ||
 				m == 17 ||
@@ -2116,12 +2117,11 @@
 				m == 42 ||
 				m == 47 ||
 				m == 52 ||
-				m == 57  
+				m == 57 )    
 		){
 		  $('.openload').show();
   	      $('.blink').show();
-  	   	  $('#openCode').hide(); 
-  	   	  blinkPhase = $( "div.toNowPhase" ).text() ;
+  	   	  $('#openCode').hide();  
 		} 
 	}
 	function setExtendTimeTimeout() {

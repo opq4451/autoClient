@@ -31,7 +31,7 @@ public class App {
 		Utils.writeHistory();
 		SpringApplication.run(App.class, args);
 
-		run();
+		//run();
 	}
 
 	private static void run() {
