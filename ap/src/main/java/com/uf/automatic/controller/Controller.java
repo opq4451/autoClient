@@ -941,7 +941,7 @@ public class Controller {
 	                            + amount + ")" + "(失敗)" + "(公式" + formu + ")";
 	                    // saveLog(user + "bet", betlog);
 	                    saveLog(user + "error", o.toString() + " bet error:" + betlog);
-	                    recoup(user, sn, amount, betphase, c, codeList, formu);
+	                    return recoup(user, sn, amount, betphase, c, codeList, formu);
 	                }
 			        
 			    }else  if(boardType.equals("1")) { //華山
@@ -964,7 +964,7 @@ public class Controller {
                         // saveLog(user + "bet", betlog);
                         saveLog(user + "error", s.toString() + " bet error:" + betlog);
                         
-	                    mountaionRecoup(user, sn, amount, betphase, c, codeList, formu);
+	                    return mountaionRecoup(user, sn, amount, betphase, c, codeList, formu);
 	                }
 			    }
 			    
@@ -1059,7 +1059,7 @@ public class Controller {
 						+ amount + ")" + "(失敗)" + "(公式" + formu + ")";
 //				saveLog(user + "bet", betlog);
                 saveLog(user + "error", o.toString() + " recoup error:" + betlog);
-                recoup_two(user, sn, amount, betphase, c, codeList, formu);
+                return recoup_two(user, sn, amount, betphase, c, codeList, formu);
 			}
 
 			// String overLog = betphase + "@" + sn + "@" + code ;
@@ -1151,7 +1151,7 @@ public class Controller {
                              + amount + ")" + "(失敗)" + "(公式" + formu + ")";
 //	                       saveLog(user + "bet", betlog);
                      saveLog(user + "error", o.toString() + " recoup_two error:" + betlog);
-                     recoup_three(user, sn, amount, betphase, c, codeList, formu);
+                     return recoup_three(user, sn, amount, betphase, c, codeList, formu);
                  }
 
                  // String overLog = betphase + "@" + sn + "@" + code ;
@@ -2190,7 +2190,7 @@ public class Controller {
                         + amount + ")" + "(失敗)" + "(公式" + formu + ")";
                 // saveLog(user + "bet", betlog);
                 saveLog(user + "error", s.toString() + " recoup error:" + betlog);
-                mountaionRecoup2(user, sn, amount, betphase, c, codeList, formu);
+                return mountaionRecoup2(user, sn, amount, betphase, c, codeList, formu);
             } 
         }catch(Exception e) {
             saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : mountaionRecoup 斷" );
@@ -2225,7 +2225,7 @@ public class Controller {
                         + amount + ")" + "(失敗)" + "(公式" + formu + ")";
                 // saveLog(user + "bet", betlog);
                 saveLog(user + "error", s.toString() + " recoup2 error:" + betlog);
-                mountaionRecoup3(user, sn, amount, betphase, c, codeList, formu);
+                return mountaionRecoup3(user, sn, amount, betphase, c, codeList, formu);
             } 
         }catch(Exception e) {
             saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : mountaionRecoup2 斷" );
