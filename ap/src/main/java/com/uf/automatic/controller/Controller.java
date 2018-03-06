@@ -457,7 +457,9 @@ public class Controller {
 		try {
 			if (boardType.equals("0") && h == null)
 				h = httpClientCookie.getInstance(user, pwd);
-
+			
+			Utils.writeHistory();
+			
 			long unixTime = System.currentTimeMillis() / 1000L;
 
 			String query = "McID=03RGK&Nose=bb4NvVOMtX&Sern=0&Time=" + unixTime;

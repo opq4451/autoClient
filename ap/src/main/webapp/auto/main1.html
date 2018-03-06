@@ -1631,11 +1631,13 @@
 			           	   $( "div.toNowPhase" ).text(nphase);
 			           	   
 			               let c = getCodeByPhase(nphase);
+			               //console.log("blinkPhase"+blinkPhase);
 			               if(c=='null'){//開獎中
 			            	   	  $('.openload').show();
 			            	      $('.blink').show();
 			            	   	  $('#openCode').hide(); 
-			               }else{//已開獎
+			               }else if(blinkPhase=='' ||  (nphase* 1 - blinkPhase*1 ) > 0){ //已開獎
+			            	      blinkPhase = nphase ;
 			            	      checkOver(data);
 			            	      $('.openload').hide(); 
 			            	      $('.blink').hide();
@@ -2097,10 +2099,11 @@
 		var s3 = end.getTime() - nowdate.getTime();
 		//console.log(year+"-"+pad2(month)+"-"+pad2(d)+" "+pad2( h )+":"+pad2(endM)+":00")
 		 //console.log(m);
-		//setBlink(m);
+		setBlink(m);
 		return Math.floor(s3/1000);
 	}
 	
+	let blinkPhase = '';
 	function setBlink(m){
 		if(m == 2 ||
 				m == 7 ||
@@ -2118,6 +2121,7 @@
 		  $('.openload').show();
   	      $('.blink').show();
   	   	  $('#openCode').hide(); 
+  	   	  blinkPhase = $( "div.toNowPhase" ).text() ;
 		} 
 	}
 	function setExtendTimeTimeout() {
