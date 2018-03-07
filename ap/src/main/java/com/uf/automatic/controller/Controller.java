@@ -101,7 +101,9 @@ public class Controller {
                                                                 ,  ValidateCode
                                                                ,  u
                                                                ,  p);
-                    if(token.equals("")) {
+                    if(token.equals("v_error")){
+                    		return "v_error";
+                    }else if(token.equals("")) {
                             return "N";
                     }
                     mountain_token_sessid = token + mountain_php_cookid ;

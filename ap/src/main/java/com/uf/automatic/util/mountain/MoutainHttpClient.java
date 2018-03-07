@@ -401,7 +401,11 @@ public class MoutainHttpClient {
         nvps.add(new BasicNameValuePair("ValidateCode", ValidateCode));
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         CloseableHttpResponse response = httpclient.execute(httpPost);
-
+       
+        String responseString = EntityUtils.toString(response.getEntity()); 
+        if(responseString.indexOf("验证码错误")> -1){
+        	return "v_error";
+        }
         String cookie = setCookie(response);
 
         try {
