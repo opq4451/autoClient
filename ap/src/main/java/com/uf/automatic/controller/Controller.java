@@ -880,7 +880,7 @@ public class Controller {
 			try {
 			    String code[] = codeList.split(",");
 			    bi++;
-			    if (amount.equals("0") || amount.equals("1")) {
+			    if (amount.equals("0") || (amount.equals("1")&&boardType.equals("0"))) {
                     for (String str : code) {
                         String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
                         saveOverLog(user, overLog, c);
