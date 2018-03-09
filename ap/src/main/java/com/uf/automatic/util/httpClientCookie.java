@@ -301,10 +301,8 @@ public class httpClientCookie {
 	     
 	    String query = uraal[urli%5] + "/L_PK10/Handler/Handler.ashx?action=put_money&";
         try {
-            String force = Utils.httpClientGet(forceUrl);
-            if(force.equals("1")) {
-                return "";
-            }
+           
+
             query += "phaseid="+ phaseid+"&" +
                      "oddsid="+ ossid.substring(0,ossid.length()-1) + "&" +
                      "uPI_P="+ pl.substring(0,pl.length()-1) + "&" +
