@@ -76,20 +76,44 @@
 							<td nowrap>
 								&nbsp;&nbsp;&nbsp;&nbsp;會員到期時間(YYYYMMDD) 
 							</td>
-							<td  >
+							<td  colspan=3 >
 								  <input id="extendTime" type ="text" size=35/>
 							</td>
 							
-							<td nowrap>
+							<td nowrap style="display:none">
 								&nbsp;&nbsp;&nbsp;&nbsp;全部會員下注狀態
 							</td>
-							<td>
+							<td style="display:none">
 								    <select class="forcebet" >
 									  <option value="0" >全部會員下注中</option>
 									  <option value="1" >全部會員強制停止 </option> 
 									</select> 
 							</td>
 		        </tr>
+		        
+		          <tr>
+							<td nowrap>
+								&nbsp;&nbsp;&nbsp;&nbsp;崗-會員下注狀態
+							</td>
+							<td>
+								    <select class="gunbet" >
+									  <option value="0" >崗-會員下注中</option>
+									  <option value="1" >崗-會員強制停止 </option> 
+									</select> 
+							</td>
+							
+							<td nowrap>
+								&nbsp;&nbsp;&nbsp;&nbsp;發-會員下注狀態
+							</td>
+							<td>
+								    <select class="fabet" >
+									  <option value="0" >發-會員下注中</option>
+									  <option value="1" >發-會員強制停止 </option> 
+									</select> 
+							</td>
+		        </tr>
+		        
+		        
 		         <tr>
 							<td nowrap>
 								&nbsp;&nbsp;&nbsp;&nbsp;遠端id
@@ -117,12 +141,12 @@
 							</td>
 							
 							<td nowrap>
-								&nbsp;&nbsp;&nbsp;&nbsp;板
+								&nbsp;&nbsp;&nbsp;&nbsp;會員板
 							</td>
 							<td  >
 								    <select class="board" >
-									  <option value="0" >極速</option>
-									  <option value="1" >華山</option> 
+									  <option value="0" >極速系統</option>
+									  <option value="1" >華山系統</option> 
 									</select> 
 							</td>
 		        </tr>
@@ -173,7 +197,33 @@
 		 $('select.forcebet').change(function(){
              var force =  $( ".forcebet" ).val(); 
              let u = getUrl();
-    		     $.ajax({ url:  u + "/setForce?force="+force, 
+    		     $.ajax({ url:  u + "/setForce?filename=&force="+force, 
+    	         async: false,
+    	         success: function(data) {
+    	        	  
+    	        	 alert("存檔成功!"); 
+    	         	 }
+    	        });
+             
+        });
+		 
+		 $('select.fabet').change(function(){
+             var force =  $( ".fabet" ).val(); 
+             let u = getUrl();
+    		     $.ajax({ url:  u + "/setForce?filename=fa&force="+force, 
+    	         async: false,
+    	         success: function(data) {
+    	        	  
+    	        	 alert("存檔成功!"); 
+    	         	 }
+    	        });
+             
+        });
+		 
+		 $('select.gunbet').change(function(){
+             var force =  $( ".gunbet" ).val(); 
+             let u = getUrl();
+    		     $.ajax({ url:  u + "/setForce?filename=gun&force="+force, 
     	         async: false,
     	         success: function(data) {
     	        	  
@@ -303,12 +353,25 @@
 		 
 		 
 		 	//load force
-		    $.ajax({ url:  u + "/getForce", 
+		    $.ajax({ url:  u + "/getForce?filename=", 
 		         async: false,
 		         success: function(data) { 
 		        	 $( ".forcebet" ).val(data);
 		         }
 	        });
+		    $.ajax({ url:  u + "/getForce?filename=gun", 
+		         async: false,
+		         success: function(data) { 
+		        	 $( ".gunbet" ).val(data);
+		         }
+	        });
+		    $.ajax({ url:  u + "/getForce?filename=fa", 
+		         async: false,
+		         success: function(data) { 
+		        	 $( ".fabet" ).val(data);
+		         }
+	        });
+		    
 		
 	}
 	

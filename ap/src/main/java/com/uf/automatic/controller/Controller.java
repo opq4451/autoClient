@@ -25,9 +25,11 @@ import java.util.TreeSet;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -37,6 +39,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.JsonArray;
@@ -46,6 +49,7 @@ import com.google.gson.JsonParser;
 import com.uf.automatic.ap.OrderedProperties;
 import com.uf.automatic.util.Utils;
 import com.uf.automatic.util.httpClientCookie;
+import com.uf.automatic.util.mountain.MoutainHttpClient;
 
 @RestController
 public class Controller {
@@ -59,11 +63,13 @@ public class Controller {
 	String user = "";
 	String pwd = "";
 	String p_id = "";
+	String boardType = "";
 	
 	Map<Integer, String> bs = new TreeMap<Integer, String>();
 
 	@RequestMapping("/getUid")
-	public String getUid(@RequestParam("user") String u, @RequestParam("pwd") String p) {
+	public String getUid(@RequestParam("user") String u, @RequestParam("pwd") String p, @RequestParam("ValidateCode") String ValidateCode
+	                     , @RequestParam("boardType") String bd) {
 		// Map checkLimit = checkLimitDate(user,pwd);
 		// if(!checkLimit.get("OK").toString().equals("Y")) {
 		// return "null";
@@ -86,7 +92,24 @@ public class Controller {
             
             String IFOK =  o.get("OK").getAsString();
             if(IFOK.equals("Y")) {
-                h = httpClientCookie.getInstance(user, pwd);
+                boardType = bd;
+                
+                if(boardType.equals("0")) {
+                    h = httpClientCookie.getInstance(user, pwd);
+                }else if(boardType.equals("1")) {
+                    token = MoutainHttpClient.httpPostGetToken( mountain_url[mountain_index%4] + "/?m=logined", mountain_php_cookid  
+                                                                ,  ValidateCode
+                                                               ,  u
+                                                               ,  p);
+                    if(token.equals("v_error")){
+                    		return "v_error";
+                    }else if(token.equals("")) {
+                            return "N";
+                    }
+                    mountain_token_sessid = token + mountain_php_cookid ;
+                } 
+                
+                
                 clearLog(user + "bet");
                 clearLog(user + "overLOGDIS");
                 clearLog(user + "_over");
@@ -147,41 +170,39 @@ public class Controller {
 	}
 
 	@RequestMapping("/getTodayWin")
-	public String getTodayWin(@RequestParam("user") String user,@RequestParam("pwd") String pwd) {
+	public String getTodayWin(@RequestParam("user") String user,@RequestParam("pwd") String pwd,@RequestParam("boardType") String boardType) {
 
 		try {
-			if (h == null) {
-				h = httpClientCookie.getInstance(user, pwd);
-			}
-			String ret = h.getoddsInfo();
-			// 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
+		    JsonObject j = new JsonObject();
+            JsonParser parser = new JsonParser();
+            DecimalFormat df = new DecimalFormat("##.00");
+            
+			if (boardType.equals("0") ) {
+			    if (h == null) {
+                    h = httpClientCookie.getInstance(user, pwd);
+                }
+			    String ret = h.getoddsInfo(); 
+                JsonObject o = parser.parse(ret).getAsJsonObject();
+                JsonObject data = o.getAsJsonObject("data");
+                String todayWin = data.get("profit").getAsString();
+                String usable_credit = data.get("usable_credit").getAsString(); 
+                 
+                j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(todayWin))));
+                j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
+			    
+			}else if (boardType.equals("1")) { //華山
+                String ret = MoutainHttpClient.httpGet(mountain_token_sessid, mountain_url[mountain_index%4] + "/?m=acc&gameId=2");
+                JsonObject o = parser.parse(ret).getAsJsonObject();
+                 
+                String usable_credit =  o.get("balance").getAsString(); 
+                String unbalancedMoney =  o.get("totalTotalMoney").getAsString(); 
+                j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
+                j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(unbalancedMoney))));
 
-			DecimalFormat df = new DecimalFormat("##.00");
-
-			JsonParser parser = new JsonParser();
-			JsonObject o = parser.parse(ret).getAsJsonObject();
-			JsonObject data = o.getAsJsonObject("data");
-			String todayWin = data.get("profit").getAsString();
-			String usable_credit = data.get("usable_credit").getAsString();
-			// String ltype = MemAry.get("ltype").toString();
-			// String cash = MemAry.get("cash").toString();
-			// String maxcredit =
-			// MemAry.get("maxcredit").toString().substring(1,
-			// MemAry.get("maxcredit").toString().length()-1);
-			// String useBet = MemAry.get("useBet").toString() ;
-
-			JsonObject j = new JsonObject();
-			j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(todayWin))));
-			j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
-
-			// j.addProperty("cash",
-			// Double.parseDouble(df.format(Double.valueOf(cash))));
-			// j.addProperty("maxcredit",
-			// Double.parseDouble(df.format(Double.valueOf(maxcredit))));
-			// j.addProperty("useBet",
-			// Double.parseDouble(df.format(Double.valueOf(useBet))));
-
-			// j.addProperty("ltype", ltype.substring(1, 2));
+                
+            } 
+			
+			 
 
 			FileInputStream fileIn = null;
 			try {
@@ -242,7 +263,21 @@ public class Controller {
 		} catch (Exception e) {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : getToday 斷" ); 
-			h = httpClientCookie.getInstance(user, pwd);
+            if (boardType.equals("0") ) {
+                h = httpClientCookie.getInstance(user, pwd);
+            }else if (boardType.equals("1") ) {
+                mountain_index++;
+                
+                 
+                if(token.equals("")) {
+                        return "N";
+                }
+               
+                mountain_token_sessid = token + getPhpCookie();
+                
+            }
+            
+			
 			e.printStackTrace();
 		}
 
@@ -419,11 +454,14 @@ public class Controller {
 	}
 
 	@RequestMapping("/getPhase")
-	public String getPhase(@RequestParam("user") String user, @RequestParam("pwd") String pwd) {
+	public String getPhase(@RequestParam("user") String user, @RequestParam("pwd") String pwd,
+	                       @RequestParam("boardType") String boardType) {
 		try {
-			if (h == null)
+			if (boardType.equals("0") && h == null)
 				h = httpClientCookie.getInstance(user, pwd);
-
+			
+			Utils.writeHistory();
+			
 			long unixTime = System.currentTimeMillis() / 1000L;
 
 			String query = "McID=03RGK&Nose=bb4NvVOMtX&Sern=0&Time=" + unixTime;
@@ -443,7 +481,8 @@ public class Controller {
 
 		} catch (Exception e) {
 			saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : getPhase 斷");
-			h = httpClientCookie.getInstance(user, pwd);
+			if (boardType.equals("0"))
+			    h = httpClientCookie.getInstance(user, pwd);
 			e.printStackTrace();
 
 		} finally {
@@ -710,7 +749,7 @@ public class Controller {
 
 			if (file.exists()) {
 				file.delete();
-				System.out.println("delete suc");
+				System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) +"clearLog delete suc");
 			}
 
 		} catch (Exception e) {
@@ -835,76 +874,105 @@ public class Controller {
 		public String bet(@RequestParam("user") String user, @RequestParam("sn") String sn,
 				@RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
 				@RequestParam("c") String c, @RequestParam("codeList") String codeList,
-				@RequestParam("formu") String formu) {
+				@RequestParam("formu") String formu,
+				@RequestParam("boardType") String boardType) {
 
 			try {
-				 
+			    String code[] = codeList.split(",");
+			    bi++;
+			    if (amount.equals("0") || (amount.equals("1")&&boardType.equals("0"))) {
+                    for (String str : code) {
+                        String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+                        saveOverLog(user, overLog, c);
+                    }
+                    return "";
+                }
 
-				String r = h.getoddsInfo();
-				// 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
+			    if(boardType.equals("0")) {
+			        String r = h.getoddsInfo();
+	                // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
 
-				JsonParser pr = new JsonParser();
-				JsonObject po = pr.parse(r).getAsJsonObject();
-				JsonObject data = po.getAsJsonObject("data");
-				Map<Integer, String> normal = new TreeMap<Integer, String>();
-				Utils.producePl(normal, r); // 產生倍率 for single
-				p_id = data.get("p_id").getAsString();
+	                JsonParser pr = new JsonParser();
+	                JsonObject po = pr.parse(r).getAsJsonObject();
+	                JsonObject data = po.getAsJsonObject("data");
+	                Map<Integer, String> normal = new TreeMap<Integer, String>();
+	                Utils.producePl(normal, r); // 產生倍率 for single
+	                p_id = data.get("p_id").getAsString();
 
-				bi++;
+	                
 
-				// if (ret.indexOf(user) > -1) {
-				String code[] = codeList.split(",");
-				String ossid = "";
-				String pl = "";
-				String i_index = "";
-				String m = "";
-				int i = 0;
-				for (String str : code) {
-					// String overLog = betphase + "@" + sn + "@" + str + "@" +
-					// formu;
-					// saveOverLog(user, overLog, c);
-					//
-					int index = computeIndex(sn, str);
-					String id_pl = normal.get(index).toString(); // 15@1.963
-					ossid += id_pl.split("@")[0] + ",";
-					pl += id_pl.split("@")[1] + ",";
-					i_index += i + ",";
-					m += amount + ",";
-					i++;
-				}
-				if (amount.equals("0") || amount.equals("1")) {
-					for (String str : code) {
-						String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
-						saveOverLog(user, overLog, c);
-					}
-					return "";
-				}
+	                // if (ret.indexOf(user) > -1) {
+	                
+	                String ossid = "";
+	                String pl = "";
+	                String i_index = "";
+	                String m = "";
+	                int i = 0;
+	                for (String str : code) {
+	                    // String overLog = betphase + "@" + sn + "@" + str + "@" +
+	                    // formu;
+	                    // saveOverLog(user, overLog, c);
+	                    //
+	                    int index = computeIndex(sn, str);
+	                    String id_pl = normal.get(index).toString(); // 15@1.963
+	                    ossid += id_pl.split("@")[0] + ",";
+	                    pl += id_pl.split("@")[1] + ",";
+	                    i_index += i + ",";
+	                    m += amount + ",";
+	                    i++;
+	                }
+	                
+	                String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
 
-				String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
+	                JsonParser parser = new JsonParser();
+	                JsonObject o = parser.parse(betRet).getAsJsonObject();
+	                String resCode = o.get("success").getAsString();
 
-				JsonParser parser = new JsonParser();
-				JsonObject o = parser.parse(betRet).getAsJsonObject();
-				String resCode = o.get("success").getAsString();
+	                if (resCode.equals("200")) {
 
-				if (resCode.equals("200")) {
+	                    for (String str : code) {
+	                        String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+	                        saveOverLog(user, overLog, c);
+	                    }
 
-					for (String str : code) {
-						String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
-						saveOverLog(user, overLog, c);
-					}
+	                    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+	                            + amount + ")" + "(成功)" + "(公式" + formu + ")";
+	                    saveLog(user + "bet", betlog);
 
-					String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-							+ amount + ")" + "(成功)" + "(公式" + formu + ")";
-					saveLog(user + "bet", betlog);
-
-				} else {
-					// System.out.println(o.toString());
-					String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-							+ amount + ")" + "(失敗)" + "(公式" + formu + ")";
-					// saveLog(user + "bet", betlog);
-					saveLog(user + "error", o.toString() + " bet error:" + betlog);
-					recoup(user, sn, amount, betphase, c, codeList, formu);
-				}
+	                } else {
+	                    // System.out.println(o.toString());
+	                    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+	                            + amount + ")" + "(失敗)" + "(公式" + formu + ")";
+	                    // saveLog(user + "bet", betlog);
+	                    saveLog(user + "error", o.toString() + " bet error:" + betlog);
+	                    return recoup(user, sn, amount, betphase, c, codeList, formu);
+	                }
+			        
+			    }else  if(boardType.equals("1")) { //華山
+			        JsonParser pr = new JsonParser();
+	                String r = MoutainHttpClient.httpPostBet( mountain_url[mountain_index%4] + "/?m=bet", mountain_token_sessid, betphase , amount, sn, code);
+	                JsonObject po = pr.parse(r).getAsJsonObject();
+	                String s = po.get("msg").getAsString();
+	                if(s.equals("投注成功")) {
+	                    for (String str : code) {
+	                        String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+	                        saveOverLog(user, overLog, c); 
+	                    }
+	                    
+	                    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+	                                                    + amount + ")" + "(成功)" + "(公式" + formu + ")"; 
+	                    saveLog(user + "bet", betlog);
+	                }else {
+	                    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+                                + amount + ")" + "(失敗)" + "(公式" + formu + ")";
+                        // saveLog(user + "bet", betlog);
+                        saveLog(user + "error", s.toString() + " bet error:" + betlog);
+                        
+	                    return mountaionRecoup(user, sn, amount, betphase, c, codeList, formu);
+	                }
+			    }
+			    
+				
 
 				// String overLog = betphase + "@" + sn + "@" + code ;
 				// saveOverLog(user,overLog,c);
@@ -920,10 +988,10 @@ public class Controller {
 				// }
 
 			} catch (Exception e) {
-				saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : bet 斷");
+				saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + e.getMessage() + " : bet 斷" + boardType);
 				//h = httpClientCookie.getInstance(user, pwd);
 				e.printStackTrace();
-
+				return "error";
 			} finally {
 
 			}
@@ -995,7 +1063,7 @@ public class Controller {
 						+ amount + ")" + "(失敗)" + "(公式" + formu + ")";
 //				saveLog(user + "bet", betlog);
                 saveLog(user + "error", o.toString() + " recoup error:" + betlog);
-                recoup_two(user, sn, amount, betphase, c, codeList, formu);
+                return recoup_two(user, sn, amount, betphase, c, codeList, formu);
 			}
 
 			// String overLog = betphase + "@" + sn + "@" + code ;
@@ -1015,7 +1083,7 @@ public class Controller {
             saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : RECOUP 斷" );
 			//h = httpClientCookie.getInstance(user, pwd);
 			e.printStackTrace();
-
+			return "error";
 		} finally {
 
 		}
@@ -1087,7 +1155,7 @@ public class Controller {
                              + amount + ")" + "(失敗)" + "(公式" + formu + ")";
 //	                       saveLog(user + "bet", betlog);
                      saveLog(user + "error", o.toString() + " recoup_two error:" + betlog);
-                     recoup_three(user, sn, amount, betphase, c, codeList, formu);
+                     return recoup_three(user, sn, amount, betphase, c, codeList, formu);
                  }
 
                  // String overLog = betphase + "@" + sn + "@" + code ;
@@ -1107,7 +1175,7 @@ public class Controller {
                  saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : recoup_two 斷" );
                 // h = httpClientCookie.getInstance(user, pwd);
                  e.printStackTrace();
-
+                 return "error";
              } finally {
 
              }
@@ -1178,6 +1246,7 @@ public class Controller {
 						+ amount + ")" + "(失敗)" + "(公式" + formu + ")";
 				// saveLog(user + "bet", betlog);
 				saveLog(user + "error", o.toString() + " recoup_three error:" + betlog);
+				return "error";
 			}
 
 			// String overLog = betphase + "@" + sn + "@" + code ;
@@ -1197,7 +1266,7 @@ public class Controller {
 			saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : recoup_three 斷");
 			//h = httpClientCookie.getInstance(user, pwd);
 			e.printStackTrace();
-
+			return "error";
 		} finally {
 
 		}
@@ -1651,7 +1720,10 @@ public class Controller {
 							   array[2].substring(4, 6)
 							   + "/" +  array[2].substring(6, 8) ;
 					
-					String temp = "<tr><td  align=\"center\" class=\"context-menu-one\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\"> " + key + "</td>"; //帳號
+					String temp = "<tr><td  align=\"center\"  style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\"> " + (array[8].equals("0")?"極速系統":"華山系統") + "</td>"; //帳號
+					
+					temp += "<td align=\"center\" class=\"context-menu-one\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">" //姓名
+                            + key + "</td>";
 					
 					temp += "<td align=\"center\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">" //姓名
                             + array[6] + "</td>";
@@ -1698,6 +1770,7 @@ public class Controller {
 			}
 			JsonObject j = new JsonObject();
 			String returnhtml = "<tr>" 
+			        + "<td width=\"200px\" align=center style=\"border: 1px solid black\">會員板</td>"
 			        + "<td width=\"200px\" align=center style=\"border: 1px solid black\">帳號</td>"
 			        + "<td width=\"200px\" align=center style=\"border: 1px solid black\">姓名</td>"
 			        + "<td width=\"200px\" align=center style=\"border: 1px solid black\">使用期限</td>"
@@ -1809,7 +1882,7 @@ public class Controller {
 
 	@RequestMapping("/getAuthInformation")
 	public String getAuthInformation(@RequestParam("user") String u, @RequestParam("pwd") String p) {
-		String url = "http://220.132.126.216:9999/checkLimitDate?user=" + u + "&pwd=" + p + "";
+		String url = "http://www.sd8888.net:9999/checkLimitDate?user=" + u + "&pwd=" + p + "";
 		String r = "";
 		try {
 			r = Utils.httpClientGet(url);
@@ -1820,7 +1893,8 @@ public class Controller {
 		return r;
 
 	}
-
+	
+ 
 	@RequestMapping("/checkLimitDate")
 	public String checkLimitDate(@RequestParam("user") String u, @RequestParam("pwd") String p) {
 
@@ -1944,7 +2018,7 @@ public class Controller {
 
             if (file.exists()) {
                 file.delete();
-                System.out.println("delete suc");
+                System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "deleteHistory delete suc");
             }
 
         } catch (Exception e) {
@@ -1959,7 +2033,7 @@ public class Controller {
 	
 	
 	@RequestMapping("/setForce")
-    public String setForce(@RequestParam("force") String force) {
+    public String setForce(@RequestParam("filename") String filename,@RequestParam("force") String force) {
         FileInputStream fileIn = null;
         FileOutputStream fileOut = null;
 
@@ -1971,7 +2045,7 @@ public class Controller {
                 }
             };
             String path = System.getProperty("user.dir");
-            String hisFile = path + "/force.properties";
+            String hisFile = path + "/"+filename+"force.properties";
             File file = new File(hisFile);
             if (!file.exists()) {
                 file.createNewFile();
@@ -1997,7 +2071,7 @@ public class Controller {
     }
 	
 	@RequestMapping("/getForce")
-    public String getForce() {
+    public String getForce(@RequestParam("filename") String filename) {
         FileInputStream fileIn = null;
         FileOutputStream fileOut = null;
 
@@ -2009,7 +2083,7 @@ public class Controller {
                 }
             };
             String path = System.getProperty("user.dir");
-            String hisFile = path + "/force.properties";
+            String hisFile = path + "/"+filename+"force.properties";
             File file = new File(hisFile);
             if (!file.exists()) {
                 file.createNewFile();
@@ -2031,5 +2105,175 @@ public class Controller {
 
         return "1";
     }
+	
+	
+	
+	//String mountain_url = "http://w1.5a1234.com";
+	String mountain_url[] = {"http://w1.5a1234.com",
+	                         "http://w2.5a1234.com",
+	                         "http://w3.5a1234.com",
+	                         "http://w4.5a1234.com"
+	                    }; 
+    int mountain_index = 0 ;
+    
+    String mountain_php_cookid = "";
+    String mountain_token_sessid = "";
+    String token = "";
+    @RequestMapping("/imgcode")
+    public @ResponseBody byte[] getImage(@RequestParam("_") String force) throws IOException {
+        try {
+            String im = "";
+            CloseableHttpResponse httpresponse = null ;
+        
+            CloseableHttpClient httpclient = HttpClients.createDefault();
+            
+            HttpGet HttpGet = new HttpGet(mountain_url[mountain_index%4]);
+            
+           
+            httpresponse = httpclient.execute(HttpGet);
+            mountain_php_cookid = MoutainHttpClient.setCookie(httpresponse); 
+            System.out.println(mountain_php_cookid);
+            
+            HttpGet get2 = new HttpGet(mountain_url[mountain_index%4] +  "/imgcode.php");
+            
+            get2.setHeader("Cookie", mountain_php_cookid );
+
+           
+            httpresponse = httpclient.execute(get2);
+            
+            
+            return IOUtils.toByteArray( httpresponse.getEntity().getContent());
+        }catch(Exception e) {
+            mountain_index++;
+        }
+            return null;   
+    }
+    
+    public String getPhpCookie() {
+        try {
+       
+            CloseableHttpResponse httpresponse = null ;
+        
+            CloseableHttpClient httpclient = HttpClients.createDefault();
+            
+            HttpGet HttpGet = new HttpGet(mountain_url[mountain_index%4]);
+            
+           
+            httpresponse = httpclient.execute(HttpGet);
+            mountain_php_cookid = MoutainHttpClient.setCookie(httpresponse); 
+            return mountain_php_cookid;
+        }catch(Exception e) {
+            mountain_index++;
+        }
+            return null;  
+    }
+    
+	
+	
+    public String mountaionRecoup(@RequestParam("user") String user, @RequestParam("sn") String sn,
+                                  @RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
+                                  @RequestParam("c") String c, @RequestParam("codeList") String codeList,
+                                  @RequestParam("formu") String formu) {
+        try {
+            String code[] = codeList.split(",");
+            JsonParser pr = new JsonParser();
+            String r = MoutainHttpClient.httpPostBet( mountain_url[mountain_index%4] + "/?m=bet", mountain_token_sessid, betphase , amount, sn, code);
+            JsonObject po = pr.parse(r).getAsJsonObject();
+            String s = po.get("msg").getAsString(); 
+            if(s.equals("投注成功")) {
+                for (String str : code) {
+                    String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+                    saveOverLog(user, overLog, c); 
+                }
+                
+                String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+                                                + amount + ")" + "(成功)" + "(公式" + formu + ")"; 
+                saveLog(user + "bet", betlog);
+            }else {
+                String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+                        + amount + ")" + "(失敗)" + "(公式" + formu + ")";
+                // saveLog(user + "bet", betlog);
+                saveLog(user + "error", s.toString() + " recoup error:" + betlog);
+                return mountaionRecoup2(user, sn, amount, betphase, c, codeList, formu);
+            } 
+        }catch(Exception e) {
+            saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : mountaionRecoup 斷" );
+            //h = httpClientCookie.getInstance(user, pwd);
+            e.printStackTrace();
+            return "error";
+        }
+        return "";
+    }
+    
+    public String mountaionRecoup2(@RequestParam("user") String user, @RequestParam("sn") String sn,
+                                  @RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
+                                  @RequestParam("c") String c, @RequestParam("codeList") String codeList,
+                                  @RequestParam("formu") String formu) {
+        try {
+            String code[] = codeList.split(",");
+            JsonParser pr = new JsonParser();
+            String r = MoutainHttpClient.httpPostBet( mountain_url[mountain_index%4] + "/?m=bet", mountain_token_sessid, betphase , amount, sn, code);
+            JsonObject po = pr.parse(r).getAsJsonObject();
+            String s = po.get("msg").getAsString(); 
+            if(s.equals("投注成功")) {
+                for (String str : code) {
+                    String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+                    saveOverLog(user, overLog, c); 
+                }
+                
+                String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+                                                + amount + ")" + "(成功)" + "(公式" + formu + ")"; 
+                saveLog(user + "bet", betlog);
+            }else {
+                String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+                        + amount + ")" + "(失敗)" + "(公式" + formu + ")";
+                // saveLog(user + "bet", betlog);
+                saveLog(user + "error", s.toString() + " recoup2 error:" + betlog);
+                return mountaionRecoup3(user, sn, amount, betphase, c, codeList, formu);
+            } 
+        }catch(Exception e) {
+            saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : mountaionRecoup2 斷" );
+            //h = httpClientCookie.getInstance(user, pwd);
+            e.printStackTrace();
+            return "error";
+        }
+        return "";
+    }
+    
+    public String mountaionRecoup3(@RequestParam("user") String user, @RequestParam("sn") String sn,
+                                   @RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
+                                   @RequestParam("c") String c, @RequestParam("codeList") String codeList,
+                                   @RequestParam("formu") String formu) {
+         try {
+             String code[] = codeList.split(",");
+             JsonParser pr = new JsonParser();
+             String r = MoutainHttpClient.httpPostBet( mountain_url[mountain_index%4] + "/?m=bet", mountain_token_sessid, betphase , amount, sn, code);
+             JsonObject po = pr.parse(r).getAsJsonObject();
+             String s = po.get("msg").getAsString(); 
+             if(s.equals("投注成功")) {
+                 for (String str : code) {
+                     String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+                     saveOverLog(user, overLog, c); 
+                 }
+                 
+                 String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+                                                 + amount + ")" + "(成功)" + "(公式" + formu + ")"; 
+                 saveLog(user + "bet", betlog);
+             }else {
+                 String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+                         + amount + ")" + "(失敗)" + "(公式" + formu + ")";
+                 // saveLog(user + "bet", betlog);
+                 saveLog(user + "error", s.toString() + " recoup3 error:" + betlog);
+                 return "error";
+             } 
+         }catch(Exception e) {
+             saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : mountaionRecoup3 斷" );
+             //h = httpClientCookie.getInstance(user, pwd);
+             e.printStackTrace();
+             return "error";
+         }
+         return "";
+     }
+	
 
 }
