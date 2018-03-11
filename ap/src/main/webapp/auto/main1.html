@@ -802,46 +802,33 @@
     var betIndex6  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
  
     const rangeExist = {
- 			'1' : ['1','3','4','8','10'] ,
- 			'2' : ['1','2','4','5','9'] ,
- 			'3' : ['2','3','5','6','10'] ,
- 			'4' : ['1','3','4','6','7'] ,
- 			'5' : ['2','4','5','7','8'] ,
- 			'6' : ['3','5','6','8','9'] ,
- 			'7' : ['4','6','7','9','10'] ,
- 			'8' : ['1','5','7','8','10'] ,
- 			'9' : ['1','2','6','8','9'] ,
- 			'10' :['2','3','7','9','10'] ,
+ 			'1' : ['1','2','3','4','5'] ,
+ 			'2' : ['2','3','4','5','6'] ,
+ 			'3' : ['3','4','5','6','7'] ,
+ 			'4' : ['4','5','6','7','8'] ,
+ 			'5' : ['5','6','7','8','9'] ,
+ 			'6' : ['6','7','8','9','10'] ,
+ 			'7' : ['1','7','8','9','10'] ,
+ 			'8' : ['1','2','8','9','10'] ,
+ 			'9' : ['1','2','3','9','10'] ,
+ 			'10' :['1','2','3','4','10'] ,
  	};
 
  	
     const rangeExist_pro  = {
- 			'1' : ['4','5','6','7','8'] ,
- 			'2' : ['5','6','7','8','9'] ,
- 			'3' : ['6','7','8','9','10'] ,
- 			'4' : ['1','7','8','9','10'] ,
- 			'5' : ['1','2','8','9','10'] ,
- 			'6' : ['1','2','3','9','10'] ,
- 			'7' : ['1','2','3','4','10'] ,
- 			'8' : ['1','2','3','4','5'] ,
- 			'9' : ['2','3','4','5','6'] ,
- 			'10' : ['3','4','5','6','7'] ,
+ 			'1' : ['1','2','3','9','10'] ,
+ 			'2' : ['1','2','3','4','10'] ,
+ 			'3' : ['1','2','3','4','5'] ,
+ 			'4' : ['2','3','4','5','6'] ,
+ 			'5' : ['3','4','5','6','7'] ,
+ 			'6' : ['4','5','6','7','8'] ,
+ 			'7' : ['5','6','7','8','9'] ,
+ 			'8' : ['6','7','8','9','10'] ,
+ 			'9' : ['1','7','8','9','10'] ,
+ 			'10' : ['1','2','8','9','10'] ,
  	};
  	
     const rangeExist_pro3  = {
- 			'1' : ['2','3','7','8','10'] ,
- 			'2' : ['1','3','4','8','9'] ,
- 			'3' : ['2','4','5','9','10'] ,
- 			'4' : ['1','3','5','6','10'] ,
- 			'5' : ['1','2','4','6','7'] ,
- 			'6' : ['2','3','5','7','8'] ,
- 			'7' : ['3','4','6','8','9'] ,
- 			'8' : ['4','5','7','9','10'] ,
- 			'9' : ['1','5','6','8','10'] ,
- 			'10' : ['2','3','6','7','9'] ,
- 	};
-    
-   const rangeExist_pro4 = {
  			'1' : ['1','7','8','9','10'] ,
  			'2' : ['1','2','8','9','10'] ,
  			'3' : ['1','2','3','9','10'] ,
@@ -852,21 +839,34 @@
  			'8' : ['4','5','6','7','8'] ,
  			'9' : ['5','6','7','8','9'] ,
  			'10' : ['6','7','8','9','10'] ,
+ 	};
+    
+   const rangeExist_pro4 = {
+		    '1' : ['5','6','7','8','9'] ,
+			'2' : ['6','7','8','9','10'] ,
+			'3' : ['1','7','8','9','10'] ,
+			'4' : ['1','2','8','9','10'] ,
+ 			'5' : ['1','2','3','9','10'] ,
+ 			'6' : ['1','2','3','4','10'] ,
+ 			'7' : ['1','2','3','4','5'] ,
+ 			'8' : ['2','3','4','5','6'] ,
+ 			'9' : ['3','4','5','6','7'] ,
+ 			'10' : ['4','5','6','7','8'] ,
 
  	};
  	
  	
  	const rangeExist_pro5  = {  
- 			'1' : ['2','4','5','6','7'] ,
- 			'2' : ['1','3','8','9','10'] ,
- 			'3' : ['2','4','5','6','7'] ,
- 			'4' : ['1','3','8','9','10'] ,
- 			'5' : ['1','3','8','9','10'] ,
- 			'6' : ['1','3','8','9','10'] ,
- 			'7' : ['1','3','8','9','10'] ,
- 			'8' : ['2','4','5','6','7'] ,
- 			'9' : ['2','4','5','6','7'] ,
- 			'10' : ['2','4','5','6','7'] ,
+ 			'1' : ['3','4','5','6','7'] ,
+ 			'2' : ['4','5','6','7','8'] ,
+ 			'3' : ['5','6','7','8','9'] ,
+			'4' : ['6','7','8','9','10'] ,
+			'5' : ['1','7','8','9','10'] ,
+			'6' : ['1','2','8','9','10'] ,
+ 			'7' : ['1','2','3','9','10'] ,
+ 			'8' : ['1','2','3','4','10'] ,
+ 			'9' : ['1','2','3','4','5'] ,
+ 			'10' : ['2','3','4','5','6'] ,
 
  	};
  	
@@ -1356,12 +1356,13 @@
 	
 	function combind(arra,origin){
   	  
-	       var arr = new Array(5)
+	       var arr = new Array(6)
 	       arr[0] =  arra.split(',')[0];
 	       arr[1] =  arra.split(',')[1];
 	       arr[2] =  arra.split(',')[2];
 	       arr[3] =  arra.split(',')[3];
-	   	   arr[4] =  origin;
+	       arr[4] =  arra.split(',')[4];
+	   	   arr[5] =  origin;
 	  
 	       return arr.sort(sortNumber);  
     }
@@ -1523,12 +1524,14 @@
 	function reallyBet(sn,amount,betphase,c,codeList,formu,BETN){
 	    
 		var b = '';
-		if(formu == '5' || formu=='6' || formu=='1' || formu=='2'  || formu=='3'  || formu=='4'){
-			b = codeList;
-		}else{
+		//if(formu == '5' || formu=='6' || formu=='1' || formu=='2'  || formu=='3'  || formu=='4'){
+		//	b = codeList;
+		//}else{
 			b = combind(codeList,BETN);
-		}
-		 
+		//}
+			console.log("codeList:"+codeList);
+			console.log("BETN:"+BETN);
+		 console.log("formu:"+formu+"code:"+b);
 		let snIndex = sn - 1;
 		$.ajax({ url:  u + "/bet?user="+document.getElementById("user").value+
 		
@@ -2266,8 +2269,8 @@
     	 
 	    	  if(document.getElementById('c1').checked  && !checkProjectBetFlagIndex(projectBet[1]) ) { 
 	    		  console.log('project1'+'-betPhase:'+nextPhase);
-	    		  obj.b = nextPhase - 5 ;
-	    		  obj.fourTh = nextPhase - 4 ;
+	    		  obj.b = nextPhase - 2 ;
+	    		  obj.fourTh = nextPhase - 1 ;
 	    		  const b = obj.b ;
 			  const fourTh = obj.fourTh ;
 			  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
@@ -2277,8 +2280,8 @@
 	    	  
 		  if(document.getElementById('c2').checked  && !checkProjectBetFlagIndex(projectBet[2]) ) {
 			  console.log('project2'+'-betPhase:'+nextPhase);
-			  obj.b = nextPhase - 5 ;
-			  obj.fourTh = nextPhase - 4 ; 
+			  obj.b = nextPhase - 2 ;
+			  obj.fourTh = nextPhase - 1 ; 
 			  const b = obj.b ;
 			  const fourTh = obj.fourTh ;
 			  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
@@ -2288,8 +2291,8 @@
 		  
 	  	  if(document.getElementById('c3').checked  && !checkProjectBetFlagIndex(projectBet[3]) ) {
 	  		  console.log('project3'+'-betPhase:'+nextPhase);
-			  obj.b = nextPhase - 5 ;
-			  obj.fourTh = nextPhase - 4 ;
+			  obj.b = nextPhase - 2 ;
+			  obj.fourTh = nextPhase - 1 ;
 			  const b = obj.b ;
 			  const fourTh = obj.fourTh ;
 			  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
@@ -2299,8 +2302,8 @@
 	  	  
    	      if(document.getElementById('c4').checked  && !checkProjectBetFlagIndex(projectBet[4]) ) {
    	          console.log('project4'+'-betPhase:'+nextPhase);
-			  obj.b = nextPhase - 5 ;
-			  obj.fourTh = nextPhase - 4 ; 
+			  obj.b = nextPhase - 2 ;
+			  obj.fourTh = nextPhase - 1 ; 
 			  const b = obj.b ;
 			  const fourTh = obj.fourTh ;
 			  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
@@ -2310,8 +2313,8 @@
 		  
 		  if(document.getElementById('c5').checked  && !checkProjectBetFlagIndex(projectBet[5])) {
 			  console.log('project5'+'-betPhase:'+nextPhase);
-			  obj.b = nextPhase - 5 ;
-			  obj.fourTh = nextPhase - 4 ; 
+			  obj.b = nextPhase - 2 ;
+			  obj.fourTh = nextPhase - 1 ; 
 			  const b = obj.b ;
 			  const fourTh = obj.fourTh ;
 			  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
