@@ -1356,12 +1356,13 @@
 	
 	function combind(arra,origin){
   	  
-	       var arr = new Array(5)
+	       var arr = new Array(6)
 	       arr[0] =  arra.split(',')[0];
 	       arr[1] =  arra.split(',')[1];
 	       arr[2] =  arra.split(',')[2];
 	       arr[3] =  arra.split(',')[3];
-	   	   arr[4] =  origin;
+	       arr[4] =  arra.split(',')[4];
+	   	   arr[5] =  origin;
 	  
 	       return arr.sort(sortNumber);  
     }
@@ -1523,12 +1524,14 @@
 	function reallyBet(sn,amount,betphase,c,codeList,formu,BETN){
 	    
 		var b = '';
-		if(formu == '5' || formu=='6' || formu=='1' || formu=='2'  || formu=='3'  || formu=='4'){
-			b = codeList;
-		}else{
+		//if(formu == '5' || formu=='6' || formu=='1' || formu=='2'  || formu=='3'  || formu=='4'){
+		//	b = codeList;
+		//}else{
 			b = combind(codeList,BETN);
-		}
-		 
+		//}
+			console.log("codeList:"+codeList);
+			console.log("BETN:"+BETN);
+		 console.log("formu:"+formu+"code:"+b);
 		let snIndex = sn - 1;
 		$.ajax({ url:  u + "/bet?user="+document.getElementById("user").value+
 		
