@@ -49,6 +49,7 @@ import com.google.gson.JsonParser;
 import com.uf.automatic.ap.OrderedProperties;
 import com.uf.automatic.util.Utils;
 import com.uf.automatic.util.httpClientCookie;
+import com.uf.automatic.util.dali.DaliHttpClient;
 import com.uf.automatic.util.mountain.MoutainHttpClient;
 
 @RestController
@@ -60,6 +61,7 @@ public class Controller {
 	int bi = 0;
 	int over_i = 0;
 	httpClientCookie h = null;
+	DaliHttpClient d_h =null;
 	String user = "";
 	String pwd = "";
 	String p_id = "";
@@ -107,7 +109,9 @@ public class Controller {
                             return "N";
                     }
                     mountain_token_sessid = token + mountain_php_cookid ;
-                } 
+                }else  if(boardType.equals("2")) {
+                    d_h = DaliHttpClient.getInstance(user, pwd);
+                }
                 
                 
                 clearLog(user + "bet");
@@ -200,7 +204,18 @@ public class Controller {
                 j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(unbalancedMoney))));
 
                 
-            } 
+            } else if (boardType.equals("2")) { //大立
+                String ret = DaliHttpClient.getTodayWin();
+                System.out.println(ret);
+//                JsonObject o = parser.parse(ret).getAsJsonObject();
+//                 
+//                String usable_credit =  o.get("balance").getAsString(); 
+//                String unbalancedMoney =  o.get("totalTotalMoney").getAsString(); 
+//                j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
+//                j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(unbalancedMoney))));
+
+                
+            }
 			
 			 
 
@@ -1720,7 +1735,7 @@ public class Controller {
 							   array[2].substring(4, 6)
 							   + "/" +  array[2].substring(6, 8) ;
 					
-					String temp = "<tr><td  align=\"center\"  style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\"> " + (array[8].equals("0")?"極速系統":"華山系統") + "</td>"; //帳號
+					String temp = "<tr><td  align=\"center\"  style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\"> " + (array[8].equals("0")?"極速系統":array[8].equals("1")?"華山系統":"大立系統") + "</td>"; //帳號
 					
 					temp += "<td align=\"center\" class=\"context-menu-one\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">" //姓名
                             + key + "</td>";
@@ -1882,7 +1897,7 @@ public class Controller {
 
 	@RequestMapping("/getAuthInformation")
 	public String getAuthInformation(@RequestParam("user") String u, @RequestParam("pwd") String p) {
-		String url = "http://www.sd8888.net:9999/checkLimitDate?user=" + u + "&pwd=" + p + "";
+		String url = "http://localhost:9999/checkLimitDate?user=" + u + "&pwd=" + p + "";
 		String r = "";
 		try {
 			r = Utils.httpClientGet(url);
