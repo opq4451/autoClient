@@ -1483,9 +1483,22 @@
 		    var writeFlag = false;
 	    	//var betStr="";
 			var amount = bArray[bIndex[z]%bArray.length] ;
+			
+			let betCode = project6(i,phase_now).toString();
+			 
+			let betLength = betCode.split(',').length;
+			 
+			if(betLength== 5){
+				console.log('第'+i+'+1名');
+				console.log(betCode);
+				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betCode, '6',bet_n);
+		   		if(rbf){
+					bIndex[z]++;
+				}
+			}
 		    //var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist_pro6[bet_before4]+")" ;
 		 	//logAppend(betLog) ; 
-			if(betc > 1){
+			/*if(betc > 1){
 		 		
 		 	} else {
 		 		if(bIndex[z] == 0)
@@ -1494,7 +1507,7 @@
 	   		let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp6[i].toString(), '6',bet_n);
 	   		if(rbf){
 				bIndex[z]++;
-			} 
+			} */
 		}
 		
 	}
@@ -1503,7 +1516,35 @@
 	
  
 	
- 
+ 	function project6(sn,phase){
+ 		 let tenArray = ['1','2','3','4','5','6','7','8','9','10'];
+ 		 let nCodeArra = getCodeByPhase(phase);
+ 		 let nCodeArra_1 = getCodeByPhase(phase-1);
+ 		 let nCodeArra_2 = getCodeByPhase(phase-2);
+ 		 let nCodeArra_3 = getCodeByPhase(phase-3);
+ 		 let nCodeArra_4 = getCodeByPhase(phase-4);
+ 		 
+ 		 let sn_index = sn  ;
+ 		 let sn_  = sn+1  ;
+ 		 let c = nCodeArra.split(',')[sn_index];
+ 		 let c_1 = nCodeArra_1.split(',')[sn_index];
+ 		 let c_2 = nCodeArra_2.split(',')[sn_index];
+ 		 let c_3 = nCodeArra_3.split(',')[sn_index];
+ 		 let c_4 = nCodeArra_4.split(',')[sn_index];
+ 		  
+
+		 if(tenArray.indexOf(c)   != -1){  tenArray.splice(tenArray.indexOf(c), 1);  }
+		 if(tenArray.indexOf(c_1) != -1){  tenArray.splice(tenArray.indexOf(c_1), 1);  }
+		 if(tenArray.indexOf(c_2) != -1){  tenArray.splice(tenArray.indexOf(c_2), 1);  }
+		 if(tenArray.indexOf(c_3) != -1){  tenArray.splice(tenArray.indexOf(c_3), 1);  }
+		 if(tenArray.indexOf(c_4) != -1){  tenArray.splice(tenArray.indexOf(c_4), 1);  }
+		  
+		    
+	     return tenArray.sort(sortNumber);  
+	       
+		
+
+ 	}
 
 	 
 	
