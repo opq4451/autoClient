@@ -26,6 +26,7 @@ import java.util.TreeSet;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.CookieStore;
@@ -84,6 +85,7 @@ public class DaliHttpClient {
         setPassword(password); 
         
         String d =  daliUrl[daliUrl_index%5] + "Home/Ulogin_off_code" ;
+        System.out.println(daliUrl[daliUrl_index%5] );
         setInitCookie(d);//塞 cookie
     }
 
@@ -112,7 +114,9 @@ public class DaliHttpClient {
 
     public static void main(String[] args) {
         try {
-
+            DaliHttpClient  d_h = DaliHttpClient.getInstance("bee6611", "asdf123123");
+            getBetMD5();
+            
            // String force = Utils.httpClientGet(forceUrl);
 
            // System.out.println(force);
@@ -262,14 +266,58 @@ public class DaliHttpClient {
     // return "";
     // }
 
-     public synchronized static String getBetMD5() throws Exception{
+    public static String center() throws Exception{
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        
+        System.out.println(daliUrl[daliUrl_index%5] );
+        HttpGet Post = new HttpGet(daliUrl[daliUrl_index%5] + "Game_v2/bjpk10_dq1_10?webUU=HJK1HUWH2FBBS8DS9WQ");
+        
+
+        Post.setHeader("Cookie", daliCookie );
+      
+        
+        
+//        List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+//        params.add(new BasicNameValuePair("No", "400"));
+//        params.add(new BasicNameValuePair("MD5", "-1")); 
+        
+//        Post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+        
+        CloseableHttpResponse response = httpclient.execute(Post);
+
+        try {
+            String content = EntityUtils.toString(response.getEntity());
+            System.out.println(content);
+            return "";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            response.close();
+        }
+        return "";
+    }
+    
+     public static String getBetMD5() throws Exception{
+         center();
          CloseableHttpClient httpclient = HttpClients.createDefault();
          
+         System.out.println(daliUrl[daliUrl_index%5] );
+         HttpPost Post = new HttpPost(daliUrl[daliUrl_index%5] + "Game_v2/gxpl");
+         long unixTime = Math.round(System.currentTimeMillis() / 1000L);
+         daliCookie = daliCookie.replaceAll("path=/;", "");
+         daliCookie = daliCookie.replaceAll("HttpOnly;", "");
+
+         Post.setHeader("Cookie", daliCookie+"page_ts="+unixTime);
+         Post.setHeader("Referer", daliUrl[daliUrl_index%5] + "Game_v2/bjpk10_dq1_10?webUU=HJK1HUWH2FBBS8DS9WQ");
+         Post.setHeader(HttpHeaders.ACCEPT, "application/json, text/javascript, */*; q=0.01");
+         Post.setHeader(HttpHeaders.CONTENT_TYPE,"application/x-www-form-urlencoded;");
+         Post.setHeader("X-Requested-With", "XMLHttpRequest");
+         Post.setHeader("Origin", daliUrl[daliUrl_index%5].replace("/member", "") );
+
          
-         HttpPost Post = new HttpPost(daliUrl[daliUrl_index%5] + "/Game_v2/gxpl");
-
-         Post.setHeader("Cookie", daliCookie);
-
+         
+         
          List<NameValuePair> params = new ArrayList<NameValuePair>(2);
          params.add(new BasicNameValuePair("ItemNo", "407"));
          params.add(new BasicNameValuePair("MD5", "-1")); 
@@ -281,7 +329,7 @@ public class DaliHttpClient {
          try {
 
              String content = EntityUtils.toString(response.getEntity());
-              
+             System.out.println(content);
              JsonParser parser = new JsonParser();
              JsonObject o = parser.parse(content).getAsJsonObject();
              String MD5 = o.get("MD5").getAsString();
@@ -481,7 +529,7 @@ public class DaliHttpClient {
         
         String result = null;
         String cookieString="";
-        cookieString+=daliCookie+";";
+        cookieString+=daliCookie ;
         try {
             HttpResponse httpresponse = httpClient.execute(httppost);
             HttpEntity entity = httpresponse.getEntity();

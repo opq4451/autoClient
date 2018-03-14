@@ -212,7 +212,7 @@ public class Controller {
                 j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(canuse))));
                 
                 String t = DaliHttpClient.getTodayWin();
-                System.out.println(t);
+                //System.out.println(t);
                 j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf("1"))));
 
 //                JsonObject o = parser.parse(ret).getAsJsonObject();
