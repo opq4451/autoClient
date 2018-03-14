@@ -225,7 +225,8 @@ public class Controller {
                 
             }
 			
-			 
+			  String MD5 = DaliHttpClient.getBetMD5();
+              System.out.println(MD5);
 
 			FileInputStream fileIn = null;
 			try {
@@ -298,6 +299,8 @@ public class Controller {
                
                 mountain_token_sessid = token + getPhpCookie();
                 
+            }else if (boardType.equals("2") ){
+                d_h = DaliHttpClient.getInstance(user, pwd);
             }
             
 			
