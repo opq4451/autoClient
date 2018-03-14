@@ -1249,17 +1249,17 @@
 				console.log('第'+i+'+1名');
 				console.log(betCode);
 				if(bIndex[z] == 0)
-		 	   		 betTemp1[i] = betCode.toString(); 
+		 	   		 betTemp1[z] = betCode.toString(); 
 				
 				
-			}else {
-				     projectBet[1][i] = true; 
 			}
-			if(betTemp1[i]){
-				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp1[i].toString(), '1',bet_n);
+			if(betTemp1[z] && !projectBet[1][i]){
+				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp1[z].toString(), '1',bet_n);
 		   		if(rbf){
 					bIndex[z]++;
 				}
+			}else {
+				     projectBet[1][i] = true; 
 			}
 			 
 		}
@@ -1301,17 +1301,17 @@
 				console.log('第'+i+'+1名');
 				console.log(betCode);
 				if(bIndex[z] == 0)
-		 	   		 betTemp2[i] = betCode.toString(); 
+		 	   		 betTemp2[z] = betCode.toString(); 
 				
 				
-			}else {
-				     projectBet[2][i] = true; 
 			}
-			if(betTemp2[i]){
-				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp2[i].toString(), '2',bet_n);
+			if(betTemp2[z] && !projectBet[2][i]){
+				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp2[z].toString(), '2',bet_n);
 		   		if(rbf){
 					bIndex[z]++;
 				}
+			}else {
+				     projectBet[2][i] = true; 
 			}
 			
 		}
@@ -1355,17 +1355,17 @@
 				console.log('第'+i+'+1名');
 				console.log(betCode);
 				if(bIndex[z] == 0)
-		 	   		 betTemp3[i] = betCode.toString(); 
+		 	   		 betTemp3[z] = betCode.toString(); 
 				
 				
-			}else {
-				     projectBet[3][i] = true; 
 			}
-			if(betTemp3[i]){
-				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp3[i].toString(), '3',bet_n);
+			if(betTemp3[z] && !projectBet[3][i]){
+				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp3[z].toString(), '3',bet_n);
 		   		if(rbf){
 					bIndex[z]++;
 				}
+			}else {
+				     projectBet[3][i] = true; 
 			}
 		}
 		
@@ -1424,18 +1424,18 @@
 				console.log('第'+i+'+1名');
 				console.log(betCode);
 				if(bIndex[z] == 0)
-		 	   		 betTemp4[i] = betCode.toString(); 
+		 	   		 betTemp4[z] = betCode.toString(); 
 				
 				
-			}else {
-				     projectBet[4][i] = true; 
 			}
-			if(betTemp4[i]){
-				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp4[i].toString(), '4',bet_n);
+			if(betTemp4[z] && !projectBet[4][i]){
+				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp4[z].toString(), '4',bet_n);
 		   		if(rbf){
 					bIndex[z]++;
 				}
-			} 
+			} else {
+				     projectBet[4][i] = true; 
+			}
 		}
 		
 	}
@@ -1475,17 +1475,17 @@
 				console.log('第'+i+'+1名');
 				console.log(betCode);
 				if(bIndex[z] == 0)
-		 	   		 betTemp5[i] = betCode.toString(); 
+		 	   		 betTemp5[z] = betCode.toString(); 
 				
 				
-			}else {
-				     projectBet[5][i] = true; 
 			}
-			if(betTemp5[i]){
-				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp5[i].toString(), '5',bet_n);
+			if(betTemp5[z] && !projectBet[5][i]){
+				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp5[z].toString(), '5',bet_n);
 		   		if(rbf){
 					bIndex[z]++;
 				}
+			}else {
+				     projectBet[5][i] = true; 
 			}
 		}
 		
@@ -1527,17 +1527,17 @@
 				console.log('第'+i+'+1名');
 				console.log(betCode);
 				if(bIndex[z] == 0)
-		 	   		 betTemp6[i] = betCode.toString(); 
+		 	   		 betTemp6[z] = betCode.toString(); 
 				
 				
-			}else {
-				     projectBet[6][i] = true; 
 			}
-			if(betTemp6[i]){
-				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp6[i].toString(), '6',bet_n);
+			if(betTemp6[z] && !projectBet[6][i]){
+				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp6[z].toString(), '6',bet_n);
 		   		if(rbf){
 					bIndex[z]++;
 				}
+			}else {
+				     projectBet[6][i] = true; 
 			}
 			
 	   		
@@ -2300,46 +2300,47 @@
 	         success: function(data) { 
 	        	  
 	        	 const json = JSON.parse(data);
-	        	 if(json.a1){betIndex[1] = 0;}  if(json.a2){betIndex2[1] = 0;} 
-	        	 if(json.a3){betIndex3[1] = 0;} if(json.a4){betIndex4[1] = 0;}
-	        	 if(json.a5){betIndex5[1] = 0;} if(json.a6){betIndex6[1] = 0;}
+	        	 if(json.a1){betIndex[1] = 0; betTemp1[1] = '';}  if(json.a2){betIndex2[1] = 0; betTemp2[1] = '';} 
+	        	 if(json.a3){betIndex3[1] = 0; betTemp3[1] = '';} if(json.a4){betIndex4[1] = 0; betTemp4[1] = '';}
+	        	 if(json.a5){betIndex5[1] = 0; betTemp5[1] = '';} if(json.a6){betIndex6[1] = 0; betTemp6[1] = '';}
 
-	        	 if(json.b1){betIndex[2] = 0;}  if(json.b2){betIndex2[2] = 0;} 
-	        	 if(json.b3){betIndex3[2] = 0;} if(json.b4){betIndex4[2] = 0;}
-	        	 if(json.b5){betIndex5[2] = 0;} if(json.b6){betIndex6[2] = 0;}
+	        	 if(json.b1){betIndex[2]  = 0; betTemp1[2] = '';}  if(json.b2){betIndex2[2] = 0; betTemp2[2] = '';} 
+	        	 if(json.b3){betIndex3[2] = 0; betTemp3[2] = '';} if(json.b4){betIndex4[2] = 0; betTemp4[2] = '';}
+	        	 if(json.b5){betIndex5[2] = 0; betTemp5[2] = '';} if(json.b6){betIndex6[2] = 0; betTemp6[2] = '';}
 
-	        	 if(json.c1){betIndex[3] = 0;}  if(json.c2){betIndex2[3] = 0;} 
-	        	 if(json.c3){betIndex3[3] = 0;} if(json.c4){betIndex4[3] = 0;}
-	        	 if(json.c5){betIndex5[3] = 0;} if(json.c6){betIndex6[3] = 0;}
+	        	 if(json.c1){betIndex[3] = 0;  betTemp1[3] = '';} if(json.c2){betIndex2[3] = 0; betTemp2[3] = '';} 
+	        	 if(json.c3){betIndex3[3] = 0; betTemp3[3] = '';} if(json.c4){betIndex4[3] = 0; betTemp4[3] = '';}
+	        	 if(json.c5){betIndex5[3] = 0; betTemp5[3] = '';} if(json.c6){betIndex6[3] = 0; betTemp6[3] = '';}
 
-	        	 if(json.d1){betIndex[4] = 0;}  if(json.d2){betIndex2[4] = 0;} 
-	        	 if(json.d3){betIndex3[4] = 0;} if(json.d4){betIndex4[4] = 0;}
-	        	 if(json.d5){betIndex5[4] = 0;} if(json.d6){betIndex6[4] = 0;}
+	        	 if(json.d1){betIndex[4] = 0;  betTemp1[4] = '';}  if(json.d2){betIndex2[4] = 0; betTemp2[4] = '';} 
+	        	 if(json.d3){betIndex3[4] = 0; betTemp3[4] = '';} if(json.d4){betIndex4[4] = 0; betTemp4[4] = '';}
+	        	 if(json.d5){betIndex5[4] = 0; betTemp5[4] = '';} if(json.d6){betIndex6[4] = 0; betTemp6[4] = '';}
 
-	        	 if(json.e1){betIndex[5] = 0;}  if(json.e2){betIndex2[5] = 0;} 
-	        	 if(json.e3){betIndex3[5] = 0;} if(json.e4){betIndex4[5] = 0;}
-	        	 if(json.e5){betIndex5[5] = 0;} if(json.e6){betIndex6[5] = 0;}
+	        	 if(json.e1){betIndex[5] = 0;  betTemp1[5] = '';}  if(json.e2){betIndex2[5] = 0; betTemp2[5] = '';} 
+	        	 if(json.e3){betIndex3[5] = 0; betTemp3[5] = '';} if(json.e4){betIndex4[5] = 0; betTemp4[5] = '';}
+	        	 if(json.e5){betIndex5[5] = 0; betTemp5[5] = '';} if(json.e6){betIndex6[5] = 0; betTemp6[5] = '';}
 
-	        	 if(json.f1){betIndex[6] = 0;}  if(json.f2){betIndex2[6] = 0;} 
-	        	 if(json.f3){betIndex3[6] = 0;} if(json.f4){betIndex4[6] = 0;}
-	        	 if(json.f5){betIndex5[6] = 0;} if(json.f6){betIndex6[6] = 0;}
+	        	 if(json.f1){betIndex[6] = 0; betTemp1[6] = '';}  if(json.f2){betIndex2[6] = 0; betTemp2[6] = '';} 
+	        	 if(json.f3){betIndex3[6] = 0; betTemp3[6] = '';} if(json.f4){betIndex4[6] = 0; betTemp4[6] = '';}
+	        	 if(json.f5){betIndex5[6] = 0; betTemp5[6] = '';} if(json.f6){betIndex6[6] = 0; betTemp6[6] = '';}
 
-	        	 if(json.g1){betIndex[7] = 0;}  if(json.g2){betIndex2[7] = 0;} 
-	        	 if(json.g3){betIndex3[7] = 0;} if(json.g4){betIndex4[7] = 0;}
-	        	 if(json.g5){betIndex5[7] = 0;} if(json.g6){betIndex6[7] = 0;}
+	        	 if(json.g1){betIndex[7] = 0; betTemp1[7] = '';}  if(json.g2){betIndex2[7] = 0; betTemp2[7] = '';} 
+	        	 if(json.g3){betIndex3[7] = 0; betTemp3[7] = '';} if(json.g4){betIndex4[7] = 0; betTemp4[7] = '';}
+	        	 if(json.g5){betIndex5[7] = 0; betTemp5[7] = '';} if(json.g6){betIndex6[7] = 0; betTemp6[7] = '';}
 
-	        	 if(json.h1){betIndex[8] = 0;}  if(json.h2){betIndex2[8] = 0;} 
-	        	 if(json.h3){betIndex3[8] = 0;} if(json.h4){betIndex4[8] = 0;}
-	        	 if(json.h5){betIndex5[8] = 0;} if(json.h6){betIndex6[8] = 0;}
+	        	 if(json.h1){betIndex[8] = 0;betTemp1[8] = '';}  if(json.h2){betIndex2[8] = 0;betTemp2[8] = '';} 
+	        	 if(json.h3){betIndex3[8] = 0;betTemp3[8] = '';} if(json.h4){betIndex4[8] = 0;betTemp4[8] = '';}
+	        	 if(json.h5){betIndex5[8] = 0;betTemp5[8] = '';} if(json.h6){betIndex6[8] = 0;betTemp6[8] = '';}
 
-	        	 if(json.i1){betIndex[9] = 0;}  if(json.i2){betIndex2[9] = 0;} 
-	        	 if(json.i3){betIndex3[9] = 0;} if(json.i4){betIndex4[9] = 0;}
-	        	 if(json.i5){betIndex5[9] = 0;} if(json.i6){betIndex6[9] = 0;}
+	        	 if(json.i1){betIndex[9] = 0;  betTemp1[9] = '';}  if(json.i2){betIndex2[9] = 0; betTemp2[9] = '';} 
+	        	 if(json.i3){betIndex3[9] = 0; betTemp3[9] = '';} if(json.i4){betIndex4[9] = 0; betTemp4[9] = '';}
+	        	 if(json.i5){betIndex5[9] = 0; betTemp5[9] = '';} if(json.i6){betIndex6[9] = 0; betTemp6[9] = '';}
 
-	        	 if(json.j1){betIndex[10] = 0;}  if(json.j2){betIndex2[10] = 0;} 
-	        	 if(json.j3){betIndex3[10] = 0;} if(json.j4){betIndex4[10] = 0;}
-	        	 if(json.j5){betIndex5[10] = 0;} if(json.j6){betIndex6[10] = 0;}
-
+	        	 if(json.j1){betIndex[10] = 0;  betTemp1[10] = ''; }  if(json.j2){betIndex2[10] = 0; betTemp2[10] = '';} 
+	        	 if(json.j3){betIndex3[10] = 0; betTemp3[10] = '';} if(json.j4){betIndex4[10] = 0; betTemp4[10] = '';}
+	        	 if(json.j5){betIndex5[10] = 0; betTemp5[10] = '';} if(json.j6){betIndex6[10] = 0; betTemp6[10] = '';}
+	        	 
+	        	  
 	        	 if(json.checkFlag=='Y'){
 	        		 check = true;
 	        	 }
