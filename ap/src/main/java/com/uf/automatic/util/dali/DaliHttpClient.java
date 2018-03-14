@@ -262,36 +262,40 @@ public class DaliHttpClient {
     // return "";
     // }
 
-    // public synchronized String normalBet(String phaseid, String ossid, String
-    // pl, String i_index, String m,
-    // String type) {
-    //
-    // String query = uraal[urli % 5] +
-    // "/L_PK10/Handler/Handler.ashx?action=put_money&";
-    // try {
-    // String force = Utils.httpClientGet(forceUrl);
-    // if (force.equals("1")) {
-    // return "";
-    // }
-    // query += "phaseid=" + phaseid + "&" + "oddsid=" + ossid.substring(0,
-    // ossid.length() - 1) + "&" + "uPI_P="
-    // + pl.substring(0, pl.length() - 1) + "&" + "uPI_M=" + m.substring(0,
-    // m.length() - 1) + "&"
-    // + "i_index=" + i_index.substring(0, i_index.length() - 1) + "&playpage="
-    // + type + "";
-    //
-    // //System.out.println(query);
-    // String v = instance.httpClientUseCookie(query);
-    // JsonParser parser = new JsonParser();
-    // JsonObject o = parser.parse(v).getAsJsonObject();
-    // JsonObject data = o.getAsJsonObject("data");
-    // String t = data.get("JeuValidate").getAsString();
-    // return instance.httpClientUseCookie(query + "&JeuValidate=" + t);
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // }
-    // return "";
-    // }
+     public synchronized static String getBetMD5() throws Exception{
+         CloseableHttpClient httpclient = HttpClients.createDefault();
+         
+         
+         HttpPost Post = new HttpPost(daliUrl[daliUrl_index%5] + "/Game_v2/gxpl");
+
+         Post.setHeader("Cookie", daliCookie);
+
+         List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+         params.add(new BasicNameValuePair("ItemNo", "407"));
+         params.add(new BasicNameValuePair("MD5", "-1")); 
+         
+         Post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+         
+         CloseableHttpResponse response = httpclient.execute(Post);
+
+         try {
+
+             String content = EntityUtils.toString(response.getEntity());
+              
+             JsonParser parser = new JsonParser();
+             JsonObject o = parser.parse(content).getAsJsonObject();
+             String MD5 = o.get("MD5").getAsString();
+             System.out.println(MD5);
+             
+             return MD5;
+
+         } catch (Exception e) {
+             e.printStackTrace();
+         } finally {
+             response.close();
+         }
+         return "";
+     }
 
     // "http://w1.5a1234.com/?m=acc&gameId=2"
     public static String httpGet(String cookie, String url) throws Exception {
@@ -317,12 +321,36 @@ public class DaliHttpClient {
         return "";
     }
     
-    public static String getTodayWin() throws Exception {
+    public static String getTodayUse() throws Exception {
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
       
         
         HttpGet HttpGet = new HttpGet(daliUrl[daliUrl_index%5] + "/Main/left");
+
+        HttpGet.setHeader("Cookie", daliCookie);
+
+        CloseableHttpResponse response = httpclient.execute(HttpGet);
+
+        try {
+
+            String content = EntityUtils.toString(response.getEntity());
+            return content;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            response.close();
+        }
+        return "";
+    }
+    
+    public static String getTodayWin() throws Exception {
+
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+      
+        
+        HttpGet HttpGet = new HttpGet(daliUrl[daliUrl_index%5] + "/Game_v2/gd_lmp?webUU=HJK1HUWH2FBBS8DS9WQ");
 
         HttpGet.setHeader("Cookie", daliCookie);
 

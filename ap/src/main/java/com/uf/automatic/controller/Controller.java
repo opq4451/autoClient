@@ -205,8 +205,16 @@ public class Controller {
 
                 
             } else if (boardType.equals("2")) { //大立
-                String ret = DaliHttpClient.getTodayWin();
-                System.out.println(ret);
+                String ret = DaliHttpClient.getTodayUse();
+                //System.out.println(ret);
+                int endIndex = ret.indexOf("<", ret.indexOf("Money_KY"));
+                String canuse = ret.substring(ret.indexOf("Money_KY")+10, endIndex);
+                j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(canuse))));
+                
+                String t = DaliHttpClient.getTodayWin();
+                System.out.println(t);
+                j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf("1"))));
+
 //                JsonObject o = parser.parse(ret).getAsJsonObject();
 //                 
 //                String usable_credit =  o.get("balance").getAsString(); 
@@ -895,7 +903,8 @@ public class Controller {
 			try {
 			    String code[] = codeList.split(",");
 			    bi++;
-			    if (amount.equals("0") || (amount.equals("1")&&boardType.equals("0"))) {
+			    if (amount.equals("0") || (amount.equals("1")&&boardType.equals("0"))
+			            || (amount.equals("2")&&boardType.equals("0"))) {
                     for (String str : code) {
                         String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
                         saveOverLog(user, overLog, c);
@@ -985,7 +994,30 @@ public class Controller {
                         
 	                    return mountaionRecoup(user, sn, amount, betphase, c, codeList, formu);
 	                }
-			    }
+			    }else  if(boardType.equals("2")) { //大立
+                    JsonParser pr = new JsonParser();
+                    String MD5 = DaliHttpClient.getBetMD5();
+                    System.out.println(MD5);
+//                    JsonObject po = pr.parse(r).getAsJsonObject();
+//                    String s = po.get("msg").getAsString();
+//                    if(s.equals("投注成功")) {
+//                        for (String str : code) {
+//                            String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+//                            saveOverLog(user, overLog, c); 
+//                        }
+//                        
+//                        String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+//                                                        + amount + ")" + "(成功)" + "(公式" + formu + ")"; 
+//                        saveLog(user + "bet", betlog);
+//                    }else {
+//                        String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+//                                + amount + ")" + "(失敗)" + "(公式" + formu + ")";
+//                        // saveLog(user + "bet", betlog);
+//                        saveLog(user + "error", s.toString() + " bet error:" + betlog);
+//                        
+//                        return mountaionRecoup(user, sn, amount, betphase, c, codeList, formu);
+//                    }
+                }
 			    
 				
 
