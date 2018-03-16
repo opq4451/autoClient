@@ -450,7 +450,7 @@
 </head>
 
 
-<body  style="background-color:powderblue;">
+<body  style="background-color:powderblue;" id="bodyColor" >
 
 
 <form  >
@@ -990,6 +990,8 @@
 		 document.getElementById("betprojecttype").value = parsed_qs.betprojecttype;
 
 		 $( "td#projectName" ).text(document.getElementById("betprojecttype").value=='5'?'五碼計劃':'六碼計劃');
+		 $( "body#bodyColor" ).css('background-color', document.getElementById("betprojecttype").value=='5'?'powderblue':'#FFFFBB' );
+		 
 		  
 		 
 		 $( ".stoplose" ).change(function() {
