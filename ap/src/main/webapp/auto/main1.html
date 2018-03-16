@@ -1025,7 +1025,7 @@
     var systemReloginIndex = 0 ;
     function getWinFun(init_flag){
     	 var url =  u + '/getTodayWin?user='+document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value
-    	 +'&boardType='+document.getElementById("boardType").value;
+    	 +'&boardType='+document.getElementById("boardType").value+'&betprojecttype='+ document.getElementById("betprojecttype").value;
 		 var flag = true;  
     	 $.ajax({ url:  url, 
 	         async: false,
@@ -1748,7 +1748,7 @@
  		let type = getType();
  		let betParam = getBetListParam();
  		if($( ".stoplose" ).val() && $( ".stopwin" ).val() && $( ".startstatus" ).val() ){
- 			const url =  u + "/saveParam?" + "user="+document.getElementById("user").value+"&type="+ type+
+ 			const url =  u + "/saveParam?" + "user="+(document.getElementById("user").value+'_'+document.getElementById("betprojecttype").value)+"&type="+ type+
  			betParam
  			+"&stoplose="+$( ".stoplose" ).val()+"&stopwin="+$( ".stopwin" ).val()+"&startstatus="+$( ".startstatus" ).val() 
  			+"&s_h="+document.getElementById("s_h").value+"&s_m="+document.getElementById("s_m").value

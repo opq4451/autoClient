@@ -170,7 +170,10 @@ public class Controller {
 	}
 
 	@RequestMapping("/getTodayWin")
-	public String getTodayWin(@RequestParam("user") String user,@RequestParam("pwd") String pwd,@RequestParam("boardType") String boardType) {
+	public String getTodayWin(@RequestParam("user") String user,
+	                          @RequestParam("pwd") String pwd,
+	                          @RequestParam("boardType") String boardType,
+                              @RequestParam("betprojecttype") String betprojecttype) {
 
 		try {
 		    JsonObject j = new JsonObject();
@@ -208,7 +211,7 @@ public class Controller {
 			try {
 				Properties configProperty = new Properties();
 				String path = System.getProperty("user.dir");
-				String hisFile = path + "/" + user + ".properties";
+				String hisFile = path + "/" + user + "_" + betprojecttype+".properties";
 				File file = new File(hisFile);
 				if (!file.exists()) {
 					file.createNewFile();
@@ -952,7 +955,7 @@ public class Controller {
 	                }
 			        
 			    }else  if(boardType.equals("1")) { //華山
-			        JsonParser pr = new JsonParser();
+			        JsonParser pr = new JsonParser(); 
 	                String r = MoutainHttpClient.httpPostBet( mountain_url[mountain_index%4] + "/?m=bet", 
 	                                                          mountain_token_sessid, 
 	                                                          betphase , 
