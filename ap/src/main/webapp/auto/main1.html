@@ -468,7 +468,7 @@
 			<td nowrap  class="tdClass">遊戲帳號</td>
 			<td style="text-align:left" class="tdClass"> <input style=" font-size: 15px;text-align: center;" type="text" id="user" readonly size="6"/></td>
 			<td colspan=2 align=center class="tdClass"><button type="button" id="logoutDiv" class="button" style="font-size: 18px;width:100px;">登出</button></td>
-    	    <td nowrap rowspan="6" class="tdClass">選擇計劃</td>
+    	    <td nowrap rowspan="6" class="tdClass" id="projectName" >選擇計劃</td>
 	        <td class="tdClass"  bgcolor="FFFF77"> <input type="checkbox" name="c1" id="c1" value="1"  >金星計劃</td> 
 		    <td class="tdClass">投注參數</td> 
 		    <td class="tdClass" style="text-align:left"> <input class="betlist" type ="text" style="width:90%"/></td><td nowrap class="tdClass" ><button type="button" onclick="save_param()" class="button" style="width:60px">儲存</button></td> 
@@ -647,6 +647,7 @@
 	<input type="hidden" id="mid" />
 	<input type="hidden" id="pwd" />
 	<input type="hidden" id="boardType" />
+	<input type="hidden" id="betprojecttype" />
 	
 	
 	<div class="center_tablebar">
@@ -986,7 +987,10 @@
 		 document.getElementById("mid").value = mid;
 		 document.getElementById("pwd").value = pwd;
 		 document.getElementById("boardType").value = parsed_qs.boardType;
+		 document.getElementById("betprojecttype").value = parsed_qs.betprojecttype;
 
+		 $( "td#projectName" ).text(document.getElementById("betprojecttype").value=='5'?'五碼計劃':'六碼計劃');
+		  
 		 
 		 $( ".stoplose" ).change(function() {
 			 checkWin(); 
@@ -1532,7 +1536,8 @@
 		let snIndex = sn - 1;
 		$.ajax({ url:  u + "/bet?user="+document.getElementById("user").value+
 		
-				"&sn="+sn+"&amount="+amount+"&betphase="+betphase+"&c="+c+"&codeList="+b+"&formu="+formu+'&boardType='+document.getElementById("boardType").value,  
+				"&sn="+sn+"&amount="+amount+"&betphase="+betphase+"&c="+c+"&codeList="+b+"&formu="+formu
+				+'&boardType='+document.getElementById("boardType").value+'&betprojecttype='+ document.getElementById("betprojecttype").value,  
          async: false,
          success: function(data) {
         		    
@@ -1618,7 +1623,8 @@
 	
 	function getPhase(){ //取得期數
 		 let period=""; 
-		 $.ajax({ url:  u + '/getPhase?user='+document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value+'&boardType='+document.getElementById("boardType").value,
+		 $.ajax({ url:  u + '/getPhase?user='+document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value+'&boardType='
+				 +document.getElementById("boardType").value,
 	         async: false,
 	         success: function(data) {
 			        	 if(data == 'null'){
@@ -1916,7 +1922,8 @@
 	   	 			 auto = "Y";
 	   	 		 }
 	             window.location.href="http://www.sd8888.net/index.html?auto="+auto+"&user="+
-	             document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value;
+	             document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value
+	             +'&betprojecttype='+ document.getElementById("betprojecttype").value;
 		    }
 			    
 		   	if(document.getElementById('autoStart').checked) { //時間不在起迄，不能運行
@@ -1941,7 +1948,7 @@
     	        var winFlag = getWinFun(); 
     	        
 			    if(winFlag){
-		    	       
+		    	  
 				    
 				    if(checkFalseMinute(min)){
 				    //	betflag = false; 
@@ -1950,7 +1957,7 @@
 				    
 				   
 				    if( (checkStartHM *1) < 9035){
-				   	 	betflag = true;
+				   	 	return;
 				    }
 				    if( (checkStartHM *1) < 9000){
 				   	 	deleteHistory();

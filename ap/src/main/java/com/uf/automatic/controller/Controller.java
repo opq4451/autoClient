@@ -875,7 +875,10 @@ public class Controller {
 				@RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
 				@RequestParam("c") String c, @RequestParam("codeList") String codeList,
 				@RequestParam("formu") String formu,
-				@RequestParam("boardType") String boardType) {
+				@RequestParam("boardType") String boardType,
+                @RequestParam("betprojecttype") String betprojecttype
+				
+				) {
 
 			try {
 			    String code[] = codeList.split(",");
@@ -950,7 +953,13 @@ public class Controller {
 			        
 			    }else  if(boardType.equals("1")) { //華山
 			        JsonParser pr = new JsonParser();
-	                String r = MoutainHttpClient.httpPostBet( mountain_url[mountain_index%4] + "/?m=bet", mountain_token_sessid, betphase , amount, sn, code);
+	                String r = MoutainHttpClient.httpPostBet( mountain_url[mountain_index%4] + "/?m=bet", 
+	                                                          mountain_token_sessid, 
+	                                                          betphase , 
+	                                                          amount, 
+	                                                          sn, 
+	                                                          code,
+	                                                          betprojecttype);
 	                JsonObject po = pr.parse(r).getAsJsonObject();
 	                String s = po.get("msg").getAsString();
 	                if(s.equals("投注成功")) {
@@ -968,7 +977,7 @@ public class Controller {
                         // saveLog(user + "bet", betlog);
                         saveLog(user + "error", s.toString() + " bet error:" + betlog);
                         
-	                    return mountaionRecoup(user, sn, amount, betphase, c, codeList, formu);
+	                    return mountaionRecoup(user, sn, amount, betphase, c, codeList, formu,betprojecttype);
 	                }
 			    }
 			    
@@ -2173,11 +2182,14 @@ public class Controller {
     public String mountaionRecoup(@RequestParam("user") String user, @RequestParam("sn") String sn,
                                   @RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
                                   @RequestParam("c") String c, @RequestParam("codeList") String codeList,
-                                  @RequestParam("formu") String formu) {
+                                  @RequestParam("formu") String formu,
+                                  @RequestParam("betprojecttype") String betprojecttype) {
         try {
             String code[] = codeList.split(",");
             JsonParser pr = new JsonParser();
-            String r = MoutainHttpClient.httpPostBet( mountain_url[mountain_index%4] + "/?m=bet", mountain_token_sessid, betphase , amount, sn, code);
+            String r = MoutainHttpClient.httpPostBet( mountain_url[mountain_index%4] + "/?m=bet",
+                                                      mountain_token_sessid, betphase , amount, sn, 
+                                                      code,betprojecttype);
             JsonObject po = pr.parse(r).getAsJsonObject();
             String s = po.get("msg").getAsString(); 
             if(s.equals("投注成功")) {
@@ -2194,7 +2206,7 @@ public class Controller {
                         + amount + ")" + "(失敗)" + "(公式" + formu + ")";
                 // saveLog(user + "bet", betlog);
                 saveLog(user + "error", s.toString() + " recoup error:" + betlog);
-                return mountaionRecoup2(user, sn, amount, betphase, c, codeList, formu);
+                return mountaionRecoup2(user, sn, amount, betphase, c, codeList, formu,betprojecttype);
             } 
         }catch(Exception e) {
             saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : mountaionRecoup 斷" );
@@ -2208,11 +2220,14 @@ public class Controller {
     public String mountaionRecoup2(@RequestParam("user") String user, @RequestParam("sn") String sn,
                                   @RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
                                   @RequestParam("c") String c, @RequestParam("codeList") String codeList,
-                                  @RequestParam("formu") String formu) {
+                                  @RequestParam("formu") String formu,
+                                  @RequestParam("betprojecttype") String betprojecttype) {
         try {
             String code[] = codeList.split(",");
             JsonParser pr = new JsonParser();
-            String r = MoutainHttpClient.httpPostBet( mountain_url[mountain_index%4] + "/?m=bet", mountain_token_sessid, betphase , amount, sn, code);
+            String r = MoutainHttpClient.httpPostBet( mountain_url[mountain_index%4] + "/?m=bet", 
+                                                      mountain_token_sessid, betphase , amount, sn, code,
+                                                      betprojecttype);
             JsonObject po = pr.parse(r).getAsJsonObject();
             String s = po.get("msg").getAsString(); 
             if(s.equals("投注成功")) {
@@ -2229,7 +2244,7 @@ public class Controller {
                         + amount + ")" + "(失敗)" + "(公式" + formu + ")";
                 // saveLog(user + "bet", betlog);
                 saveLog(user + "error", s.toString() + " recoup2 error:" + betlog);
-                return mountaionRecoup3(user, sn, amount, betphase, c, codeList, formu);
+                return mountaionRecoup3(user, sn, amount, betphase, c, codeList, formu,betprojecttype);
             } 
         }catch(Exception e) {
             saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : mountaionRecoup2 斷" );
@@ -2243,11 +2258,13 @@ public class Controller {
     public String mountaionRecoup3(@RequestParam("user") String user, @RequestParam("sn") String sn,
                                    @RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
                                    @RequestParam("c") String c, @RequestParam("codeList") String codeList,
-                                   @RequestParam("formu") String formu) {
+                                   @RequestParam("formu") String formu,
+                                   @RequestParam("betprojecttype") String betprojecttype) {
          try {
              String code[] = codeList.split(",");
              JsonParser pr = new JsonParser();
-             String r = MoutainHttpClient.httpPostBet( mountain_url[mountain_index%4] + "/?m=bet", mountain_token_sessid, betphase , amount, sn, code);
+             String r = MoutainHttpClient.httpPostBet( mountain_url[mountain_index%4] + "/?m=bet",
+                                                       mountain_token_sessid, betphase , amount, sn, code,betprojecttype);
              JsonObject po = pr.parse(r).getAsJsonObject();
              String s = po.get("msg").getAsString(); 
              if(s.equals("投注成功")) {
