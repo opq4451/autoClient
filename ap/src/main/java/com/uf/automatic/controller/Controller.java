@@ -690,60 +690,10 @@ public class Controller {
 
                    
                     
-                    if(x==5) {
-                            String betsn= "";
-                            if(i<5) {
-                                  betsn= sn + ",6,7,8,9,10";
-                            }else {
-                                  betsn=   "1,2,3,4,5," + sn;
-                            }
-                            
-                            for(String betp : betsn.split(",")) {
-                                int openIndex = Integer.parseInt(betp) -1 ;
-                                String key = phase + "@" + betsn + "@" + c[openIndex] + "@" + x; 
-                                if (configProperty.getProperty(key) != null) {
-                                    if (overmp.get(user + key) == null) {
-                                        overmp.put(user + key, "put");
-                                        over_i++;
-                                        // Utils.WritePropertiesFile(user+"overLOGDIS_log",
-                                        // fillZero(Integer.toString(over_i)), "第"+phase +
-                                        // "期，第" + sn + "名，號碼(" + code + ") 已過關!(第"+c+"關)");
-                                        String t = new SimpleDateFormat("HH:mm:ss").format(new Date());
-                                        Utils.WritePropertiesFile(user + "overLOGDIS_log",
-                                                                  fillZero(Integer.toString(over_i)),
-                                                                  "第" + phase + "期，第" + sn + "名，已過關!(第"
-                                                                                                      + configProperty.getProperty(key)
-                                                                                                      + "關)" + "(公式" + x + ")");
-
-                                        j.addProperty(covertIntToLatter(sn) + x, "Y");
-                                    }
-
-                                }
-                            }
-                            
+                    if(x==5 || x==6) {
                         
-                    }else if (x ==6){
-                        String betsn= "";
-                        if(i==0 || i==2 || i==4 || i==6 || i==8 ){ //單向車道
-                            betsn=  sn + ",2,4,6,8,10";
-                        }else{
-                                betsn = sn + ",1,3,5,7,9";
-                        }
-                        String myarray[] = betsn.split(",");
-                        Arrays.sort(myarray, new Comparator<String>() {
-                            @Override
-                            public int compare(String o1, String o2) {
-                                return Integer.valueOf(o1).compareTo(Integer.valueOf(o2));
-                            }
-                        });
-                        String betstring="";
-                        for(String betp : myarray) {
-                            betstring+=betp+",";
-                        }
-                        System.out.println(betstring);
-                        for(String betp : myarray) {
-                            int openIndex = Integer.parseInt(betp) -1 ;
-                            String key = phase + "@" + betstring.substring(0,betstring.length()-1) + "@" + c[openIndex] + "@" + x; 
+                        for(int overi = 1 ; overi<11;overi++) {
+                            String key = phase + "@" + sn + "@" + c[i] + "@" + x + "@" + overi;
                             if (configProperty.getProperty(key) != null) {
                                 if (overmp.get(user + key) == null) {
                                     overmp.put(user + key, "put");
@@ -754,16 +704,18 @@ public class Controller {
                                     String t = new SimpleDateFormat("HH:mm:ss").format(new Date());
                                     Utils.WritePropertiesFile(user + "overLOGDIS_log",
                                                               fillZero(Integer.toString(over_i)),
-                                                              "第" + phase + "期，第" + sn + "名，已過關!(第"
+                                                              "第" + phase + "期，號碼 "+c[i]+ "第" + sn + "名，已過關!(第"
                                                                                                   + configProperty.getProperty(key)
                                                                                                   + "關)" + "(公式" + x + ")");
 
-                                    j.addProperty(covertIntToLatter(sn) + x, "Y");
+                                    j.addProperty(covertIntToLatter(overi) + x, "Y");
                                 }
 
                             }
                         }
-                    }else {
+                        
+                        
+                    } else {
                         String key = phase + "@" + sn + "@" + c[i] + "@" + x;
                         if (configProperty.getProperty(key) != null) {
                             if (overmp.get(user + key) == null) {
@@ -958,10 +910,14 @@ public class Controller {
         String betsnArray[] = betsn.split(",");
         bi++;
         if (amount.equals("0") || (amount.equals("1") && boardType.equals("0"))) {
-            String overLog = betphase + "@" + betsn + "@" + codeList + "@" + formu;
-            saveOverLog(user, overLog, c);
+            for (String str : betsnArray) {
+                String overLog = betphase + "@" + str + "@" + codeList + "@" + formu + "@" + sn;
+                saveOverLog(user, overLog, c);
+            }
             return "";
         }
+        
+       
         if (boardType.equals("0")) {
             String r = h.getoddsInfo();
             // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
@@ -1003,8 +959,10 @@ public class Controller {
             if (resCode.equals("200")) {
 
                 
-                String overLog = betphase + "@" + betsn + "@" + codeList + "@" + formu;
-                saveOverLog(user, overLog, c);
+                for (String str : betsnArray) {
+                    String overLog = betphase + "@" + str + "@" + codeList + "@" + formu + "@" + sn;
+                    saveOverLog(user, overLog, c);
+                }
 
                 String betlog = "第" + betphase + "期" + "，第" + betsn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
                                 + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
