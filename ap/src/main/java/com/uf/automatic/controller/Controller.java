@@ -335,14 +335,19 @@ public class Controller {
                     int end = v.indexOf("名", 8);
                     String sn = v.substring(start + 1, end).length() == 1 ? "0" + v.substring(start + 1, end)
                                                                           : v.substring(start + 1, end); //第幾名
+                    int start_c = v.lastIndexOf("第" ) ;
+                    int end_c = v.lastIndexOf("關");
+                    String c = v.substring(start_c + 1, end_c).length() == 1 ? "0" + v.substring(start_c + 1, end_c)
+                                                                          : v.substring(start_c + 1, end_c); //第幾關
 
+                    
                     //System.out.println(sn);
 
                     if (v.indexOf("第0關") > -1) { //下注0的不用顯示在log
                         continue;
                     }
 
-                    String k = phase + key_form + sn;
+                    String k = phase + key_form + sn + c;
                     treemap.put(k, v);
 
                     //					{
