@@ -360,8 +360,17 @@ public class Controller {
                     if (v.indexOf("第0關") > -1) { //下注0的不用顯示在log
                         continue;
                     }
+                    String index = "" ;
+                    if  ( key_form.equals("6")) {index="01";}; if  ( key_form.equals("12")) {index="07";}
+                    if  ( key_form.equals("5")) {index="02";}; if  ( key_form.equals("11")) {index="08";}
+                    if  ( key_form.equals("4")) {index="03";}; if  ( key_form.equals("10")) {index="09";}
+                    if  ( key_form.equals("3")) {index="04";}; if  ( key_form.equals("9")) {index="10";}
+                    if  ( key_form.equals("2")) {index="05";}; if  ( key_form.equals("8")) {index="11";}
+                    if  ( key_form.equals("1")) {index="06";}; if  ( key_form.equals("7")) {index="12";}
 
-                    String k = phase + key_form + sn + c + cc;
+
+                    String k = phase + "@" + index + "@" + sn + "@" + c + "@"  + cc;
+                    
                     treemap.put(k, v);
 
                     //					{
@@ -405,8 +414,8 @@ public class Controller {
                     Map.Entry me = (Map.Entry) iter.next();
                     String v = me.getValue().toString();
                     String k = me.getKey().toString();
-                    String formu = k.substring(6, 7);
-                    String phase = k.substring(0, 6);
+                    String formu =  k.split("@")[1];
+                    String phase =  k.split("@")[0];
                     if (m.get(phase) == null) {
                         d++;
                         logHtml.append("</table>");
@@ -418,58 +427,58 @@ public class Controller {
                         m.put(phase, phase);
                     }
 
-                    if (formu.equals("1")) {
+                    if (formu.equals("06")) {
                         logHtml.append("<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">"
                                        + v.substring(0,v.lastIndexOf("(") ) + "</td></tr>");
                     }
-                    if (formu.equals("2")) {
+                    if (formu.equals("05")) {
                         logHtml.append("<tr><td bgcolor=\"5599FF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0,v.lastIndexOf("(") ) + "</td></tr>");
                     }
-                    if (formu.equals("3")) {
+                    if (formu.equals("04")) {
                         logHtml.append("<tr><td bgcolor=\"666666\"  style=\"border: 1px solid black\">"
                                        + v.substring(0,v.lastIndexOf("(") ) + "</td></tr>");
                     }
-                    if (formu.equals("4")) {
+                    if (formu.equals("03")) {
                         logHtml.append("<tr><td bgcolor=\"FFAA33\"  style=\"border: 1px solid black\">"
                                        + v.substring(0,v.lastIndexOf("(") ) + "</td></tr>");
                     }
-                    if (formu.equals("5")) {
+                    if (formu.equals("02")) {
                         logHtml.append("<tr><td bgcolor=\"99FFFF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0,v.lastIndexOf("(") ) + "</td></tr>");
                     }
 
-                    if (formu.equals("6")) {
+                    if (formu.equals("01")) {
                         logHtml.append("<tr><td bgcolor=\"B94FFF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0,v.lastIndexOf("(") ) + "</td></tr>");
                     }
                     
-                    if (formu.equals("7")) {
+                    if (formu.equals("12")) {
                         logHtml.append("<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">"
                                        + v.substring(0,v.lastIndexOf("(") ) + "</td></tr>");
                     }
                     
-                    if (formu.equals("8")) {
+                    if (formu.equals("11")) {
                         logHtml.append("<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">"
                                        + v.substring(0,v.lastIndexOf("(") ) + "</td></tr>");
                     }
                     
-                    if (formu.equals("9")) {
+                    if (formu.equals("10")) {
                         logHtml.append("<tr><td bgcolor=\"A52A2A\"  style=\"border: 1px solid black\">"
                                        + v.substring(0,v.lastIndexOf("(") ) + "</td></tr>");
                     }
                     
-                    if (formu.equals("10")) {
+                    if (formu.equals("09")) {
                         logHtml.append("<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">"
                                        + v.substring(0,v.lastIndexOf("(") ) + "</td></tr>");
                     }
                     
-                    if (formu.equals("11")) {
+                    if (formu.equals("08")) {
                         logHtml.append("<tr><td bgcolor=\"CCFF99\"  style=\"border: 1px solid black\">"
                                        + v.substring(0,v.lastIndexOf("(") ) + "</td></tr>");
                     }
                     
-                    if (formu.equals("12")) {
+                    if (formu.equals("07")) {
                         logHtml.append("<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0,v.lastIndexOf("(") ) + "</td></tr>");
                     }
@@ -781,7 +790,7 @@ public class Controller {
                                                                                                   + configProperty.getProperty(key)
                                                                                                   + "關)" + "(公式" + x + ")");
 
-                                    j.addProperty(covertIntToLatter(overi) + x, "Y");
+                                    j.addProperty(covertIntToLatter(overi) +  (x>6?x-6:x), "Y");
                                 }
 
                             }
