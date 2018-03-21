@@ -48,11 +48,7 @@
         <input id="user" class="form-control" placeholder="帳號" required autofocus>
         <label class="sr-only">密碼</label>
         <input type="password" id="pwd" class="form-control" placeholder="密碼" required>
-        <label class="sr-only">方式</label>
-        <select class="form-control" id="betprojecttype" >
-			  <option value="5" selected  >五碼計劃</option>
-			  <option value="6" >六碼計劃</option> 
-		</select>
+        
          
          <div class="form-control" >
          <input class="tip" type="text" style="width:80px" name="ValidateCode"  autocomplete="off" placeholder="驗證碼" id="ValidateCode">
@@ -129,7 +125,7 @@
 		            		var t = $( ".ui-dialog-buttonpane" ).find("button").eq(0).text();
 		            		if(t == '同意'){
 	  						 	window.location.href = "http://www.sd8888.net/main1.html?auto="+start+"&user="+user+'&pwd='+pwd_in+"&end_date="+end_date
-	  						 	+"&boardType="+bd+"&betprojecttype="+document.getElementById("betprojecttype").value; 
+	  						 	+"&boardType="+bd; 
 		            		}
 		            	
 		            },
@@ -164,8 +160,7 @@
 		let pwd = (parsed_qs.pwd) ;
 		let user= (parsed_qs.user); 
 		let auto= (parsed_qs.auto); 
-		let betprojecttype= (parsed_qs.betprojecttype); 
-		document.getElementById("betprojecttype").value = betprojecttype;
+	 
 		if(pwd && user){
 			 login(user,pwd,auto,'noResponse');
 			 
@@ -191,7 +186,7 @@
 	  			         success: function(r) { 
 	  			        	 	if(no && r == 'Y'){
 	  						 	window.location.href = "http://www.sd8888.net/main1.html?auto="+start+"&user="+user+'&pwd='+pwd_in+"&end_date="+end_date
-	  						 	+"&boardType="+bd+"&betprojecttype="+document.getElementById("betprojecttype").value; ; 
+	  						 	+"&boardType="+bd; 
 
 	  			        	 	}else if(r == 'Y'){
 	  			        	 		openDialog(user,pwd,start,pwd_in,end_date,bd);
