@@ -1721,17 +1721,28 @@
 	}
 	
 	function checkProjectBetflag(){
-	 	  if( 
+	 	  if(  document.getElementById("betproject5").checked &&  (
 	 		  (document.getElementById('c1').checked && !checkProjectBetFlagIndex(projectBet[1])) ||
 	 		  (document.getElementById('c2').checked && !checkProjectBetFlagIndex(projectBet[2])) ||
 	 		  (document.getElementById('c3').checked && !checkProjectBetFlagIndex(projectBet[3])) ||
 	 		  (document.getElementById('c4').checked && !checkProjectBetFlagIndex(projectBet[4])) ||
 	 		  (document.getElementById('c5').checked && !checkProjectBetFlagIndex(projectBet[5])) ||
-	 		  (document.getElementById('c6').checked && !checkProjectBetFlagIndex(projectBet[6]))  
+	 		  (document.getElementById('c6').checked && !checkProjectBetFlagIndex(projectBet[6]))   )
+	 	  ) {
+	 		 return false;
+	 	  }else if(
+	 			  document.getElementById("betproject6").checked &&  (
+		 		  (document.getElementById('c7').checked && !checkProjectBetFlagIndex(projectBet[1])) ||
+		 		  (document.getElementById('c8').checked && !checkProjectBetFlagIndex(projectBet[2])) ||
+		 		  (document.getElementById('c9').checked && !checkProjectBetFlagIndex(projectBet[3])) ||
+		 		  (document.getElementById('c10').checked && !checkProjectBetFlagIndex(projectBet[4])) ||
+		 		  (document.getElementById('c11').checked && !checkProjectBetFlagIndex(projectBet[5])) ||
+		 		  (document.getElementById('c12').checked && !checkProjectBetFlagIndex(projectBet[6]))   ) 
+	 	  
 	 	  ) {
 	 		 return false;
 	 	  }else {
-	 		 return true;
+	 		  return true;
 	 	  }
 	 
 	}
@@ -2140,7 +2151,7 @@
 								  	clearProjectBetFlag();
 								}else  if(checkSub1 == '' ||  (( phase * 1 ) - ( checkSub1 * 1 )) == 1 ){
 									
-								
+									console.log('enter selectobet');
 									let o = selectTypeToBet(phase);  
 						       	 	
 								}  
@@ -2482,7 +2493,7 @@
 				  } 
 		    	    }
 	  	  }
-	  	  
+	  	  console.log(document.getElementById('betproject6').checked);
 	  	  if(document.getElementById('betproject6').checked ){ //六碼計劃
 	  		  
 	  		 if(document.getElementById('c12').checked  && !checkProjectBetFlagIndex(projectBet[6]) ) {

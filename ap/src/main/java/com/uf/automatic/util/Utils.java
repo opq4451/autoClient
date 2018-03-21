@@ -90,7 +90,7 @@ public class Utils {
         
         String a = "(第0關)(公式12)";
         
-        System.out.println(a.substring(a.lastIndexOf("式")+1, a.lastIndexOf(")")));
+        System.out.println(a.substring(0, a.lastIndexOf("(")));
         
 
     }
