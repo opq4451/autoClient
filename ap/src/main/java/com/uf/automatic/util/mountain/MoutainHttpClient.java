@@ -346,7 +346,7 @@ public class MoutainHttpClient {
     public static String httpPostBet(String url, String cookie ,String betPhase, 
                                      String amount,String sn,String[] code) throws Exception {
 
-        int totalAmount = Integer.parseInt(amount) * 6 ;
+        int totalAmount = Integer.parseInt(amount) * code.length ;
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         HttpPost httpPost = new HttpPost(url);
@@ -356,22 +356,65 @@ public class MoutainHttpClient {
         List<NameValuePair> nvps = new ArrayList<NameValuePair>();
         nvps.add(new BasicNameValuePair("gameId", "4"));
         nvps.add(new BasicNameValuePair("turnNum", betPhase));
-        nvps.add(new BasicNameValuePair("totalNums", "6"));  
+        nvps.add(new BasicNameValuePair("totalNums", Integer.toString(code.length)));  
         nvps.add(new BasicNameValuePair("totalMoney", Integer.toString(totalAmount)));
-        nvps.add(new BasicNameValuePair("betBean[0][playId]", convertBetPlayId(sn,code[0]))); //1+ sn index +  01~ 10 //code
-        nvps.add(new BasicNameValuePair("betBean[0][money]", amount));
-        nvps.add(new BasicNameValuePair("betBean[1][playId]", convertBetPlayId(sn,code[1])));
-        nvps.add(new BasicNameValuePair("betBean[1][money]", amount));
-        nvps.add(new BasicNameValuePair("betBean[2][playId]", convertBetPlayId(sn,code[2])));
-        nvps.add(new BasicNameValuePair("betBean[2][money]", amount));
-        nvps.add(new BasicNameValuePair("betBean[3][playId]", convertBetPlayId(sn,code[3])));
-        nvps.add(new BasicNameValuePair("betBean[3][money]", amount));
-        nvps.add(new BasicNameValuePair("betBean[4][playId]", convertBetPlayId(sn,code[4])));
-        nvps.add(new BasicNameValuePair("betBean[4][money]", amount));
-         
-            nvps.add(new BasicNameValuePair("betBean[5][playId]", convertBetPlayId(sn,code[5])));
-            nvps.add(new BasicNameValuePair("betBean[5][money]", amount));
+        
+        for(int i =0 ;i<code.length;i++) {
+            nvps.add(new BasicNameValuePair("betBean["+i+"][playId]", convertBetPlayId(sn,code[i]))); //1+ sn index +  01~ 10 //code
+            nvps.add(new BasicNameValuePair("betBean["+i+"][money]", amount));
+        }
+        
      
+//        nvps.add(new BasicNameValuePair("betBean[1][playId]", convertBetPlayId(sn,code[1])));
+//        nvps.add(new BasicNameValuePair("betBean[1][money]", amount));
+//        nvps.add(new BasicNameValuePair("betBean[2][playId]", convertBetPlayId(sn,code[2])));
+//        nvps.add(new BasicNameValuePair("betBean[2][money]", amount));
+//        nvps.add(new BasicNameValuePair("betBean[3][playId]", convertBetPlayId(sn,code[3])));
+//        nvps.add(new BasicNameValuePair("betBean[3][money]", amount));
+//        nvps.add(new BasicNameValuePair("betBean[4][playId]", convertBetPlayId(sn,code[4])));
+//        nvps.add(new BasicNameValuePair("betBean[4][money]", amount));
+//         
+//            nvps.add(new BasicNameValuePair("betBean[5][playId]", convertBetPlayId(sn,code[5])));
+//            nvps.add(new BasicNameValuePair("betBean[5][money]", amount));
+     
+        
+        httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+        CloseableHttpResponse response = httpclient.execute(httpPost); 
+
+        try {
+            String content = EntityUtils.toString(response.getEntity());
+         
+            return content;
+        } catch (Exception e) {
+
+        } finally {
+
+        }
+        return "";
+    }
+    
+    public static String httpPostBetBySn(String url, String cookie ,String betPhase, 
+                                     String amount,String []sn, String code) throws Exception {
+
+        int totalAmount = Integer.parseInt(amount) * sn.length ;
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        HttpPost httpPost = new HttpPost(url);
+
+        httpPost.setHeader("Cookie", cookie);
+
+        List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+        nvps.add(new BasicNameValuePair("gameId", "4"));
+        nvps.add(new BasicNameValuePair("turnNum", betPhase));
+        nvps.add(new BasicNameValuePair("totalNums", Integer.toString(sn.length)));  
+        nvps.add(new BasicNameValuePair("totalMoney", Integer.toString(totalAmount)));
+        
+        for(int i =0 ;i<sn.length;i++) {
+            nvps.add(new BasicNameValuePair("betBean["+i+"][playId]", convertBetPlayId(sn[i],code))); //1+ sn index +  01~ 10 //code
+            nvps.add(new BasicNameValuePair("betBean["+i+"][money]", amount));
+        }
+        
+      
         
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         CloseableHttpResponse response = httpclient.execute(httpPost); 
