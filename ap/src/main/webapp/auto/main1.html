@@ -2186,22 +2186,23 @@
 				    	clearProjectBetFlag();
 				    }
 				    
-				   
-				    if( (checkStartHM *1) < 9017){
-				   	 	return;
-				    }
 				    if( (checkStartHM *1) < 9000){
 				   	 	deleteHistory();
 				    }
 				    
+				    if( (checkStartHM *1) < 9017){
+				   	 	return;
+				    }
+				   
 				    
 				    
-				   /* if(!checkMemberStatus()){  
+				    
+				    if(!checkMemberStatus()){  
 		    				console.log('停止下注中');
 		    				clearIndex();
 		    				checkSub1='';
 		    				return; 
-		    			}*/
+		    			}
 				    
 				    
 				    log_betIndex();
