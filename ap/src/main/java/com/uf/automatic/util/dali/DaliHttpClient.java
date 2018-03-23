@@ -66,7 +66,7 @@ public class DaliHttpClient {
 
     private static DaliHttpClient instance;
     private static String checkStartUrl = "https://drive.google.com/uc?export=download&id=17PsTMGjyNnGga5wWjZ4CQS6dOm4OdcxF";
-   // private static String forceUrl = "http://220.132.126.216:9999/getForce";
+    // private static String forceUrl = "http://220.132.126.216:9999/getForce";
     private static String startFlag = "";
 
     public static String checkStart() {
@@ -82,44 +82,49 @@ public class DaliHttpClient {
     public DaliHttpClient(String id, String password) {
         // TODO Auto-generated constructor stub
         setId(id);
-        setPassword(password); 
-        
-        String d =  daliUrl[daliUrl_index%5] + "Home/Ulogin_off_code" ;
-        System.out.println(daliUrl[daliUrl_index%5] );
+        setPassword(password);
+
+        String d = daliUrl[daliUrl_index % 5] + "/member/Home/Ulogin_off_code";
+
         setInitCookie(d);//塞 cookie
     }
 
-     
-
     public static DaliHttpClient getInstance(String id, String password) {
-        startFlag = checkStart();
-        if (!startFlag.equals("Y")) {
-            return null;
-        }
+        /*
+         * startFlag = checkStart(); if (!startFlag.equals("Y")) { return null; }
+         */
         // if(instance == null) {
         instance = new DaliHttpClient(id, password);
         // }
-
+        try {
+            enter();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return instance;
 
     }
 
-    static String daliUrl[] = { "http://13561.nptt6729.com/member/", "http://13561.ajjkk6779.com/member/",
-            "http://13561.cppq99638.com/member/", "http://13561.ctty12369.com/member/",
-            "http://13561.cqnm2355.com/member/" };
-    
+    static String daliUrl[] = { "http://13561.nptt6729.com", "http://13561.ajjkk6779.com", "http://13561.cppq99638.com",
+                                "http://13561.ctty12369.com", "http://13561.cqnm2355.com" };
+
     // sd8885 //Aa258369
     static int daliUrl_index = 0;
- 
 
     public static void main(String[] args) {
         try {
-            DaliHttpClient  d_h = DaliHttpClient.getInstance("bee6611", "asdf123123");
-            getBetMD5();
+            DaliHttpClient d_h = DaliHttpClient.getInstance("bee6611", "asdf123123");
             
-           // String force = Utils.httpClientGet(forceUrl);
+            JsonObject a = getBetMD5_PL();
 
-           // System.out.println(force);
+            if(a.isJsonObject()) {
+                String MD5 = a.get("MD5").getAsString();
+                System.out.println(MD5);
+            }
+            // String force = Utils.httpClientGet(forceUrl);
+
+            // System.out.println(force);
             // httpClientCookie a =
             // httpClientCookie.getInstance("sd8885","Aa258369");
             // httpClientCookie t =
@@ -162,14 +167,12 @@ public class DaliHttpClient {
 
             // a.getoddsInfoForDouble();
             /*
-             * action:put_money phaseid:165921 oddsid:1,2 uPI_P:9.81,9.81
-             * uPI_M:10,10 i_index:0,1 JeuValidate:11170449105207
-             * playpage:pk10_d1_10
+             * action:put_money phaseid:165921 oddsid:1,2 uPI_P:9.81,9.81 uPI_M:10,10 i_index:0,1
+             * JeuValidate:11170449105207 playpage:pk10_d1_10
              * 
              * 
-             * action:put_money phaseid:165921 oddsid:17,146 uPI_P:9.81,9.81
-             * uPI_M:10,10 i_index:0,1 JeuValidate:11170449214316
-             * playpage:pk10_d1_10
+             * action:put_money phaseid:165921 oddsid:17,146 uPI_P:9.81,9.81 uPI_M:10,10 i_index:0,1
+             * JeuValidate:11170449214316 playpage:pk10_d1_10
              */
 
             // String a = new SimpleDateFormat("MMddhhmmsssSSS").format(new
@@ -189,8 +192,8 @@ public class DaliHttpClient {
 
             /*
              * 
-             * action:put_money phaseid:163754 oddsid:2 uPI_P:9.81 uPI_M:10
-             * i_index:0 JeuValidate:11050308464138 playpage:pk10_d1_10
+             * action:put_money phaseid:163754 oddsid:2 uPI_P:9.81 uPI_M:10 i_index:0 JeuValidate:11050308464138
+             * playpage:pk10_d1_10
              */
             // 649096
             // phaseid 163755
@@ -265,30 +268,120 @@ public class DaliHttpClient {
     // }
     // return "";
     // }
-
-    public static String center() throws Exception{
+    public static String hitEvent() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        
-        System.out.println(daliUrl[daliUrl_index%5] );
-        HttpGet Post = new HttpGet(daliUrl[daliUrl_index%5] + "Game_v2/bjpk10_dq1_10?webUU=HJK1HUWH2FBBS8DS9WQ");
-        
 
-        Post.setHeader("Cookie", daliCookie );
-      
-        
-        
-//        List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-//        params.add(new BasicNameValuePair("No", "400"));
-//        params.add(new BasicNameValuePair("MD5", "-1")); 
-        
-//        Post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-        
+        HttpPost Post = new HttpPost(daliUrl[daliUrl_index % 5] + "/member/Submit/bcyx");
+
+        Post.setHeader("Cookie", daliCookie);
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+        params.add(new BasicNameValuePair("No", "400"));
+
+        Post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+
+        CloseableHttpResponse response = httpclient.execute(Post);
+        try {
+
+            String content = EntityUtils.toString(response.getEntity());
+
+            return "";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            response.close();
+        }
+
+        return "";
+    }
+
+    public static String enter() throws Exception {
+
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        HttpGet Post = new HttpGet(daliUrl[daliUrl_index % 5] + "/member/Main/menu_old");
+
+        Post.setHeader("Cookie", daliCookie);
+
         CloseableHttpResponse response = httpclient.execute(Post);
 
         try {
             String content = EntityUtils.toString(response.getEntity());
-            System.out.println(content);
-            return "";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            response.close();
+        }
+
+        hitEvent();
+        return "";
+    }
+
+    public static JsonObject getBetMD5_PL() throws Exception {
+
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        HttpPost Post = new HttpPost(daliUrl[daliUrl_index % 5] + "/member/Game_v2/gxpl");
+
+        Post.setHeader("Cookie", daliCookie);
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+        params.add(new BasicNameValuePair("ItemNo", "407"));
+        params.add(new BasicNameValuePair("MD5", "-1"));
+
+        Post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+
+        CloseableHttpResponse response = httpclient.execute(Post);
+
+        try {
+
+            String content = EntityUtils.toString(response.getEntity());
+
+            JsonParser parser = new JsonParser();
+
+            JsonObject o = parser.parse(content).getAsJsonObject();
+
+            //String MD5 = o.get("MD5").getAsString();
+
+            return o;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            response.close();
+        }
+        return null;
+    }
+
+    public static String getBetID(String betString) throws Exception {
+
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        HttpPost Post = new HttpPost(daliUrl[daliUrl_index % 5] + "/member/Submit/getOddsAndName");
+
+        Post.setHeader("Cookie", daliCookie);
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+        params.add(new BasicNameValuePair("oddsName", betString));
+        params.add(new BasicNameValuePair("type", "1"));
+
+        Post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+
+        CloseableHttpResponse response = httpclient.execute(Post);
+
+        try {
+
+            String content = EntityUtils.toString(response.getEntity());
+
+            JsonParser parser = new JsonParser();
+
+            JsonArray o = parser.parse(content).getAsJsonArray();
+
+            JsonObject j = o.get(o.size()-1).getAsJsonObject();
+
+            return j.get("XDnum").getAsString();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -297,53 +390,6 @@ public class DaliHttpClient {
         }
         return "";
     }
-    
-     public static String getBetMD5() throws Exception{
-         center();
-         CloseableHttpClient httpclient = HttpClients.createDefault();
-         
-         System.out.println(daliUrl[daliUrl_index%5] );
-         HttpPost Post = new HttpPost(daliUrl[daliUrl_index%5] + "Game_v2/gxpl");
-         long unixTime = Math.round(System.currentTimeMillis() / 1000L);
-         daliCookie = daliCookie.replaceAll("path=/;", "");
-         daliCookie = daliCookie.replaceAll("HttpOnly;", "");
-
-         Post.setHeader("Cookie", daliCookie+"page_ts="+unixTime);
-         Post.setHeader("Referer", daliUrl[daliUrl_index%5] + "Game_v2/bjpk10_dq1_10?webUU=HJK1HUWH2FBBS8DS9WQ");
-         Post.setHeader(HttpHeaders.ACCEPT, "application/json, text/javascript, */*; q=0.01");
-         Post.setHeader(HttpHeaders.CONTENT_TYPE,"application/x-www-form-urlencoded;");
-         Post.setHeader("X-Requested-With", "XMLHttpRequest");
-         Post.setHeader("Origin", daliUrl[daliUrl_index%5].replace("/member", "") );
-
-         
-         
-         
-         List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-         params.add(new BasicNameValuePair("ItemNo", "407"));
-         params.add(new BasicNameValuePair("MD5", "-1")); 
-         
-         Post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-         
-         CloseableHttpResponse response = httpclient.execute(Post);
-
-         try {
-
-             String content = EntityUtils.toString(response.getEntity());
-             System.out.println(content);
-             JsonParser parser = new JsonParser();
-             JsonObject o = parser.parse(content).getAsJsonObject();
-             String MD5 = o.get("MD5").getAsString();
-             System.out.println(MD5);
-             
-             return MD5;
-
-         } catch (Exception e) {
-             e.printStackTrace();
-         } finally {
-             response.close();
-         }
-         return "";
-     }
 
     // "http://w1.5a1234.com/?m=acc&gameId=2"
     public static String httpGet(String cookie, String url) throws Exception {
@@ -368,13 +414,12 @@ public class DaliHttpClient {
         }
         return "";
     }
-    
+
     public static String getTodayUse() throws Exception {
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
-      
-        
-        HttpGet HttpGet = new HttpGet(daliUrl[daliUrl_index%5] + "/Main/left");
+
+        HttpGet HttpGet = new HttpGet(daliUrl[daliUrl_index % 5] + "/member/Main/left");
 
         HttpGet.setHeader("Cookie", daliCookie);
 
@@ -392,13 +437,12 @@ public class DaliHttpClient {
         }
         return "";
     }
-    
+
     public static String getTodayWin() throws Exception {
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
-      
-        
-        HttpGet HttpGet = new HttpGet(daliUrl[daliUrl_index%5] + "/Game_v2/gd_lmp?webUU=HJK1HUWH2FBBS8DS9WQ");
+
+        HttpGet HttpGet = new HttpGet(daliUrl[daliUrl_index % 5] + "/Game_v2/gd_lmp?webUU=HJK1HUWH2FBBS8DS9WQ");
 
         HttpGet.setHeader("Cookie", daliCookie);
 
@@ -417,15 +461,16 @@ public class DaliHttpClient {
         return "";
     }
 
-    public static String convertBetPlayId(String sn,String code) {
-        String convertCode = code.length()==1? "0" + code: code;
-        int convertSn = Integer.parseInt(sn) -1 ; 
+    public static String convertBetPlayId(String sn, String code) {
+        String convertCode = code.length() == 1 ? "0" + code : code;
+        int convertSn = Integer.parseInt(sn) - 1;
         return "1" + convertSn + convertCode;
     }
-    public static String httpPostBet(String url, String cookie ,String betPhase, 
-                                     String amount,String sn,String[] code) throws Exception {
 
-        int totalAmount = Integer.parseInt(amount) * 5 ;
+    public static String httpPostBet(String url, String cookie, String betPhase, String amount, String sn,
+                                     String[] code) throws Exception {
+
+        int totalAmount = Integer.parseInt(amount) * 5;
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         HttpPost httpPost = new HttpPost(url);
@@ -435,25 +480,25 @@ public class DaliHttpClient {
         List<NameValuePair> nvps = new ArrayList<NameValuePair>();
         nvps.add(new BasicNameValuePair("gameId", "4"));
         nvps.add(new BasicNameValuePair("turnNum", betPhase));
-        nvps.add(new BasicNameValuePair("totalNums", "5"));  
+        nvps.add(new BasicNameValuePair("totalNums", "5"));
         nvps.add(new BasicNameValuePair("totalMoney", Integer.toString(totalAmount)));
-        nvps.add(new BasicNameValuePair("betBean[0][playId]", convertBetPlayId(sn,code[0]))); //1+ sn index +  01~ 10 //code
+        nvps.add(new BasicNameValuePair("betBean[0][playId]", convertBetPlayId(sn, code[0]))); //1+ sn index +  01~ 10 //code
         nvps.add(new BasicNameValuePair("betBean[0][money]", amount));
-        nvps.add(new BasicNameValuePair("betBean[1][playId]", convertBetPlayId(sn,code[1])));
+        nvps.add(new BasicNameValuePair("betBean[1][playId]", convertBetPlayId(sn, code[1])));
         nvps.add(new BasicNameValuePair("betBean[1][money]", amount));
-        nvps.add(new BasicNameValuePair("betBean[2][playId]", convertBetPlayId(sn,code[2])));
+        nvps.add(new BasicNameValuePair("betBean[2][playId]", convertBetPlayId(sn, code[2])));
         nvps.add(new BasicNameValuePair("betBean[2][money]", amount));
-        nvps.add(new BasicNameValuePair("betBean[3][playId]", convertBetPlayId(sn,code[3])));
+        nvps.add(new BasicNameValuePair("betBean[3][playId]", convertBetPlayId(sn, code[3])));
         nvps.add(new BasicNameValuePair("betBean[3][money]", amount));
-        nvps.add(new BasicNameValuePair("betBean[4][playId]", convertBetPlayId(sn,code[4])));
+        nvps.add(new BasicNameValuePair("betBean[4][playId]", convertBetPlayId(sn, code[4])));
         nvps.add(new BasicNameValuePair("betBean[4][money]", amount));
-        
+
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
-        CloseableHttpResponse response = httpclient.execute(httpPost); 
+        CloseableHttpResponse response = httpclient.execute(httpPost);
 
         try {
             String content = EntityUtils.toString(response.getEntity());
-         
+
             return content;
         } catch (Exception e) {
 
@@ -463,24 +508,21 @@ public class DaliHttpClient {
         return "";
     }
 
-   
-   
     private String setInitCookie(String url) {
-       
+
         try {
-             
+
             String cookie = getCookieHttpClient(url);
-            System.out.println("************" + daliUrl);
-            System.out.println(cookie);
-            if(!cookie.equals("")) {
+
+            if (!cookie.equals("")) {
                 setCookie(cookie);
-            }else {
+            } else {
                 daliUrl_index++;
-                String urla = daliUrl[daliUrl_index%5] + "Home/Ulogin_off_code";
+                String urla = daliUrl[daliUrl_index % 5] + "/member/Home/Ulogin_off_code";
                 setInitCookie(urla);
             }
-            
-        }catch(Exception e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "";
@@ -501,35 +543,32 @@ public class DaliHttpClient {
 
         return cookie;
     }
-    
-    
+
     public static String getCookieHttpClient(String uri) throws Exception {
         BasicCookieStore cookieStore = new BasicCookieStore();
         HttpClientBuilder builder = HttpClientBuilder.create().setDefaultCookieStore(cookieStore);
-
-       
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpClientContext context = HttpClientContext.create();
         RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(60000).setConnectTimeout(60000).build();
         System.out.println(uri);
         HttpPost httppost = new HttpPost(uri);
-     // Request parameters and other properties.
+        // Request parameters and other properties.
         List<NameValuePair> params = new ArrayList<NameValuePair>(2);
         params.add(new BasicNameValuePair("loginName", id));
         params.add(new BasicNameValuePair("loginPwd", password));
         params.add(new BasicNameValuePair("ValidateCode", ""));
-        
+
         httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-        
+
         httppost.setConfig(requestConfig);
         getDaliCookie();
         System.out.println(daliCookie);
-        httppost.setHeader("Cookie",daliCookie); 
-        
+        httppost.setHeader("Cookie", daliCookie);
+
         String result = null;
-        String cookieString="";
-        cookieString+=daliCookie ;
+        String cookieString = "";
+        cookieString += daliCookie;
         try {
             HttpResponse httpresponse = httpClient.execute(httppost);
             HttpEntity entity = httpresponse.getEntity();
@@ -539,63 +578,64 @@ public class DaliHttpClient {
             JsonObject o = parser.parse(result).getAsJsonObject();
             String code = o.get("LoginStatus").getAsString();
             System.out.println(code);
-            if(!code.equals("1")) {
-                    daliUrl_index++;
-                    String urla = daliUrl[daliUrl_index%5] + "Home/Ulogin_off_code?"+
-                            "&loginName="+id+"&loginPwd="+password+"";
-                     
-                    getCookieHttpClient(urla);
+            if (!code.equals("1")) {
+                daliUrl_index++;
+                String urla = daliUrl[daliUrl_index % 5] + "Home/Ulogin_off_code?" + "&loginName=" + id + "&loginPwd="
+                              + password + "";
+
+                getCookieHttpClient(urla);
             }
             try {
-                
+
                 Header[] headers = httpresponse.getHeaders("Set-Cookie");
                 for (Header h : headers) {
-                    cookieString+=h.getValue().toString()+";";
-                    System.out.println(h.getValue().toString());  
+                    cookieString += h.getValue().toString() + ";";
+                    System.out.println(h.getValue().toString());
                 }
                 //cookieString+="menuId=2;cookiescurrentmlid=2; cookiescurrentlid=2;";
             } finally {
-                
+
             }
             daliCookie = cookieString;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             daliUrl_index++;
-            String urla = daliUrl[daliUrl_index%5] + "Home/Ulogin_off_code?"+
-                    "&loginName="+id+"&loginPwd="+password+"";
-             
+            String urla = daliUrl[daliUrl_index % 5] + "Home/Ulogin_off_code?" + "&loginName=" + id + "&loginPwd="
+                          + password + "";
+
             getCookieHttpClient(urla);
             throw e;
         } finally {
             httpClient.close();
         }
         return cookieString;
-    } 
-    
-    private static String daliCookie="";
+    }
+
+    private static String daliCookie = "";
+
     public static String getDaliCookie() throws IOException {
         try {
-            
-            CloseableHttpResponse httpresponse = null ;
-        
+
+            CloseableHttpResponse httpresponse = null;
+
             CloseableHttpClient httpclient = HttpClients.createDefault();
-            
-            HttpGet HttpGet = new HttpGet( daliUrl[daliUrl_index%5]);
-            
-           
+
+            HttpGet HttpGet = new HttpGet(daliUrl[daliUrl_index % 5] + "/member");
+
             httpresponse = httpclient.execute(HttpGet);
-            
-            daliCookie = DaliHttpClient.setCookie(httpresponse); 
-             
-            
-            
+
+            daliCookie = DaliHttpClient.setCookie(httpresponse);
+
             return daliCookie;
-        }catch(Exception e) {
+        } catch (Exception e) {
             daliUrl_index++;
         }
-            return null;   
+        return null;
     }
     
+    public static int getPlIndex(String sn, String code) {
+        return (Integer.parseInt(sn) - 1) * 10 + (Integer.parseInt(code) - 1);
+    }
 
     public String getId() {
         return id;

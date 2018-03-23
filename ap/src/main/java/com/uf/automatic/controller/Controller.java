@@ -224,9 +224,7 @@ public class Controller {
 
                 
             }
-			
-			  String MD5 = DaliHttpClient.getBetMD5();
-              System.out.println(MD5);
+			 
 
 			FileInputStream fileIn = null;
 			try {
@@ -999,8 +997,27 @@ public class Controller {
 	                }
 			    }else  if(boardType.equals("2")) { //大立
                     JsonParser pr = new JsonParser();
-                    String MD5 = DaliHttpClient.getBetMD5();
-                    System.out.println(MD5);
+                    JsonObject j = DaliHttpClient.getBetMD5_PL();
+                    String MD5 = j.get("MD5").getAsString();
+                    
+                    JsonArray a = j.getAsJsonArray("DATAODDS") ;
+                    
+                    String betString = "";//40001,9.909,1|40018,9.909,1|40036,9.909,1
+                    for (String str : code) { 
+                        int index = DaliHttpClient.getPlIndex(sn, str) ;
+                        JsonObject bet = a.get(index).getAsJsonObject();
+                        String pl = bet.get("OddsValue1").getAsString();
+                        String betItemNo = bet.get("ItemNO").getAsString();
+                        betString += betItemNo+","+pl+","+amount+"|"; 
+                    }
+                    betString = betString.substring(0,betString.length()-1);
+                    System.out.println(betString);
+                    String betid = DaliHttpClient.getBetID(betString);
+                    System.out.println(betid);
+                    
+                    
+                    
+                    
 //                    JsonObject po = pr.parse(r).getAsJsonObject();
 //                    String s = po.get("msg").getAsString();
 //                    if(s.equals("投注成功")) {
