@@ -1489,11 +1489,23 @@
 		    var writeFlag = false;
 		    var amount = bArray[bIndex[z]%bArray.length] ;
 		    let betCode= "";
-		    if(i==0 || i==2 || i==4 || i==6 || i==8 ){ //
-		   	 	betCode = array_before4[1]+','+array_before4[3]+','+array_before4[5]+','+array_before4[7]+','+array_before4[9] ;
-		    }else {
-		   	 	betCode = array_before4[2]+','+array_before4[4]+','+array_before4[6]+','+array_before4[8]+','+array_before4[0] ;
-		    }
+		    
+			if(document.getElementById('betproject6').checked){
+				if(i==0 || i==2 || i==4 || i==6 || i==8 ){ //
+			   	 	betCode = array_before4[1]+','+array_before4[3]+','+array_before4[5]+','+array_before4[7]+','+array_before4[9] ;
+			    }else {
+			   	 	betCode = array_before4[2]+','+array_before4[4]+','+array_before4[6]+','+array_before4[8]+','+array_before4[0] ;
+			    }
+			 }
+			
+			if(document.getElementById('betproject5').checked){
+				if(i==0 < 5 ){ //
+			   	 	betCode = array_before4[2]+','+array_before4[3]+','+array_before4[4]+','+array_before4[5]+','+array_before4[6] ;
+			    }else {
+			   	 	betCode = array_before4[3]+','+array_before4[4]+','+array_before4[5]+','+array_before4[6]+','+array_before4[7] ;
+			    }
+			 }
+			    
 		 	//console.log("*******8");
 		    //console.log(betCode);
 		    if(bIndex[z] == 0)
@@ -1632,20 +1644,32 @@
 			let betsn='';
 			
 			if(document.getElementById('betproject6').checked){
-				if(i==0 || i==2 || i==4 || i==6 || i==8 ){ //單向車道
-			    		betsn=  '2,4,6,8,10,' + z;
-			    }else{
-			    		betsn = '1,3,5,7,9,' + z;
-			    }
+				if(i==0 ){  	betsn=  '1,3,5,7,9,' + z; }
+				if(i==1 ){  	betsn=  '2,4,6,8,10,' + z; }
+				if(i==2 ){  	betsn=  '2,4,6,8,10,' + z; }
+			    if(i==3 ){  betsn=  '1,3,5,7,9,' + z;  } 
+				if(i==4 ){  	betsn=  '1,3,5,7,9,' + z;  }
+				if(i==5 ){  	betsn=  '2,4,6,8,10,' + z; }
+				if(i==6 ){  	betsn=  '2,4,6,8,10,' + z; }
+				if(i==7 ){  	betsn=  '1,3,5,7,9,' + z;  }
+				if(i==8 ){  	betsn=  '1,3,5,7,9,' + z;  }
+				if(i==9 ){  	betsn=  '2,4,6,8,10,' + z; }
+
+				 
 				
 			}
 			
 			if(document.getElementById('betproject5').checked){
-				if(i==0 || i==2 || i==4 || i==6 || i==8 ){ //單向車道
-			    		betsn=  '2,4,6,8,10' ;
-			    }else{
-			    		betsn = '1,3,5,7,9';
-			    }
+				if(i==0 ){  	betsn=  '1,3,5,7,9' ; }
+				if(i==1 ){  	betsn=  '2,4,6,8,10' ; }
+				if(i==2 ){  	betsn=  '2,4,6,8,10' ; }
+			    if(i==3 ){  betsn=  '1,3,5,7,9' ;  } 
+				if(i==4 ){  	betsn=  '1,3,5,7,9' ;  }
+				if(i==5 ){  	betsn=  '2,4,6,8,10' ; }
+				if(i==6 ){  	betsn=  '2,4,6,8,10' ; }
+				if(i==7 ){  	betsn=  '1,3,5,7,9' ;  }
+				if(i==8 ){  	betsn=  '1,3,5,7,9' ;  }
+				if(i==9 ){  	betsn=  '2,4,6,8,10' ; }
 				
 			}
 		    
