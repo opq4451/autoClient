@@ -1491,10 +1491,10 @@
 		    let betCode= "";
 		    
 			if(document.getElementById('betproject6').checked){
-				if(i==0 || i==2 || i==4 || i==6 || i==8 ){ //
-			   	 	betCode = array_before4[1]+','+array_before4[3]+','+array_before4[5]+','+array_before4[7]+','+array_before4[9] ;
+				if(i==0 < 5 ){ //
+			   	 	betCode = array_before4[2]+','+array_before4[3]+','+array_before4[4]+','+array_before4[5]+','+array_before4[6] ;
 			    }else {
-			   	 	betCode = array_before4[2]+','+array_before4[4]+','+array_before4[6]+','+array_before4[8]+','+array_before4[0] ;
+			   	 	betCode = array_before4[3]+','+array_before4[4]+','+array_before4[5]+','+array_before4[6]+','+array_before4[7] ;
 			    }
 			 }
 			
@@ -1555,21 +1555,21 @@
 			let betsn='';
 			
 			if(document.getElementById('betproject6').checked){
-				if(i == 0){ betsn=  '1,2,3,4,5,6'; } 
-				if(i == 1){ betsn=  '1,2,3,4,5,6'; } 
-				if(i == 2){ betsn=  '3,4,5,6,7,8'; } 
-				if(i == 3){ betsn=  '3,4,5,6,7,8'; } 
-				if(i == 4){ betsn=  '5,6,7,8,9,10'; } 
-				if(i == 5){ betsn=  '2,3,4,5,6,7'; } 
-				if(i == 6){ betsn=  '2,3,4,5,6,7'; } 
-				if(i == 7){ betsn=  '4,5,6,7,8,9'; } 
-				if(i == 8){ betsn=  '4,5,6,7,8,9'; } 
-				if(i == 9){ betsn=  '5,6,7,8,9,10'; } 
+				if(i == 0){ betsn=  '1,3,4,5,6,7'; } 
+				if(i == 1){ betsn=  '2,4,5,6,7,8'; } 
+				if(i == 2){ betsn=  '3,5,6,7,8,9'; } 
+				if(i == 3){ betsn=  '4,6,7,8,9,10'; } 
+				if(i == 4){ betsn=  '1,5,7,8,9,10'; } 
+				if(i == 5){ betsn=  '1,2,3,4,6,10'; } 
+				if(i == 6){ betsn=  '1,2,3,4,5,7'; } 
+				if(i == 7){ betsn=  '2,3,4,5,6,8'; } 
+				if(i == 8){ betsn=  '3,4,5,6,7,9'; } 
+				if(i == 9){ betsn=  '4,5,6,7,8,10'; } 
 				
 			}
 			
 			if(document.getElementById('betproject5').checked){
-				if(i == 0){ betsn=  '1,2,3,4,5'; } 
+				if(i == 0){ betsn=  '2,3,4,5,6'; } 
 				if(i == 1){ betsn=  '1,3,4,5,6'; } 
 				if(i == 2){ betsn=  '2,4,5,6,7'; } 
 				if(i == 3){ betsn=  '3,5,6,7,8'; } 
@@ -1578,7 +1578,7 @@
 				if(i == 6){ betsn=  '3,4,5,6,8'; } 
 				if(i == 7){ betsn=  '4,5,6,7,9'; } 
 				if(i == 8){ betsn=  '5,6,7,8,10'; } 
-				if(i == 9){ betsn=  '6,7,8,9,10'; } 
+				if(i == 9){ betsn=  '5,6,7,8,9'; } 
 				
 			}
 			
@@ -1660,16 +1660,16 @@
 			}
 			
 			if(document.getElementById('betproject5').checked){
-				if(i==0 ){  	betsn=  '1,3,5,7,9' ; }
-				if(i==1 ){  	betsn=  '2,4,6,8,10' ; }
-				if(i==2 ){  	betsn=  '2,4,6,8,10' ; }
-			    if(i==3 ){  betsn=  '1,3,5,7,9' ;  } 
-				if(i==4 ){  	betsn=  '1,3,5,7,9' ;  }
-				if(i==5 ){  	betsn=  '2,4,6,8,10' ; }
-				if(i==6 ){  	betsn=  '2,4,6,8,10' ; }
-				if(i==7 ){  	betsn=  '1,3,5,7,9' ;  }
-				if(i==8 ){  	betsn=  '1,3,5,7,9' ;  }
-				if(i==9 ){  	betsn=  '2,4,6,8,10' ; }
+				if(i==0 ){  	betsn=  '3,4,5,6,7' ; }
+				if(i==1 ){  	betsn=  '4,5,6,7,8' ; }
+				if(i==2 ){  	betsn=  '5,6,7,8,9' ; }
+			    if(i==3 ){  betsn=  '6,7,8,9,10' ;  } 
+				if(i==4 ){  	betsn=  '1,7,8,9,10' ;  }
+				if(i==5 ){  	betsn=  '1,2,3,4,10' ; }
+				if(i==6 ){  	betsn=  '1,2,3,4,5' ; }
+				if(i==7 ){  	betsn=  '2,3,4,5,6' ;  }
+				if(i==8 ){  	betsn=  '3,4,5,6,7' ;  }
+				if(i==9 ){  	betsn=  '4,5,6,7,8' ; }
 				
 			}
 		    
