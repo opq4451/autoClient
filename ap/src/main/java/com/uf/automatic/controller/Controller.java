@@ -1127,7 +1127,12 @@ public class Controller {
                 }
             }
         } catch (Exception e) {
-
+            saveLog(user + "error",
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + e.getMessage() + " : specialbet 斷"
+                                    + boardType);
+            //h = httpClientCookie.getInstance(user, pwd);
+            e.printStackTrace();
+            return "error";
         }
 
         return "";
