@@ -283,7 +283,7 @@ public class Controller {
             if (boardType.equals("0")) {
                 h = httpClientCookie.getInstance(user, pwd);
             } else if (boardType.equals("1")) {
-                mountain_index++;
+                //mountain_index++;
 
                 if (token.equals("")) {
                     return "N";
