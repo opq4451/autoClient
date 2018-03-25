@@ -48,7 +48,7 @@
         <input id="user" class="form-control" placeholder="帳號" required autofocus>
         <label class="sr-only">密碼</label>
         <input type="password" id="pwd" class="form-control" placeholder="密碼" required>
-         
+        
          
          <div class="form-control" >
          <input class="tip" type="text" style="width:80px" name="ValidateCode"  autocomplete="off" placeholder="驗證碼" id="ValidateCode">
@@ -85,6 +85,8 @@
 		$( "#btn" ).click(function() {
 			let user = document.getElementById("user").value;
 		    let pwd = document.getElementById("pwd").value;
+		    
+		   
 		    login(user,pwd,'N');
 		 
 			 
@@ -158,6 +160,7 @@
 		let pwd = (parsed_qs.pwd) ;
 		let user= (parsed_qs.user); 
 		let auto= (parsed_qs.auto); 
+	 
 		if(pwd && user){
 			 login(user,pwd,auto,'noResponse');
 			 

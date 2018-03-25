@@ -86,6 +86,12 @@ public class Utils {
 
         url = "http://47.90.109.200/chatbet_v3/award_sync/get_award.php?" + query + "&Sign=" + sign;
         System.out.println(url);
+        
+        
+        String a = "(第0關)(公式12)";
+        
+        System.out.println(a.substring(0, a.lastIndexOf("(")));
+        
 
     }
 
@@ -266,5 +272,9 @@ public class Utils {
             i++;
         }
     }
+    
+    
+    
+    
 
 }
