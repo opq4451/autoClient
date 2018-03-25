@@ -118,10 +118,30 @@ public class DaliHttpClient {
             
             JsonObject a = getBetMD5_PL();
 
-            if(a.isJsonObject()) {
+            
                 String MD5 = a.get("MD5").getAsString();
                 System.out.println(MD5);
+           
+            
+            
+            JsonArray o = a.getAsJsonArray("DATAODDS") ;
+            
+            String betString = "";//40001,9.909,1|40018,9.909,1|40036,9.909,1
+            
+            String[] code = {"4"};
+            for (String str : code) { 
+                int index = DaliHttpClient.getPlIndex("4", str) ;
+                JsonObject bet = o.get(index).getAsJsonObject();
+                String pl = bet.get("OddsValue1").getAsString();
+                String betItemNo = bet.get("ItemNO").getAsString();
+                betString += betItemNo+","+pl+","+1+"|"; 
             }
+            betString = betString.substring(0,betString.length()-1);
+            System.out.println(betString);
+            String betid = DaliHttpClient.getBetID(betString);
+            System.out.println(betid);
+            
+            dali_bet(betid,MD5);
             // String force = Utils.httpClientGet(forceUrl);
 
             // System.out.println(force);
@@ -389,6 +409,49 @@ public class DaliHttpClient {
             response.close();
         }
         return "";
+    }
+    
+    
+    public static JsonObject dali_bet(String betId,String md5) throws Exception {
+
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        HttpPost Post = new HttpPost(daliUrl[daliUrl_index % 5] + "/member/Submit/setOrder");
+
+        Post.setHeader("Cookie", daliCookie);
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+        params.add(new BasicNameValuePair("xdnum", betId));
+        params.add(new BasicNameValuePair("type", "1"));
+        params.add(new BasicNameValuePair("MD5", md5));
+        params.add(new BasicNameValuePair("noLst", ""));
+
+        
+        
+        Post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+
+        CloseableHttpResponse response = httpclient.execute(Post);
+
+        try {
+
+            String content = EntityUtils.toString(response.getEntity());
+
+            JsonParser parser = new JsonParser();
+
+            JsonObject o = parser.parse(content).getAsJsonObject();
+
+            String code = o.get("FaildReason").getAsString();
+            
+            System.out.println(code);
+            
+            return o;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            response.close();
+        }
+        return null;
     }
 
     // "http://w1.5a1234.com/?m=acc&gameId=2"

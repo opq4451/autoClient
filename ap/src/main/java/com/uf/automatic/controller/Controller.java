@@ -1011,10 +1011,21 @@ public class Controller {
                         betString += betItemNo+","+pl+","+amount+"|"; 
                     }
                     betString = betString.substring(0,betString.length()-1);
-                    System.out.println(betString);
+               
                     String betid = DaliHttpClient.getBetID(betString);
-                    System.out.println(betid);
+                     
+                    JsonObject result = DaliHttpClient.dali_bet(betid, MD5);
                     
+                    if((result.get("FaildReason").getAsString()).equals("0")) {
+                        for (String str : code) {
+                            String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+                            saveOverLog(user, overLog, c); 
+                        }
+                        
+                        String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+                                                        + amount + ")" + "(成功)" + "(公式" + formu + ")"; 
+                        saveLog(user + "bet", betlog);
+                    }
                     
                     
                     
