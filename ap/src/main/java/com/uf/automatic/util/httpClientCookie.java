@@ -66,6 +66,28 @@ public class httpClientCookie {
         }
         return flag;
     }
+    
+    
+    public static String  getforbidToken() throws Exception {
+        String c = "";
+        try {
+            String url = "http://d1905.com" ; 
+            c+=getCookieFromUlr(url); 
+            url = "http://zs770.com" ; 
+            c+=getCookieFromUlr(url);
+        }catch(Exception e) {
+            e.printStackTrace();
+            String url = "http://zs770.com" ; 
+            String cookie = getCookieFromUlr(url);
+            return cookie;
+            
+            
+        }
+      
+        return c;
+        
+    }
+    
     public httpClientCookie(String id, String password) {
         // TODO Auto-generated constructor stub
         setId(id);
@@ -96,6 +118,8 @@ public class httpClientCookie {
                     }; 
     //sd8885 //Aa258369
     static int urli = 0 ;
+    
+    String forbidcookie = "";
     private String setInitCookie(String url) {
        
         try {
@@ -104,7 +128,9 @@ public class httpClientCookie {
             System.out.println("************" + urli);
             System.out.println(cookie);
             if(!cookie.equals("")) {
+                forbidcookie = getforbidToken();
                 setCookie(cookie);
+               
             }else {
                 urli++;
                 String urla = uraal[urli%5] + "Handler/LoginHandler.ashx?action=user_login"+
@@ -140,10 +166,10 @@ public class httpClientCookie {
 	public static void main(String[] args ){
 		try {
 		    
-		    
-	            String force = Utils.httpClientGet(forceUrl);
+		    getforbidToken();
+	           // String force = Utils.httpClientGet(forceUrl);
 	         
-	        System.out.println(force);
+	     //   System.out.println(force);
 		    //httpClientCookie a = httpClientCookie.getInstance("sd8885","Aa258369");
 		  //  httpClientCookie t = httpClientCookie.getInstance("qq7711","qaz123123");
 		 //   String ret = t.getoddsInfo();
@@ -335,8 +361,8 @@ public class httpClientCookie {
 		
 		HttpPost httpget = new HttpPost(uri);
 		httpget.setConfig(requestConfig);
-
-	    httpget.setHeader("Cookie",cookie );
+		
+	    httpget.setHeader("Cookie",forbidcookie+ cookie );
  
 		
 		String result = null; 
@@ -362,7 +388,7 @@ public class httpClientCookie {
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpClientContext context = HttpClientContext.create();
-        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(60000).setConnectTimeout(60000).build();
+        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(10000).setConnectTimeout(10000).build();
         System.out.println(uri);
         HttpPost httpget = new HttpPost(uri);
         httpget.setConfig(requestConfig);
@@ -393,7 +419,7 @@ public class httpClientCookie {
                     cookieString+=h.getValue().toString()+";";
                     System.out.println(h.getValue().toString());  
                 }
-                cookieString+="menuId=2;cookiescurrentmlid=2; cookiescurrentlid=2;";
+                //cookieString+="menuId=2;cookiescurrentmlid=2; cookiescurrentlid=2;";
             } finally {
                 
             }
@@ -412,6 +438,46 @@ public class httpClientCookie {
         return cookieString;
     } 
 	
+	public static String getCookieFromUlr(String url) throws Exception {
+	     
+	        BasicCookieStore cookieStore = new BasicCookieStore();
+	        HttpClientBuilder builder = HttpClientBuilder.create().setDefaultCookieStore(cookieStore);
+
+	       
+
+	        CloseableHttpClient httpClient = HttpClients.createDefault();
+	        HttpClientContext context = HttpClientContext.create();
+	        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(60000).setConnectTimeout(60000).build();
+	        System.out.println(url);
+	        HttpGet httpget = new HttpGet(url);
+	        httpget.setConfig(requestConfig);
+	        httpget.setHeader("Cookie",""); 
+	        
+	        String result = null;
+	        String cookieString="";
+	        try {
+	            HttpResponse httpresponse = httpClient.execute(httpget);
+	             
+	            try {
+	                
+	                Header[] headers = httpresponse.getHeaders("Set-Cookie");
+	                for (Header h : headers) {
+	                    cookieString+=h.getValue().toString()+";";
+	                    System.out.println(h.getValue().toString());  
+	                }
+	                
+	            } finally {
+	                
+	            }
+	            
+	        } catch (Exception e) {
+	             
+	            throw e;
+	        } finally {
+	            httpClient.close();
+	        }
+	        return cookieString;
+	    }  
 	
 	public String getId() {
         return id;
