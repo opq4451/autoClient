@@ -213,7 +213,7 @@ public class Controller {
                 
                 String t = DaliHttpClient.getTodayWin();
                 //System.out.println(t);
-                j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf("1"))));
+                j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(t))));
 
 //                JsonObject o = parser.parse(ret).getAsJsonObject();
 //                 

@@ -505,7 +505,7 @@ public class DaliHttpClient {
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
-        HttpGet HttpGet = new HttpGet(daliUrl[daliUrl_index % 5] + "/Game_v2/gd_lmp?webUU=HJK1HUWH2FBBS8DS9WQ");
+        HttpGet HttpGet = new HttpGet(daliUrl[daliUrl_index % 5] + "/member/Game_v2/getSyjq");
 
         HttpGet.setHeader("Cookie", daliCookie);
 
@@ -514,7 +514,9 @@ public class DaliHttpClient {
         try {
 
             String content = EntityUtils.toString(response.getEntity());
-            return content;
+            
+            
+            return content.substring(content.indexOf("|")+1, content.indexOf("|",content.indexOf("</table>")+9));
 
         } catch (Exception e) {
             e.printStackTrace();
