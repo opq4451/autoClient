@@ -110,6 +110,18 @@ public class Controller {
                         return "N";
                     }
                     mountain_token_sessid = token + mountain_php_cookid;
+                }else if (boardType.equals("3")) {
+                    token = LeeinHttpClient.httpPostGetToken(leein_url[leein_index % 4] + "/login",
+                                                               leein_php_cookid,
+                                                               ValidateCode,
+                                                               u,
+                                                               p);
+                    if (token.equals("v_error")) {
+                        return "v_error";
+                    } else if (token.equals("")) {
+                        return "N";
+                    }
+                    mountain_token_sessid = token + mountain_php_cookid;
                 }
 
                 clearLog(user + "bet");

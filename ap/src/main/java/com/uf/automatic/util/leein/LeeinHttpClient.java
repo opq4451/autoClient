@@ -439,11 +439,10 @@ public class LeeinHttpClient {
         httpPost.setHeader("Cookie", PHPSESSID_COOKIE);
 
         List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-        nvps.add(new BasicNameValuePair("type", "1"));
-        nvps.add(new BasicNameValuePair("ism", "0"));
-        nvps.add(new BasicNameValuePair("loginName", loginName));
-        nvps.add(new BasicNameValuePair("loginPwd", loginPwd));
-        nvps.add(new BasicNameValuePair("ValidateCode", ValidateCode));
+        nvps.add(new BasicNameValuePair("type", "1")); 
+        nvps.add(new BasicNameValuePair("account", loginName));
+        nvps.add(new BasicNameValuePair("password", loginPwd));
+        nvps.add(new BasicNameValuePair("code", ValidateCode));
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         CloseableHttpResponse response = httpclient.execute(httpPost);
        
