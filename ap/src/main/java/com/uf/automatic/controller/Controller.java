@@ -1171,7 +1171,7 @@ public class Controller {
                         saveOverLog(user, overLog, c); 
                     }
                     
-                    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
+                    String betlog = "第" + betphase + "期" + "，第" + betsn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
                                                     + amount + ")" + "(成功)" + "(公式" + formu + ")"; 
                     saveLog(user + "bet", betlog);
                 }else {
