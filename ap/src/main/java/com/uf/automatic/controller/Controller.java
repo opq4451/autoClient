@@ -51,6 +51,7 @@ import com.google.gson.JsonParser;
 import com.uf.automatic.ap.OrderedProperties;
 import com.uf.automatic.util.Utils;
 import com.uf.automatic.util.httpClientCookie;
+import com.uf.automatic.util.leein.LeeinHttpClient;
 import com.uf.automatic.util.mountain.MoutainHttpClient;
 
 @RestController
@@ -2365,33 +2366,67 @@ public class Controller {
     //String mountain_url = "http://w1.5a1234.com";
     String mountain_url[] = { "http://w1.5a1234.com", "http://w2.5a1234.com", "http://w3.5a1234.com",
                               "http://w4.5a1234.com" };
+    
+    String leein_url[] = { "http://0164955479-sy.cp168.ws",
+                           "http://1211067433-sy.cp168.ws",
+                           "http://5461888297-sy.cp168.ws",
+                           "http://5184923658-sy.cp168.ws",
+                           "http://5184923658-sy.cp168.ws"};
+    
     int mountain_index = 0;
+    
+    int leein_index = 0;
 
     String mountain_php_cookid = "";
     String mountain_token_sessid = "";
     String token = "";
+    
+    String leein_php_cookid = "2a29530a2306=b00b0a238f1bb76547c75c442ce5bc273859ad7904b7bc3e;";
+    String leein_token_sessid = "";
+    String leein_token = "";
+    
 
     @RequestMapping("/imgcode")
-    public @ResponseBody byte[] getImage(@RequestParam("_") String force) throws IOException {
+    public @ResponseBody byte[] getImage(@RequestParam("_") String force,@RequestParam("bd") String bd) throws IOException {
         try {
-            String im = "";
-            CloseableHttpResponse httpresponse = null;
+            if(bd.equals("1")) {
+                String im = "";
+                CloseableHttpResponse httpresponse = null;
 
-            CloseableHttpClient httpclient = HttpClients.createDefault();
+                CloseableHttpClient httpclient = HttpClients.createDefault();
 
-            HttpGet HttpGet = new HttpGet(mountain_url[mountain_index % 4]);
+                HttpGet HttpGet = new HttpGet(mountain_url[mountain_index % 4]);
 
-            httpresponse = httpclient.execute(HttpGet);
-            mountain_php_cookid = MoutainHttpClient.setCookie(httpresponse);
-            System.out.println(mountain_php_cookid);
+                httpresponse = httpclient.execute(HttpGet);
+                mountain_php_cookid = MoutainHttpClient.setCookie(httpresponse);
+                System.out.println(mountain_php_cookid);
 
-            HttpGet get2 = new HttpGet(mountain_url[mountain_index % 4] + "/imgcode.php");
+                HttpGet get2 = new HttpGet(mountain_url[mountain_index % 4] + "/imgcode.php");
 
-            get2.setHeader("Cookie", mountain_php_cookid);
+                get2.setHeader("Cookie", mountain_php_cookid);
 
-            httpresponse = httpclient.execute(get2);
+                httpresponse = httpclient.execute(get2);
 
-            return IOUtils.toByteArray(httpresponse.getEntity().getContent());
+                return IOUtils.toByteArray(httpresponse.getEntity().getContent());
+            }else if(bd.equals("3")) {
+                String im = "";
+                CloseableHttpResponse httpresponse = null;
+
+                CloseableHttpClient httpclient = HttpClients.createDefault();
+//
+//                HttpGet HttpGet = new HttpGet(leein_url[leein_index % 4]);
+//
+//                httpresponse = httpclient.execute(HttpGet); 
+
+                HttpGet get2 = new HttpGet(leein_url[leein_index % 4] + "/code");
+
+                get2.setHeader("Cookie", leein_php_cookid);
+
+                httpresponse = httpclient.execute(get2);
+
+                return IOUtils.toByteArray(httpresponse.getEntity().getContent());
+            }
+            
         } catch (Exception e) {
             mountain_index++;
         }

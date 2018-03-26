@@ -105,8 +105,9 @@
 		});
 
 		$("#ValidateCode").focus(function(){
-			 
-			$("#yzm").attr('src','http://localhost:9999/imgcode?_='+(new Date()).getTime());
+	 
+			let bd = '3';
+			$("#yzm").attr('src','http://localhost:9999/imgcode?_='+(new Date()).getTime()+'&bd='+bd);
 		});
 		
 	});
