@@ -2615,7 +2615,7 @@ public class Controller {
     String token = "";
 
     //leein
-    String leein_php_cookid = "";
+    String leein_php_cookid = "2a29530a2306=b00b0a238f1bb76547c75c442ce5bc273859ad7904b7bc3e;";
     String leein_url[] = { "https://0164955479-sy.cp168.ws", "https://1211067433-sy.cp168.ws",
                            "https://5461888297-sy.cp168.ws", "https://5184923658-sy.cp168.ws" };
     int leein_index = 0;
