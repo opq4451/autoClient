@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -111,17 +112,19 @@ public class Controller {
                     }
                     mountain_token_sessid = token + mountain_php_cookid;
                 }else if (boardType.equals("3")) {
-                    token = LeeinHttpClient.httpPostGetToken(leein_url[leein_index % 4] + "/login",
+                    leein_php_cookid = LeeinHttpClient.httpPostInit(leein_url[leein_index % 4],
                                                                leein_php_cookid,
                                                                ValidateCode,
                                                                u,
                                                                p);
-                    if (token.equals("v_error")) {
+                    System.out.println(leein_php_cookid);
+                    
+                    /*if (token.equals("v_error")) {
                         return "v_error";
                     } else if (token.equals("")) {
                         return "N";
-                    }
-                    mountain_token_sessid = token + mountain_php_cookid;
+                    }*/
+                    //mountain_token_sessid = token + mountain_php_cookid;
                 }
 
                 clearLog(user + "bet");
@@ -215,6 +218,20 @@ public class Controller {
                 j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
                 j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(unbalancedMoney))));
 
+            } else if (boardType.equals("3")) {
+                String ret = LeeinHttpClient.getTodayWin(leein_url[leein_index % 4] + "/member/accounts?_=1522119266532",
+                        leein_php_cookid); 
+
+                JsonArray o = parser.parse(ret).getAsJsonArray();
+                
+                JsonObject r = o.get(0).getAsJsonObject();
+                
+                String usable_credit = r.get("balance").getAsString();
+                String unbalancedMoney = r.get("result").getAsString();
+                j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
+                j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(unbalancedMoney))));
+
+                 
             }
 
             FileInputStream fileIn = null;
@@ -303,6 +320,22 @@ public class Controller {
                 }
 
                 mountain_token_sessid = token + getPhpCookie();
+
+            }else if (boardType.equals("3")) {
+                leein_index++;
+                try {
+                    leein_php_cookid = "2a29530a2306=b00b0a238f1bb76547c75c442ce5bc273859ad7904b7bc3e;";
+                    leein_php_cookid = LeeinHttpClient.httpPostInit(leein_url[leein_index % 4],
+                                                                    leein_php_cookid,
+                                                                    "1111",
+                                                                    user,
+                                                                    pwd);
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+
+               
 
             }
 
@@ -1257,6 +1290,71 @@ public class Controller {
 
                     return mountaionRecoup(user, sn, amount, betphase, c, codeList, formu);
                 }
+            }else if (boardType.equals("3")) {  
+                JsonObject pl = LeeinHttpClient.
+                        getPl(leein_url[leein_index % 4], leein_php_cookid);
+                
+                JsonArray a = new JsonArray();
+                if(pl.isJsonObject()) {
+                    for (String str : code) {
+                        String key = "B"+sn+"_"+str;
+                        BigDecimal p = pl.get(key).getAsBigDecimal();
+                        JsonObject d = new JsonObject();
+                        d.addProperty("game" , "B" + sn);
+                        d.addProperty("contents" , str);
+                        d.addProperty("amount" , amount);
+                        d.addProperty("odds" , p);
+                        a.add(d); 
+                    }
+                    
+                    JsonObject bet = new JsonObject();
+                    bet.addProperty("lottery", "BJPK10");
+                    bet.addProperty("drawNumber", betphase);
+                    bet.add("bets", a); 
+                    bet.addProperty("ignore", "false");
+                    
+                    String betS = bet.toString();
+                    
+                    JsonObject result = LeeinHttpClient.
+                            httpPostBet(leein_url[leein_index % 4], leein_php_cookid,betS);
+                    
+                    if(result.isJsonObject()) {
+                        if(result.get("status").getAsString().equals("0")) {
+                            
+                        }
+                    }
+                    
+                    
+                    
+                }
+                
+//                
+//                
+//                        String r = MoutainHttpClient.httpPostBet(mountain_url[mountain_index % 4] + "/?m=bet",
+//                                                         mountain_token_sessid,
+//                                                         betphase,
+//                                                         amount,
+//                                                         sn,
+//                                                         code);
+//                JsonObject po = pr.parse(r).getAsJsonObject();
+//                String s = po.get("msg").getAsString();
+//                if (s.equals("投注成功")) {
+//                    for (String str : code) {
+//                        String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+//                        saveOverLog(user, overLog, c);
+//                    }
+//
+//                    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+//                                    + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
+//                    saveLog(user + "bet", betlog);
+//                } else {
+//                    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+//                                    + "投注點數(" + amount + ")" + "(失敗)" + "(公式" + formu + ")";
+//                    // saveLog(user + "bet", betlog);
+//                    saveLog(user + "error", s.toString() + " bet error:" + betlog);
+//
+//                    return mountaionRecoup(user, sn, amount, betphase, c, codeList, formu);
+//                }
             }
 
         } catch (Exception e) {
@@ -2379,11 +2477,10 @@ public class Controller {
     String mountain_url[] = { "http://w1.5a1234.com", "http://w2.5a1234.com", "http://w3.5a1234.com",
                               "http://w4.5a1234.com" };
     
-    String leein_url[] = { "http://0164955479-sy.cp168.ws",
-                           "http://1211067433-sy.cp168.ws",
-                           "http://5461888297-sy.cp168.ws",
-                           "http://5184923658-sy.cp168.ws",
-                           "http://5184923658-sy.cp168.ws"};
+    String leein_url[] = { "https://0164955479-sy.cp168.ws",
+                           "https://1211067433-sy.cp168.ws",
+                           "https://5461888297-sy.cp168.ws",
+                           "https://5184923658-sy.cp168.ws"};
     
     int mountain_index = 0;
     
@@ -2427,14 +2524,21 @@ public class Controller {
                 CloseableHttpClient httpclient = HttpClients.createDefault();
 //
 //                HttpGet HttpGet = new HttpGet(leein_url[leein_index % 4]);
-//
+////
 //                httpresponse = httpclient.execute(HttpGet); 
+//                
+//                String cookie =  LeeinHttpClient.setCookie(httpresponse);
 
                 HttpGet get2 = new HttpGet(leein_url[leein_index % 4] + "/code");
 
                 get2.setHeader("Cookie", leein_php_cookid);
 
                 httpresponse = httpclient.execute(get2);
+                
+                String initCookie =  LeeinHttpClient.setCookie(httpresponse);
+                
+                leein_php_cookid = initCookie;
+                //System.out.println(initCookie);
 
                 return IOUtils.toByteArray(httpresponse.getEntity().getContent());
             }
