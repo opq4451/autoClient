@@ -20,6 +20,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -53,6 +55,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.uf.automatic.util.leein.*;
 import com.uf.automatic.controller.Controller;
 import com.uf.automatic.util.Utils;
 
@@ -113,10 +116,36 @@ public class LeeinHttpClient {
     // sd8885 //Aa258369
     static int urli = 0;
  
+    private static void run() {
+        Timer timer = new Timer();
+        NewTimerTask timerTask = new NewTimerTask();
+        // 程序运行后立刻执行任务，每隔100ms执行一次
+        timer.schedule(timerTask, 0, 10000);
+    }
+    
+    
+    
+    static String  leein_php_cookid = "2a29530a2306=b00b0a238f1bb76547c75c442ce5bc273859ad7904b7bc3e;";
+    static String  futsai_php_cookid = "2a29530a2306=b00b0a238f1bb76547c75c442ce5bc273859ad7904b7bc3e;";
 
     public static void main(String[] args) {
         try {
-
+            leein_php_cookid = LeeinHttpClient.httpPostInit("https://0164955479-sy.cp168.ws",
+                                                                   leein_php_cookid,
+                                                            "1111",
+                                                            "yy6611",
+                                                            "asd123123");
+            futsai_php_cookid = LeeinHttpClient.httpPostInit("https://1329036172-fcs.cp168.ws",
+                                                            futsai_php_cookid,
+                                                     "1111",
+                                                     "bee3311",
+                                                     "asd123123");
+            
+            run();
+       
+            
+            
+            
             
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -124,7 +153,22 @@ public class LeeinHttpClient {
         }
     }
  
-
+    public static String testTodayWin() throws Exception {
+        String u = "https://0164955479-sy.cp168.ws" + "/member/accounts?_=1522119266532";
+        
+        return httpGet(leein_php_cookid,u);
+    
+    
+    }
+    
+    public static String testfuTodayWin() throws Exception {
+        String u = "https://1329036172-fcs.cp168.ws" + "/member/accounts?_=1522119266532";
+        
+        return httpGet(futsai_php_cookid,u);
+    
+    
+    }
+    
     // 兩面ＺＲＵＦ
      public static String getTodayWin(String url,String cookie) throws Exception {
          String u = url + "/member/accounts?_=1522119266532";
@@ -190,9 +234,9 @@ public class LeeinHttpClient {
                 return o;
             } 
         } catch (Exception e) {
-
+            e.printStackTrace();
         } finally {
-
+            response.close();
         }
         return null;
     }
@@ -214,25 +258,31 @@ public class LeeinHttpClient {
         nvps.add(new BasicNameValuePair("code", ValidateCode));
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         CloseableHttpResponse response = httpclient.execute(httpPost);
+        try {
+            Header headers[] = response.getHeaders("location");
+            if (headers == null || headers.length == 0) {
 
-        Header headers[] = response.getHeaders("location");
-        if (headers == null || headers.length == 0) {
+                return null;
+            }
+            String location = "";
 
-            return null;
+            for (Header h : headers) {
+                location += h.getValue().toString();
+            }
+
+            if (!location.equals("")) {
+                  
+                String agreementCookie = httpGetAgreement( url , "/" + location, "defaultLT=PK10JSC;"+PHPSESSID_COOKIE);
+                System.out.println(agreementCookie);
+                return agreementCookie;
+            }
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        } finally {
+            response.close();
         }
-        String location = "";
-
-        for (Header h : headers) {
-            location += h.getValue().toString();
-        }
-
-        if (!location.equals("")) {
-              
-            String agreementCookie = httpGetAgreement( url , "/" + location, "defaultLT=PK10JSC;"+PHPSESSID_COOKIE);
-            System.out.println(agreementCookie);
-            return agreementCookie;
-        }
-
+       
         return null;
     }
 
@@ -322,6 +372,27 @@ public class LeeinHttpClient {
 
     public String getCookie() {
         return cookie;
+    }
+
+}
+
+class NewTimerTask extends TimerTask {
+    
+    @Override
+    public void run() {
+        String ret;
+        try {
+            ret = LeeinHttpClient.testTodayWin();
+            System.out.println(ret);
+            
+            ret = LeeinHttpClient.testfuTodayWin();
+
+            System.out.println(ret);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
 }
