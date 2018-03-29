@@ -241,7 +241,7 @@ public class Controller {
                 JsonObject r = o.get(0).getAsJsonObject();
 
                 String usable_credit = r.get("balance").getAsString();
-                String unbalancedMoney = r.get("result").getAsString();
+                String unbalancedMoney = r.get("result")==null?"0":r.get("result").getAsString();
                 j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
                 j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(unbalancedMoney))));
 
@@ -1216,16 +1216,16 @@ public class Controller {
                                     + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
                     saveLog(user + "bet", betlog);
                 } else {
-                    recoup++;
+                   /* recoup++;
                     if (recoup == 3) {
                         recoup = 0;
                         return "error";
-                    }
+                    }*/
                     String betlog = "第" + betphase + "期" + "，第" + betsn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
                                     + "投注點數(" + amount + ")" + "(失敗)" + "(公式" + formu + ")";
                     // saveLog(user + "bet", betlog);
                     saveLog(user + "error", result.toString() + " bet error:" + betlog);
-                    return specialbet(user, sn, amount, betphase, c, codeList, formu, boardType, betsn);
+                    return "error";
                 }
 
             }else if (boardType.equals("3")) {
@@ -1427,16 +1427,16 @@ public class Controller {
                                     + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
                     saveLog(user + "bet", betlog);
                 } else {
-                    recoup++;
+                    /*recoup++;
                     if (recoup == 3) {
                         recoup = 0;
                         return "error";
-                    }
+                    }*/
                     String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
                                     + "投注點數(" + amount + ")" + "(失敗)" + "(公式" + formu + ")";
                     // saveLog(user + "bet", betlog);
                     saveLog(user + "error", result.toString() + " bet error:" + betlog);
-                    return bet(user, sn, amount, betphase, c, codeList, formu, boardType);
+                    return "error";
                 }
 
             } else if (boardType.equals("3")) {
@@ -2226,8 +2226,11 @@ public class Controller {
                     String startDate = array[2].substring(0, 4) + "/" + array[2].substring(4, 6) + "/"
                                        + array[2].substring(6, 8);
 
+                    String boardName = array[8].equals("0") ? "極速系統" :
+                                       array[8].equals("1") ? "華山系統":
+                                       array[8].equals("2") ? "大立系統": "利盈系統" ;
                     String temp = "<tr><td  align=\"center\"  style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\"> "
-                                  + (array[8].equals("0") ? "極速系統" : "華山系統") + "</td>"; //帳號
+                                  + boardName + "</td>"; //帳號
 
                     temp += "<td align=\"center\" class=\"context-menu-one\" style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\">" //姓名
                             + key + "</td>";

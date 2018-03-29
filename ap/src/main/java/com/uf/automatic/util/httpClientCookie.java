@@ -362,7 +362,7 @@ public class httpClientCookie {
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpClientContext context = HttpClientContext.create();
-        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(60000).setConnectTimeout(60000).build();
+        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(5000).setConnectTimeout(5000).build();
         System.out.println(uri);
         HttpPost httpget = new HttpPost(uri);
         httpget.setConfig(requestConfig);
