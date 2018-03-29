@@ -2258,6 +2258,7 @@ public class Controller {
 
                     String boardName = array[8].equals("0") ? "極速系統" :
                                        array[8].equals("1") ? "華山系統":
+                                       array[8].equals("4") ? "福財神系統":
                                        array[8].equals("2") ? "大立系統": "利盈系統" ;
                     String temp = "<tr><td  align=\"center\"  style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\"> "
                                   + boardName + "</td>"; //帳號
