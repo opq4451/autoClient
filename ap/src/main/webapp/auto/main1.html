@@ -2161,6 +2161,20 @@
  				return;
  			}
  			
+ 			
+ 			let arr =  $( id ).val().toString().split(',');
+ 			for(var s in arr){
+ 				if(arr[s].length >1){
+ 					if(arr[s].substring(0,1) == '0'){
+ 						alert('輸入符號有誤');
+ 		 				return;
+ 					}
+ 				}else if (arr[s]==''){
+ 						alert('輸入符號有誤');
+		 				return;
+ 				}
+ 			}
+ 			
  			check_v +=  $( id ).val();
  		}
  		
