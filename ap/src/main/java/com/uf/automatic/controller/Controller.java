@@ -122,11 +122,15 @@ public class Controller {
                                                                     u,
                                                                     p);
                     System.out.println(leein_php_cookid);
-
-                    /*
-                     * if (token.equals("v_error")) { return "v_error"; } else if (token.equals("")) { return "N"; }
-                     */
-                    //mountain_token_sessid = token + mountain_php_cookid;
+ 
+                } else if (boardType.equals("4")) {
+                    futsai_php_cookid = LeeinHttpClient.httpPostInit(futsai_url[futsai_index % 4],
+                                                                    futsai_php_cookid,
+                                                                    "1111",
+                                                                    u,
+                                                                    p);
+                    System.out.println(futsai_php_cookid);
+ 
                 }
 
                 clearLog(user + "bet");
@@ -245,6 +249,20 @@ public class Controller {
                 j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
                 j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(unbalancedMoney))));
 
+            }else if (boardType.equals("4")) {
+                String ret = LeeinHttpClient.getTodayWin(futsai_url[futsai_index % 4]
+                        + "/member/accounts?_=1522119266532",
+                        futsai_php_cookid);
+            
+            JsonArray o = parser.parse(ret).getAsJsonArray();
+            
+            JsonObject r = o.get(0).getAsJsonObject();
+            
+            String usable_credit = r.get("balance").getAsString();
+            String unbalancedMoney = r.get("result")==null?"0":r.get("result").getAsString();
+            j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
+            j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(unbalancedMoney))));
+            
             }
 
             FileInputStream fileIn = null;
@@ -342,6 +360,20 @@ public class Controller {
                     leein_php_cookid = "2a29530a2306=b00b0a238f1bb76547c75c442ce5bc273859ad7904b7bc3e;";
                     leein_php_cookid = LeeinHttpClient.httpPostInit(leein_url[leein_index % 4],
                                                                     leein_php_cookid,
+                                                                    "1111",
+                                                                    user,
+                                                                    pwd);
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+
+            }else if (boardType.equals("4")) {
+                leein_index++;
+                try {
+                    futsai_php_cookid = "2a29530a2306=b00b0a238f1bb76547c75c442ce5bc273859ad7904b7bc3e;";
+                    futsai_php_cookid = LeeinHttpClient.httpPostInit(futsai_url[futsai_index % 4],
+                                                                    futsai_php_cookid,
                                                                     "1111",
                                                                     user,
                                                                     pwd);
@@ -1228,8 +1260,11 @@ public class Controller {
                     return "error";
                 }
 
-            }else if (boardType.equals("3")) {
-                JsonObject pl = LeeinHttpClient.getPl(leein_url[leein_index % 4], leein_php_cookid);
+            }else if (boardType.equals("3")|| boardType.equals("4") ) {
+                String url = boardType.equals("3")?(leein_url[leein_index % 4]): (futsai_url[futsai_index % 4]) ;
+                String cookie = boardType.equals("3")?(leein_php_cookid): (futsai_php_cookid) ;
+
+                JsonObject pl = LeeinHttpClient.getPl(url, cookie);
 
                 JsonArray a = new JsonArray();
 
@@ -1252,7 +1287,7 @@ public class Controller {
 
                 String betS = bet.toString();
 
-                JsonObject result = LeeinHttpClient.httpPostBet(leein_url[leein_index % 4], leein_php_cookid, betS);
+                JsonObject result = LeeinHttpClient.httpPostBet(url, cookie, betS);
 
                 if (result.get("status").getAsString().equals("0")) {
                     for (String str : betsnArray) {
@@ -1264,16 +1299,12 @@ public class Controller {
                                     + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
                     saveLog(user + "bet", betlog);
                 } else {
-                    recoup++;
-                    if (recoup == 3) {
-                        recoup = 0;
-                        return "error";
-                    }
+                    
                     String betlog = "第" + betphase + "期" + "，第" + betsn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
                                     + "投注點數(" + amount + ")" + "(失敗)" + "(公式" + formu + ")";
                     // saveLog(user + "bet", betlog);
                     saveLog(user + "error", result.toString() + " bet error:" + betlog);
-                    return specialbet(user, sn, amount, betphase, c, codeList, formu, boardType, betsn);
+                    return "error";
                 }
 
             }
@@ -1439,8 +1470,11 @@ public class Controller {
                     return "error";
                 }
 
-            } else if (boardType.equals("3")) {
-                JsonObject pl = LeeinHttpClient.getPl(leein_url[leein_index % 4], leein_php_cookid);
+            } else if (boardType.equals("3") || boardType.equals("4")) {
+                String url = boardType.equals("3")?(leein_url[leein_index % 4]): (futsai_url[futsai_index % 4]) ;
+                String cookie = boardType.equals("3")?(leein_php_cookid): (futsai_php_cookid) ;
+
+                JsonObject pl = LeeinHttpClient.getPl(url, cookie);
 
                 JsonArray a = new JsonArray();
 
@@ -1463,7 +1497,7 @@ public class Controller {
 
                 String betS = bet.toString();
 
-                JsonObject result = LeeinHttpClient.httpPostBet(leein_url[leein_index % 4], leein_php_cookid, betS);
+                JsonObject result = LeeinHttpClient.httpPostBet(url, cookie, betS);
 
                 if (result.get("status").getAsString().equals("0")) {
                     for (String str : code) {
@@ -1475,16 +1509,12 @@ public class Controller {
                                     + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
                     saveLog(user + "bet", betlog);
                 } else {
-                    recoup++;
-                    if (recoup == 3) {
-                        recoup = 0;
-                        return "error";
-                    }
+                     
                     String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
                                     + "投注點數(" + amount + ")" + "(失敗)" + "(公式" + formu + ")";
                     // saveLog(user + "bet", betlog);
                     saveLog(user + "error", result.toString() + " bet error:" + betlog);
-                    return bet(user, sn, amount, betphase, c, codeList, formu, boardType);
+                    return "error";
                 }
 
             }
@@ -2228,6 +2258,7 @@ public class Controller {
 
                     String boardName = array[8].equals("0") ? "極速系統" :
                                        array[8].equals("1") ? "華山系統":
+                                       array[8].equals("4") ? "福財神系統":
                                        array[8].equals("2") ? "大立系統": "利盈系統" ;
                     String temp = "<tr><td  align=\"center\"  style=\"font-size: 24px;font-weight:bold;border: 1px solid black;\"> "
                                   + boardName + "</td>"; //帳號
@@ -2622,6 +2653,12 @@ public class Controller {
     String leein_url[] = { "https://0164955479-sy.cp168.ws", "https://1211067433-sy.cp168.ws",
                            "https://5461888297-sy.cp168.ws", "https://5184923658-sy.cp168.ws" };
     int leein_index = 0;
+    
+    //futsai
+    String futsai_php_cookid = "2a29530a2306=b00b0a238f1bb76547c75c442ce5bc273859ad7904b7bc3e;";
+    String futsai_url[] = { "https://1329036172-fcs.cp168.ws", "https://9402075398-fcs.cp168.ws",
+                           "https://3390418965-fcs.cp168.ws", "https://0736268923-fcs.cp168.ws" };
+    int futsai_index = 0;
 
     @RequestMapping("/imgcode")
     public @ResponseBody byte[] getImage(@RequestParam("_") String force) throws IOException {

@@ -1090,17 +1090,18 @@
 	                  if(data == 'null'){
                 	  	  $(".check_status" ).html('系統異常');
              		    $('.check_status').css('background', 'red'); 
-             		    if(checkTimeflag(9007)){
+             		    /*if(checkTimeflag(9007)){
              		    	 systemReloginIndex++;
                   		     if(systemReloginIndex >6) {
                   		    	 	 clearIndex(); 
                  		    	 } 
-             		    }
+             		    }*/
              		   
 	                  }
 
-	        		  return;
+	        		  return false;
 	        	 }
+	        //	 systemReloginIndex = 0 ;
 	        	 $(".check_status" ).html('系統正常');
      		 $('.check_status').css('background', 'green'); 
 
@@ -1176,14 +1177,14 @@
 		    	 	betarray6 =  document.getElementById("betproject5").checked ? json.betlist6.split(',') : json.betlist12.split(',') ;
 		    	 	if(json.betproject5=='1'){ 
 		    	 		checkChangeBetProject = 5; 
-		    	 		betarray5.splice(0, 0, '0');	
-		    	 		betarray6.splice(0, 0, '0');
+		    	 		//betarray5.splice(0, 0, '0');	
+		    	 		//betarray6.splice(0, 0, '0');
 		    	 		 
 		    	 		
 	    	 		} else if(json.betproject6=='1'){
 	    	 			checkChangeBetProject = 6; 	
-	    	 			betarray5.splice(0, 0, '0');
-	    	 			betarray6.splice(0, 0, '0');
+	    	 			//betarray5.splice(0, 0, '0');
+	    	 			//betarray6.splice(0, 0, '0');
     	 			}
 		    	 	else  { checkChangeBetProject = 0; 	}
 		    	 	/*betarray.splice(0, 0, '0');
@@ -1268,6 +1269,156 @@
    }
     
     
+    function project6_limit(sn,phase,single){
+		 let tenArray = [];
+		 
+		 
+		 for(var i=0;i<phase;i++){
+			 
+			 if(single =='s'){
+				 if((i%2) ==0){
+					 let p = phase - i ;
+					 let nCodeArra = getCodeByPhase(p);
+					 if(nCodeArra=='null'){
+						 return null;
+					 }
+					 let c = nCodeArra.split(',')[sn];
+					 if(tenArray.length == 5){
+						 return tenArray.sort(sortNumber);
+					 }else if(tenArray.indexOf(c)==-1){  tenArray.push(c);}
+					 
+				 }
+			 }else if(single =='d'){
+				 if( (i%2) ==1){
+					 let p = phase - i ;
+					 let nCodeArra = getCodeByPhase(p);
+					 if(nCodeArra=='null'){
+						 return null;
+					 }
+					 let c = nCodeArra.split(',')[sn];
+					 if(tenArray.length == 5){
+						 return tenArray.sort(sortNumber);
+					 }else if(tenArray.indexOf(c)==-1){  tenArray.push(c);}
+					 
+				 }
+			 }
+			 
+			
+			 
+		 } 
+	       
+		
+
+	}
+    
+    function project6(sn,phase){
+		 let tenArray = [];
+		 let nCodeArra = getCodeByPhase(phase);
+		 let nCodeArra_1 = getCodeByPhase(phase-1);
+		 let nCodeArra_2 = getCodeByPhase(phase-2);
+		 let nCodeArra_3 = getCodeByPhase(phase-3);
+		 let nCodeArra_4 = getCodeByPhase(phase-4);
+		 let nCodeArra_5 = getCodeByPhase(phase-5);
+		 
+		 
+		 let sn_index = sn  ;
+		 
+		 let c = nCodeArra.split(',')[sn_index];
+		 let c_1 = nCodeArra_1.split(',')[sn_index];
+		 let c_2 = nCodeArra_2.split(',')[sn_index];
+		 let c_3 = nCodeArra_3.split(',')[sn_index];
+		 let c_4 = nCodeArra_4.split(',')[sn_index];
+		 let c_5 = nCodeArra_5.split(',')[sn_index];
+
+		 if(tenArray.indexOf(c)==-1){  tenArray.push(c);}
+		 if(tenArray.indexOf(c_1)==-1){  tenArray.push(c_1);}
+		 if(tenArray.indexOf(c_2)==-1){  tenArray.push(c_2);}
+		 if(tenArray.indexOf(c_3)==-1){  tenArray.push(c_3);}
+		 if(tenArray.indexOf(c_4)==-1){  tenArray.push(c_4);}
+		 if(tenArray.indexOf(c_5)==-1){  tenArray.push(c_5);}
+
+		 return tenArray.sort(sortNumber);
+		    
+	    
+	       
+		
+
+	}
+    
+    function project6ByCode(code,phase){
+		 let tenArray = [];
+		 for(var i=0 ;i<6;i++){
+			 let p = phase - i ;
+			 
+			 let nCodeArra = getCodeByPhase(p); 
+			 let arr = nCodeArra.split(',');
+			 for(var s =0 ; s< arr.length ; s++){
+				 if(arr[s] == code){
+					 let betsn = s + 1;
+					 if(tenArray.indexOf(betsn)==-1){  tenArray.push(betsn);}
+				 }
+			 }
+			 
+			 
+		 } 
+		 return tenArray.sort(sortNumber);   
+	}
+    
+    function project6ByCode_limit(code,phase,single){
+		 let tenArray = [];
+		 for(var i=0 ;i<phase;i++){
+			 if(single =='s'){
+				 if((i%2) ==0){
+					 let p = phase - i ;
+					 let nCodeArra = getCodeByPhase(p);
+					  
+					 if(nCodeArra == 'null'){
+						 return null;
+					 }
+					 let arr = nCodeArra.split(',');
+					 for(var s =0 ; s< arr.length ; s++){
+						 if(arr[s] == code){
+							 let betsn = s + 1;
+							 if(tenArray.length ==5){
+								 return tenArray.sort(sortNumber);   
+							 }else  if(tenArray.indexOf(betsn)==-1){  tenArray.push(betsn);}
+						 }
+					 }
+					 
+				 }
+			 }else  if(single =='d'){
+				 if((i%2) ==1){
+					 let p = phase - i ;
+					 let nCodeArra = getCodeByPhase(p);
+				 
+					 if(nCodeArra == 'null'){
+						 return null;
+					 }
+					 let arr = nCodeArra.split(',');
+					 for(var s =0 ; s< arr.length ; s++){
+						 if(arr[s] == code){
+							 let betsn = s + 1;
+							 if(tenArray.length ==5){
+								 return tenArray.sort(sortNumber);   
+							 }else  if(tenArray.indexOf(betsn)==-1){  tenArray.push(betsn);}
+						 }
+					 }
+					 
+				 }
+			 }
+			 
+			 
+			 
+			
+			  
+			 
+			 
+		 } 
+		
+	}
+    
+    
+    
     function getFormu(str){
 		if(str.indexOf('FFFF77')>-1){ return '1'; }
 		if(str.indexOf('66FF66')>-1){ return '2'; }
@@ -1310,20 +1461,19 @@
 			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
   		    var amount = bArray[bIndex[z]%bArray.length] ;
 		    
-		    let betCode= "";
-		    if(i<5){
-		   	 	betCode = array_n[5]+','+array_n[6]+','+array_n[7]+','+array_n[8]+','+array_n[9] ;
-		    }else {
-		   	 	betCode = array_n[0]+','+array_n[1]+','+array_n[2]+','+array_n[3]+','+array_n[4] ;
-		    }
-			
-			//console.log("**************");
-			//console.log("第"+z+"名");
-
-			//console.log(betCode);
-			 
-			if(bIndex[z] == 0)
+  		    let betCode= "";
+			betCode = project1_limit(i,phase_now);
+			if(betCode == null){
+				projectBet[1][i] = true;
+				 
+			}else {
+				//let betLength = betCode.toString().split(',').length;
+				
+				 
+				if(bIndex[z] == 0)
 		 	   		 betTemp1[z] = betCode.toString(); 
+				
+			}
 				
 			if(!projectBet[1][i]){
 				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp1[z].toString(), formu , bet_n);
@@ -1337,7 +1487,47 @@
 		//console.log(JSON.stringify(betIndex)); 
 	}
 	
+	function project1_limit(sn,phase){
+		 let tenArray = [];
+		 
+		 
+		 for(var i=3;i<phase;i++){
+			 let p = phase - i ;
+			 let nCodeArra = getCodeByPhase(p);
+			 if(nCodeArra=='null'){
+				 return null;
+			 }
+			 let c = nCodeArra.split(',')[sn];
+			 if(tenArray.length == 5){
+				 return tenArray.sort(sortNumber);
+			 }else if(tenArray.indexOf(c)==-1){  tenArray.push(c);}
+			 
+		 } 
+	       
+		
+
+	}
 	
+	function project2_limit(sn,phase){
+		 let tenArray = [];
+		 
+		 
+		 for(var i=0;i<phase;i++){
+			 let p = phase - i ;
+			 let nCodeArra = getCodeByPhase(p);
+			 if(nCodeArra=='null'){
+				 return null;
+			 }
+			 let c = nCodeArra.split(',')[sn];
+			 if(tenArray.length == 5){
+				 return tenArray.sort(sortNumber);
+			 }else if(tenArray.indexOf(c)==-1){  tenArray.push(c);}
+			 
+		 } 
+	       
+		
+
+	}
 	
 	function compareByType1_pro(phase_before,phase_now,phase_before4 , bIndex, bArray){
 		let formu = document.getElementById('betproject6').checked ? '8' : '2';
@@ -1363,21 +1553,22 @@
 		 	//logAppend(cLog) ;
 		    var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
             //var betList =  rangeExist_pro[bet_before4].toString().split(',');
-			var writeFlag = false;
-	    	//var betStr="";
-		    var amount = bArray[bIndex[z]%bArray.length] ;
-		    let betCode= "";
-		    if(i==0 || i==2 || i==4 || i==6 || i==8 ){ //
-		   	 	betCode = array_n[1]+','+array_n[3]+','+array_n[5]+','+array_n[7]+','+array_n[9] ;
+   		    var amount = bArray[bIndex[z]%bArray.length] ;
+
+            let betCode= "";
+		      
+		    if((i % 2) ==1 ){ //雙車道
+		   	 	betCode = array_n[5]+','+array_n[6]+','+array_n[7]+','+array_n[8]+','+array_n[9] ;
 		    }else {
-		   	 	betCode = array_n[2]+','+array_n[4]+','+array_n[6]+','+array_n[8]+','+array_n[0] ;
+		   	 	betCode = array_n[0]+','+array_n[1]+','+array_n[2]+','+array_n[3]+','+array_n[4] ;
 		    }
-		 	//console.log("*******8");
-		    //console.log(betCode);
+		
+			 
 		    if(bIndex[z] == 0)
-	 	   		 betTemp2[z] = betCode.toString(); 
-		    //var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist[bet_before4]+")" ;
-		 	//logAppend(betLog) ; 
+	   		 	betTemp2[z] = betCode.toString(); 
+		    
+			
+			
 		 	if(!projectBet[2][i]){
 		   		let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp2[z].toString(),formu,bet_n);
 		   		if(rbf){
@@ -1419,38 +1610,37 @@
 		 	
 		    var amount = bArray[bIndex[z]%bArray.length] ;
 			let betCode= "";
-			if(document.getElementById('betproject6').checked){
-				if(i<5){
-			   	 	betCode = array_before4[0]+','+array_before4[1]+','+array_before4[2]+','+array_before4[3]+','+array_before4[4]+','+array_before4[5];
+			betCode = project6_limit(i,phase_now,'s');
+				 
+				
+			if(betCode == null){
+				projectBet[3][i] = true;
+				 
+			}else {
+				console.log("formu3:"+ betCode.toString());
 
-			    }else {
-			   	 	betCode = array_before4[4]+','+array_before4[5]+','+array_before4[6]+','+array_before4[7]+','+array_before4[8]+','+array_before4[9];
+				let betLength = betCode.toString().split(',').length;
+				
+				 
+					if(bIndex[z] == 0)
+			 	   		 betTemp3[z] = betCode.toString(); 
+					 
+					console.log("formu3:"+z+"名");
 
-			    }
-			}else if(document.getElementById('betproject5').checked){
-				if(i<5){
-			   	 	betCode = array_before4[1]+','+array_before4[2]+','+array_before4[3]+','+array_before4[4]+','+array_before4[5];
-
-			    }else {
-			   	 	betCode = array_before4[4]+','+array_before4[5]+','+array_before4[6]+','+array_before4[7]+','+array_before4[8];
-
-			    }
+					console.log(betTemp3[z].toString());
 			}
 		    
 			
-			//console.log("**************");
-			//console.log("第"+z+"名");
-
-			//console.log(betCode);
 			 
-			if(bIndex[z] == 0)
-		 	   		 betTemp3[z] = betCode.toString(); 
 				
 			if(!projectBet[3][i]){
-				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp3[z].toString(), formu ,bet_n);
-		   		if(rbf){
-					bIndex[z]++;
-				} 
+			 
+					let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp3[z].toString(), formu ,bet_n);
+			   		if(rbf){
+						bIndex[z]++;
+					} 
+				 
+				
 			}
 		}
 		
@@ -1503,37 +1693,39 @@
 		    var amount = bArray[bIndex[z]%bArray.length] ;
 		    let betCode= "";
 		    
-			if(document.getElementById('betproject6').checked){
-				if(i < 5 ){ //
-			   	 	betCode = array_before4[3]+','+array_before4[4]+','+array_before4[5]+','+array_before4[6]+','+array_before4[7]+','+array_before4[8] ;
+			betCode = project6_limit(i,phase_now,'d');
+			console.log("formu4:"+ betCode);
+			if(betCode == null){
+				projectBet[4][i] = true;
+				 
+			}else {
+				 
+				
+				 
+					if(bIndex[z] == 0)
+			 	   		 betTemp4[z] = betCode.toString(); 
+					 
+					console.log("formu4:"+z+"名");
 
-			    }else {
-			   	 	betCode = array_before4[2]+','+array_before4[3]+','+array_before4[4]+','+array_before4[5]+','+array_before4[6]+','+array_before4[7] ;
-
-			    }
-			 }
-			
-			if(document.getElementById('betproject5').checked){
-				if(i < 5 ){ //
-			   	 	betCode = array_before4[3]+','+array_before4[4]+','+array_before4[5]+','+array_before4[6]+','+array_before4[7] ;
-
-			    }else {
-			   	 	betCode = array_before4[2]+','+array_before4[3]+','+array_before4[4]+','+array_before4[5]+','+array_before4[6] ;
-
-			    }
-			 }
+					console.log(betTemp4[z].toString());
+				
+			}
 			    
 		 	//console.log("*******8");
-		    //console.log(betCode);
-		    if(bIndex[z] == 0)
-	 	   		 betTemp4[z] = betCode.toString(); 
+		     
+		    
 		    //var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist[bet_before4]+")" ;
 		 	//logAppend(betLog) ; 
 		 	if(!projectBet[4][i]){
-		   		let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp4[z].toString(),formu,bet_n);
-		   		if(rbf){
-					bIndex[z]++;
-				} 
+		 		
+		 		 
+		 			let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp4[z].toString(),formu,bet_n);
+			   		if(rbf){
+						bIndex[z]++;
+					} 
+		 	 
+		   		
+		   		
 		 	}
 		}
 		
@@ -1571,68 +1763,39 @@
 			
 			let betsn='';
 			
-			if(document.getElementById('betproject6').checked){
-				if(i == 0){ betsn=  '1,2,4,5,6,7'; } 
-				if(i == 1){ betsn=  '1,2,4,5,6,7'; } 
-				if(i == 2){ betsn=  '2,3,5,6,7,8'; } 
-				if(i == 3){ betsn=  '3,4,6,7,8,9'; } 
-				if(i == 4){ betsn=  '4,5,7,8,9,10'; } 
-				if(i == 5){ betsn=  '1,2,3,4,6,7'; } 
-				if(i == 6){ betsn=  '2,3,4,6,7,8'; } 
-				if(i == 7){ betsn=  '3,4,5,6,8,9'; } 
-				if(i == 8){ betsn=  '4,5,6,7,9,10'; } 
-				if(i == 9){ betsn=  '4,5,6,7,9,10'; } 
-				
-			}
-			
-			if(document.getElementById('betproject5').checked){
-				if(i == 0){ betsn=  '2,3,4,5,6'; } 
-				if(i == 1){ betsn=  '1,3,4,5,6'; } 
-				if(i == 2){ betsn=  '2,4,5,6,7'; } 
-				if(i == 3){ betsn=  '3,5,6,7,8'; } 
-				if(i == 4){ betsn=  '4,6,7,8,9'; } 
-				if(i == 5){ betsn=  '2,3,4,5,7'; } 
-				if(i == 6){ betsn=  '3,4,5,6,8'; } 
-				if(i == 7){ betsn=  '4,5,6,7,9'; } 
-				if(i == 8){ betsn=  '5,6,7,8,10'; } 
-				if(i == 9){ betsn=  '5,6,7,8,9'; } 
+			betsn = project6ByCode_limit(bet_n,phase_now,'s');
+			console.log("formu5:"+ betsn);
+			if(betsn == null){
+				projectBet[5][i] = true;
+			 
+			}else {
+				console.log("formu5:"+ bet_n + "@" +betsn.toString());
+
+				if(bIndex[z] == 0)
+					betTemp5[z] = bet_n + "@" +betsn.toString(); 
+				 
+				console.log("formu:5"+z+"名");
+
+				console.log(betTemp5[z].toString());
 				
 			}
 			
 
+		 	
 			
-			
-			if(bIndex[z] == 0){  
-				betTemp5[z] = array_n[i].toString(); //本號
-			}
-			
-		    /*if(i<5){
-		    		betsn= z+',6,7,8,9,10';
-		    }else{
-		    		betsn = '1,2,3,4,5,'+z;
-		    }
-		    
-		    if(bIndex[z] == 0){  
-				betTemp5[z] = array_n[i].toString(); //本號
-			}else {
-				var runb = array_n.indexOf( betTemp5[z].toString());
-				if(i<5){
-			    		betsn= (runb+1)+',6,7,8,9,10';
-			    }else{
-			    		betsn = '1,2,3,4,5,'+(runb+1);
-			    }
-			}*/
-		    
-		    //console.log('*********');
-		    //console.log('第'+(phase_now+1)+'期' );
-		    //console.log('第'+z+'名' );
-			//console.log('第'+betsn+'名' +  betTemp5[z].toString());
 			
 			if(!projectBet[5][i]){
-				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , betTemp5[z].toString(), formu, betsn);
-		   		if(rbf){
-					bIndex[z]++;
-				}
+				 
+
+					let bet_code = betTemp5[z].split('@')[0];
+					let bet_sn = betTemp5[z].split('@')[1];
+					let dynamicSn = getBETsnBycode(array_n,bet_code);
+					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
+			   		if(rbf){
+						bIndex[z]++;
+					}
+				 
+				
 			}
 		}
 		
@@ -1660,52 +1823,32 @@
 			var amount = bArray[bIndex[z]%bArray.length] ; 
 			let betsn='';
 			
-			if(document.getElementById('betproject6').checked){
-				if(i==0 ){  	betsn=  '1,3,5,6,7,8' ; }
-				if(i==1 ){  	betsn=  '2,4,5,6,7,9' ; }
-				if(i==2 ){  	betsn=  '3,5,6,7,8,10' ; }
-			    if(i==3 ){  betsn=  '1,4,6,7,8,9' ;  } 
-				if(i==4 ){  	betsn=  '2,5,7,8,9,10' ;  }
-				if(i==5 ){  	betsn=  '1,2,3,4,6,8' ; }
-				if(i==6 ){  	betsn=  '2,3,4,5,7,9' ; }
-				if(i==7 ){  	betsn=  '3,4,5,6,8,10' ;  }
-				if(i==8 ){  	betsn=  '1,4,5,6,7,9' ;  }
-				if(i==9 ){  	betsn=  '2,5,6,7,8,10' ; }
-
+			betsn = project6ByCode_limit(bet_n,phase_now,'d');
+			console.log("formu:6"+ betsn);
+			if(betsn == null){
+				projectBet[6][i] = true;
 				 
-				
-			}
-			
-			if(document.getElementById('betproject5').checked){
-				if(i==0 ){  	betsn=  '3,4,5,6,8' ; }
-				if(i==1 ){  	betsn=  '4,5,6,7,9' ; }
-				if(i==2 ){  	betsn=  '5,6,7,8,10' ; }
-			    if(i==3 ){  betsn=  '1,6,7,8,9' ;  } 
-				if(i==4 ){  	betsn=  '2,7,8,9,10' ;  }
-				if(i==5 ){  	betsn=  '1,2,3,4,8' ; }
-				if(i==6 ){  	betsn=  '2,3,4,5,9' ; }
-				if(i==7 ){  	betsn=  '3,4,5,6,10' ;  }
-				if(i==8 ){  	betsn=  '1,4,5,6,7' ;  }
-				if(i==9 ){  	betsn=  '2,5,6,7,8' ; }
+			}else {
+				console.log("formu:6"+ bet_n + "@" +betsn.toString());
+
+				if(bIndex[z] == 0)
+					betTemp6[z] = bet_n + "@" +betsn.toString(); 
+				 
+				console.log("formu6:"+z+"名");
+
+				console.log(betTemp6[z].toString());
 				
 			}
 		    
 		    
-		    
-		    betsn = combindsort(betsn);
-		    if(bIndex[z] == 0){  
-				betTemp6[z] = array_n[i].toString(); //本號
-				//betsn = combind(betsn,z);
-			}
-		     
-			
-		    
-		    //console.log('*********');
-		    //console.log('第'+(phase_now+1)+'期' );
-		    //console.log('第'+z+'名' );
-			//console.log('第'+betsn+'名' +  betTemp6[z].toString());
+
+		 	 
+
 			if(!projectBet[6][i]){
-				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , betTemp6[z].toString(), formu, betsn);
+				let bet_code = betTemp6[z].split('@')[0];
+				let bet_sn = betTemp6[z].split('@')[1];
+				let dynamicSn = getBETsnBycode(array_n,bet_code);
+				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
 		   		if(rbf){
 					bIndex[z]++;
 				} 
@@ -1737,16 +1880,27 @@
 		return c_temp + 1 ;
 	}
 
-	function specialreallyBet(sn,amount,betphase,c,betcode,originformu,betsn){
+	function specialreallyBet(sn,amount,betphase,c,betcode,originformu,betsn,dynamicSn){
 		let formu = originformu >6 ? originformu - 6 : originformu ;
-	    
+	    var b = '';
+		 
+		if(document.getElementById('betproject6').checked ){
+			  
+				b = combind(betsn,dynamicSn);
+			 
+		}
+		
+		if(document.getElementById('betproject5').checked ){ 
+				b = combindsort(betsn); 
+		}
+
 	  
 		let snIndex = sn - 1;
 		$.ajax({ url:  u + "/specialbet?user="+document.getElementById("user").value+ 
 				"&sn="+sn+"&amount="+amount+
 				"&betphase="+betphase+"&c="+c+"&codeList="+betcode+"&formu="+originformu+
 				'&boardType='+document.getElementById("boardType").value+
-				'&betsn='+betsn,  
+				'&betsn='+b,  
          async: false,
          success: function(data) {
         		    
@@ -1782,6 +1936,15 @@
 	       return arr.sort(sortNumber);  
  	}
 	
+	function getBETsnBycode(nCodeArra,code){
+	 
+		 for(var s =0 ; s< nCodeArra.length ; s++){
+			 if(nCodeArra[s] == code){
+				 let betsn = s + 1;
+				 return betsn;
+			 }
+		 }
+	}
 	
 	function reallyBet(sn,amount,betphase,c,codeList,originformu,BETN){
 	    
@@ -1789,11 +1952,9 @@
 		var b = '';
 		 
 		if(document.getElementById('betproject6').checked ){
-			if( formu==3  ||  formu==4){
-				b = combindsort(codeList);
-			} else {  
+			  
 				b = combind(codeList,BETN);
-			}
+			 
 		}
 		
 		if(document.getElementById('betproject5').checked ){ 
@@ -1995,9 +2156,23 @@
  		let check_v = '';
  		for(var i= 1 ; i<13 ;i++){
  			let id = ".betlist" + (i==1?'':i) ;
- 			if( $( id ).val().indexOf(' ')>-1 || $( id ).val().indexOf(',,')>-1) {
+ 			if( $( id ).val().indexOf(' ')>-1 || $( id ).val().indexOf(',,')>-1 ) {
  				alert('輸入符號有誤');
  				return;
+ 			}
+ 			
+ 			
+ 			let arr =  $( id ).val().toString().split(',');
+ 			for(var s in arr){
+ 				if(arr[s].length >1){
+ 					if(arr[s].substring(0,1) == '0'){
+ 						alert('輸入符號有誤');
+ 		 				return;
+ 					}
+ 				}else if (arr[s]==''){
+ 						alert('輸入符號有誤');
+		 				return;
+ 				}
  			}
  			
  			check_v +=  $( id ).val();
@@ -2231,7 +2406,7 @@
 				   	 	deleteHistory();
 				    }
 				    
-				    if( (checkStartHM *1) < 9017){
+				    if( (checkStartHM *1) < 9005){
 				   	 	return;
 				    }
 				   
