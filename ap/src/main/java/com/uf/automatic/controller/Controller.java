@@ -1111,8 +1111,7 @@ public class Controller {
 
         String betsnArray[] = betsn.split(",");
         bi++;
-        if (amount.equals("0") || (amount.equals("1") && boardType.equals("0"))
-            || (amount.equals("2") && boardType.equals("0"))) {
+        if (amount.equals("0") || (amount.equals("1") && boardType.equals("0"))){
             for (String str : betsnArray) {
                 String overLog = betphase + "@" + str + "@" + codeList + "@" + formu + "@" + sn;
                 saveOverLog(user, overLog, c);
@@ -1333,8 +1332,7 @@ public class Controller {
         try {
             String code[] = codeList.split(",");
             bi++;
-            if (amount.equals("0") || (amount.equals("1") && boardType.equals("0"))
-                || (amount.equals("2") && boardType.equals("0"))) {
+            if (amount.equals("0") || (amount.equals("1") && boardType.equals("0"))) {
                 for (String str : code) {
                     String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
                     saveOverLog(user, overLog, c);
