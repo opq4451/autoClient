@@ -1463,7 +1463,7 @@
 		    
   		    let betCode= "";
 			betCode = project1_limit(i,phase_now);
-			if(betCode == null){
+			if(bIndex[z] == 0 && betCode == null){
 				projectBet[1][i] = true;
 				 
 			}else {
@@ -1613,21 +1613,21 @@
 			betCode = project6_limit(i,phase_now,'s');
 				 
 				
-			if(betCode == null){
+			if(bIndex[z] == 0 && betCode == null){
 				projectBet[3][i] = true;
 				 
 			}else {
-				console.log("formu3:"+ betCode.toString());
+				//console.log("formu3:"+ betCode.toString());
 
-				let betLength = betCode.toString().split(',').length;
+				//let betLength = betCode.toString().split(',').length;
 				
 				 
 					if(bIndex[z] == 0)
 			 	   		 betTemp3[z] = betCode.toString(); 
 					 
-					console.log("formu3:"+z+"名");
+					//console.log("formu3:"+z+"名");
 
-					console.log(betTemp3[z].toString());
+					//console.log(betTemp3[z].toString());
 			}
 		    
 			
@@ -1695,7 +1695,7 @@
 		    
 			betCode = project6_limit(i,phase_now,'d');
 			console.log("formu4:"+ betCode);
-			if(betCode == null){
+			if(bIndex[z] == 0 && betCode == null){
 				projectBet[4][i] = true;
 				 
 			}else {
@@ -1705,9 +1705,9 @@
 					if(bIndex[z] == 0)
 			 	   		 betTemp4[z] = betCode.toString(); 
 					 
-					console.log("formu4:"+z+"名");
+					//console.log("formu4:"+z+"名");
 
-					console.log(betTemp4[z].toString());
+					//console.log(betTemp4[z].toString());
 				
 			}
 			    
@@ -1765,18 +1765,18 @@
 			
 			betsn = project6ByCode_limit(bet_n,phase_now,'s');
 			console.log("formu5:"+ betsn);
-			if(betsn == null){
+			if(bIndex[z] == 0 && betsn == null){
 				projectBet[5][i] = true;
 			 
 			}else {
-				console.log("formu5:"+ bet_n + "@" +betsn.toString());
+				//console.log("formu5:"+ bet_n + "@" +betsn.toString());
 
 				if(bIndex[z] == 0)
 					betTemp5[z] = bet_n + "@" +betsn.toString(); 
 				 
-				console.log("formu:5"+z+"名");
+				//console.log("formu:5"+z+"名");
 
-				console.log(betTemp5[z].toString());
+				//console.log(betTemp5[z].toString());
 				
 			}
 			
@@ -1825,18 +1825,18 @@
 			
 			betsn = project6ByCode_limit(bet_n,phase_now,'d');
 			console.log("formu:6"+ betsn);
-			if(betsn == null){
+			if(bIndex[z] == 0 && betsn == null){
 				projectBet[6][i] = true;
 				 
 			}else {
-				console.log("formu:6"+ bet_n + "@" +betsn.toString());
+				//console.log("formu:6"+ bet_n + "@" +betsn.toString());
 
 				if(bIndex[z] == 0)
 					betTemp6[z] = bet_n + "@" +betsn.toString(); 
 				 
-				console.log("formu6:"+z+"名");
+				//console.log("formu6:"+z+"名");
 
-				console.log(betTemp6[z].toString());
+				//console.log(betTemp6[z].toString());
 				
 			}
 		    
