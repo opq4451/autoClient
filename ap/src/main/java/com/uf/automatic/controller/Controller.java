@@ -891,32 +891,32 @@ public class Controller {
 
                     int sn = i + 1;
 
-                    if (x == 5 || x == 6 || x == 11 || x == 12) {
-
-                        for (int overi = 1; overi < 11; overi++) {
-                            String key = phase + "@" + sn + "@" + c[i] + "@" + x + "@" + overi;
-                            if (configProperty.getProperty(key) != null) {
-                                if (overmp.get(user + key) == null) {
-                                    overmp.put(user + key, "put");
-                                    over_i++;
-                                    // Utils.WritePropertiesFile(user+"overLOGDIS_log",
-                                    // fillZero(Integer.toString(over_i)), "第"+phase +
-                                    // "期，第" + sn + "名，號碼(" + code + ") 已過關!(第"+c+"關)");
-                                    String t = new SimpleDateFormat("HH:mm:ss").format(new Date());
-                                    Utils.WritePropertiesFile(user + "overLOGDIS_log",
-                                                              fillZero(Integer.toString(over_i)),
-                                                              "第" + phase + "期，第" + sn + "名，號碼(" + c[i] + ")已過關!(第"
-                                                                                                  + configProperty.getProperty(key)
-                                                                                                  + "關)" + "(公式" + x
-                                                                                                  + ")");
-
-                                    j.addProperty(covertIntToLatter(overi) + (x > 6 ? x - 6 : x), "Y");
-                                }
-
-                            }
-                        }
-
-                    } else {
+//                    if (x == 5 || x == 6 || x == 11 || x == 12) {
+//
+//                        for (int overi = 1; overi < 11; overi++) {
+//                            String key = phase + "@" + sn + "@" + c[i] + "@" + x + "@" + overi;
+//                            if (configProperty.getProperty(key) != null) {
+//                                if (overmp.get(user + key) == null) {
+//                                    overmp.put(user + key, "put");
+//                                    over_i++;
+//                                    // Utils.WritePropertiesFile(user+"overLOGDIS_log",
+//                                    // fillZero(Integer.toString(over_i)), "第"+phase +
+//                                    // "期，第" + sn + "名，號碼(" + code + ") 已過關!(第"+c+"關)");
+//                                    String t = new SimpleDateFormat("HH:mm:ss").format(new Date());
+//                                    Utils.WritePropertiesFile(user + "overLOGDIS_log",
+//                                                              fillZero(Integer.toString(over_i)),
+//                                                              "第" + phase + "期，第" + sn + "名，號碼(" + c[i] + ")已過關!(第"
+//                                                                                                  + configProperty.getProperty(key)
+//                                                                                                  + "關)" + "(公式" + x
+//                                                                                                  + ")");
+//
+//                                    j.addProperty(covertIntToLatter(overi) + (x > 6 ? x - 6 : x), "Y");
+//                                }
+//
+//                            }
+//                        }
+//
+//                    } else {
                         String key = phase + "@" + sn + "@" + c[i] + "@" + x;
                         if (configProperty.getProperty(key) != null) {
                             if (overmp.get(user + key) == null) {
@@ -936,7 +936,7 @@ public class Controller {
                             }
 
                         }
-                    }
+                    //}
 
                 }
 
