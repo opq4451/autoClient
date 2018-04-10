@@ -452,48 +452,42 @@ public class Controller {
                         continue;
                     }
                     String index = "";
-                    if (key_form.equals("6")) {
+                    
+                    if (key_form.equals("10")) {
                         index = "01";
                     }
-                    ;
-                    if (key_form.equals("12")) {
-                        index = "07";
-                    }
-                    if (key_form.equals("5")) {
+                    if (key_form.equals("9")) {
                         index = "02";
                     }
-                    ;
-                    if (key_form.equals("11")) {
-                        index = "08";
-                    }
-                    if (key_form.equals("4")) {
+                    if (key_form.equals("8")) {
                         index = "03";
                     }
-                    ;
-                    if (key_form.equals("10")) {
-                        index = "09";
-                    }
-                    if (key_form.equals("3")) {
+                    if (key_form.equals("7")) {
                         index = "04";
                     }
-                    ;
-                    if (key_form.equals("9")) {
-                        index = "10";
-                    }
-                    if (key_form.equals("2")) {
+                    if (key_form.equals("6")) {
                         index = "05";
                     }
-                    ;
-                    if (key_form.equals("8")) {
-                        index = "11";
-                    }
-                    if (key_form.equals("1")) {
+                    
+                    if (key_form.equals("5")) {
                         index = "06";
                     }
-                    ;
-                    if (key_form.equals("7")) {
-                        index = "12";
+                    if (key_form.equals("4")) {
+                        index = "07";
                     }
+                    
+                    if (key_form.equals("3")) {
+                        index = "08";
+                    }
+                    
+                    if (key_form.equals("2")) {
+                        index = "09";
+                    }
+                    
+                    if (key_form.equals("1")) {
+                        index = "10";
+                    }
+                     
 
                     String k = phase + "@" + index + "@" + sn + "@" + c + "@" + cc;
 
@@ -552,62 +546,58 @@ public class Controller {
                         }
                         m.put(phase, phase);
                     }
+                    
+                    
 
-                    if (formu.equals("06")) {
-                        logHtml.append("<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">"
-                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
-                    }
-                    if (formu.equals("05")) {
-                        logHtml.append("<tr><td bgcolor=\"5599FF\"  style=\"border: 1px solid black\">"
-                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
-                    }
-                    if (formu.equals("04")) {
-                        logHtml.append("<tr><td bgcolor=\"666666\"  style=\"border: 1px solid black\">"
-                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
-                    }
-                    if (formu.equals("03")) {
-                        logHtml.append("<tr><td bgcolor=\"FFAA33\"  style=\"border: 1px solid black\">"
-                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
-                    }
-                    if (formu.equals("02")) {
-                        logHtml.append("<tr><td bgcolor=\"99FFFF\"  style=\"border: 1px solid black\">"
-                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
-                    }
-
-                    if (formu.equals("01")) {
-                        logHtml.append("<tr><td bgcolor=\"B94FFF\"  style=\"border: 1px solid black\">"
-                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
-                    }
-
-                    if (formu.equals("12")) {
-                        logHtml.append("<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">"
-                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
-                    }
-
-                    if (formu.equals("11")) {
-                        logHtml.append("<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">"
-                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
-                    }
 
                     if (formu.equals("10")) {
-                        logHtml.append("<tr><td bgcolor=\"DEB887\"  style=\"border: 1px solid black\">"
+                        logHtml.append("<tr><td bgcolor=\"5599FF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
                     if (formu.equals("09")) {
-                        logHtml.append("<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">"
+                        logHtml.append("<tr><td bgcolor=\"666666\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
                     if (formu.equals("08")) {
-                        logHtml.append("<tr><td bgcolor=\"CCFF99\"  style=\"border: 1px solid black\">"
+                        logHtml.append("<tr><td bgcolor=\"FFAA33\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
                     if (formu.equals("07")) {
-                        logHtml.append("<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">"
+                        logHtml.append("<tr><td bgcolor=\"99FFFF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
+                    
+
+                    if (formu.equals("06")) {
+                        logHtml.append("<tr><td bgcolor=\"B94FFF\"  style=\"border: 1px solid black\">"
+                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+                    }
+                    
+                    
+                    if (formu.equals("05")) {
+                        logHtml.append("<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">"
+                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+                    }
+                    if (formu.equals("04")) {
+                        logHtml.append("<tr><td bgcolor=\"DEB887\"  style=\"border: 1px solid black\">"
+                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+                    }
+                    if (formu.equals("03")) {
+                        logHtml.append("<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">"
+                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+                    }
+                    if (formu.equals("02")) {
+                        logHtml.append("<tr><td bgcolor=\"CCFF99\"  style=\"border: 1px solid black\">"
+                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+                    }
+
+                    if (formu.equals("01")) {
+                        logHtml.append("<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">"
+                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+                    } 
 
                 }
                 logHtml.append("</table>");
@@ -880,43 +870,12 @@ public class Controller {
             if (c.length != 10)
                 return "null";
 
-            int s = 1;
-            if (betproject.equals("6")) {
-                s = 7;
-            }
-            int e = s + 6;
+          
 
-            for (int x = s; x < e; x++) { // x → 公式幾
+            for (int x = 1; x < 11; x++) { // x → 公式幾
                 for (int i = 0; i < 10; i++) {
 
-                    int sn = i + 1;
-
-//                    if (x == 5 || x == 6 || x == 11 || x == 12) {
-//
-//                        for (int overi = 1; overi < 11; overi++) {
-//                            String key = phase + "@" + sn + "@" + c[i] + "@" + x + "@" + overi;
-//                            if (configProperty.getProperty(key) != null) {
-//                                if (overmp.get(user + key) == null) {
-//                                    overmp.put(user + key, "put");
-//                                    over_i++;
-//                                    // Utils.WritePropertiesFile(user+"overLOGDIS_log",
-//                                    // fillZero(Integer.toString(over_i)), "第"+phase +
-//                                    // "期，第" + sn + "名，號碼(" + code + ") 已過關!(第"+c+"關)");
-//                                    String t = new SimpleDateFormat("HH:mm:ss").format(new Date());
-//                                    Utils.WritePropertiesFile(user + "overLOGDIS_log",
-//                                                              fillZero(Integer.toString(over_i)),
-//                                                              "第" + phase + "期，第" + sn + "名，號碼(" + c[i] + ")已過關!(第"
-//                                                                                                  + configProperty.getProperty(key)
-//                                                                                                  + "關)" + "(公式" + x
-//                                                                                                  + ")");
-//
-//                                    j.addProperty(covertIntToLatter(overi) + (x > 6 ? x - 6 : x), "Y");
-//                                }
-//
-//                            }
-//                        }
-//
-//                    } else {
+                        int sn = i + 1; 
                         String key = phase + "@" + sn + "@" + c[i] + "@" + x;
                         if (configProperty.getProperty(key) != null) {
                             if (overmp.get(user + key) == null) {
@@ -932,7 +891,7 @@ public class Controller {
                                                                                               + configProperty.getProperty(key)
                                                                                               + "關)" + "(公式" + x + ")");
 
-                                j.addProperty(covertIntToLatter(sn) + (x > 6 ? x - 6 : x), "Y");
+                                j.addProperty(covertIntToLatter(sn) + x, "Y");
                             }
 
                         }
