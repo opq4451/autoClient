@@ -116,7 +116,7 @@ public class DaliHttpClient {
         try {
             DaliHttpClient d_h = DaliHttpClient.getInstance("bee6611", "asdf123123");
             
-            JsonObject a = getBetMD5_PL();
+            JsonObject a = getBetBoatMD5_PL();
 
             
                 String MD5 = a.get("MD5").getAsString();
@@ -288,7 +288,7 @@ public class DaliHttpClient {
     // }
     // return "";
     // }
-    public static String hitEvent() throws Exception {
+    public static String hitEvent(String code) throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         HttpPost Post = new HttpPost(daliUrl[daliUrl_index % 5] + "/member/Submit/bcyx");
@@ -296,7 +296,7 @@ public class DaliHttpClient {
         Post.setHeader("Cookie", daliCookie);
 
         List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-        params.add(new BasicNameValuePair("No", "400"));
+        params.add(new BasicNameValuePair("No", code));
 
         Post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
@@ -335,10 +335,48 @@ public class DaliHttpClient {
             response.close();
         }
 
-        hitEvent();
+        hitEvent("400");
+        hitEvent("800");
+
         return "";
     }
+    
+    public static JsonObject getBetBoatMD5_PL() throws Exception {
 
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        HttpPost Post = new HttpPost(daliUrl[daliUrl_index % 5] + "/member/Game_v2/gxpl");
+
+        Post.setHeader("Cookie", daliCookie);
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+        params.add(new BasicNameValuePair("ItemNo", "807"));
+        params.add(new BasicNameValuePair("MD5", "-1"));
+
+        Post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+
+        CloseableHttpResponse response = httpclient.execute(Post);
+
+        try {
+
+            String content = EntityUtils.toString(response.getEntity());
+
+            JsonParser parser = new JsonParser();
+
+            JsonObject o = parser.parse(content).getAsJsonObject();
+
+            //String MD5 = o.get("MD5").getAsString();
+
+            return o;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            response.close();
+        }
+        return null;
+    }
+    
     public static JsonObject getBetMD5_PL() throws Exception {
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
