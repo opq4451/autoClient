@@ -1636,25 +1636,35 @@ tenArray.push('8');
 		 	
 		    var amount = bArray[bIndex[z]%bArray.length] ;
 			let betCode= "";
-			betCode = project6_limit(i,phase_now,'s');
-				 
+			let betCode= ""; 
+			if(document.getElementById('betproject6').checked ){
+				betCode = project3_limit(i,phase_now,7);
+			 
+			}
+			if(document.getElementById('betproject5').checked ){ 
+				betCode = project3_limit(i,phase_now,5);
+
 				
+					 
+			}
+
+			
+		
 			if(betCode == null){
 				projectBet[3][i] = true;
-				 
-			}else {
-				console.log("formu3:"+ betCode.toString());
-
-				let betLength = betCode.toString().split(',').length;
-				
-				 
-					if(bIndex[z] == 0)
+				bIndex[z] = 0 ;
+			}else { 
+				if(document.getElementById('betproject6').checked ){ 
+						  betTemp3[z] = betCode.toString(); 
+				}
+				if(document.getElementById('betproject5').checked ){ 
+					  if(bIndex[z] == 0)
 			 	   		 betTemp3[z] = betCode.toString(); 
-					 
-					console.log("formu3:"+z+"名");
-
-					console.log(betTemp3[z].toString());
+				}
+ 	   		  
+				
 			}
+
 		    
 			
 			 
@@ -1672,7 +1682,27 @@ tenArray.push('8');
 		
 	}
 	
-	
+	function project3_limit(sn,phase,length){
+		 let tenArray = [];
+		 
+		 
+		 for(var i=(length==5?1:0);i<phase;i++){
+			 let p = phase - i ;
+			 let nCodeArra = getCodeByPhase(p);
+			 if(nCodeArra=='null'){
+				 return null;
+			 }
+			 let c = nCodeArra.split(',')[sn];
+			 if(tenArray.length == length){
+				 return tenArray.sort(sortNumber);
+			 }else if(tenArray.indexOf(c)==-1){  tenArray.push(c);}
+			 
+		 } 
+	       
+		
+
+	}
+
 	function combind(arra,origin){
   	  
 	       var arr = new Array(6)
@@ -1717,31 +1747,35 @@ tenArray.push('8');
  			//var betList =  rangeExist_pro4[bet_before4].toString().split(',');
 		    var writeFlag = false;
 		    var amount = bArray[bIndex[z]%bArray.length] ;
-		    let betCode= "";
-		    
-			betCode = project6_limit(i,phase_now,'d');
-			console.log("formu4:"+ betCode);
-			if(betCode == null){
-				projectBet[4][i] = true;
-				 
-			}else {
-				 
-				
-				 
-					if(bIndex[z] == 0)
-			 	   		 betTemp4[z] = betCode.toString(); 
-					 
-					console.log("formu4:"+z+"名");
-
-					console.log(betTemp4[z].toString());
-				
+		    let betCode= ""; 
+			if(document.getElementById('betproject5').checked){
+				if((i % 2)==0 ){ //
+			   	 	betCode = array_before4[0]+','+array_before4[1]+','+array_before4[2]+','+array_before4[3]+','+array_before4[4] ;
+			    }else {
+			   	 	betCode = array_before4[5]+','+array_before4[6]+','+array_before4[7]+','+array_before4[8]+','+array_before4[9] ;
+			    }
+			 }
+			if(document.getElementById('betproject6').checked){
+				betCode = project4_limit(i,phase_now,'s',7);
 			}
-			    
-		 	//console.log("*******8");
-		     
-		    
-		    //var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist[bet_before4]+")" ;
-		 	//logAppend(betLog) ; 
+			
+				 
+				
+			if( betCode == null){
+				projectBet[4][i] = true;
+				bIndex[z]=0;
+			}else {
+				if(document.getElementById('betproject6').checked ){ 
+						  betTemp4[z] = betCode.toString(); 
+				}
+				if(document.getElementById('betproject5').checked ){ 
+					  if(bIndex[z] == 0)
+			 	   		 betTemp4[z] = betCode.toString(); 
+				}
+			   // betTemp5[z] = betCode.toString();  
+			}
+
+			
 		 	if(!projectBet[4][i]){
 		 		
 		 		 
@@ -1756,6 +1790,50 @@ tenArray.push('8');
 		}
 		
 	}
+	
+	function project4_limit(sn,phase,single,length){
+		 let tenArray = [];
+		 
+		 
+		 for(var i=(length==5?2:0);i<phase;i++){
+			 
+			 if(single =='s'){
+				 if((i%2) ==0){
+					 let p = phase - i ;
+					 let nCodeArra = getCodeByPhase(p);
+					 if(nCodeArra=='null'){
+						 return null;
+					 }
+					 let c = nCodeArra.split(',')[sn];
+					 if(tenArray.length == length){
+						 return tenArray.sort(sortNumber);
+					 }else if(tenArray.indexOf(c)==-1){  tenArray.push(c);}
+					 
+				 }
+			 }else if(single =='d'){
+				 if( (i%2) ==1){
+					 let p = phase - i ;
+					 let nCodeArra = getCodeByPhase(p);
+					 if(nCodeArra=='null'){
+						 return null;
+					 }
+					 let c = nCodeArra.split(',')[sn];
+					 if(tenArray.length == length){
+						 return tenArray.sort(sortNumber);
+					 }else if(tenArray.indexOf(c)==-1){  tenArray.push(c);}
+					 
+				 }
+			 }
+			 
+			
+			 
+		 } 
+	       
+		
+
+	}
+
+	
 	
 	function compareByType1_pro5(phase_before,phase_now,phase_before4 , bIndex, bArray){
 		let formu = document.getElementById('betproject6').checked ? '11' : '5';
