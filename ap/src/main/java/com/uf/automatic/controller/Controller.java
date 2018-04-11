@@ -555,51 +555,51 @@ public class Controller {
 
 
                     if (formu.equals("10")) {
-                        logHtml.append("<tr><td bgcolor=\"5599FF\"  style=\"border: 1px solid black\">"
+                        logHtml.append("<tr><td bgcolor=\""+color+"\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
                     if (formu.equals("09")) {
-                        logHtml.append("<tr><td bgcolor=\"666666\"  style=\"border: 1px solid black\">"
+                        logHtml.append("<tr><td bgcolor=\""+color+"\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
                     if (formu.equals("08")) {
-                        logHtml.append("<tr><td bgcolor=\"FFAA33\"  style=\"border: 1px solid black\">"
+                        logHtml.append("<tr><td bgcolor=\""+color+"\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
                     if (formu.equals("07")) {
-                        logHtml.append("<tr><td bgcolor=\"99FFFF\"  style=\"border: 1px solid black\">"
+                        logHtml.append("<tr><td bgcolor=\""+color+"\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
                     
 
                     if (formu.equals("06")) {
-                        logHtml.append("<tr><td bgcolor=\"B94FFF\"  style=\"border: 1px solid black\">"
+                        logHtml.append("<tr><td bgcolor=\""+color+"\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
                     
                     
                     if (formu.equals("05")) {
-                        logHtml.append("<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">"
+                        logHtml.append("<tr><td bgcolor=\""+color+"\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
                     if (formu.equals("04")) {
-                        logHtml.append("<tr><td bgcolor=\"DEB887\"  style=\"border: 1px solid black\">"
+                        logHtml.append("<tr><td bgcolor=\""+color+"\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
                     if (formu.equals("03")) {
-                        logHtml.append("<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">"
+                        logHtml.append("<tr><td bgcolor=\""+color+"\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
                     if (formu.equals("02")) {
-                        logHtml.append("<tr><td bgcolor=\"CCFF99\"  style=\"border: 1px solid black\">"
+                        logHtml.append("<tr><td bgcolor=\""+color+"\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
                     if (formu.equals("01")) {
-                        logHtml.append("<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">"
+                        logHtml.append("<tr><td bgcolor=\""+color+"\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     } 
 
