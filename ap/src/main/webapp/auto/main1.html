@@ -1444,22 +1444,11 @@
 			 
 				
 			if(!projectBet[1][i]){
-				let prephase = $( ".betlist7" ).val() ;
+				//let prephase = $( ".betlist7" ).val() ;
 	 	     	
 				let betCode=  '';
-		  		   // if(document.getElementById("ninecodeindex").value != ''){
-		  		if( ( prephase * 1) < 6 ){
-		  			let r = prephase * 1 ;
- 		    		    let removeCode = (bet_before4 * 1 > r) ? (	bet_before4 * 1 - r)  : (	(bet_before4 * 1 + 10 ) - r) ;
- 		    			betCode=  getNineCode(removeCode + ''); 
-		  		}else if( ( prephase * 1) > 5 ){
-		  			let add = prephase * 1 - 5 ;
-		  			
-		  			 
-		    		    let removeCode =  ( bet_before4 * 1 + add ) % 10;
-		    		    removeCode = removeCode == 0 ? '10': removeCode ;
-		    			betCode=  getNineCode(removeCode + ''); 
-	  			}
+				let removeCode = bet_before4;
+	    			betCode=  getNineCode(removeCode + ''); 
 		    		
   		    		
 		  		    		
@@ -2337,7 +2326,7 @@
     	  let obj = {} ; 
     
 	    	   
-          if ($( ".betlist" ).val()  && $( ".betlist7" ).val()){
+          if ($( ".betlist" ).val() ){
         	  		let pre = $( ".betlist" ).val() * 1 ;
         	  	 
  			   if(document.getElementById('c2').checked  && !checkProjectBetFlagIndex(projectBet[1]) ) {
