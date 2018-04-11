@@ -1364,48 +1364,75 @@
 		 return tenArray.sort(sortNumber);   
 	}
     
-    function project6ByCode_limit(code,phase,single){
+    function project6ByCode_limit(code,phase,before){
 		 let tenArray = [];
-		 for(var i=0 ;i<phase;i++){
-			 if(single =='s'){
-				 if((i%2) ==0){
-					 let p = phase - i ;
-					 let nCodeArra = getCodeByPhase(p);
-					  
-					 if(nCodeArra == 'null'){
-						 return null;
-					 }
-					 let arr = nCodeArra.split(',');
-					 for(var s =0 ; s< arr.length ; s++){
-						 if(arr[s] == code){
-							 let betsn = s + 1;
-							 if(tenArray.length ==5){
-								 return tenArray.sort(sortNumber);   
-							 }else  if(tenArray.indexOf(betsn)==-1){  tenArray.push(betsn);}
-						 }
-					 }
-					 
-				 }
-			 }else  if(single =='d'){
-				 if((i%2) ==1){
-					 let p = phase - i ;
-					 let nCodeArra = getCodeByPhase(p);
+		 let p = phase - before ;
+		 let nCodeArra = getCodeByPhase(p);
+		  
+		  
+		 let arr = nCodeArra.split(',');
+		 for(var s =0 ; s< arr.length ; s++){
+			 if(arr[s] == code){
+				 let betsn = s + 1;
 				 
-					 if(nCodeArra == 'null'){
-						 return null;
-					 }
-					 let arr = nCodeArra.split(',');
-					 for(var s =0 ; s< arr.length ; s++){
-						 if(arr[s] == code){
-							 let betsn = s + 1;
-							 if(tenArray.length ==5){
-								 return tenArray.sort(sortNumber);   
-							 }else  if(tenArray.indexOf(betsn)==-1){  tenArray.push(betsn);}
-						 }
-					 }
-					 
+				 
+if(betsn == '1'){ tenArray.push('1'); tenArray.push('2');  
+                  tenArray.push('3'); tenArray.push('4');  
+                  tenArray.push('8'); tenArray.push('9');
+                  tenArray.push('10');
 				 }
+if(betsn == '2'){ tenArray.push('2'); tenArray.push('3');  
+tenArray.push('4'); tenArray.push('5');  
+tenArray.push('1'); tenArray.push('9');
+tenArray.push('10');
+}
+if(betsn == '3'){ tenArray.push('3'); tenArray.push('4');  
+tenArray.push('5'); tenArray.push('6');  
+tenArray.push('1'); tenArray.push('2');
+tenArray.push('10');
+}
+if(betsn == '4'){ tenArray.push('7'); tenArray.push('4');  
+tenArray.push('5'); tenArray.push('6');  
+tenArray.push('1'); tenArray.push('2');
+tenArray.push('3');
+}	
+if(betsn == '5'){ tenArray.push('7'); tenArray.push('8');  
+tenArray.push('5'); tenArray.push('6');  
+tenArray.push('4'); tenArray.push('2');
+tenArray.push('3');
+}	
+if(betsn == '6'){ tenArray.push('7'); tenArray.push('8');  
+tenArray.push('9'); tenArray.push('6');  
+tenArray.push('4'); tenArray.push('5');
+tenArray.push('3');
+}
+if(betsn == '7'){ tenArray.push('7'); tenArray.push('8');  
+tenArray.push('9'); tenArray.push('10');  
+tenArray.push('4'); tenArray.push('5');
+tenArray.push('6');
+}	
+if(betsn == '8'){ tenArray.push('10'); tenArray.push('8');  
+tenArray.push('9'); tenArray.push('1');  
+tenArray.push('6'); tenArray.push('7');
+tenArray.push('5');
+}
+if(betsn == '9'){ tenArray.push('10'); tenArray.push('2');  
+tenArray.push('9'); tenArray.push('1');  
+tenArray.push('6'); tenArray.push('7');
+tenArray.push('8');
+}	
+if(betsn == '10'){ tenArray.push('10'); tenArray.push('2');  
+tenArray.push('9'); tenArray.push('1');  
+tenArray.push('3'); tenArray.push('7');
+tenArray.push('8');
+}	
+
+				 
+				 return tenArray;
+				
+				 
 			 }
+		 }
 			 
 			 
 			 
@@ -1415,8 +1442,7 @@
 			 
 		 } 
 		
-	}
-    
+	 
     
     
     function getFormu(str){
@@ -1762,23 +1788,19 @@
 		 	   		  
 			
 			let betsn='';
-			
-			betsn = project6ByCode_limit(bet_n,phase_now,'s');
-			console.log("formu5:"+ betsn);
-			if(betsn == null){
-				projectBet[5][i] = true;
+			//if(bIndex[z] > 0)
+			//	bet_n = betTemp5[z].split('@')[0];
+				  
 			 
-			}else {
-				console.log("formu5:"+ bet_n + "@" +betsn.toString());
-
-				if(bIndex[z] == 0)
-					betTemp5[z] = bet_n + "@" +betsn.toString(); 
-				 
-				console.log("formu:5"+z+"名");
-
-				console.log(betTemp5[z].toString());
-				
+			if(bIndex[z] > 0){
+				betsn = project6ByCode_limit( betTemp5[z].split('@')[0],phase_now,0);
+				betTemp5[z] = betTemp5[z].split('@')[0] + "@" +betsn.toString(); 
+			} else {
+				betsn = project6ByCode_limit(bet_n,phase_now,0);
+				betTemp5[z] = bet_n + "@" +betsn.toString(); 
 			}
+			
+			 
 			
 
 		 	
@@ -1822,23 +1844,16 @@
  			 
 			var amount = bArray[bIndex[z]%bArray.length] ; 
 			let betsn='';
-			
-			betsn = project6ByCode_limit(bet_n,phase_now,'d');
-			console.log("formu:6"+ betsn);
-			if(betsn == null){
-				projectBet[6][i] = true;
-				 
-			}else {
-				console.log("formu:6"+ bet_n + "@" +betsn.toString());
-
-				if(bIndex[z] == 0)
-					betTemp6[z] = bet_n + "@" +betsn.toString(); 
-				 
-				console.log("formu6:"+z+"名");
-
-				console.log(betTemp6[z].toString());
-				
+			if(bIndex[z] > 0){
+			 
+				betsn = project6ByCode_limit( betTemp6[z].split('@')[0],phase_now,1);
+				betTemp6[z] = betTemp6[z].split('@')[0] + "@" +betsn.toString(); 
+		}else {
+				betsn = project6ByCode_limit(bet_n,phase_now,1);
+				betTemp6[z] = bet_n + "@" +betsn.toString(); 
 			}
+			
+			 
 		    
 		    
 
@@ -1886,7 +1901,7 @@
 		 
 		if(document.getElementById('betproject6').checked ){
 			  
-				b = combind(betsn,dynamicSn);
+				b = combindsort(betsn); 
 			 
 		}
 		
@@ -2169,10 +2184,7 @@
  						alert('輸入符號有誤');
  		 				return;
  					}
- 				}else if (arr[s]==''){
- 						alert('輸入符號有誤');
-		 				return;
- 				}
+ 				} 
  			}
  			
  			check_v +=  $( id ).val();
