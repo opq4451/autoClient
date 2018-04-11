@@ -547,7 +547,11 @@ public class Controller {
                         m.put(phase, phase);
                     }
                     
+                    String color = "FFFF77";
                     
+                    if(Integer.parseInt(phase) % 2 == 1) {
+                        color = "5599FF";
+                    }
 
 
                     if (formu.equals("10")) {
