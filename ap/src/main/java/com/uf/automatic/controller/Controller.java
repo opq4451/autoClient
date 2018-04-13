@@ -391,8 +391,9 @@ public class Controller {
     }
 
     public static void main(String[] args) {
-        String s = new Controller().getPredictLog("aaabet");
-        System.out.println(s);
+        //String s = new Controller().getPredictLog("aaabet");
+        String a = "第34期";
+        System.out.println(a.substring(a.indexOf("第")+1,a.indexOf("期")));
     }
 
     @RequestMapping("/getPredictLog")
@@ -427,11 +428,11 @@ public class Controller {
                     String v = configProperty.getProperty(e.nextElement().toString());
 
                     //String formuStr = v.substring(v.length() - 5, v.length()); // (公式1)
-                    String phase = v.substring(1, 7); //期別
+                    String phase = v.substring(v.indexOf("第")+1,v.indexOf("期") ); //期別
                     String key_form = v.substring(v.lastIndexOf("式") + 1, v.lastIndexOf(")")); //公式
 
-                    int start = v.indexOf("第", 8);
-                    int end = v.indexOf("名", 8);
+                    int start = v.indexOf("第", v.indexOf("期"));
+                    int end = v.indexOf("名", v.indexOf("期"));
                     String sn = v.substring(start + 1, end).length() == 1 ? "0" + v.substring(start + 1, end)
                                                                           : v.substring(start + 1, end); //第幾名
                     int start_c = v.lastIndexOf("第");
@@ -653,9 +654,24 @@ public class Controller {
             String a = o.get("Award").getAsString();
             JsonArray data = parser.parse(a).getAsJsonArray();
             String drawIssue = data.get(0).getAsJsonObject().get("I").getAsString();
+            
+            JsonObject j = new JsonObject();
             if (drawIssue != null && !drawIssue.equals("")) {
-                return Integer.toString(Integer.parseInt(drawIssue) + 1);
+                j.addProperty("pk10", Integer.toString(Integer.parseInt(drawIssue) + 1));
+                //return Integer.toString(Integer.parseInt(drawIssue) + 1);
             }
+            
+            
+            //boat
+            String phase = Utils.writeBoatHistory();
+
+            
+            if (phase != null && !phase.equals("")) {
+                j.addProperty("boat", Integer.toString(Integer.parseInt(phase) + 1));
+ 
+            }
+            
+            return j.toString();
 
         } catch (Exception e) {
             saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : getPhase 斷");
@@ -671,12 +687,12 @@ public class Controller {
     }
 
     @RequestMapping("/getCode")
-    public String getCode(@RequestParam("phase") String phase) {
+    public String getCode(@RequestParam("phase") String phase,@RequestParam("fileName") String fileName) {
         FileInputStream fileIn = null;
         try {
             Properties configProperty = new Properties();
             String path = System.getProperty("user.dir");
-            String hisFile = path + "/history.properties";
+            String hisFile = path + "/"+fileName+".properties";
             File file = new File(hisFile);
             if (!file.exists()) {
                 file.createNewFile();
@@ -853,7 +869,8 @@ public class Controller {
 
     @RequestMapping("/checkOver")
     public String checkOver(@RequestParam("user") String user, @RequestParam("phase") String phase,
-                            @RequestParam("code") String code, @RequestParam("betproject") String betproject) {
+                            @RequestParam("code") String code, @RequestParam("betproject") String betproject,
+                            @RequestParam("fileName") String fileName ) {
         FileInputStream fileIn = null;
         FileOutputStream fileOut = null;
 
@@ -942,7 +959,7 @@ public class Controller {
 
             }
 
-            if (getCode(phase).equals("null")) { //兌不到獎
+            if (getCode(phase,fileName).equals("null")) { //兌不到獎
                 j.addProperty("checkFlag", "N");
             } else {
                 j.addProperty("checkFlag", "Y");
@@ -1325,7 +1342,9 @@ public class Controller {
     public String bet(@RequestParam("user") String user, @RequestParam("sn") String sn,
                       @RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
                       @RequestParam("c") String c, @RequestParam("codeList") String codeList,
-                      @RequestParam("formu") String formu, @RequestParam("boardType") String boardType
+                      @RequestParam("formu") String formu, @RequestParam("boardType") String boardType,
+                      @RequestParam("playitem") String playitem
+               
 
     ) {
 
@@ -1427,7 +1446,13 @@ public class Controller {
                 }
             } else if (boardType.equals("2")) { //大立
                 JsonParser pr = new JsonParser();
-                JsonObject j = DaliHttpClient.getBetMD5_PL();
+                JsonObject j = null ;
+                if(playitem.equals("0")) {
+                    j = DaliHttpClient.getBetMD5_PL();
+                }else  if(playitem.equals("1")) {
+                    j = DaliHttpClient.getBetBoatMD5_PL();
+                }
+               // JsonObject j = DaliHttpClient.getBetMD5_PL();
                 String MD5 = j.get("MD5").getAsString();
 
                 JsonArray a = j.getAsJsonArray("DATAODDS");
@@ -1885,7 +1910,7 @@ public class Controller {
     }
 
     @RequestMapping("/getHistory")
-    public String getHistory() {
+    public String getHistory(@RequestParam("fileName") String fileName) {
 
         try {
 
@@ -1895,7 +1920,7 @@ public class Controller {
             try {
                 Properties configProperty = new OrderedProperties();
                 String path = System.getProperty("user.dir");
-                String hisFile = path + "/history.properties";
+                String hisFile = path + "/"+fileName+".properties";
                 File file = new File(hisFile);
                 if (!file.exists())
                     file.createNewFile();

@@ -29,6 +29,7 @@ public class App {
 		}
 
 		Utils.writeHistory();
+		Utils.writeBoatHistory();
 		SpringApplication.run(App.class, args);
 
 		//run();

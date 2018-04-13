@@ -138,6 +138,29 @@ public class Utils {
         return "";
     }
 
+    
+    public static String writeBoatHistory() {
+        try { 
+            String url = "https://www.88icp.com/xyft/ajax?ajaxHandler=GetDrawData" ;
+
+            //String url = "http://api.1680210.com/pks/getPksHistoryList.do?lotCode=10001";
+            String ret = Utils.httpClientGet(url);
+            JsonParser parser = new JsonParser();
+            JsonObject o = parser.parse(ret).getAsJsonObject();
+            JsonObject Current = o.get("Current").getAsJsonObject();
+            
+            String phase =   Current.get("Period").getAsString(); 
+            String DrawNumbers =   Current.get("DrawNumbers").getAsString(); 
+            WritePropertiesFile("history_boat", phase, DrawNumbers);
+            return phase;
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+ 
+        return "";
+    }
+    
     public static void writeHistory() {
         try {
 

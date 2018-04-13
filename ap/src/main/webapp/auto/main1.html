@@ -565,8 +565,20 @@
 					 <div  class="toPhase">loading..</div> 
 			</td>
 			
-			<td width="1%"  nowrap class="s_point" style="border: 1px solid gray; border-collapse: collapse; font-size: 18px; text-align:center;">點數不足</td>
-		    <td class="tdClass" width="1%" > <input  style=" font-size: 15px; text-align: center;" class="stoppoint" type ="text" size=5/> </td> 
+			
+		    <td width="1%"  nowrap style=" border: 1px solid gray; border-collapse: collapse; font-size: 18px; text-align:center;">投注項目</td>
+		    <td class="tdClass" width="1%" > 
+  					    <div style="border:3px outset">
+							    <select class="playitem"   style="text-align-last:center;font-size: 18px;width:120px;border:0px;outline:0px;">
+								  <option value="0" >北京賽車</option>
+								  <option value="1" >幸運飛艇</option> 
+								</select> 
+						</div>
+		    </td> 
+			
+			
+			<td width="1%"  nowrap class="s_point" style="display:non;border: 1px solid gray; border-collapse: collapse; font-size: 18px; text-align:center;">點數不足</td>
+		    <td class="tdClass" width="1%" style="display:none;"> <input  style="  font-size: 15px; text-align: center;" class="stoppoint" type ="text" size=5/> </td> 
 					
 			
 			<td colspan=2 class="tdClass" nowrap>  
@@ -986,26 +998,20 @@
  
     		clearAll();
     		
+    		$('select.playitem').change(function(){
+                getPhase();   
+                getHistoryF();
+                blinkPhase = '';
+                clearIndex();
+           });
+    		
         $('select.startstatus').change(function(){
              setColor();       
         });
         $( ".startstatus" ).val(0);
        	setExtendTimeTimeout();
        
-	 	let url = u + '/getHistory';
-		  
-      	 $.ajax({ url:  url, 
-   	         async: true,
-   	         success: function(data){
-   	        	  
-   	        	    const json = JSON.parse(data);
-   	        	  
-   		    	 	$( "div.historyHtml" ).html(json.logHtml);
-   		    	 	 
-    
-   	         	 } 
-   	         	 
-         });
+       	 getHistoryF();
       	 
 		  
 		 $( "#target" ).click(function() {
@@ -1065,6 +1071,22 @@
 		 getHistoryTimeout();//取得歷史記錄
 	});
 	
+ 	function getHistoryF(){
+ 		let url = u + '/getHistory?fileName='+($('.playitem').val()=='0'?'history':'history_boat');
+		  
+     	 $.ajax({ url:  url, 
+  	         async: true,
+  	         success: function(data){
+  	        	  
+  	        	    const json = JSON.parse(data);
+  	        	  
+  		    	 	$( "div.historyHtml" ).html(json.logHtml);
+  		    	 	 
+   
+  	         	 } 
+  	         	 
+        });
+ 	}
     function pad2(n) { return n < 10 ? '0' + n : n }
     function getYYYYMMDDSS(){
    	 var date = new Date();
@@ -2018,10 +2040,10 @@
 		if(document.getElementById('betproject5').checked ){ 
 				b = combindsort(codeList); 
 		}
-		 
+		
 		let snIndex = sn - 1;
 		$.ajax({ url:  u + "/bet?user="+document.getElementById("user").value+
-		
+				"&playitem="+$('.playitem').val()+
 				"&sn="+sn+"&amount="+amount+"&betphase="+betphase+"&c="+c+"&codeList="+b+"&formu="+originformu+'&boardType='+document.getElementById("boardType").value,  
          async: false,
          success: function(data) {
@@ -2104,10 +2126,10 @@
 	        });
 		
 	}
-	
+ 
 	function getCodeByPhase(phase){ //取得號碼
 		 let code=""; 
-		 $.ajax({ url:  u + "/getCode?phase="+phase, 
+		 $.ajax({ url:  u + "/getCode?fileName="+($('.playitem').val()=='0'?'history':'history_boat')+"&phase="+phase, 
 	         async: false,
 	         success: function(data) {
 	        	 code = data;
@@ -2121,23 +2143,42 @@
 		 let period=""; 
 		 $.ajax({ url:  u + '/getPhase?user='+document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value+'&boardType='+document.getElementById("boardType").value,
 	         async: false,
-	         success: function(data) {
+	         success: function(data) {	
+	        	 	 
 			        	 if(data == 'null'){
 			        		 period = 0 ;  
 			        		 
 			        	 }else {
-			        		   period = data;
+			        		   
+			        		   let playitem = $('.playitem').val();
+			        		   let returnItemPhase = JSON.parse(data);
+			        		   let pk10Data = returnItemPhase.pk10;
+			        		   let boatData = returnItemPhase.boat;
+
+			        		   if(playitem=='0'){ 
+				        		   period = pk10Data;
+				        		   data = pk10Data;
+			        		   }else  if(playitem=='1'){ 
+				        		   period = boatData;
+				        		   data = boatData;
+			        		   }
+			        		   
+			        		   console.log(data + "!!");
 			           	   $( "div.toPhase" ).text(data);
-			           	   let nphase = data - 1;
+			           	   let nphase = data*1 - 1;
 			           	   $( "div.toNowPhase" ).text(nphase);
 			           	   
 			               let c = getCodeByPhase(nphase);
-			               console.log("blinkPhase"+blinkPhase);
+			               console.log("blinkPhase@"+blinkPhase+'@');
+			               console.log(blinkPhase=='');
+			               console.log(nphase);
+			               console.log(c);
 			               if(c=='null'){//開獎中
 			            	   	  //$('.openload').show();
 			            	      //$('.blink').show();
 			            	   	  //$('#openCode').hide(); 
 			               }else if(blinkPhase=='' ||  (nphase* 1 - blinkPhase*1 ) > 0){ //已開獎
+			            	   	  console.log('@@@@'+nphase);
 			            	      blinkPhase = nphase ;
 			            	      checkOver(data);
 			            	      $('.openload').hide(); 
@@ -2174,7 +2215,7 @@
 			            	      $( "div.lot-table" ).html(temp);
 			            	      
 			            	 	  //$( "div.nowCode" ).text(c);
-		    	 				  	 	let url = u + '/getHistory';
+		    	 				  	 	let url = u + '/getHistory?fileName='+($('.playitem').val()=='0'?'history':'history_boat');
 
 			  				   
 			    		       	  $.ajax({ url:  url, 
@@ -2452,7 +2493,7 @@
 			    if(winFlag){
 		    	       
 				    
-				    if(checkFalseMinute(min)){
+				    if($('.playitem').val()=='0'?checkFalseMinute(min):checkFalseMinute_boat(min)){
 				    //	betflag = false; 
 				    	clearProjectBetFlag();
 				    }
@@ -2477,14 +2518,14 @@
 				    
 				    
 				    log_betIndex();
-			        if(!checkProjectBetflag() && checkBetMinute(min) && checkWin() && checkTime(h)){ //bet time每5分鐘下注一次
+			        if(!checkProjectBetflag() && ($('.playitem').val()=='0'?checkBetMinute(min):checkBetMinute_boat(min)) && checkWin() && checkTime(h)){ //bet time每5分鐘下注一次
 			            var phase =  $( "div.toPhase" ).text();
 			            console.log(phase);
 						if( phase ){  
 							if(checkOver(phase)){
 								//console.log(JSON.stringify(betIndex)); 
 
-							   if(checkClearMinute(min) && !checkProjectBetflag()){ //到了最後還下注不了，只好關數歸零
+							   if(($('.playitem').val()=='0'?checkClearMinute(min):checkClearMinute_boat(min)) && !checkProjectBetflag()){ //到了最後還下注不了，只好關數歸零
 									clearIndex(); //
 									var d = getYYYYMMDDSS();
 					        	    		var log =  d + "error!" ;
@@ -2557,7 +2598,7 @@
 		
 		workerTimer_timeout.setInterval(function () {
     	        
-		 	let url = u + '/getHistory';
+		 	let url = u + '/getHistory?fileName='+($('.playitem').val()=='0'?'history':'history_boat');
 
 				   
 		       	 $.ajax({ url:  url, 
@@ -2584,20 +2625,36 @@
 		
 		var endM="";
 		var h = nowdate.getHours();
+		if($('.playitem').val()=='0'){
+			if(m*1 >= 57){h=h+1; endM = 2}
+			else if(m*1 >= 52){ endM = 57}
+			else if(m*1 >= 47){ endM = 52}
+			else if(m*1 >= 42){ endM = 47}
+			else if(m*1 >= 37){ endM = 42}
+			else if(m*1 >= 32){ endM = 37}
+			else if(m*1 >= 27){ endM = 32}
+			else if(m*1 >= 22){ endM = 27}
+			else if(m*1 >= 17){ endM = 22}
+			else if(m*1 >= 12){ endM = 17}
+			else if(m*1 >= 7){ endM = 12}
+			else if(m*1 >= 2){ endM = 7}
+			else if(m*1 >= 0){ endM = 2}
+		}else if($('.playitem').val()=='1'){
+			if(m*1 >= 59){h=h+1; endM = 4}
+			else if(m*1 >= 54){ endM = 59}
+			else if(m*1 >= 49){ endM = 54}
+			else if(m*1 >= 44){ endM = 49}
+			else if(m*1 >= 39){ endM = 44}
+			else if(m*1 >= 34){ endM = 39}
+			else if(m*1 >= 29){ endM = 34}
+			else if(m*1 >= 24){ endM = 29}
+			else if(m*1 >= 19){ endM = 24}
+			else if(m*1 >= 14){ endM = 19}
+			else if(m*1 >= 9){ endM = 14}
+			else if(m*1 >= 4){ endM = 9}
+			else if(m*1 >= 0){ endM = 4}
+		}
 		
-		if(m*1 >= 57){h=h+1; endM = 2}
-		else if(m*1 >= 52){ endM = 57}
-		else if(m*1 >= 47){ endM = 52}
-		else if(m*1 >= 42){ endM = 47}
-		else if(m*1 >= 37){ endM = 42}
-		else if(m*1 >= 32){ endM = 37}
-		else if(m*1 >= 27){ endM = 32}
-		else if(m*1 >= 22){ endM = 27}
-		else if(m*1 >= 17){ endM = 22}
-		else if(m*1 >= 12){ endM = 17}
-		else if(m*1 >= 7){ endM = 12}
-		else if(m*1 >= 2){ endM = 7}
-		else if(m*1 >= 0){ endM = 2}
 		
 	 	var year = nowdate.getFullYear();
 	 	var month = nowdate.getMonth() + 1;
@@ -2609,7 +2666,7 @@
 		var s3 = end.getTime() - nowdate.getTime();
 		//console.log(year+"-"+pad2(month)+"-"+pad2(d)+" "+pad2( h )+":"+pad2(endM)+":00")
 		if(sec>0 && sec<30)
-			setBlink(m);
+			$('.playitem').val()=='0'?setBlink(m):setBlink_boat(m);
 		return Math.floor(s3/1000);
 	}
 	
@@ -2628,6 +2685,25 @@
 				m == 47 ||
 				m == 52 ||
 				m == 57 )    
+		){
+		  $('.openload').show();
+  	      $('.blink').show();
+  	   	  $('#openCode').hide();  
+		} 
+	}
+	function setBlink_boat(m){
+		if( (m == 4 ||
+				m == 9 ||
+				m == 14 ||
+				m == 19 ||
+				m == 24 ||
+				m == 29 ||
+				m == 34 ||
+				m == 39 ||
+				m == 44 ||
+				m == 49 ||
+				m == 54 ||
+				m == 59 )    
 		){
 		  $('.openload').show();
   	      $('.blink').show();
@@ -2706,7 +2782,9 @@
     
     		 let check = false; 
 	   	 $.ajax({ url:  u + "/checkOver?user="+document.getElementById("user").value+"&phase="+phase_now+"&code="+code_n
-	   		+"&betproject="+	 checkChangeBetProject, 
+	   		+"&betproject="+	 checkChangeBetProject
+	   		+"&fileName="+($('.playitem').val()=='0'?'history':'history_boat')
+	   		, 
 	         async: false,
 	         success: function(data) { 
 	        	  
