@@ -577,7 +577,7 @@
 		    </td> 
 			
 			
-			<td width="1%"  nowrap class="s_point" style="display:non;border: 1px solid gray; border-collapse: collapse; font-size: 18px; text-align:center;">點數不足</td>
+			<td width="1%"  nowrap class="s_point" style="display:none;border: 1px solid gray; border-collapse: collapse; font-size: 18px; text-align:center;">點數不足</td>
 		    <td class="tdClass" width="1%" style="display:none;"> <input  style="  font-size: 15px; text-align: center;" class="stoppoint" type ="text" size=5/> </td> 
 					
 			
@@ -2498,12 +2498,17 @@
 				    	clearProjectBetFlag();
 				    }
 				    
-				    if( (checkStartHM *1) < 9000){
-				   	 	deleteHistory();
+				    if( (checkStartHM *1) < 9000  && ($('.playitem').val()=='0')){
+				   	 	deleteHistory('history');
 				    }
 				    
+				    if( (checkStartHM *1) > 5000  && (checkStartHM *1) < 13000  && ($('.playitem').val()=='1')){
+				    		deleteHistory('history_boat');
+				    }
+				    
+				    
 				    if( (checkStartHM *1) < 9005){
-				   	 	return;
+				   	 	//return;
 				    }
 				   
 				    
@@ -3088,12 +3093,12 @@
 	         	 }
 	        });
     }
-    function deleteHistory(){
-    	$.ajax({ url:  u + "/deleteHistory?user="+document.getElementById("user").value, 
+    function deleteHistory(fileName){
+    	$.ajax({ url:  u + "/deleteHistory?fileName="+fileName+"&user="+document.getElementById("user").value, 
 	         async: false,
 	         success: function(data) {
 	        	     
-	        		 $( "div.historyHtml" ).html('');
+	        		// $( "div.historyHtml" ).html('');
 	        		  
 	         	 }
 	        });
