@@ -1470,7 +1470,7 @@
 		 for(var i=0;i<phase;i++){
 			 
 			 if(single =='s'){
-				 if((i%2) ==0){
+				 if(((i%2) ==0 && (i!=2)) || i==1){
 					 let p = phase - i ;
 					 let nCodeArra = getCodeByPhase(p);
 					 if(nCodeArra=='null'){
@@ -1483,7 +1483,7 @@
 					 
 				 }
 			 }else if(single =='d'){
-				 if( (i%2) ==1){
+				 if( ((i%2) ==1) || i==2 ){
 					 let p = phase - i ;
 					 let nCodeArra = getCodeByPhase(p);
 					 if(nCodeArra=='null'){
