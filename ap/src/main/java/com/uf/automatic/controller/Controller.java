@@ -495,8 +495,10 @@ public class Controller {
                     if (key_form.equals("7")) {
                         index = "12";
                     }
-
-                    String k = phase + "@" + index + "@" + sn + "@" + c + "@" + cc;
+                    String covertPhase = phase.length()==1 ? "00" + phase:
+                            phase.length()==2 ? "0" + phase:
+                            phase ; 
+                    String k = covertPhase + "@" + index + "@" + sn + "@" + c + "@" + cc;
 
                     treemap.put(k, v);
 

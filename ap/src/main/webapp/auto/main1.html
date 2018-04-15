@@ -2170,16 +2170,16 @@
 			           	   $( "div.toNowPhase" ).text(nphase);
 			           	   
 			               let c = getCodeByPhase(nphase);
-			               console.log("blinkPhase@"+blinkPhase+'@');
-			               console.log(blinkPhase=='');
-			               console.log(nphase);
-			               console.log(c);
+			               //console.log("blinkPhase@"+blinkPhase+'@');
+			               //console.log(blinkPhase=='');
+			               //console.log(nphase);
+			               //console.log(c);
 			               if(c=='null'){//開獎中
 			            	   	  //$('.openload').show();
 			            	      //$('.blink').show();
 			            	   	  //$('#openCode').hide(); 
 			               }else if(blinkPhase=='' ||  (nphase* 1 - blinkPhase*1 ) > 0){ //已開獎
-			            	   	  console.log('@@@@'+nphase);
+			            	   	  //console.log('@@@@'+nphase);
 			            	      blinkPhase = nphase ;
 			            	      checkOver(data);
 			            	      $('.openload').hide(); 
@@ -2366,7 +2366,9 @@
  	function checkTime(h){
  		
  		var flag = false;
- 		if(h*1 > 8 && h*1 < 24) {
+ 		if($('.playitem').val()=='0' && (h*1 > 8 && h*1 < 24)) {
+ 			flag = true;
+ 		}else if($('.playitem').val()=='1' ){
  			flag = true;
  		}else {
  			betIndex = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
@@ -2523,10 +2525,11 @@
 		    			}
 				    
 				    
-				    log_betIndex();
+				    log_betIndex(); 
+
 			        if(!checkProjectBetflag() && ($('.playitem').val()=='0'?checkBetMinute(min):checkBetMinute_boat(min)) && checkWin() && checkTime(h)){ //bet time每5分鐘下注一次
 			            var phase =  $( "div.toPhase" ).text();
-			            console.log(phase);
+			            console.log('enter before bet : '+phase);
 						if( phase ){  
 							if(checkOver(phase)){
 								//console.log(JSON.stringify(betIndex)); 
@@ -2574,11 +2577,15 @@
     
     function overTimeout() { 
     	workerTimer_timeout.setInterval(function () { 
-    			if(checkTimeflag(9007)){
+    			if($('.playitem').val()=='0' && checkTimeflag(9007) ){
     				dynamic_phase =  getPhase(); 
     			    //if(dynamic_phase != 0){
     			    	//	checkOver(dynamic_phase);
     			    //} 
+    			    getlogHtml();
+    			}else if($('.playitem').val()=='1'){
+    				dynamic_phase =  getPhase(); 
+    			     
     			    getlogHtml();
     			}
 	    		
