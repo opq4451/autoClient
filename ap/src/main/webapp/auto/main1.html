@@ -1470,7 +1470,7 @@
 		 for(var i=0;i<phase;i++){
 			 
 			 if(single =='s'){
-				 if(((i%2) ==0 && (i!=2)) || i==1){
+				 if( (i%2) ==0  ){
 					 let p = phase - i ;
 					 let nCodeArra = getCodeByPhase(p);
 					 if(nCodeArra=='null'){
@@ -1483,7 +1483,7 @@
 					 
 				 }
 			 }else if(single =='d'){
-				 if( ((i%2) ==1) || i==2 ){
+				 if( (i%2) ==1  ){
 					 let p = phase - i ;
 					 let nCodeArra = getCodeByPhase(p);
 					 if(nCodeArra=='null'){
@@ -1660,7 +1660,7 @@
 		    var amount = bArray[bIndex[z]%bArray.length] ;
 			let betCode= ""; 
 			if(document.getElementById('betproject6').checked ){
-				betCode = project3_limit(i,phase_now,6);
+				betCode = project3_limit(i,phase_now,5);
 			 
 			}
 			if(document.getElementById('betproject5').checked ){ 
@@ -1700,7 +1700,7 @@
 		 let tenArray = [];
 		 
 		 
-		 for(var i=(length==5?1:0);i<phase;i++){
+		 for(var i=(length==5?2:0);i<phase;i++){
 			 let p = phase - i ;
 			 let nCodeArra = getCodeByPhase(p);
 			 if(nCodeArra=='null'){
@@ -2031,7 +2031,7 @@
 		var b = '';
 		 
 		if(document.getElementById('betproject6').checked ){
-			if( formu==3  || formu==5 || formu==6 ){
+			if( formu==5 || formu==6 ){
 				b = combindsort(codeList);
 			} else {  
 				b = combind(codeList,BETN);
@@ -2653,6 +2653,11 @@
 			else if(m*1 >= 2){ endM = 7}
 			else if(m*1 >= 0){ endM = 2}
 		}else if($('.playitem').val()=='1'){
+			if(h==23 && m*1 >= 59){
+				 
+				return;
+			}
+			
 			if(m*1 >= 59){h=h+1; endM = 4}
 			else if(m*1 >= 54){ endM = 59}
 			else if(m*1 >= 49){ endM = 54}
@@ -2667,20 +2672,24 @@
 			else if(m*1 >= 4){ endM = 9}
 			else if(m*1 >= 0){ endM = 4}
 		}
-		
-		
-	 	var year = nowdate.getFullYear();
-	 	var month = nowdate.getMonth() + 1;
-	 	var d = nowdate.getDate();
-	 	var sec = nowdate.getSeconds();
+		try{
+			var year = nowdate.getFullYear();
+		 	var month = nowdate.getMonth() + 1;
+		 	var d = nowdate.getDate();
+		 	var sec = nowdate.getSeconds();
+		 	
+			var end = new Date(year+"-"+pad2(month)+"-"+pad2(d)+" "+pad2(h )+":"+pad2(endM)+":00" );
+			
+			var s3 = end.getTime() - nowdate.getTime();
+			//console.log(year+"-"+pad2(month)+"-"+pad2(d)+" "+pad2( h )+":"+pad2(endM)+":00")
+			if(sec>0 && sec<30)
+				$('.playitem').val()=='0'?setBlink(m):setBlink_boat(m);
+			return Math.floor(s3/1000);
+			
+	    }catch(err){
+	    	console.log(err);
+	    }
 	 	
-		var end = new Date(year+"-"+pad2(month)+"-"+pad2(d)+" "+pad2(h )+":"+pad2(endM)+":00" );
-		
-		var s3 = end.getTime() - nowdate.getTime();
-		//console.log(year+"-"+pad2(month)+"-"+pad2(d)+" "+pad2( h )+":"+pad2(endM)+":00")
-		if(sec>0 && sec<30)
-			$('.playitem').val()=='0'?setBlink(m):setBlink_boat(m);
-		return Math.floor(s3/1000);
 	}
 	
 	let blinkPhase = '';
