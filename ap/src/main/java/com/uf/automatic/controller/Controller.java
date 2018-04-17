@@ -1399,7 +1399,15 @@ public class Controller {
                     i++;
                 }
 
-                String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
+                String betRet = "";
+                if(playitem.equals("0")) {
+                    betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
+                }else  if(playitem.equals("1")) {
+                    betRet = h.normalBet(p_id, ossid, pl, i_index, m, "xyft5_d1_10");
+                }
+                
+                
+                //String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
 
                 JsonParser parser = new JsonParser();
                 JsonObject o = parser.parse(betRet).getAsJsonObject();

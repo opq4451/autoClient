@@ -1660,7 +1660,7 @@
 		    var amount = bArray[bIndex[z]%bArray.length] ;
 			let betCode= ""; 
 			if(document.getElementById('betproject6').checked ){
-				betCode = project3_limit(i,phase_now,5);
+				betCode = project3_limit_6code(i,phase_now,6,bet_n);
 			 
 			}
 			if(document.getElementById('betproject5').checked ){ 
@@ -1716,6 +1716,28 @@
 		
 
 	}
+	
+	function project3_limit_6code(sn,phase,length,betn){
+		 let tenArray = [];
+		 tenArray.push(betn);
+		 
+		 for(var i=(length==5?2:0);i<phase;i++){
+			 let p = phase - i ;
+			 let nCodeArra = getCodeByPhase(p);
+			 if(nCodeArra=='null'){
+				 return null;
+			 }
+			 let c = nCodeArra.split(',')[sn];
+			 if(tenArray.length == length){
+				 return tenArray.sort(sortNumber);
+			 }else if(tenArray.indexOf(c)==-1){  tenArray.push(c);}
+			 
+		 } 
+	       
+		
+
+	}
+
 	
 	function combind(arra,origin){
   	  
@@ -2031,7 +2053,7 @@
 		var b = '';
 		 
 		if(document.getElementById('betproject6').checked ){
-			if( formu==5 || formu==6 ){
+			if(formu==3 || formu==5 || formu==6 ){
 				b = combindsort(codeList);
 			} else {  
 				b = combind(codeList,BETN);
@@ -2517,12 +2539,7 @@
 				    
 				    
 				    
-				    if(!checkMemberStatus()){  
-		    				console.log('停止下注中');
-		    				clearIndex();
-		    				checkSub1='';
-		    				return; 
-		    			}
+				   
 				    
 				    
 				    log_betIndex(); 
