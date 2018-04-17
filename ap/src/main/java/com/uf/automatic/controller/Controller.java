@@ -1403,7 +1403,7 @@ public class Controller {
                 if(playitem.equals("0")) {
                     betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
                 }else  if(playitem.equals("1")) {
-                    betRet = h.normalBet(p_id, ossid, pl, i_index, m, "xyft5_d1_10");
+                    betRet = h.normalBet_boat(p_id, ossid, pl, i_index, m, "xyft5_d1_10");
                 }
                 
                 
