@@ -296,6 +296,17 @@ public class httpClientCookie {
         return "";
 	}
 	
+	//boat
+	public String getoddsInfo_boat() {
+        String query = uraal[urli%5] + "/L_PK10/Handler/Handler.ashx?action=get_oddsinfo&playid=1%2C5%2C9%2C13%2C17%2C21%2C24%2C27%2C30%2C33&playpage=xyft5_d1_10";
+        try {
+            return instance.httpClientUseCookie(query);
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+	
 	public synchronized String normalBet(String phaseid,String ossid,  String pl , String i_index , String m ,String type) {
 	    
 	     

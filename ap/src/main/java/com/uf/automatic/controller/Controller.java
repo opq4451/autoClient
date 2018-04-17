@@ -1362,7 +1362,13 @@ public class Controller {
             }
 
             if (boardType.equals("0")) {
-                String r = h.getoddsInfo();
+                String r = "";
+                if(playitem.equals("0")) {
+                    r = h.getoddsInfo();
+                }else  if(playitem.equals("1")) {
+                    r = h.getoddsInfo_boat();
+                }
+                
                 // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
 
                 JsonParser pr = new JsonParser();
