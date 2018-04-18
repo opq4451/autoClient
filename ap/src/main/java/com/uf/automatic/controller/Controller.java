@@ -1430,7 +1430,7 @@ public class Controller {
                                     + "投注點數(" + amount + ")" + "(失敗)" + "(公式" + formu + ")";
                     // saveLog(user + "bet", betlog);
                     saveLog(user + "error", o.toString() + " bet error:" + betlog);
-                    return recoup(user, sn, amount, betphase, c, codeList, formu);
+                    return "error";
                 }
 
             } else if (boardType.equals("1")) { //華山
