@@ -114,9 +114,9 @@ public class DaliHttpClient {
 
     public static void main(String[] args) {
         try {
-            DaliHttpClient d_h = DaliHttpClient.getInstance("bee6611", "asdf123123");
+            DaliHttpClient d_h = DaliHttpClient.getInstance("bee6611", "qaz123123123");
             
-            JsonObject a = getBetBoatMD5_PL();
+            JsonObject a = getBetMD5_PL();
 
             
                 String MD5 = a.get("MD5").getAsString();
@@ -335,13 +335,12 @@ public class DaliHttpClient {
             response.close();
         }
 
-        hitEvent("400");
-        hitEvent("800");
-
+        
         return "";
     }
     
     public static JsonObject getBetBoatMD5_PL() throws Exception {
+        hitEvent("800");
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
@@ -379,6 +378,7 @@ public class DaliHttpClient {
     
     public static JsonObject getBetMD5_PL() throws Exception {
 
+        hitEvent("400");
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         HttpPost Post = new HttpPost(daliUrl[daliUrl_index % 5] + "/member/Game_v2/gxpl");
