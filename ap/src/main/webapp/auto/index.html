@@ -124,7 +124,7 @@
 		            "10": function() {     
 		            		var t = $( ".ui-dialog-buttonpane" ).find("button").eq(0).text();
 		            		if(t == '同意'){
-	  						 	window.location.href = "http://www.sd8888.net/main1.html?auto="+start+"&user="+user+'&pwd='+pwd_in+"&end_date="+end_date
+	  						 	window.location.href = "http://localhost:8080/auto/main1.html?auto="+start+"&user="+user+'&pwd='+pwd_in+"&end_date="+end_date
 	  						 	+"&boardType="+bd; 
 		            		}
 		            	
@@ -185,7 +185,7 @@
 	  			         async: false,
 	  			         success: function(r) { 
 	  			        	 	if(no && r == 'Y'){
-	  						 	window.location.href = "http://www.sd8888.net/main1.html?auto="+start+"&user="+user+'&pwd='+pwd_in+"&end_date="+end_date
+	  						 	window.location.href = "http://localhost:8080/auto/main1.html?auto="+start+"&user="+user+'&pwd='+pwd_in+"&end_date="+end_date
 	  						 	+"&boardType="+bd; 
 
 	  			        	 	}else if(r == 'Y'){
