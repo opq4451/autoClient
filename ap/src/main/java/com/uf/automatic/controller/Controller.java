@@ -227,10 +227,11 @@ public class Controller {
             } else if (boardType.equals("2")) { //大立
                 String ret = DaliHttpClient.getTodayUse();
                 //System.out.println(ret);
-                int endIndex = ret.indexOf("<", ret.indexOf("Money_KY"));
-                String canuse = ret.substring(ret.indexOf("Money_KY") + 10, endIndex);
+                int startIndex = ret.lastIndexOf("t_Edit_td");
+                int endIndex = ret.indexOf("<", startIndex);
+                String canuse = ret.substring(startIndex + 11, endIndex);
                 j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(canuse))));
-
+                
                 String t = DaliHttpClient.getTodayWin();
                 //System.out.println(t);
                 j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(t))));

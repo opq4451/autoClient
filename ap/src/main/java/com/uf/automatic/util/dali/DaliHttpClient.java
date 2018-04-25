@@ -482,7 +482,7 @@ public class DaliHttpClient {
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
-        HttpGet HttpGet = new HttpGet(daliUrl[daliUrl_index % 5] + "/member/Main/left");
+        HttpGet HttpGet = new HttpGet(daliUrl[daliUrl_index % 5] + "/member/User/userInfouu?gno=0&md5=-1");
 
         HttpGet.setHeader("Cookie", daliCookie);
 
