@@ -1490,10 +1490,12 @@
 		let formu = document.getElementById('betproject6').checked ? '7' : '1';
 		const code_b = getCodeByPhase(phase_before); 
 		const code_n = getCodeByPhase(phase_now);
+		const code_n2 = getCodeByPhase(phase_now*1 -1);
 		const code_before4 = getCodeByPhase(phase_before4);
 		
 		const array_b = code_b.split(',');
 		const array_n = code_n.split(',');
+		const array_n2 = code_n2.split(',');
 		const array_before4 = code_before4.split(',');
 		if(array_b.length==0 || array_n.length==0 || array_before4.length==0  ){
 			return;
@@ -1501,6 +1503,7 @@
 		for(var i=0;i<10;i++){
 			const bet_b = array_b[i];
 			const bet_n = array_n[i];
+			const bet_n2 = array_n2[i];
 			const bet_before4 = array_before4[i]; 
 			var z = i+1;  
 			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
@@ -1514,7 +1517,7 @@
 				
 			if(!projectBet[1][i]){
 			 
-					let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp1[z].toString(), formu ,bet_n);
+					let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp1[z].toString()+','+bet_n2, formu ,bet_n);
 			   		if(rbf){
 						bIndex[z]++;
 					} 
@@ -1533,10 +1536,12 @@
 		let formu = document.getElementById('betproject6').checked ? '8' : '2';
 		const code_b = getCodeByPhase(phase_before); 
 		const code_n = getCodeByPhase(phase_now);
+		const code_n2 = getCodeByPhase(phase_now*1 -1);
 		const code_before4 = getCodeByPhase(phase_before4);
 		
 		const array_b = code_b.split(',');
 		const array_n = code_n.split(',');
+		const array_n2 = code_n2.split(',');
 		const array_before4 = code_before4.split(',');
 		if(array_b.length==0 || array_n.length==0 || array_before4.length==0  ){
 			return;
@@ -1544,6 +1549,7 @@
 		for(var i=0;i<10;i++){
 			const bet_b = array_b[i];
 			const bet_n = array_n[i];
+			const bet_n2 = array_n2[i];
 			const bet_before4 = array_before4[i];
  
 		 	//var d = getYYYYMMDDSS();
@@ -1565,7 +1571,7 @@
 		 	if(!projectBet[2][i]){
 		 		
 		 		 
-		 			let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp2[z].toString(),formu,bet_n);
+		 			let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp2[z].toString()+','+bet_n2,formu,bet_n);
 			   		if(rbf){
 						bIndex[z]++;
 					} 
@@ -1583,12 +1589,13 @@
 		const code_b = getCodeByPhase(phase_before); 
 		const code_n = getCodeByPhase(phase_now);
 		const code_n2 = getCodeByPhase(phase_now*1 -1);
-
+		const code_n3 = getCodeByPhase(phase_now*1 -2);
 		const code_before4 = getCodeByPhase(phase_before4);
 		
 		const array_b = code_b.split(',');
 		const array_n = code_n.split(',');
 		const array_n2 = code_n2.split(',');
+		const array_n3 = code_n3.split(',');
 
 		const array_before4 = code_before4.split(',');
 		if(array_b.length==0 || array_n.length==0 || array_before4.length==0  ){
@@ -1598,6 +1605,7 @@
 			const bet_b = array_b[i];
 			const bet_n = array_n[i];
 			const bet_n2 = array_n2[i];
+			const bet_n3 = array_n3[i];
 
 			const bet_before4 = array_before4[i];
  
@@ -1618,7 +1626,7 @@
 			 
 				
 			if(!projectBet[3][i]){
-				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp3[z].toString()+','+bet_n2 , formu , bet_n);
+				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp3[z].toString()+','+bet_n2 +','+bet_n3 , formu , bet_n);
 		   		if(rbf){
 					bIndex[z]++;
 				}
@@ -1670,13 +1678,14 @@
 	
 	function combind(arra,origin){
   	  
-	       var arr = new Array(6)
+	       var arr = new Array(7)
 	       arr[0] =  arra.split(',')[0];
 	       arr[1] =  arra.split(',')[1];
 	       arr[2] =  arra.split(',')[2];
 	       arr[3] =  arra.split(',')[3];
 	       arr[4] =  arra.split(',')[4];
-	   	   arr[5] =  origin;
+	       arr[5] =  arra.split(',')[5];
+	   	   arr[6] =  origin;
 	  
 	       return arr.sort(sortNumber);  
     }
@@ -1690,10 +1699,12 @@
 		let formu = document.getElementById('betproject6').checked ? '10' : '4';
 		const code_b = getCodeByPhase(phase_before); 
 		const code_n = getCodeByPhase(phase_now);
+		const code_n2 = getCodeByPhase(phase_now*1 -1);
 		const code_before4 = getCodeByPhase(phase_before4);
 		
 		const array_b = code_b.split(',');
 		const array_n = code_n.split(',');
+		const array_n2 = code_n2.split(',');
 		const array_before4 = code_before4.split(',');
 		if(array_b.length==0 || array_n.length==0 || array_before4.length==0  ){
 			return;
@@ -1701,6 +1712,7 @@
 		for(var i=0;i<10;i++){
 			const bet_b = array_b[i];
 			const bet_n = array_n[i];
+			const bet_n2 = array_n2[i];
 			const bet_before4 = array_before4[i];
  
 		 	//var d = getYYYYMMDDSS();
@@ -1716,7 +1728,7 @@
 	 	   		 betTemp4[z] = rangeExist_pro4[bet_before4].toString();
 				
 			if(!projectBet[4][i]){
-				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp4[z].toString(), formu , bet_n);
+				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp4[z].toString()+','+bet_n2, formu , bet_n);
 		   		if(rbf){
 					bIndex[z]++;
 				}
@@ -1753,10 +1765,12 @@
 		let formu = document.getElementById('betproject6').checked ? '11' : '5';
 		const code_b = getCodeByPhase(phase_before); 
 		const code_n = getCodeByPhase(phase_now);
+		const code_n2 = getCodeByPhase(phase_now*1 -1);
 		const code_before4 = getCodeByPhase(phase_before4);
 		
 		const array_b = code_b.split(',');
 		const array_n = code_n.split(',');
+		const array_n2 = code_n2.split(',');
 		const array_before4 = code_before4.split(',');
 		if(array_b.length==0 || array_n.length==0 || array_before4.length==0  ){
 			return;
@@ -1764,6 +1778,7 @@
 		for(var i=0;i<10;i++){
 			const bet_b = array_b[i];
 			const bet_n = array_n[i];
+			const bet_n2 = array_n2[i];
 			const bet_before4 = array_before4[i];
  
 		 	//var d = getYYYYMMDDSS();
@@ -1781,7 +1796,7 @@
 			 
 			if(!projectBet[5][i]){
 			 
-					let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp5[z].toString(), formu ,bet_n);
+					let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp5[z].toString()+','+bet_n2, formu ,bet_n);
 			   		if(rbf){
 						bIndex[z]++;
 					} 
@@ -1818,13 +1833,29 @@
 		    var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
  			 
 			var amount = bArray[bIndex[z]%bArray.length] ; 
-			if(bIndex[z] == 0)
-	 	   		 betTemp6[z] = rangeExist_pro6[bet_before4].toString();
+			
+			let betsn='';
+			if(! (z==4 ||z==7 ||z==2 ||z==9 ||z==3 || z==8) ){
+				projectBet[6][i] = true;
+			}else if((z==3 || z==8)){ 
+				betsn = '1,3,5,6,8,10';
+			}else if((z==4 || z==7)){ 
+				betsn = '1,2,4,7,9,10';
+			}else if((z==2 || z==9)){ 
+				betsn = '2,4,5,6,7,9';
+			}
+			
+			
+			//if(bIndex[z] == 0)
+	 	   	//	 betTemp6[z] = rangeExist_pro6[bet_before4].toString();
 			    
 		  
 		 	if(!projectBet[6][i]){ 
-		 		 
-		 			let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp6[z].toString()+','+bet_n2 ,formu,bet_n);
+		 		    let bet_code = bet_n;
+				    let bet_sn = betsn;
+					let dynamicSn = '';
+
+					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
 			   		if(rbf){
 						bIndex[z]++;
 					}  
@@ -1863,7 +1894,7 @@
 		 
 		if(document.getElementById('betproject6').checked ){
 			  
-				b = combind(betsn,dynamicSn);
+				b = betsn;
 			 
 		}
 		
