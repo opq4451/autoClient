@@ -1080,6 +1080,7 @@
     
     var systemReloginIndex = 0 ;
     let checkChangeBetProject = 0;
+    let firstSet = false;
     function getWinFun(init_flag){
     	 var url =  u + '/getTodayWin?user='+document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value
     	 +'&boardType='+document.getElementById("boardType").value;
@@ -1138,7 +1139,7 @@
 		    	  
 		    	 	setbetType(betType);
 		    	 	
-		    	 	if(init_flag){
+		    	 	if(!firstSet){
 		    	 		$( ".betlist" ).val(json.betlist) ;
 			    	 	$( ".betlist2" ).val(json.betlist2) ;
 			    	 	$( ".betlist3" ).val(json.betlist3) ;
@@ -1159,7 +1160,7 @@
 			    	 	
 			    		$( ".stoplose" ).val(json.stoplose) ;
 			    	 	$( ".stopwin" ).val(json.stopwin);
-			    	 	
+			    	 	firstSet = true;
 			    	 	
 		    	 	}
 		    	 	
