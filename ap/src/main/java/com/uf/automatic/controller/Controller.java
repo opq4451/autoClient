@@ -892,7 +892,7 @@ public class Controller {
 
                     int sn = i + 1;
 
-                    if (  x == 6  || x == 12) {
+                    if (  x <= 12) {
 
                         for (int overi = 1; overi < 11; overi++) {
                             String key = phase + "@" + sn + "@" + c[i] + "@" + x + "@" + overi;
