@@ -1505,20 +1505,15 @@
 			const bet_n = array_n[i];
 			const bet_n2 = array_n2[i];
 			const bet_before4 = array_before4[i]; 
-			var z = i+1;  
+			var z = getZ(bIndex)>0 ? getZ(bIndex) :  i+1;  
+			
+			
 			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
   		    var amount = bArray[bIndex[z]%bArray.length] ;
   		    
   		    if(bet_n2 == '1'){
 				betsn = '1,2,3,4,5,6';
-			}else {
-				projectBet[1][i] = true;
-			}
-			
-			 
 				
-			if(!projectBet[1][i]){
-			 
 				let bet_code = bet_n;
 			    let bet_sn = betsn;
 				let dynamicSn = '';
@@ -1528,17 +1523,31 @@
 				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
 		   		if(rbf){
 					bIndex[z]++;
-				}  
-				 
-				
+					projectBet[1][i] = true;
+				} 
+		   		
+			}else {
+				projectBet[1][i] = true;
 			}
+			
+			 
+				
+			 
 			
 			 
 		}
 		//console.log(JSON.stringify(betIndex)); 
 	}
 	
-	
+	function getZ(obj){
+		for(var i in obj){
+			if(obj[i]>0){
+				return i;
+			}
+		}
+		
+		return 0 ;
+	}
 	
 	function compareByType1_pro(phase_before,phase_now,phase_before4 , bIndex, bArray){
 		let formu = document.getElementById('betproject6').checked ? '8' : '2';
@@ -1561,7 +1570,7 @@
 			const bet_before4 = array_before4[i];
  
 		 	//var d = getYYYYMMDDSS();
-			var z = i+1;
+			var z = getZ(bIndex)>0 ? getZ(bIndex) :  i+1; 
 		 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 		 	//var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
 		 	//logAppend(cLog) ;
@@ -1574,14 +1583,8 @@
   		   
 		    if(bet_n2 == '6'){
 				betsn = '1,2,3,4,5,6';
-			}else {
-				projectBet[2][i] = true;
-			}
-		    
-		 	if(!projectBet[2][i]){
-		 		
-		 		 
-		 		let bet_code = bet_n;
+				
+				let bet_code = bet_n;
 			    let bet_sn = betsn;
 				let dynamicSn = '';
 				console.log('公式2:'+'號碼' + bet_n);
@@ -1589,11 +1592,14 @@
 				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
 		   		if(rbf){
 					bIndex[z]++;
-				}   
-		 	 
+					projectBet[2][i] = true;
+				} 
 		   		
-		   		
-		 	}
+			}else {
+				projectBet[2][i] = true;
+			}
+		    
+		  
 			
 		}
 		
@@ -1625,7 +1631,7 @@
 			const bet_before4 = array_before4[i];
  
 		 	//var d = getYYYYMMDDSS();
-			var z = i+1;
+			var z = getZ(bIndex)>0 ? getZ(bIndex) :  i+1; 
 		 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 		 	//var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
 		 	//logAppend(cLog) ;
@@ -1635,11 +1641,7 @@
 		    var amount = bArray[bIndex[z]%bArray.length] ;
 		    if(bet_n2 == '5'){
 				betsn = '5,6,7,8,9,10';
-			}else {
-				projectBet[3][i] = true;
-			}
 				
-			if(!projectBet[3][i]){
 				let bet_code = bet_n;
 			    let bet_sn = betsn;
 				let dynamicSn = '';
@@ -1648,8 +1650,13 @@
 				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
 		   		if(rbf){
 					bIndex[z]++;
-				}  
+					projectBet[3][i] = true;
+				} 
+			}else {
+				projectBet[3][i] = true;
 			}
+				
+			 
 		}
 		
 	}
@@ -1735,7 +1742,7 @@
 			const bet_before4 = array_before4[i];
  
 		 	//var d = getYYYYMMDDSS();
-			var z = i+1;
+			var z = getZ(bIndex)>0 ? getZ(bIndex) :  i+1; 
 		 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 		 	//var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
 		 	//logAppend(cLog) ;
@@ -1746,23 +1753,24 @@
 		    
 		    if(bet_n2 == '10'){
 				betsn = '5,6,7,8,9,10';
+				
+				let bet_code = bet_n;
+			    let bet_sn = betsn;
+				let dynamicSn = '';
+				console.log('公式4:'+'號碼' + bet_n);
+				console.log('名次:'+ bet_sn);
+				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
+		   		if(rbf){
+		   			projectBet[4][i] = true;
+					bIndex[z]++;
+				} 
 			}else {
 				projectBet[4][i] = true;
 			}
 		    
 		    
 	 			
-			if(!projectBet[4][i]){
-				 	let bet_code = bet_n;
-				    let bet_sn = betsn;
-					let dynamicSn = '';
-					console.log('公式4:'+'號碼' + bet_n);
-					console.log('名次:'+ bet_sn);
-					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
-			   		if(rbf){
-						bIndex[z]++;
-					}  
-			}
+		 
 
 		}
 		
@@ -1791,7 +1799,7 @@
 			const bet_before4 = array_before4[i];
  
 		 	//var d = getYYYYMMDDSS();
-			var z = i+1;
+			var z =  i+1; 
 		 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 		 	//var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
 		 	//logAppend(cLog) ;
@@ -1813,15 +1821,8 @@
 				}else if(bet_n2 == '5' || bet_n2 == '10'){
 					betsn = '5,6,7,8,9,10';
 				}
-				 
-			}else {
-				projectBet[5][i] = true;
-			}
-			
-			 
-			 
-			if(!projectBet[5][i]){
-			 
+				
+				
 				let bet_code = bet_n;
 			    let bet_sn = betsn;
 				let dynamicSn = '';
@@ -1830,10 +1831,16 @@
 				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
 		   		if(rbf){
 					bIndex[z]++;
+					projectBet[5][i] = true;
 				}
 				 
-				
+			}else {
+				projectBet[5][i] = true;
 			}
+			
+			 
+			 
+			 
 		}
 		
 	}
@@ -2688,36 +2695,75 @@
 	         success: function(data) { 
 	        	  
 	        	 const json = JSON.parse(data);
-	        	 if(json.a1){betIndex[1] = 0;}  if(json.a2){betIndex2[1] = 0;} 
-	        	 if(json.a3){betIndex3[1] = 0;} if(json.a4){betIndex4[1] = 0;}
-	        	 if(json.a5){betIndex5[1] = 0;} if(json.a6){betIndex6[1] = 0;}
-	        	 if(json.b1){betIndex[2] = 0;}  if(json.b2){betIndex2[2] = 0;} 
-	        	 if(json.b3){betIndex3[2] = 0;} if(json.b4){betIndex4[2] = 0;}
-	        	 if(json.b5){betIndex5[2] = 0;} if(json.b6){betIndex6[2] = 0;}
-	        	 if(json.c1){betIndex[3] = 0;}  if(json.c2){betIndex2[3] = 0;} 
-	        	 if(json.c3){betIndex3[3] = 0;} if(json.c4){betIndex4[3] = 0;}
-	        	 if(json.c5){betIndex5[3] = 0;} if(json.c6){betIndex6[3] = 0;}
-	        	 if(json.d1){betIndex[4] = 0;}  if(json.d2){betIndex2[4] = 0;} 
-	        	 if(json.d3){betIndex3[4] = 0;} if(json.d4){betIndex4[4] = 0;}
-	        	 if(json.d5){betIndex5[4] = 0;} if(json.d6){betIndex6[4] = 0;}
-	        	 if(json.e1){betIndex[5] = 0;}  if(json.e2){betIndex2[5] = 0;} 
-	        	 if(json.e3){betIndex3[5] = 0;} if(json.e4){betIndex4[5] = 0;}
-	        	 if(json.e5){betIndex5[5] = 0;} if(json.e6){betIndex6[5] = 0;}
-	        	 if(json.f1){betIndex[6] = 0;}  if(json.f2){betIndex2[6] = 0;} 
-	        	 if(json.f3){betIndex3[6] = 0;} if(json.f4){betIndex4[6] = 0;}
-	        	 if(json.f5){betIndex5[6] = 0;} if(json.f6){betIndex6[6] = 0;}
-	        	 if(json.g1){betIndex[7] = 0;}  if(json.g2){betIndex2[7] = 0;} 
-	        	 if(json.g3){betIndex3[7] = 0;} if(json.g4){betIndex4[7] = 0;}
-	        	 if(json.g5){betIndex5[7] = 0;} if(json.g6){betIndex6[7] = 0;}
-	        	 if(json.h1){betIndex[8] = 0;}  if(json.h2){betIndex2[8] = 0;} 
-	        	 if(json.h3){betIndex3[8] = 0;} if(json.h4){betIndex4[8] = 0;}
-	        	 if(json.h5){betIndex5[8] = 0;} if(json.h6){betIndex6[8] = 0;}
-	        	 if(json.i1){betIndex[9] = 0;}  if(json.i2){betIndex2[9] = 0;} 
-	        	 if(json.i3){betIndex3[9] = 0;} if(json.i4){betIndex4[9] = 0;}
-	        	 if(json.i5){betIndex5[9] = 0;} if(json.i6){betIndex6[9] = 0;}
-	        	 if(json.j1){betIndex[10] = 0;}  if(json.j2){betIndex2[10] = 0;} 
-	        	 if(json.j3){betIndex3[10] = 0;} if(json.j4){betIndex4[10] = 0;}
-	        	 if(json.j5){betIndex5[10] = 0;} if(json.j6){betIndex6[10] = 0;}
+	        	 if(json.a1){betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
+	        	 if(json.a2){betIndex2 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
+	        	 if(json.a3){betIndex3 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
+	        	 if(json.a4){betIndex4 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
+	        	 if(json.a5){betIndex5 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
+	        	 if(json.a6){betIndex6[1] = 0;}
+	        	 
+	        	 if(json.b1){betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
+	        	 if(json.b2){betIndex2 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
+	        	 if(json.b3){betIndex3 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
+	        	 if(json.b4){betIndex4 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
+	        	 if(json.b5){betIndex5 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
+	        	 if(json.b6){betIndex6[2] = 0;}
+	        	 
+	        	 if(json.c1){betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
+	        	 if(json.c2){betIndex2 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
+	        	 if(json.c3){betIndex3 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
+	        	 if(json.c4){betIndex4 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
+	        	 if(json.c5){betIndex5 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
+	        	 if(json.c6){betIndex6[3] = 0;}
+	        	 
+	        	 if(json.d1){betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
+	        	 if(json.d2){betIndex2 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
+	        	 if(json.d3){betIndex3 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
+	        	 if(json.d4){betIndex4 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
+	        	 if(json.d5){betIndex5 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
+	        	 if(json.d6){betIndex6[4] = 0;}
+	        	 
+	        	 if(json.e1){betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
+	        	 if(json.e2){betIndex2 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
+	        	 if(json.e3){betIndex3 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
+	        	 if(json.e4){betIndex4 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
+	        	 if(json.e5){betIndex5 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
+	        	 if(json.e6){betIndex6[5] = 0;}
+	        	 
+	        	 if(json.f1){betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
+	        	 if(json.f2){betIndex2 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
+	        	 if(json.f3){betIndex3 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
+	        	 if(json.f4){betIndex4 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
+	        	 if(json.f5){betIndex5 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
+	        	 if(json.f6){betIndex6[6] = 0;}
+	        	 
+	        	 if(json.g1){betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}  
+	        	 if(json.g2){betIndex2 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
+	        	 if(json.g3){betIndex3 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
+	        	 if(json.g4){betIndex4 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
+	        	 if(json.g5){betIndex5 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
+	        	 if(json.g6){betIndex6[7] = 0;}
+	        	 
+	        	 if(json.h1){betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
+	        	 if(json.h2){betIndex2 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
+	        	 if(json.h3){betIndex3 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
+	        	 if(json.h4){betIndex4 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
+	        	 if(json.h5){betIndex5 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
+	        	 if(json.h6){betIndex6[8] = 0;}
+	        	 
+	        	 if(json.i1){betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
+	        	 if(json.i2){betIndex2 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
+	        	 if(json.i3){betIndex3 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
+	        	 if(json.i4){betIndex4 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
+	        	 if(json.i5){betIndex5 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
+	        	 if(json.i6){betIndex6[9] = 0;}
+	        	 
+	        	 if(json.j1){betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}  
+	        	 if(json.j2){betIndex2 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
+	        	 if(json.j3){betIndex3 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
+	        	 if(json.j4){betIndex4 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
+	        	 if(json.j5){betIndex5 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
+	        	 if(json.j6){betIndex6[10] = 0;}
 	        	 
 	        	  
 	        	 if(json.checkFlag=='Y'){

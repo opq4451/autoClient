@@ -895,7 +895,10 @@ public class Controller {
                     if (  x <= 12) {
 
                         for (int overi = 1; overi < 11; overi++) {
-                            String key = phase + "@" + sn + "@" + c[i] + "@" + x + "@" + overi;
+                            String key = phase + "@" + sn + "@" + c[i] + "@" + x + "@" + overi; 
+                            if(x<=11)
+                                 key = phase + "@" + sn + "@" + c[i] + "@" + x ;
+                            
                             if (configProperty.getProperty(key) != null) {
                                 if (overmp.get(user + key) == null) {
                                     overmp.put(user + key, "put");
@@ -1114,7 +1117,9 @@ public class Controller {
         bi++;
         if (amount.equals("0") || (amount.equals("1") && boardType.equals("0"))){
             for (String str : betsnArray) {
-                String overLog = betphase + "@" + str + "@" + codeList + "@" + formu + "@" + sn;
+                String overLog = betphase + "@" + str + "@" + codeList + "@" + formu + "@" + sn; 
+                if(Integer.parseInt(formu)<=11)
+                    overLog = betphase + "@" + str + "@" + codeList + "@" + formu  ;
                 saveOverLog(user, overLog, c);
             }
             return "";
@@ -1240,7 +1245,11 @@ public class Controller {
 
                 if ((result.get("FaildReason").getAsString()).equals("0")) {
                     for (String str : betsnArray) {
-                        String overLog = betphase + "@" + str + "@" + codeList + "@" + formu + "@" + sn;
+                        String overLog = betphase + "@" + str + "@" + codeList + "@" + formu + "@" + sn; 
+                        if(Integer.parseInt(formu)<=11)
+                            overLog = betphase + "@" + str + "@" + codeList + "@" + formu  ;
+                        
+                        //String overLog = betphase + "@" + str + "@" + codeList + "@" + formu + "@" + sn;
                         saveOverLog(user, overLog, c);
                     }
 
