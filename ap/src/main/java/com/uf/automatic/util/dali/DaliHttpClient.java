@@ -107,7 +107,7 @@ public class DaliHttpClient {
     }
 
     static String daliUrl[] = { "http://13561.nptt6729.com", "http://13561.ajjkk6779.com", "http://13561.cppq99638.com",
-                                "http://13561.ctty12369.com", "http://13561.cqnm2355.com" };
+            "http://13561.ctty12369.com", "http://13561.cf36628.com" };
 
     // sd8885 //Aa258369
     static int daliUrl_index = 0;
@@ -482,7 +482,7 @@ public class DaliHttpClient {
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
-        HttpGet HttpGet = new HttpGet(daliUrl[daliUrl_index % 5] + "/member/Main/left");
+        HttpGet HttpGet = new HttpGet(daliUrl[daliUrl_index % 5] + "/member/User/userInfouu?gno=0&md5=-1");
 
         HttpGet.setHeader("Cookie", daliCookie);
 
@@ -645,8 +645,8 @@ public class DaliHttpClient {
             System.out.println(code);
             if (!code.equals("1")) {
                 daliUrl_index++;
-                String urla = daliUrl[daliUrl_index % 5] + "Home/Ulogin_off_code?" + "&loginName=" + id + "&loginPwd="
-                              + password + "";
+                String urla = daliUrl[daliUrl_index % 5] + "/member/Home/Ulogin_off_code";
+
 
                 getCookieHttpClient(urla);
             }
@@ -665,8 +665,8 @@ public class DaliHttpClient {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             daliUrl_index++;
-            String urla = daliUrl[daliUrl_index % 5] + "Home/Ulogin_off_code?" + "&loginName=" + id + "&loginPwd="
-                          + password + "";
+            String urla = daliUrl[daliUrl_index % 5] + "/member/Home/Ulogin_off_code";
+
 
             getCookieHttpClient(urla);
             throw e;
