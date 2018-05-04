@@ -1845,46 +1845,83 @@
 		
 	}
 	
-	function compareByType1_pro6(phase_before,phase_now,phase_before4 , bIndex, bArray){
-		let formu = document.getElementById('betproject6').checked ? '12' : '6';
-		const code_b = getCodeByPhase(phase_before); 
-		const code_n = getCodeByPhase(phase_now);
-		const code_n2 = getCodeByPhase(phase_now*1 -1);
-
-		const code_before4 = getCodeByPhase(phase_before4);
+	function compareByType1_pro6(phase_before,phase_now,phase_before4 , bIndex, bArray, sn_formu){
+		//let formu = document.getElementById('betproject6').checked ? '12' : '6';
+		//const code_b = getCodeByPhase(phase_before); 
+		const code_n = getCodeByPhase(phase_now); 
 		
-		const array_b = code_b.split(',');
+		//const array_b = code_b.split(',');
 		const array_n = code_n.split(',');
-		const array_n2 = code_n2.split(',');
-
-		const array_before4 = code_before4.split(',');
-		if(array_b.length==0 || array_n.length==0 || array_before4.length==0  ){
+	 
+		if( array_n.length == 0   ){
 			return;
 		}
-		for(var i=0;i<10;i++){
+		
+		let i = sn_formu*1  - 1 ;
+		const bet_n = array_n[i];
+		let bet_sn = '';
+		let betCode = '';
+		if(bIndex[sn_formu] == 0) {
+			if(i =='0' || i =='1'|| i =='2'
+				|| i =='3'|| i =='5'){
+				betCode =  '1,2,3,4,5,6'; 
+			}else {
+				betCode =  '5,6,7,8,9,10'; 
+			}
+			bet_sn = sn_formu ;
+			betTemp6[sn_formu] = bet_n ;
+			 
+		}else {
+			for(var x = 0 ; x < array_n.length ; x++){
+				if(array_n[x] == betTemp6[sn_formu]){
+					bet_sn = x + 1;
+					let run_code = betTemp6[sn_formu];
+					if(run_code =='1' || run_code =='2'|| run_code =='3'
+						|| run_code =='4'|| run_code =='6'){
+						betCode =  '1,2,3,4,5,6'; 
+					}else {
+						betCode =  '5,6,7,8,9,10'; 
+					}
+					
+					break;
+				}
+			}
+		}
+		
+		console.log('追第'+sn_formu + ' @ ' + '號碼 ' + betTemp6[sn_formu] + ' @ 下注號碼 ' + betCode+ ' @ 下注名次 ' + bet_sn)
+		
+		/*for(var i=0;i<10;i++){
 			const bet_b = array_b[i];
 			const bet_n = array_n[i];
-			const bet_n2 = array_n2[i];
-
-			const bet_before4 = array_before4[i]; 
-			var z = i+1; 
+			let betCode = '';
+			let betSn = i + 1 ;
+			if(bIndex[bet_n] == 0) {
+				if(i =='0' || i =='1'|| i =='2'
+					|| i =='3'|| i =='5'){
+					betCode =  '1,2,3,4,5,6'; 
+				}else {
+					betCode =  '5,6,7,8,9,10'; 
+				}
+				
+				 
+			}else {
+				if(bet_n =='1' || bet_n =='2'|| bet_n =='3'
+					|| bet_n =='4'|| bet_n =='6'){
+					betCode =  '1,2,3,4,5,6'; 
+				}else {
+					betCode =  '5,6,7,8,9,10'; 
+				}
+			}
+			var z =  bet_n ; 
+			
 		    var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
  			 
 			var amount = bArray[bIndex[z]%bArray.length] ; 
 			
-			let betsn='';
-			if(! (z==4 ||z==7  ||z==3 || z==8) ){
-				projectBet[6][i] = true;
-			}else if((z==3 || z==8)){ 
-				betsn = '1,3,5,6,8,10';
-			}else if((z==4 || z==7)){ 
-				betsn = '1,2,4,7,9,10';
-			}
 			
 			
-			//if(bIndex[z] == 0)
-	 	   	//	 betTemp6[z] = rangeExist_pro6[bet_before4].toString();
-			    
+			
+			 
 		  
 		 	if(!projectBet[6][i]){ 
 		 		    let bet_code = bet_n;
@@ -1897,16 +1934,13 @@
 					}  
 		   		
 		 	}
-		}
+		}*/
 		
 	}
 	
 	
 	
- 
-	
- 
-
+	 
 	 
 	
 	
@@ -2856,7 +2890,7 @@
 		    		  const b = obj.b ;
 				  const fourTh = obj.fourTh ;
 				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-					 	compareByType1(b,n,fourTh,betIndex,betarray);
+					  compareByType1_pro6(b,n,fourTh,betIndex,betarray,'1');
 				  } 
 		    	    }
 	  	  }
