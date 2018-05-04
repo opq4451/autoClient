@@ -1778,8 +1778,8 @@
 
  
 	
-	function compareByType1_pro5(phase_before,phase_now,phase_before4 , bIndex, bArray){
-		let formu = document.getElementById('betproject6').checked ? '11' : '5';
+	function compareByType1_pro5(phase_before,phase_now,phase_before4 , bIndex, bArray, formu){
+		//let formu = document.getElementById('betproject6').checked ? '11' : '5';
 		const code_b = getCodeByPhase(phase_before); 
 		const code_n = getCodeByPhase(phase_now);
 		const code_n2 = getCodeByPhase(phase_now*1 -1);
@@ -1792,7 +1792,51 @@
 		if(array_b.length==0 || array_n.length==0 || array_before4.length==0  ){
 			return;
 		}
-		for(var i=0;i<10;i++){
+		
+
+		let i = formu*1  - 1 ;
+		///const bet_b = array_b[i];
+		const bet_n = array_n[i];
+		const bet_n2 = array_n2[i];
+		//const bet_before4 = array_before4[i];
+		var z =  i+1; 
+	 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+	 	//var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
+	 	//logAppend(cLog) ;
+	    var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+			//var betList =  rangeExist_pro5[bet_before4].toString().split(',');
+	    var writeFlag = false;
+    	//var betStr="";
+		var amount = bArray[bIndex[z]%bArray.length] ;
+		
+		
+		if(bet_n2 == '1' || bet_n2 == '6'){
+			betsn = '1,2,3,4,5,6';
+		}else if(bet_n2 == '2' || bet_n2 == '7'){
+			betsn = '2,3,4,5,6,7';
+		}else if(bet_n2 == '3' || bet_n2 == '8'){
+			betsn = '3,4,5,6,7,8';
+		}else if(bet_n2 == '4' || bet_n2 == '9'){
+			betsn = '4,5,6,7,8,9';
+		}else if(bet_n2 == '5' || bet_n2 == '10'){
+			betsn = '5,6,7,8,9,10';
+		}
+		
+		if(!projectBet[5][i]){
+			let bet_code = bet_n;
+		    let bet_sn = betsn;
+			let dynamicSn = '';
+			console.log('公式5:'+'號碼' + bet_n);
+			console.log('名次:'+ bet_sn);
+			let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
+	   		if(rbf){
+				bIndex[z]++;
+				projectBet[5][i] = true;
+			}
+		}
+   		
+		
+		/*for(var i=0;i<10;i++){
 			const bet_b = array_b[i];
 			const bet_n = array_n[i];
 			const bet_n2 = array_n2[i];
@@ -1836,7 +1880,7 @@
 				 
 			}else {
 				projectBet[5][i] = true;
-			}
+			}*/
 			
 			 
 			 
@@ -1925,24 +1969,15 @@
 	}
 
 	function specialreallyBet(sn,amount,betphase,c,betcode,originformu,betsn,dynamicSn){
-		let formu = originformu >6 ? originformu - 6 : originformu ;
-	    var b = '';
+		//let formu = originformu >6 ? originformu - 6 : originformu ;
+	    var b = betsn;
 		 
-		if(document.getElementById('betproject6').checked ){
-			  
-				b = betsn;
-			 
-		}
-		
-		if(document.getElementById('betproject5').checked ){ 
-				b = combindsort(betsn); 
-		}
-
+		 
 	  
 		let snIndex = sn - 1;
 		$.ajax({ url:  u + "/specialbet?user="+document.getElementById("user").value+ 
 				"&sn="+sn+"&amount="+amount+
-				"&betphase="+betphase+"&c="+c+"&codeList="+betcode+"&formu="+originformu+
+				"&betphase="+betphase+"&c="+c+"&codeList="+betcode+"&formu="+sn+
 				'&boardType='+document.getElementById("boardType").value+
 				'&betsn='+b,  
          async: false,
