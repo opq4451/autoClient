@@ -881,23 +881,18 @@ public class Controller {
             if (c.length != 10)
                 return "null";
 
-            int s = 1;
-            if (betproject.equals("6")) {
-                s = 7;
-            }
-            int e = s + 6;
+            
 
-            for (int x = s; x < e; x++) { // x → 公式幾
+            for (int x = 1; x < 11; x++) { // x → 公式幾
                 for (int i = 0; i < 10; i++) {
 
                     int sn = i + 1;
 
-                    if (  x <= 12) {
+                    
 
                         for (int overi = 1; overi < 11; overi++) {
                             String key = phase + "@" + sn + "@" + c[i] + "@" + x + "@" + overi; 
-                            if(x<=11)
-                                 key = phase + "@" + sn + "@" + c[i] + "@" + x ;
+                            
                             
                             if (configProperty.getProperty(key) != null) {
                                 if (overmp.get(user + key) == null) {
@@ -920,27 +915,7 @@ public class Controller {
                             }
                         }
 
-                    } else {
-                        String key = phase + "@" + sn + "@" + c[i] + "@" + x;
-                        if (configProperty.getProperty(key) != null) {
-                            if (overmp.get(user + key) == null) {
-                                overmp.put(user + key, "put");
-                                over_i++;
-                                // Utils.WritePropertiesFile(user+"overLOGDIS_log",
-                                // fillZero(Integer.toString(over_i)), "第"+phase +
-                                // "期，第" + sn + "名，號碼(" + code + ") 已過關!(第"+c+"關)");
-                                String t = new SimpleDateFormat("HH:mm:ss").format(new Date());
-                                Utils.WritePropertiesFile(user + "overLOGDIS_log",
-                                                          fillZero(Integer.toString(over_i)),
-                                                          "第" + phase + "期，第" + sn + "名，已過關!(第"
-                                                                                              + configProperty.getProperty(key)
-                                                                                              + "關)" + "(公式" + x + ")");
-
-                                j.addProperty(covertIntToLatter(sn) + (x > 6 ? x - 6 : x), "Y");
-                            }
-
-                        }
-                    }
+                   
 
                 }
 
@@ -1118,8 +1093,7 @@ public class Controller {
         if (amount.equals("0") || (amount.equals("1") && boardType.equals("0"))){
             for (String str : betsnArray) {
                 String overLog = betphase + "@" + str + "@" + codeList + "@" + formu + "@" + sn; 
-                if(Integer.parseInt(formu)<=11)
-                    overLog = betphase + "@" + str + "@" + codeList + "@" + formu  ;
+                
                 saveOverLog(user, overLog, c);
             }
             return "";
@@ -1246,9 +1220,7 @@ public class Controller {
                 if ((result.get("FaildReason").getAsString()).equals("0")) {
                     for (String str : betsnArray) {
                         String overLog = betphase + "@" + str + "@" + codeList + "@" + formu + "@" + sn; 
-                        if(Integer.parseInt(formu)<=11)
-                            overLog = betphase + "@" + str + "@" + codeList + "@" + formu  ;
-                        
+                          
                         //String overLog = betphase + "@" + str + "@" + codeList + "@" + formu + "@" + sn;
                         saveOverLog(user, overLog, c);
                     }

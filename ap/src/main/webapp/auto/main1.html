@@ -842,7 +842,10 @@
     var betarray4 = [];
     var betarray5 = [];
     var betarray6 = [];
-
+    var betarray7 = [];
+    var betarray8 = [];
+    var betarray9 = [];
+    var betarray10 = [];
     var dynamic_phase="";
     var betIndex   = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
     var betIndex2  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
@@ -850,7 +853,11 @@
     var betIndex4  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
     var betIndex5  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
     var betIndex6  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
- 
+    var betIndex7  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+    var betIndex8  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+    var betIndex9  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+    var betIndex10  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+    
     const rangeExist = {
  			'1' : ['1','2','3','4','9','10'] ,
  			'2' : ['1','2','3','4','5','10'] ,
@@ -1018,7 +1025,7 @@
 		 });
 		 
 		 $( "#logoutDiv" ).click(function() {
-             window.location.href='/index.html' ;
+             window.location.href='/index456.html' ;
 
 		 });
 		 
@@ -1172,24 +1179,16 @@
 		    	 	stopwin = json.stopwin;
 		    	 	todayWin = json.todayWin;
 		    	 	cash = json.cash;
-		    	 	betarray =   document.getElementById("betproject5").checked ? json.betlist.split(',')  : json.betlist7.split(',') ;
-		    	 	betarray2 =  document.getElementById("betproject5").checked ? json.betlist2.split(',') : json.betlist8.split(',') ;
-		    	 	betarray3 =  document.getElementById("betproject5").checked ? json.betlist3.split(',') : json.betlist9.split(',') ;
-		    	 	betarray4 =  document.getElementById("betproject5").checked ? json.betlist4.split(',') : json.betlist10.split(',') ;
-		    	 	betarray5 =  document.getElementById("betproject5").checked ? json.betlist5.split(',') : json.betlist11.split(',') ;
-		    	 	betarray6 =  document.getElementById("betproject5").checked ? json.betlist6.split(',') : json.betlist12.split(',') ;
-		    	 	if(json.betproject5=='1'){ 
-		    	 		checkChangeBetProject = 5; 
-		    	 		//betarray5.splice(0, 0, '0');	
-		    	 		//betarray6.splice(0, 0, '0');
-		    	 		 
-		    	 		
-	    	 		} else if(json.betproject6=='1'){
-	    	 			checkChangeBetProject = 6; 	
-	    	 			//betarray5.splice(0, 0, '0');
-	    	 			//betarray6.splice(0, 0, '0');
-    	 			}
-		    	 	else  { checkChangeBetProject = 0; 	}
+		    	 	betarray =   json.betlist2.split(',') ;
+		    	 	betarray2 =   json.betlist3.split(',') ;
+		    	 	betarray3 =   json.betlist4.split(',') ;
+		    	 	betarray4 =   json.betlist5.split(',') ;
+		    	 	betarray5 =   json.betlist6.split(',') ;
+		    	 	betarray6 =   json.betlist8.split(',') ;
+		    	 	betarray7 =   json.betlist9.split(',') ;
+		    	 	betarray8 =   json.betlist10.split(',') ;
+		    	 	betarray9 =   json.betlist11.split(',') ;
+		    	 	betarray10 =   json.betlist12.split(',') ;
 		    	 	/*betarray.splice(0, 0, '0');
 		    	 	betarray2.splice(0, 0, '0');
 		    	 	betarray3.splice(0, 0, '0');
@@ -1885,7 +1884,7 @@
 			 
 			 
 			 
-		}
+		//}
 		
 	}
 	
@@ -1989,12 +1988,12 @@
         	       	 	//betflag = true; 
         	       	 	//console.log(betphase + " betResut:"+ betflag);
         	        }else if (data ==''){
-        	       	 	projectBet[formu][snIndex] = true; 
+        	       	 	projectBet[5][snIndex] = true; 
         	        }
          	 }
         });
 		 
-		return projectBet[formu][snIndex] ; 
+		return projectBet[5][snIndex] ; 
 	}
 	
 	function combindsort(arra){
@@ -2443,7 +2442,7 @@
 	   	 		 if(document.getElementById("autoStart").checked){
 	   	 			 auto = "Y";
 	   	 		 }
-	             window.location.href="http://www.sd8888.net/index.html?auto="+auto+"&user="+
+	             window.location.href="http://www.sd8888.net/index456.html?auto="+auto+"&user="+
 	             document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value;
 		    }
 			    
@@ -2730,76 +2729,65 @@
 	         success: function(data) { 
 	        	  
 	        	 const json = JSON.parse(data);
-	        	 if(json.a1){betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
-	        	 if(json.a2){betIndex2 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
-	        	 if(json.a3){betIndex3 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
-	        	 if(json.a4){betIndex4 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
-	        	 if(json.a5){betIndex5 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
-	        	 if(json.a6){betIndex6[1] = 0;}
+
+	        	 if(json.a1){betIndex[1] = 0;}  if(json.a2){betIndex[1] = 0;} 
+	        	 if(json.a3){betIndex[1] = 0;} if(json.a4){betIndex[1] = 0;}
+	        	 if(json.a5){betIndex[1] = 0;} if(json.a6){betIndex[1] = 0;}
+	        	 if(json.a7){betIndex[1] = 0;} if(json.a8){betIndex[1] = 0;}
+	        	 if(json.a9){betIndex[1] = 0;} if(json.a10){betIndex[1] = 0;}
+	        	 if(json.b1){betIndex2[2] = 0;}  if(json.b2){betIndex2[2] = 0;} 
+	        	 if(json.b3){betIndex2[2] = 0;} if(json.b4){betIndex2[2] = 0;}
+	        	 if(json.b5){betIndex2[2] = 0;} if(json.b6){betIndex2[2] = 0;}
+	        	 if(json.b7){betIndex2[2] = 0;} if(json.b8){betIndex2[2] = 0;}
+	        	 if(json.b9){betIndex2[2] = 0;} if(json.b10){betIndex2[2] = 0;}
 	        	 
-	        	 if(json.b1){betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
-	        	 if(json.b2){betIndex2 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
-	        	 if(json.b3){betIndex3 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
-	        	 if(json.b4){betIndex4 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
-	        	 if(json.b5){betIndex5 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
-	        	 if(json.b6){betIndex6[2] = 0;}
+	        	 if(json.c1){betIndex3[3] = 0;} if(json.c2){betIndex3[3] = 0;} 
+	        	 if(json.c3){betIndex3[3] = 0;} if(json.c4){betIndex3[3] = 0;}
+	        	 if(json.c5){betIndex3[3] = 0;} if(json.c6){betIndex3[3] = 0;}
+	        	 if(json.c7){betIndex3[3] = 0;} if(json.c8){betIndex3[3] = 0;}
+	        	 if(json.c9){betIndex3[3] = 0;} if(json.c10){betIndex3[3] = 0;}
 	        	 
-	        	 if(json.c1){betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
-	        	 if(json.c2){betIndex2 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
-	        	 if(json.c3){betIndex3 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
-	        	 if(json.c4){betIndex4 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
-	        	 if(json.c5){betIndex5 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
-	        	 if(json.c6){betIndex6[3] = 0;}
+	        	 if(json.d1){betIndex4[4] = 0;} if(json.d2){betIndex4[4] = 0;} 
+	        	 if(json.d3){betIndex4[4] = 0;} if(json.d4){betIndex4[4] = 0;}
+	        	 if(json.d5){betIndex4[4] = 0;} if(json.d6){betIndex4[4] = 0;}
+	        	 if(json.d7){betIndex4[4] = 0;} if(json.d8){betIndex4[4] = 0;}
+	        	 if(json.d9){betIndex4[4] = 0;} if(json.d10){betIndex4[4] = 0;}
 	        	 
-	        	 if(json.d1){betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
-	        	 if(json.d2){betIndex2 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
-	        	 if(json.d3){betIndex3 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
-	        	 if(json.d4){betIndex4 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
-	        	 if(json.d5){betIndex5 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
-	        	 if(json.d6){betIndex6[4] = 0;}
+	        	 if(json.e1){betIndex5[5] = 0;} if(json.e2){betIndex5[5] = 0;} 
+	        	 if(json.e3){betIndex5[5] = 0;} if(json.e4){betIndex5[5] = 0;}
+	        	 if(json.e5){betIndex5[5] = 0;} if(json.e6){betIndex5[5] = 0;}
+	        	 if(json.e7){betIndex5[5] = 0;} if(json.e8){betIndex5[5] = 0;}
+	        	 if(json.e9){betIndex5[5] = 0;} if(json.e10){betIndex5[5] = 0;}
 	        	 
-	        	 if(json.e1){betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
-	        	 if(json.e2){betIndex2 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
-	        	 if(json.e3){betIndex3 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
-	        	 if(json.e4){betIndex4 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
-	        	 if(json.e5){betIndex5 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
-	        	 if(json.e6){betIndex6[5] = 0;}
+	        	 if(json.f1){betIndex6[6] = 0;} if(json.f2){betIndex6[6] = 0;} 
+	        	 if(json.f3){betIndex6[6] = 0;} if(json.f4){betIndex6[6] = 0;}
+	        	 if(json.f5){betIndex6[6] = 0;} if(json.f6){betIndex6[6] = 0;}
+	        	 if(json.f7){betIndex6[6] = 0;} if(json.f8){betIndex6[6] = 0;}
+	        	 if(json.f9){betIndex6[6] = 0;} if(json.f10){betIndex6[6] = 0;}
 	        	 
-	        	 if(json.f1){betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
-	        	 if(json.f2){betIndex2 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
-	        	 if(json.f3){betIndex3 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
-	        	 if(json.f4){betIndex4 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
-	        	 if(json.f5){betIndex5 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
-	        	 if(json.f6){betIndex6[6] = 0;}
+	        	 if(json.g1){betIndex7[7] = 0;}  if(json.g2){betIndex7[7] = 0;} 
+	        	 if(json.g3){betIndex7[7] = 0;} if(json.g4){betIndex7[7] = 0;}
+	        	 if(json.g5){betIndex7[7] = 0;} if(json.g6){betIndex7[7] = 0;}
+	        	 if(json.g7){betIndex7[7] = 0;} if(json.g8){betIndex7[7] = 0;}
+	        	 if(json.g9){betIndex7[7] = 0;} if(json.g10){betIndex7[7] = 0;}
 	        	 
-	        	 if(json.g1){betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}  
-	        	 if(json.g2){betIndex2 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
-	        	 if(json.g3){betIndex3 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
-	        	 if(json.g4){betIndex4 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
-	        	 if(json.g5){betIndex5 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
-	        	 if(json.g6){betIndex6[7] = 0;}
+	        	 if(json.h1){betIndex8[8] = 0;}  if(json.h2){betIndex8[8] = 0;} 
+	        	 if(json.h3){betIndex8[8] = 0;} if(json.h4){betIndex8[8] = 0;}
+	        	 if(json.h5){betIndex8[8] = 0;} if(json.h6){betIndex8[8] = 0;}
+	        	 if(json.h7){betIndex8[8] = 0;} if(json.h8){betIndex8[8] = 0;}
+	        	 if(json.h9){betIndex8[8] = 0;} if(json.h10){betIndex8[8] = 0;}
 	        	 
-	        	 if(json.h1){betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
-	        	 if(json.h2){betIndex2 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
-	        	 if(json.h3){betIndex3 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
-	        	 if(json.h4){betIndex4 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
-	        	 if(json.h5){betIndex5 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
-	        	 if(json.h6){betIndex6[8] = 0;}
+	        	 if(json.i1){betIndex9[9] = 0;} if(json.i2){betIndex9[9] = 0;} 
+	        	 if(json.i3){betIndex9[9] = 0;} if(json.i4){betIndex9[9] = 0;}
+	        	 if(json.i5){betIndex9[9] = 0;} if(json.i6){betIndex9[9] = 0;}
+	        	 if(json.i7){betIndex9[9] = 0;} if(json.i8){betIndex9[9] = 0;}
+	        	 if(json.i9){betIndex9[9] = 0;} if(json.i10){betIndex9[9] = 0;}
 	        	 
-	        	 if(json.i1){betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
-	        	 if(json.i2){betIndex2 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
-	        	 if(json.i3){betIndex3 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
-	        	 if(json.i4){betIndex4 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
-	        	 if(json.i5){betIndex5 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
-	        	 if(json.i6){betIndex6[9] = 0;}
-	        	 
-	        	 if(json.j1){betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}  
-	        	 if(json.j2){betIndex2 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
-	        	 if(json.j3){betIndex3 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };} 
-	        	 if(json.j4){betIndex4 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
-	        	 if(json.j5){betIndex5 =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };}
-	        	 if(json.j6){betIndex6[10] = 0;}
-	        	 
+	        	 if(json.j1){betIndex10[10] = 0;}  if(json.j2){betIndex10[10] = 0;} 
+	        	 if(json.j3){betIndex10[10] = 0;} if(json.j4){betIndex10[10] = 0;}
+	        	 if(json.j5){betIndex10[10] = 0;} if(json.j6){betIndex10[10] = 0;}
+	        	 if(json.j7){betIndex10[10] = 0;} if(json.j8){betIndex10[10] = 0;}
+	        	 if(json.j9){betIndex10[10] = 0;} if(json.j10){betIndex10[10] = 0;}
 	        	  
 	        	 if(json.checkFlag=='Y'){
 	        		 check = true;
@@ -2825,135 +2813,72 @@
     	  const n = nextPhase*1 - 1 ;
     	  
     	  let obj = {} ; 
-    	 
-	    	  
-	  	  if(document.getElementById('betproject5').checked ){ //五碼計劃
-	  		if(document.getElementById('c6').checked  && !checkProjectBetFlagIndex(projectBet[6]) ) {
-				  console.log('project6'+'-betPhase:'+nextPhase);
-				  obj.b = nextPhase - 5 ;
-				  obj.fourTh = nextPhase - 4 ; 
-				  const b = obj.b ;
-				  const fourTh = obj.fourTh ;
-				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-					  compareByType1_pro6(b,n,fourTh,betIndex6,betarray6);
-				  }
-			  }
-	  	  
-	  		  if(document.getElementById('c5').checked  && !checkProjectBetFlagIndex(projectBet[5])) {
-				  console.log('project5'+'-betPhase:'+nextPhase);
-				  obj.b = nextPhase - 5 ;
-				  obj.fourTh = nextPhase - 4 ;
-				  const b = obj.b ;
-				  const fourTh = obj.fourTh ;
-				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-					  compareByType1_pro5(b,n,fourTh,betIndex5,betarray5);
-				  }
-			   }
-			  
-			   if(document.getElementById('c4').checked  && !checkProjectBetFlagIndex(projectBet[4]) ) {
-	   	          console.log('project4'+'-betPhase:'+nextPhase);
-	   	       	  obj.b = nextPhase - 5 ;
-				  obj.fourTh = nextPhase - 4 ;
-				  const b = obj.b ;
-				  const fourTh = obj.fourTh ;
-				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-					  compareByType1_pro4(b,n,fourTh,betIndex4,betarray4);
-				  }
-			    }
-			  
-			    if(document.getElementById('c3').checked  && !checkProjectBetFlagIndex(projectBet[3]) ) {
-		  		  console.log('project3'+'-betPhase:'+nextPhase);
-		  		  obj.b = nextPhase - 5 ;
-				  obj.fourTh = nextPhase - 4 ;
-				  const b = obj.b ;
-				  const fourTh = obj.fourTh ;
-				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-					  compareByType1_pro3(b,n,fourTh,betIndex3,betarray3);		  
-			 	  }  
-	      	  }
-			  
-			  
-			  if(document.getElementById('c2').checked  && !checkProjectBetFlagIndex(projectBet[2]) ) {
-				  console.log('project2'+'-betPhase:'+nextPhase);
-				  obj.b = nextPhase - 5 ;
-				  obj.fourTh = nextPhase - 4 ; 
-				  const b = obj.b ;
-				  const fourTh = obj.fourTh ;
-				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-					  compareByType1_pro(b,n,fourTh,betIndex2,betarray2);
-				  } 
-			    }
-			  
-			    if(document.getElementById('c1').checked  && !checkProjectBetFlagIndex(projectBet[1]) ) { 
+    	  
+			    if(document.getElementById('c1').checked  && !checkProjectBetFlagIndex(projectBet[5]) ) { 
 		    		  console.log('project1'+'-betPhase:'+nextPhase);
 		    		  obj.b = nextPhase - 5 ;
 			      obj.fourTh = nextPhase - 4 ;
 		    		  const b = obj.b ;
 				  const fourTh = obj.fourTh ;
 				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-					 	compareByType1(b,n,fourTh,betIndex,betarray);
+					  compareByType1_pro5(b,n,fourTh,betIndex,betarray,'1');
 				  } 
 		    	    }
-	  	  }
-	  	  console.log(document.getElementById('betproject6').checked);
-	  	  if(document.getElementById('betproject6').checked ){ //六碼計劃
+			    
+			    if(document.getElementById('c2').checked  && !checkProjectBetFlagIndex(projectBet[5]) ) {
+					  console.log('project2'+'-betPhase:'+nextPhase);
+					  obj.b = nextPhase - 5 ;
+					  obj.fourTh = nextPhase - 4 ; 
+					  const b = obj.b ;
+					  const fourTh = obj.fourTh ;
+					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+						  compareByType1_pro5(b,n,fourTh,betIndex2,betarray2,'2');
+					  } 
+			    }
+			    if(document.getElementById('c3').checked  && !checkProjectBetFlagIndex(projectBet[5]) ) {
+			  		  console.log('project3'+'-betPhase:'+nextPhase);
+			  		  obj.b = nextPhase - 5 ;
+					  obj.fourTh = nextPhase - 4 ;
+					  const b = obj.b ;
+					  const fourTh = obj.fourTh ;
+					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+						  compareByType1_pro5(b,n,fourTh,betIndex3,betarray3,'3');		  
+				 	  }  
+		      	  }
+			    if(document.getElementById('c4').checked  && !checkProjectBetFlagIndex(projectBet[5]) ) {
+		   	          console.log('project4'+'-betPhase:'+nextPhase);
+		   	       	  obj.b = nextPhase - 5 ;
+					  obj.fourTh = nextPhase - 4 ;
+					  const b = obj.b ;
+					  const fourTh = obj.fourTh ;
+					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+						  compareByType1_pro5(b,n,fourTh,betIndex4,betarray4,'4');
+					  }
+				    }
+			    
+			    if(document.getElementById('c5').checked  && !checkProjectBetFlagIndex(projectBet[5])) {
+					  console.log('project5'+'-betPhase:'+nextPhase);
+					  obj.b = nextPhase - 5 ;
+					  obj.fourTh = nextPhase - 4 ;
+					  const b = obj.b ;
+					  const fourTh = obj.fourTh ;
+					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+						  compareByType1_pro5(b,n,fourTh,betIndex5,betarray5,'5');
+					  }
+				   }
+			    
+			    if(document.getElementById('c6').checked  && !checkProjectBetFlagIndex(projectBet[5]) ) {
+					  console.log('project6'+'-betPhase:'+nextPhase);
+					  obj.b = nextPhase - 5 ;
+					  obj.fourTh = nextPhase - 4 ; 
+					  const b = obj.b ;
+					  const fourTh = obj.fourTh ;
+					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+						  compareByType1_pro5(b,n,fourTh,betIndex6,betarray6,'6');
+					  }
+				  }
+			    
 	  		  
-	  		 if(document.getElementById('c12').checked  && !checkProjectBetFlagIndex(projectBet[6]) ) {
-				  console.log('project6'+'-betPhase:'+nextPhase);
-				  obj.b = nextPhase - 5 ;
-				  obj.fourTh = nextPhase - 4 ; 
-				  const b = obj.b ;
-				  const fourTh = obj.fourTh ;
-				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-					  compareByType1_pro6(b,n,fourTh,betIndex6,betarray6);
-				  }
-			  }
-	  	  
-	  		  if(document.getElementById('c11').checked  && !checkProjectBetFlagIndex(projectBet[5])) {
-				  console.log('project5'+'-betPhase:'+nextPhase);
-				  obj.b = nextPhase - 5 ;
-				  obj.fourTh = nextPhase - 4 ; 
-				  const b = obj.b ;
-				  const fourTh = obj.fourTh ;
-				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-					  compareByType1_pro5(b,n,fourTh,betIndex5,betarray5);
-				  }
-			   }
-			  
-			   if(document.getElementById('c10').checked  && !checkProjectBetFlagIndex(projectBet[4]) ) {
-	   	          console.log('project4'+'-betPhase:'+nextPhase);
-				  obj.b = nextPhase - 5 ;
-				  obj.fourTh = nextPhase - 4 ; 
-				  const b = obj.b ;
-				  const fourTh = obj.fourTh ;
-				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-					  compareByType1_pro4(b,n,fourTh,betIndex4,betarray4);
-				  }
-			    }
-			  
-			    if(document.getElementById('c9').checked  && !checkProjectBetFlagIndex(projectBet[3]) ) {
-		  		  console.log('project3'+'-betPhase:'+nextPhase);
-				  obj.b = nextPhase - 5 ;
-				  obj.fourTh = nextPhase - 4 ;
-				  const b = obj.b ;
-				  const fourTh = obj.fourTh ;
-				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-					  compareByType1_pro3(b,n,fourTh,betIndex3,betarray3);		  
-			 	  }  
-	      	  }
-			  
-			  
-			  if(document.getElementById('c8').checked  && !checkProjectBetFlagIndex(projectBet[2]) ) {
-				  console.log('project2'+'-betPhase:'+nextPhase);
-				  obj.b = nextPhase - 5 ;
-				  obj.fourTh = nextPhase - 4 ; 
-				  const b = obj.b ;
-				  const fourTh = obj.fourTh ;
-				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-					  compareByType1_pro(b,n,fourTh,betIndex2,betarray2);
-				  } 
-			    }
-			  
 			    if(document.getElementById('c7').checked  && !checkProjectBetFlagIndex(projectBet[1]) ) { 
 		    		  console.log('project1'+'-betPhase:'+nextPhase);
 		    		  obj.b = nextPhase - 5 ;
@@ -2961,11 +2886,50 @@
 		    		  const b = obj.b ;
 				  const fourTh = obj.fourTh ;
 				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-					 	compareByType1(b,n,fourTh,betIndex,betarray);
+					  compareByType1_pro5(b,n,fourTh,betIndex7,betarray7,'7');
 				  } 
 		    	    }
+			    if(document.getElementById('c8').checked  && !checkProjectBetFlagIndex(projectBet[2]) ) {
+					  console.log('project2'+'-betPhase:'+nextPhase);
+					  obj.b = nextPhase - 5 ;
+					  obj.fourTh = nextPhase - 4 ; 
+					  const b = obj.b ;
+					  const fourTh = obj.fourTh ;
+					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+						  compareByType1_pro5(b,n,fourTh,betIndex8,betarray8,'8');
+					  } 
+				    }
+			    if(document.getElementById('c9').checked  && !checkProjectBetFlagIndex(projectBet[3]) ) {
+		  		  console.log('project3'+'-betPhase:'+nextPhase);
+				  obj.b = nextPhase - 5 ;
+				  obj.fourTh = nextPhase - 4 ;
+				  const b = obj.b ;
+				  const fourTh = obj.fourTh ;
+				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+					  compareByType1_pro5(b,n,fourTh,betIndex9,betarray9,'9');
+			 	  }  
+	      	  }
+			    
+			   if(document.getElementById('c10').checked  && !checkProjectBetFlagIndex(projectBet[4]) ) {
+	   	          console.log('project4'+'-betPhase:'+nextPhase);
+				  obj.b = nextPhase - 5 ;
+				  obj.fourTh = nextPhase - 4 ; 
+				  const b = obj.b ;
+				  const fourTh = obj.fourTh ;
+				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+					  compareByType1_pro5(b,n,fourTh,betIndex10,betarray10,'10');
+				  }
+			    }
 			  
-	  	  }
+			   
+			 
+			  
+			  
+			
+			  
+			   
+			  
+	   
 	  	  
    	     
 		  
@@ -3087,6 +3051,10 @@
     	 	for(var i=1;i<11;i++){console.log('計劃4:  第'+i+'名:'+betIndex4[i]);}
     	 	for(var i=1;i<11;i++){console.log('計劃5:  第'+i+'名:'+betIndex5[i]);}
     	 	for(var i=1;i<11;i++){console.log('計劃6:  第'+i+'名:'+betIndex6[i]);}
+    	 	for(var i=1;i<11;i++){console.log('計劃7:  第'+i+'名:'+betIndex7[i]);}
+    	 	for(var i=1;i<11;i++){console.log('計劃8:  第'+i+'名:'+betIndex8[i]);}
+    	 	for(var i=1;i<11;i++){console.log('計劃9:  第'+i+'名:'+betIndex9[i]);}
+    	 	for(var i=1;i<11;i++){console.log('計劃0:  第'+i+'名:'+betIndex10[i]);} 
 
     }
 </script>
