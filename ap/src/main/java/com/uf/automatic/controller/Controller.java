@@ -454,46 +454,46 @@ public class Controller {
                     }
                     String index = "";
                     if (key_form.equals("6")) {
-                        index = "01";
+                        index = "07";
                     }
                     ;
                     if (key_form.equals("12")) {
-                        index = "07";
+                        index = "01";
                     }
                     if (key_form.equals("5")) {
-                        index = "02";
+                        index = "08";
                     }
                     ;
                     if (key_form.equals("11")) {
-                        index = "08";
+                        index = "02";
                     }
                     if (key_form.equals("4")) {
-                        index = "03";
+                        index = "09";
                     }
                     ;
                     if (key_form.equals("10")) {
-                        index = "09";
+                        index = "03";
                     }
                     if (key_form.equals("3")) {
-                        index = "04";
+                        index = "10";
                     }
                     ;
                     if (key_form.equals("9")) {
-                        index = "10";
+                        index = "04";
                     }
                     if (key_form.equals("2")) {
-                        index = "05";
+                        index = "11";
                     }
                     ;
                     if (key_form.equals("8")) {
-                        index = "11";
+                        index = "05";
                     }
                     if (key_form.equals("1")) {
-                        index = "06";
+                        index = "12";
                     }
                     ;
                     if (key_form.equals("7")) {
-                        index = "12";
+                        index = "06";
                     }
 
                     String k = phase + "@" + index + "@" + sn + "@" + c + "@" + cc;

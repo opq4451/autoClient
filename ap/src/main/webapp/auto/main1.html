@@ -1809,82 +1809,47 @@
 		var amount = bArray[bIndex[z]%bArray.length] ;
 		
 		
-		if(bet_n2 == '1' || bet_n2 == '6'){
-			betsn = '1,2,3,4,5,6';
-		}else if(bet_n2 == '2' || bet_n2 == '7'){
-			betsn = '2,3,4,5,6,7';
-		}else if(bet_n2 == '3' || bet_n2 == '8'){
-			betsn = '3,4,5,6,7,8';
-		}else if(bet_n2 == '4' || bet_n2 == '9'){
-			betsn = '4,5,6,7,8,9';
-		}else if(bet_n2 == '5' || bet_n2 == '10'){
-			betsn = '5,6,7,8,9,10';
-		}
-		
-		if(!projectBet[5][i]){
-			let bet_code = bet_n;
-		    let bet_sn = betsn;
-			let dynamicSn = '';
-			console.log('公式5:'+'號碼' + bet_n);
-			console.log('名次:'+ bet_sn);
-			let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
-	   		if(rbf){
-				bIndex[z]++;
-				projectBet[5][i] = true;
+		let bet_sn = '';
+		let betCode = '';
+		if(bIndex[z] == 0) {
+			if(i =='0' || i =='1'|| i =='2'
+				|| i =='3'|| i =='5'){
+				betCode =  '1,2,3,4,5,6'; 
+			}else {
+				betCode =  '5,6,7,8,9,10'; 
+			}
+			bet_sn = formu ;
+			betTemp5[z] = bet_n ;
+			 
+		}else {
+			for(var x = 0 ; x < array_n.length ; x++){
+				if(array_n[x] == betTemp5[z]){
+					bet_sn = x + 1;
+					let run_code = betTemp6[z];
+					if(run_code =='1' || run_code =='2'|| run_code =='3'
+						|| run_code =='4'|| run_code =='6'){
+						betCode =  '1,2,3,4,5,6'; 
+					}else {
+						betCode =  '5,6,7,8,9,10'; 
+					}
+					
+					break;
+				}
 			}
 		}
-   		
 		
-		/*for(var i=0;i<10;i++){
-			const bet_b = array_b[i];
-			const bet_n = array_n[i];
-			const bet_n2 = array_n2[i];
-			const bet_before4 = array_before4[i];
- 
-		 	//var d = getYYYYMMDDSS();
-			var z =  i+1; 
-		 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-		 	//var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
-		 	//logAppend(cLog) ;
-		    var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
- 			//var betList =  rangeExist_pro5[bet_before4].toString().split(',');
-		    var writeFlag = false;
-	    	//var betStr="";
-			var amount = bArray[bIndex[z]%bArray.length] ;
-			
-			if(z == 8){
-				if(bet_n2 == '1' || bet_n2 == '6'){
-					betsn = '1,2,3,4,5,6';
-				}else if(bet_n2 == '2' || bet_n2 == '7'){
-					betsn = '2,3,4,5,6,7';
-				}else if(bet_n2 == '3' || bet_n2 == '8'){
-					betsn = '3,4,5,6,7,8';
-				}else if(bet_n2 == '4' || bet_n2 == '9'){
-					betsn = '4,5,6,7,8,9';
-				}else if(bet_n2 == '5' || bet_n2 == '10'){
-					betsn = '5,6,7,8,9,10';
-				}
-				
-				
-				let bet_code = bet_n;
-			    let bet_sn = betsn;
-				let dynamicSn = '';
-				console.log('公式5:'+'號碼' + bet_n);
-				console.log('名次:'+ bet_sn);
-				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
-		   		if(rbf){
-					bIndex[z]++;
-					projectBet[5][i] = true;
-				}
-				 
-			}else {
-				projectBet[5][i] = true;
-			}*/
-			
-			 
-			 
-			 
-		//}
+		
+		 
+		
+		if(!projectBet[5][i]){
+		 
+
+ 			let rbf = reallyBet(z, amount, (phase_now+1) , betc , betCode ,formu,bet_sn);
+	   		if(rbf){
+				bIndex[z]++;
+			} 
+		}
+   		 
 		
 	}
 	
