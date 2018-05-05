@@ -554,58 +554,58 @@ public class Controller {
                         m.put(phase, phase);
                     }
 
-                    if (formu.equals("06")) {
+                    if (formu.equals("12")) {
                         logHtml.append("<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("05")) {
+                    if (formu.equals("11")) {
                         logHtml.append("<tr><td bgcolor=\"5599FF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("04")) {
+                    if (formu.equals("10")) {
                         logHtml.append("<tr><td bgcolor=\"666666\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("03")) {
+                    if (formu.equals("09")) {
                         logHtml.append("<tr><td bgcolor=\"FFAA33\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("02")) {
+                    if (formu.equals("08")) {
                         logHtml.append("<tr><td bgcolor=\"99FFFF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("01")) {
+                    if (formu.equals("07")) {
                         logHtml.append("<tr><td bgcolor=\"B94FFF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("12")) {
+                    if (formu.equals("06")) {
                         logHtml.append("<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("11")) {
+                    if (formu.equals("05")) {
                         logHtml.append("<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("10")) {
+                    if (formu.equals("04")) {
                         logHtml.append("<tr><td bgcolor=\"DEB887\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("09")) {
+                    if (formu.equals("03")) {
                         logHtml.append("<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("08")) {
+                    if (formu.equals("02")) {
                         logHtml.append("<tr><td bgcolor=\"CCFF99\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("07")) {
+                    if (formu.equals("01")) {
                         logHtml.append("<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
@@ -883,7 +883,7 @@ public class Controller {
 
             
 
-            for (int x = 1; x < 11; x++) { // x → 公式幾
+            for (int x = 1; x < 13; x++) { // x → 公式幾
                 for (int i = 0; i < 10; i++) {
 
                     int sn = i + 1;
@@ -909,7 +909,7 @@ public class Controller {
                                                                                                   + "關)" + "(公式" + x
                                                                                                   + ")");
 
-                                    j.addProperty(covertIntToLatter(overi) + (x > 6 ? x - 6 : x), "Y");
+                                    j.addProperty(covertIntToLatter(overi) + x , "Y");
                                 }
 
                             }
@@ -1096,6 +1096,8 @@ public class Controller {
                 
                 saveOverLog(user, overLog, c);
             }
+           
+    
             return "";
         }
 
