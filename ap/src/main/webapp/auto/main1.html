@@ -1188,17 +1188,17 @@
 		    	 	stopwin = json.stopwin;
 		    	 	todayWin = json.todayWin;
 		    	 	cash = json.cash;
-		    	 	betarray =   json.betlist.split(',') ;
-		    	 	betarray2 =   json.betlist2.split(',') ;
-		    	 	betarray3 =   json.betlist3.split(',') ;
-		    	 	betarray4 =   json.betlist4.split(',') ;
-		    	 	betarray5 =   json.betlist5.split(',') ;
-		    	 	betarray6 =   json.betlist6.split(',') ;
-		    	 	betarray7 =   json.betlist7.split(',') ;
-		    	 	betarray8 =   json.betlist8.split(',') ;
-		    	 	betarray9 =   json.betlist9.split(',') ;
-		    	 	betarray10 =   json.betlist10.split(',') ;
-		    	 	betarray11 =   json.betlist11.split(',') ;
+		    	 	//betarray =   json.betlist.split(',') ;
+		    	 	betarray =   json.betlist2.split(',') ;
+		    	 	betarray2 =   json.betlist3.split(',') ;
+		    	 	betarray3 =   json.betlist4.split(',') ;
+		    	 	betarray4 =   json.betlist5.split(',') ;
+		    	 	betarray5 =   json.betlist6.split(',') ;
+		    	 	betarray6 =   json.betlist7.split(',') ;
+		    	 	betarray7 =   json.betlist8.split(',') ;
+		    	 	betarray8 =   json.betlist9.split(',') ;
+		    	 	betarray9 =   json.betlist10.split(',') ;
+		    	 	betarray10 =   json.betlist11.split(',') ;
 		    	 	betarray12 =   json.betlist12.split(',') ;
 		    	 	betarray12.splice(0, 0, '0');
 		    	 	/*betarray.splice(0, 0, '0');
@@ -1952,7 +1952,7 @@
 	
 	function checkProjectBetflag(){
 	 	  if(    (
-	 		  (document.getElementById('c1').checked && !checkProjectBetFlagIndex(projectBet[1])) ||
+	 		 
 	 		  (document.getElementById('c2').checked && !checkProjectBetFlagIndex(projectBet[1])) ||
 	 		  (document.getElementById('c3').checked && !checkProjectBetFlagIndex(projectBet[2])) ||
 	 		  (document.getElementById('c4').checked && !checkProjectBetFlagIndex(projectBet[3])) ||
@@ -2668,16 +2668,7 @@
     	  
     	  let obj = {} ; 
     	  
-			    if(document.getElementById('c1').checked  && !checkProjectBetFlagIndex(projectBet[1]) ) { 
-		    		  console.log('project1'+'-betPhase:'+nextPhase);
-		    		  obj.b = nextPhase - 5 ;
-			      obj.fourTh = nextPhase - 4 ;
-		    		  const b = obj.b ;
-				  const fourTh = obj.fourTh ;
-				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-					  compareByType1(b,n,fourTh,betIndex,betarray,'1');
-				  } 
-		    	    }
+			 
 			    
 			    if(document.getElementById('c2').checked  && !checkProjectBetFlagIndex(projectBet[1]) ) {
 					  console.log('project2'+'-betPhase:'+nextPhase);
