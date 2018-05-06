@@ -453,48 +453,56 @@ public class Controller {
                         continue;
                     }
                     String index = "";
-                    if (key_form.equals("6")) {
+                    
+                    if (key_form.equals("12")) { //計劃11
+                        index = "01";
+                    }
+                    if (key_form.equals("10")) {//計劃10
+                        index = "03";
+                    }
+                    if (key_form.equals("9")) {//計劃9
+                        index = "04";
+                    }
+                    if (key_form.equals("8")) {//計劃8
+                        index = "05";
+                    }
+                    if (key_form.equals("7")) {//計劃7
+                        index = "06";
+                    }
+                    if (key_form.equals("6")) {//計劃6
                         index = "07";
                     }
                     ;
-                    if (key_form.equals("12")) {
-                        index = "01";
-                    }
-                    if (key_form.equals("5")) {
+                    if (key_form.equals("5")) {//計劃5
                         index = "08";
                     }
                     ;
-                    if (key_form.equals("11")) {
-                        index = "02";
-                    }
-                    if (key_form.equals("4")) {
+                    if (key_form.equals("4")) {//計劃4
                         index = "09";
                     }
                     ;
-                    if (key_form.equals("10")) {
-                        index = "03";
-                    }
-                    if (key_form.equals("3")) {
+                    if (key_form.equals("3")) {// 計劃3
                         index = "10";
                     }
                     ;
-                    if (key_form.equals("9")) {
-                        index = "04";
-                    }
-                    if (key_form.equals("2")) {
+                    if (key_form.equals("2")) {//計劃2
                         index = "11";
                     }
                     ;
-                    if (key_form.equals("8")) {
-                        index = "05";
-                    }
-                    if (key_form.equals("1")) {
+                   
+                    if (key_form.equals("1")) {//計劃1
                         index = "12";
                     }
                     ;
-                    if (key_form.equals("7")) {
-                        index = "06";
-                    }
+                    
+//                    if (key_form.equals("11")) {
+//                        index = "02";
+//                    }
+                    
+                    
+                   
+                    
+                    
 
                     String k = phase + "@" + index + "@" + sn + "@" + c + "@" + cc;
 
@@ -554,58 +562,58 @@ public class Controller {
                         m.put(phase, phase);
                     }
 
-                    if (formu.equals("12")) {
-                        logHtml.append("<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">"
-                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
-                    }
-                    if (formu.equals("11")) {
+//                    if (formu.equals("12")) {
+//                        logHtml.append("<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">"
+//                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+//                    }
+                    if (formu.equals("12")) {//計劃一
                         logHtml.append("<tr><td bgcolor=\"5599FF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("10")) {
+                    if (formu.equals("11")) {//計劃二
                         logHtml.append("<tr><td bgcolor=\"666666\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("09")) {
+                    if (formu.equals("10")) {//計劃三
                         logHtml.append("<tr><td bgcolor=\"FFAA33\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("08")) {
+                    if (formu.equals("09")) {// 計劃四
                         logHtml.append("<tr><td bgcolor=\"99FFFF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("07")) {
+                    if (formu.equals("08")) {//計劃五
                         logHtml.append("<tr><td bgcolor=\"B94FFF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("06")) {
+                    if (formu.equals("07")) {//計劃六
                         logHtml.append("<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">"
-                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+                                      + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("05")) {
+                    if (formu.equals("06")) {//計劃七
                         logHtml.append("<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("04")) {
+                    if (formu.equals("05")) {//計劃八
                         logHtml.append("<tr><td bgcolor=\"DEB887\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("03")) {
+                    if (formu.equals("04")) {//計劃九
                         logHtml.append("<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("02")) {
+                    if (formu.equals("03")) {//計劃十
                         logHtml.append("<tr><td bgcolor=\"CCFF99\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("01")) {
+                    if (formu.equals("01")) {//計劃1 1
                         logHtml.append("<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
