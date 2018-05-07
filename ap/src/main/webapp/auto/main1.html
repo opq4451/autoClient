@@ -1886,18 +1886,16 @@
 	}
 	
 	function clearProjectBetFlag(){
-		 for(var i in projectBet[1]){projectBet[1][i] = false;}
-		 for(var i in projectBet[2]){projectBet[2][i] = false;}
-		 for(var i in projectBet[3]){projectBet[3][i] = false;}
-		 for(var i in projectBet[4]){projectBet[4][i] = false;}
-		 for(var i in projectBet[5]){projectBet[5][i] = false;}
-		 for(var i in projectBet[6]){projectBet[6][i] = false;}
-		 for(var i in projectBet[7]){projectBet[7][i] = false;}
-		 for(var i in projectBet[8]){projectBet[8][i] = false;}
-		 for(var i in projectBet[9]){projectBet[9][i] = false;}
-		 for(var i in projectBet[10]){projectBet[10][i] = false;}
-		 for(var i in projectBet[11]){projectBet[11][i] = false;}
-		 for(var i in projectBet[12]){projectBet[12][i] = false;}
+		projectBet[1][1] = false;
+		projectBet[2][2] = false;
+		projectBet[3][3] = false;
+		projectBet[4][4] = false;
+		projectBet[5][5] = false;
+		projectBet[6][6] = false;
+		projectBet[7][7] = false;
+		projectBet[8][8] = false;
+		projectBet[9][9] = false;
+		projectBet[10][10] = false;
 
 	}
 	
@@ -2575,18 +2573,18 @@
 					  
 	        			     let flag = json[letter+''+formu] ;
 	        			     if(flag){
-	        			    	 	  if(formu==1){betIndex[sn] = 0 ;}
-	        			    	 	  if(formu==2){betIndex2[sn] = 0 ;}
-	        			    	 	  if(formu==3){betIndex3[sn] = 0 ;}
-	        			    	 	  if(formu==4){betIndex4[sn] = 0 ;}
-	        			    	 	  if(formu==5){betIndex5[sn] = 0 ;}
-	        			    	 	  if(formu==6){betIndex6[sn] = 0 ;}
-	        			    	 	  if(formu==7){betIndex7[sn] = 0 ;}
-	        			    	 	  if(formu==8){betIndex8[sn] = 0 ;}
-	        			    	 	  if(formu==9){betIndex9[sn] = 0 ;}
-	        			    	 	  if(formu==10){betIndex10[sn] = 0 ;}
-	        			    	 	  if(formu==11){betIndex11[sn] = 0 ;}
-	        			    	 	  if(formu==12){betIndex12[sn] = 0 ;}
+	        			    	 	  if(formu==1){betIndex[formu] = 0 ;}
+	        			    	 	  if(formu==2){betIndex2[formu] = 0 ;}
+	        			    	 	  if(formu==3){betIndex3[formu] = 0 ;}
+	        			    	 	  if(formu==4){betIndex4[formu] = 0 ;}
+	        			    	 	  if(formu==5){betIndex5[formu] = 0 ;}
+	        			    	 	  if(formu==6){betIndex6[formu] = 0 ;}
+	        			    	 	  if(formu==7){betIndex7[formu] = 0 ;}
+	        			    	 	  if(formu==8){betIndex8[formu] = 0 ;}
+	        			    	 	  if(formu==9){betIndex9[formu] = 0 ;}
+	        			    	 	  if(formu==10){betIndex10[formu] = 0 ;}
+	        			    	 	  //if(formu==11){betIndex11[sn] = 0 ;}
+	        			    	 	  //if(formu==12){betIndex12[sn] = 0 ;}
 
 	        			     }
 	        			    	  
@@ -2727,7 +2725,7 @@
 			    }
 			  
 			   
-			   if(document.getElementById('c11').checked  && !checkProjectBetFlagIndex(projectBet[11])) {
+			  /* if(document.getElementById('c11').checked  && !checkProjectBetFlagIndex(projectBet[11])) {
 					  console.log('project5'+'-betPhase:'+nextPhase);
 					  obj.b = nextPhase - 5 ;
 					  obj.fourTh = nextPhase - 4 ; 
@@ -2750,7 +2748,7 @@
 				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
 					  compareByType1_pro12(b,n,fourTh,betIndex12,betarray12);
 				  }
-			  }
+			  }*/
 	  	  
 	  		  
 			 
