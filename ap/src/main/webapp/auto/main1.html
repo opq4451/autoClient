@@ -1378,38 +1378,50 @@
 		
 		let bet_sn = '';
 		let betCode = '';
-		if(bIndex[z] == 0) {
-			if(i =='0' || i =='1'|| i =='2'
-				|| i =='3' ){
+		/*if(bIndex[z] == 0) {
+			if(bet_n =='1' || bet_n =='2'){
 				betCode =  '1,2,3,4,5,6'; 
-			}else if(i =='4' || i =='5'){
+			}else if(bet_n =='3' || bet_n =='5' || bet_n =='6' || bet_n =='8'){
 				betCode =  '3,4,5,6,7,8'; 
+			}else if(bet_n =='4' ){
+				betCode =  '4,5,6,7,8,9'; 
+			}else if(bet_n =='7'){
+				betCode =  '2,3,4,5,6,7'; 
 			}else {
 				betCode =  '5,6,7,8,9,10'; 
 			}
 			bet_sn = formu ;
 			betTemp5[z] = bet_n ;
 			 
-		}else {
+		}else {*/
+			betTemp5[z] = formu ;
 			for(var x = 0 ; x < array_n.length ; x++){
+				console.log('第 ' + z + '名' );
+				console.log('追 ' + betTemp5[z] + '號' );
+
+				console.log(array_n[x] );
+				console.log(betTemp5[z] );
 				if(array_n[x] == betTemp5[z]){
 					bet_sn = x + 1;
 					let run_code = betTemp5[z];
-					if(run_code =='1' || run_code =='2'|| run_code =='3'
-						|| run_code =='4' ){
+					if(run_code =='1' || run_code =='2'){
 						betCode =  '1,2,3,4,5,6'; 
-					}else if(run_code =='5' || run_code =='6'){
+					}else if(run_code =='3' || run_code =='5' || run_code =='6' || run_code =='8'){
 						betCode =  '3,4,5,6,7,8'; 
+					}else if(run_code =='4' ){
+						betCode =  '4,5,6,7,8,9'; 
+					}else if(run_code =='7'){
+						betCode =  '2,3,4,5,6,7'; 
 					}else {
 						betCode =  '5,6,7,8,9,10'; 
 					}
 					
 					
-					
+					console.log('下  ' + bet_sn+ '名'  );
 					break;
 				}
 			}
-		}
+		//}
 		
 		
 		
@@ -1559,14 +1571,14 @@
 	}
 	function combind(arra,origin){
   	  
-	       var arr = new Array(7)
+	       var arr = new Array(6)
 	       arr[0] =  arra.split(',')[0];
 	       arr[1] =  arra.split(',')[1];
 	       arr[2] =  arra.split(',')[2];
 	       arr[3] =  arra.split(',')[3];
 	       arr[4] =  arra.split(',')[4];
 	       arr[5] =  arra.split(',')[5];
-	   	   arr[6] =  origin;
+	   	    
 	  
 	       return arr.sort(sortNumber);  
     }
@@ -1845,7 +1857,7 @@
 		 }
 	}
 	
-	function reallyBet(sn,amount,betphase,c,codeList,originformu,BETN){
+	function reallyBet(sn,amount,betphase,c,codeList,originformu,BETSN){
 	    
 		let formu = originformu ;
 		var b = combind(codeList);
@@ -1855,7 +1867,7 @@
 		let snIndex = sn - 1;
 		$.ajax({ url:  u + "/bet?user="+document.getElementById("user").value+
 		
-				"&sn="+sn+"&amount="+amount+"&betphase="+betphase+"&c="+c+"&codeList="+b+"&formu="+originformu+'&boardType='+document.getElementById("boardType").value,  
+				"&sn="+BETSN+"&amount="+amount+"&betphase="+betphase+"&c="+c+"&codeList="+b+"&formu="+originformu+'&boardType='+document.getElementById("boardType").value,  
          async: false,
          success: function(data) {
         		    
