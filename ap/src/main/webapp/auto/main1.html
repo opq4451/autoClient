@@ -1379,103 +1379,24 @@
 			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
   		    var amount = bArray[bIndex[z]%bArray.length] ;
   		    
-  		    if(formu == '1' || formu == '6' ){
-  		    	    if(bet_n2 == formu){
-  					betsn = '1,2,3,4,5,6';
-  					
-  					let bet_code = bet_n;
-  				    let bet_sn = getBETSN(bet_code);
-  					let dynamicSn = '';
-  					console.log('公式:'+formu+'號碼' + bet_n);
-  					console.log('名次:'+ bet_sn);
+  		  	if(bet_n2 == formu){
+				//betsn = '1,2,3,4,5,6';
+				
+				let bet_code = bet_n;
+			    let bet_sn = getBETSN(bet_code);
+				let dynamicSn = '';
+				//console.log('公式:'+formu+'號碼' + bet_n);
+				//console.log('名次:'+ bet_sn);
 
-  					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
-  			   		if(rbf){
-  						bIndex[z]++;
-  						projectBet[(formu*1)][i] = true;
-  					} 
-  			   		
-  				}else {
-  					projectBet[(formu*1)][i] = true;
-  				}
-  		    	
-  		    }else if(formu == '2'|| formu == '7'){
-		    	    if(bet_n2 == formu){
-	  					betsn = '2,3,4,5,6,7';
-	  					
-	  					let bet_code = bet_n;
-	  					let bet_sn = getBETSN(bet_code);
-	  					let dynamicSn = '';
-	  					 
-
-	  					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
-	  			   		if(rbf){
-	  						bIndex[z]++;
-	  						projectBet[(formu*1)][i] = true;
-	  					} 
-	  			   		
-	  				}else {
-	  					projectBet[(formu*1)][i] = true;
-	  				}
-	  		    	
-  		    }else if(formu == '3'|| formu == '8'){
-	    	    if(bet_n2 == formu){
-  					betsn = '3,4,5,6,7,8';
-  					
-  					let bet_code = bet_n;
-  					let bet_sn = getBETSN(bet_code);
-  					let dynamicSn = '';
-  					 
-
-  					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
-  			   		if(rbf){
-  						bIndex[z]++;
-  						projectBet[(formu*1)][i] = true;
-  					} 
-  			   		
-  				}else {
-  					projectBet[(formu*1)][i] = true;
-  				}
-  		    	
-		    }else if(formu == '4'|| formu == '9'){
-	    	    if(bet_n2 == formu){
-  					betsn = '4,5,6,7,8,9';
-  					
-  					let bet_code = bet_n;
-  					let bet_sn = getBETSN(bet_code);
-  					let dynamicSn = '';
-  					 
-
-  					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
-  			   		if(rbf){
-  						bIndex[z]++;
-  						projectBet[(formu*1)][i] = true;
-  					} 
-  			   		
-  				}else {
-  					projectBet[(formu*1)][i] = true;
-  				}
-  		    	
-		    }else if(formu == '5'|| formu == '10'){
-	    	    if(bet_n2 == formu){
-  					betsn = '5,6,7,8,9,10';
-  					
-  					let bet_code = bet_n;
-  					let bet_sn = getBETSN(bet_code);
-  					let dynamicSn = '';
-  					 
-
-  					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
-  			   		if(rbf){
-  						bIndex[z]++;
-  						projectBet[(formu*1)][i] = true;
-  					} 
-  			   		
-  				}else {
-  					projectBet[(formu*1)][i] = true;
-  				}
-  		    	
-		    } 
+				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
+		   		if(rbf){
+					bIndex[z]++;
+					projectBet[(formu*1)][i] = true;
+				} 
+		   		
+			}else {
+				projectBet[(formu*1)][i] = true;
+			}
   		    
   		    
   		    
