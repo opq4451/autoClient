@@ -1346,24 +1346,24 @@
 	function compareByType1(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
 		 
 		//let formu = document.getElementById('betproject6').checked ? '11' : '5';
-		const code_b = getCodeByPhase(phase_before); 
+		//const code_b = getCodeByPhase(phase_before); 
 		const code_n = getCodeByPhase(phase_now);
-		const code_n2 = getCodeByPhase(phase_now*1 -1);
-		const code_before4 = getCodeByPhase(phase_before4);
+		//const code_n2 = getCodeByPhase(phase_now*1 -1);
+		//const code_before4 = getCodeByPhase(phase_before4);
 		
-		const array_b = code_b.split(',');
+		//const array_b = code_b.split(',');
 		const array_n = code_n.split(',');
-		const array_n2 = code_n2.split(',');
-		const array_before4 = code_before4.split(',');
-		if(array_b.length==0 || array_n.length==0 || array_before4.length==0  ){
+		//const array_n2 = code_n2.split(',');
+		//const array_before4 = code_before4.split(',');
+		if( array_n.length==0   ){
 			return;
 		}
 		
 
 		let i = formu*1  - 1 ;
 		///const bet_b = array_b[i];
-		const bet_n = array_n[i];
-		const bet_n2 = array_n2[i];
+		//const bet_n = array_n[i];
+		//const bet_n2 = array_n2[i];
 		//const bet_before4 = array_before4[i];
 		var z =  i+1; 
 	 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
@@ -1396,11 +1396,7 @@
 		}else {*/
 			betTemp5[z] = formu ;
 			for(var x = 0 ; x < array_n.length ; x++){
-				console.log('第 ' + z + '名' );
-				console.log('追 ' + betTemp5[z] + '號' );
-
-				console.log(array_n[x] );
-				console.log(betTemp5[z] );
+				 
 				if(array_n[x] == betTemp5[z]){
 					bet_sn = x + 1;
 					let run_code = betTemp5[z];
@@ -1415,9 +1411,7 @@
 					}else {
 						betCode =  '5,6,7,8,9,10'; 
 					}
-					
-					
-					console.log('下  ' + bet_sn+ '名'  );
+					 
 					break;
 				}
 			}
