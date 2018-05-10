@@ -368,6 +368,7 @@ public class DaliHttpClient {
             return o;
 
         } catch (Exception e) {
+            instance = new DaliHttpClient(id,password);
             e.printStackTrace();
         } finally {
             response.close();
@@ -615,7 +616,7 @@ public class DaliHttpClient {
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpClientContext context = HttpClientContext.create();
-        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(60000).setConnectTimeout(60000).build();
+        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(20000).setConnectTimeout(20000).build();
         System.out.println(uri);
         HttpPost httppost = new HttpPost(uri);
         // Request parameters and other properties.
