@@ -449,9 +449,9 @@ public class Controller {
 
                     //System.out.println(sn);
 
-//                    if (v.indexOf("第0關") > -1) { //下注0的不用顯示在log
-//                        continue;
-//                    }
+                    if (v.indexOf("第0關") > -1) { //下注0的不用顯示在log
+                        continue;
+                    }
                     String index = "";
                     if (key_form.equals("6")) {
                         index = "01";
@@ -906,7 +906,9 @@ public class Controller {
                                     String t = new SimpleDateFormat("HH:mm:ss").format(new Date());
                                     Utils.WritePropertiesFile(user + "overLOGDIS_log",
                                                               fillZero(Integer.toString(over_i)),
-                                                              "第" + phase + "期，第" + sn + "名，號碼(" + c[i] + ")已過關!(第"
+                                                              "第" + phase + "期"
+                                                                      + "計劃" + overi
+                                                                      + "，第" + sn + "名，號碼(" + c[i] + ")已過關!(第"
                                                                                                   + configProperty.getProperty(key)
                                                                                                   + "關)" + "(公式" + x
                                                                                                   + ")");
@@ -1119,11 +1121,11 @@ public class Controller {
                 saveOverLog(user, overLog, c);
             }
             
-            String betlog = "第" + betphase + "期" +
-                    "計劃" +   sn +
-                    "，第" + betsn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                    + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
-                    saveLog(user + "bet", betlog);
+//            String betlog = "第" + betphase + "期" +
+//                    "計劃" +   sn +
+//                    "，第" + betsn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+//                    + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
+//                    saveLog(user + "bet", betlog);
             
             return "";
         }
@@ -1252,9 +1254,11 @@ public class Controller {
                         saveOverLog(user, overLog, c);
                     }
 
-                    String betlog = "第" + betphase + "期" + "，第" + betsn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
-                    saveLog(user + "bet", betlog);
+                    String betlog = "第" + betphase + "期" +
+                            "計劃" +   sn +
+                            "，第" + betsn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+                            + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
+                            saveLog(user + "bet", betlog);
                 } else {
                    /* recoup++;
                     if (recoup == 3) {
@@ -1469,7 +1473,9 @@ public class Controller {
                         saveOverLog(user, overLog, c);
                     }
 
-                    String betlog = "第" + betphase + "期" + "，第" + displaysn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+                    String betlog = "第" + betphase + "期"  +
+                            "計劃" +   displaysn 
+                            + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
                                     + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
                     saveLog(user + "bet", betlog);
                 } else {
