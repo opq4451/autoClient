@@ -1621,16 +1621,16 @@
 					
 					bet_code = bet_n;
 
-					if(bet_n2=='1' || bet_n2=='6'){betsn = '1,2,3,4,5,6';}
-					else if(bet_n2=='2' || bet_n2=='7'){betsn = '2,3,4,5,6,7';}
-					else if(bet_n2=='3' || bet_n2=='8'){betsn = '3,4,5,6,7,8';}
-					else if(bet_n2=='4' || bet_n2=='9'){betsn = '4,5,6,7,8,9';}
-					else {betsn = '5,6,7,8,9,10';}
+					
 					break;
 				}
 			}
 			
-			
+			if(z=='1' || z=='6'){betsn = '1,2,3,4,5,6';}
+			else if(z=='2' || z=='7'){betsn = '2,3,4,5,6,7';}
+			else if(z=='3' || z=='8'){betsn = '3,4,5,6,7,8';}
+			else if(z=='4' || z=='9'){betsn = '4,5,6,7,8,9';}
+			else {z = '5,6,7,8,9,10';}
 			
 
 			 
@@ -1700,16 +1700,15 @@
 				if( z == array_n[j]){
 					
 					bet_code = bet_n2;
-					if(bet_n=='1' || bet_n=='6'){betsn = '1,2,3,4,5,6';}
-					else if(bet_n=='2' || bet_n=='7'){betsn = '2,3,4,5,6,7';}
-					else if(bet_n=='3' || bet_n=='8'){betsn = '3,4,5,6,7,8';}
-					else if(bet_n=='4' || bet_n=='9'){betsn = '4,5,6,7,8,9';}
-					else {betsn = '5,6,7,8,9,10';}
-					break;
+					 
 					break;
 				}
 			}
-			
+			if(z=='1' || z=='6'){betsn = '1,2,3,4,5,6';}
+			else if(z=='2' || z=='7'){betsn = '2,3,4,5,6,7';}
+			else if(z=='3' || z=='8'){betsn = '3,4,5,6,7,8';}
+			else if(z=='4' || z=='9'){betsn = '4,5,6,7,8,9';}
+			else {z = '5,6,7,8,9,10';}
 			 
 		 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 		 	//var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
