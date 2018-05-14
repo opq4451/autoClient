@@ -464,12 +464,13 @@
 <div class="title_column">
 	 <table style="height:100%;border: 1px solid gray; border-collapse: collapse; font-size: 18px; text-align:center;">
 		<tr>
-			<td nowrap width="1%" height="1%" class="tdClass"> 今日點數
-			</td>
+			 
 			<td width="100px;" class="tdClass"> <div  class="toDayWin" style="	font-size:24px;" class="tdClass">loading...</div> </td>
-			<td nowrap  class="tdClass">遊戲帳號</td>
-			<td style="text-align:left" class="tdClass"> <input style=" font-size: 15px;text-align: center;" type="text" id="user" readonly size="6"/></td>
-			<td colspan=2 align=center class="tdClass"><button type="button" id="logoutDiv" class="button" style="border:3px outset;font-size: 18px;width:100px;">登出</button></td>
+			<td nowrap  class="tdClass">日期</td>
+			
+			<td style="text-align:left" class="tdClass"> <input style=" font-size: 15px;text-align: center;" type="text" id="texstdate"  size="16" value="2018-01-14"/></td>
+			<td style="text-align:left" class="tdClass"> <input style=" font-size: 15px;text-align: center;" type="text" id="user"  size="16"/></td>
+			<td colspan=2 align=center class="tdClass"><button type="button" id="logoutDiv" class="button" style="border:3px outset;font-size: 18px;width:100px;">測試</button></td>
     	        
       	    
       	    
@@ -532,7 +533,7 @@
 			<td class="tdClass" width="1%" >
 					 <div  class="maxcredit">loading...</div>
 			</td>
-			<td nowrap class="s_lose" style="padding-left: 0.2cm; padding-right: 0.2cm;">止損點數</td>
+			<td nowrap class="s_lose" style="padding-left: 0.2cm; padding-right: 0.2cm;"><button type="button" id="loadHistory" class="button" style="border:3px outset;font-size: 18px;width:100px;">讀取開獎</button></td>
 					<td class="tdClass" width="1%" > <input  style=" font-size: 15px; text-align: center;" class="stoplose" type ="text" size=5/> </td> 
 		    <td width="1%"   nowrap class="s_win"  style="padding-left: 0.2cm; padding-right: 0.2cm;">止盈點數</td>
 					<td  class="tdClass" width="1%" > <input style=" font-size: 15px; text-align: center;" class="stopwin" type ="text" size=5/>
@@ -561,10 +562,11 @@
 		
 		<tr  >
 			<td width="1%" nowrap class="tdClass">
-					盤口目前期別 
+					測試期數-起
 			</td>
 			<td colspan=1 class="tdClass">
-					 <div  class="toPhase">loading..</div> 
+			 <div  class=""> <input style=" font-size: 15px;text-align: center;" type="text" id="test_startPhase"  size="16"  /></div> 
+					 <div  class="toPhase" style="display:none;">loading..</div> 
 			</td>
 			
 			<td width="1%"  nowrap class="s_point" style="border: 1px solid gray; border-collapse: collapse; font-size: 18px; text-align:center;">點數不足</td>
@@ -589,10 +591,12 @@
 		</tr>
 		<tr  >
 			<td width="1%" nowrap class="tdClass">
-					盤口開獎期別
+					測試期數-迄
 			</td>
+			
 			<td  class="tdClass" width="1%" >
-				  <div  class="toNowPhase">loading...</div> 
+			 <div  class=""> <input style=" font-size: 15px;text-align: center;" type="text" id="test_endPhase"  size="16"  /></div> 
+				  <div  class="toNowPhase" style="display:none;">loading...</div> 
 			</td>
 			<td nowrap class="tdClass" width="1%" >距離封盤
 			</td>
@@ -1017,8 +1021,37 @@
 			 clearOverLog();
 		 });
 		 
+		 
+		 
+		 
+		 $( "#loadHistory" ).click(function() {
+			 deleteHistory();
+			 let d = document.getElementById("texstdate").value  ;
+			 let url = u + '/getHistoryBydate?d=' + d;
+
+			   
+	       	 $.ajax({ url:  url, 
+	    	         async: false,
+	    	         success: function(data) {
+	    	        	  
+	    	        	    const json = JSON.parse(data);
+	    	        	  
+	    		    	 	$( "div.historyHtml" ).html(json.logHtml);
+	    		    	 	 
+	    		    	  
+    	         	 } 
+	    	         	 
+	          });
+			 
+
+		 });
+		 
 		 $( "#logoutDiv" ).click(function() {
-             window.location.href='/index.html' ;
+			  
+			let start =  document.getElementById("test_startPhase").value; 
+	    	 	let end = document.getElementById("test_endPhase").value;
+	    	 	virtualtest(start,end);
+			 
 
 		 });
 		 
@@ -1056,15 +1089,15 @@
 		 });
 		 
 		 getWinFun(true);
-		 checkWin();
-		 getlogHtml();
-		 setColor();
+		 //checkWin();
+		 //getlogHtml();
+		 //setColor();
 	    
 		  
-		 getPhase();
-		 timeout();//下注timeout
-		 overTimeout();//檢查過關
-		 getHistoryTimeout();//取得歷史記錄
+		 //getPhase();
+		 //timeout();//下注timeout
+		 //overTimeout();//檢查過關
+		 //getHistoryTimeout();//取得歷史記錄
 	});
 	
     function pad2(n) { return n < 10 ? '0' + n : n }
@@ -1077,7 +1110,22 @@
     }
     
     
-    
+    function virtualtest(start,end){
+    		clearAll();
+    		let s = start*1;
+    		console.log("start:"+s)
+    		console.log("end:"+end)
+    		for(var i = s ; i < end ; i ++  ){
+    			let nextphase = i*1 + 1 ;
+    			console.log('目前測試期數:'+ nextphase);
+    			checkOver(nextphase);
+    			console.log('下注期數:'+ nextphase);
+    			selectTypeToBet(nextphase);
+    			getlogHtml();
+    			clearProjectBetFlag();
+    		}
+    	
+    }
     var systemReloginIndex = 0 ;
     let checkChangeBetProject = 0;
     let firstSet = false;
@@ -1219,7 +1267,7 @@
    	 var url =  u + '/getPredictLog?user='+document.getElementById("user").value+"bet";
 		   
    	 $.ajax({ url:  url, 
-	         async: true,
+	         async: false,
 	         success: function(data) {
 	        	  
 	        	 const json = JSON.parse(data);
@@ -1235,7 +1283,7 @@
      url =  u + '/getPredictLog?user='+document.getElementById("user").value+"overLOGDIS";
 	   
   	 $.ajax({ url:  url, 
-	         async: true,
+	         async: false,
 	         success: function(data) {
 	        	  
 	        	 const json = JSON.parse(data);
@@ -2653,6 +2701,7 @@
     //檢查過關
     function checkOver(nextPhase){
     	let phase_now = nextPhase*1 - 1 
+    	console.log('兌獎期數:' + phase_now);
     	let code_n = getCodeByPhase(phase_now);
     	let array  = code_n.split(',');
     	if(array.length==0){
@@ -2723,7 +2772,7 @@
     	  const n = nextPhase*1 - 1 ;
     	  
     	  let obj = {} ; 
-    	 
+    	 		console.log(n);
 	    	  
 	  	  if(document.getElementById('betproject5').checked ){ //五碼計劃
 	  		if(document.getElementById('c6').checked  && !checkProjectBetFlagIndex(projectBet[6]) ) {
