@@ -1521,15 +1521,18 @@
 		      
 		 	if(!projectBet[2][i]){
 			 		betTemp2[z] = project6_limit(i,phase_now);
-					 
-				    
+				    console.log("**********");
+
+				     
 					if(betTemp2[z] == null){
 						projectBet[2][i] = true;
 						return;
 					}
-				    
+				    console.log("第"+ z + "名");
+
+					console.log(betTemp2[z].toString());
 		 		 
-		 			let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , betTemp2[z].toString(),formu,z);
+		 			let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp2[z].toString(),formu,z);
 			   		if(rbf){
 						bIndex[z]++;
 					} 
