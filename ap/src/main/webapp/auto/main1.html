@@ -1037,8 +1037,9 @@
 	    	        	    const json = JSON.parse(data);
 	    	        	  
 	    		    	 	$( "div.historyHtml" ).html(json.logHtml);
-	    		    	 	 
-	    		    	  
+	    		    	 	 document.getElementById("test_startPhase").value = json.start; 
+	    		    	 	 document.getElementById("test_endPhase").value = json.end; 
+
     	         	 } 
 	    	         	 
 	          });
@@ -1875,40 +1876,46 @@
  			 
 			var amount = bArray[bIndex[z]%bArray.length] ; 
 			
-			
-			if(z == '3' || z== '8'){
-				
-				
-				if(!projectBet[6][i]){ 
-		 		    let bet_code = bet_n;
-				    let betsn = '1,3,5,6,8,10';
-
-					let dynamicSn = '';
-
-					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, betsn,dynamicSn);
-			   		if(rbf){
-						bIndex[z]++;
-					}  
-		   		
-		 		}
-			}else if(z == '4' || z== '7'){
-				
-				
-				if(!projectBet[6][i]){ 
-		 		    let bet_code = bet_n;
-				    let betsn = '3,4,5,6,7,8';
-
-					let dynamicSn = '';
-
-					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, betsn,dynamicSn);
-			   		if(rbf){
-						bIndex[z]++;
-					}  
-		   		
-		 		}
-			}else {
-				projectBet[6][i] = true; 
+			let betsn = '1,3,5,6,8,10';
+			switch(z) {
+		    case 3:
+		    		betsn = '1,3,5,6,8,10';
+		        break;
+		    case 8:
+		  	  	betsn = '1,3,5,6,8,10';
+		        break;
+		    case 2:
+		  	  	betsn = '2,3,4,7,8,9';
+		        break;
+		    case 9:
+		  	  	betsn = '2,3,4,7,8,9';
+		        break;
+		    case 4:
+		  	  	betsn = '3,4,5,6,7,8';
+		        break;
+		    case 7:
+		  	  	betsn = '3,4,5,6,7,8';
+		        break;
+		    default:
+		  	  	projectBet[6][i] = true; 
+		        break;
 			}
+			
+			
+
+			
+			if(!projectBet[6][i]){ 
+	 		    let bet_code = bet_n;
+			    //let betsn = '1,3,5,6,8,10';
+
+				let dynamicSn = '';
+
+				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, betsn,dynamicSn);
+		   		if(rbf){
+					bIndex[z]++;
+				}  
+	   		
+	 		}
 			 
 			
 			
@@ -2774,7 +2781,7 @@
     	  let obj = {} ; 
     	 		console.log(n);
 	    	  
-	  	  if(document.getElementById('betproject5').checked ){ //五碼計劃
+	  	  /*if(document.getElementById('betproject5').checked ){ //五碼計劃
 	  		if(document.getElementById('c6').checked  && !checkProjectBetFlagIndex(projectBet[6]) ) {
 				  console.log('project6'+'-betPhase:'+nextPhase);
 				  obj.b = nextPhase - 5 ;
@@ -2841,7 +2848,7 @@
 					 	compareByType1(b,n,fourTh,betIndex,betarray);
 				  } 
 		    	    }
-	  	  }
+	  	  }*/
 	  	  console.log(document.getElementById('betproject6').checked);
 	  	  if(document.getElementById('betproject6').checked ){ //六碼計劃
 	  		  
