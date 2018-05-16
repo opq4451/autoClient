@@ -449,9 +449,9 @@ public class Controller {
 
                     //System.out.println(sn);
 
-//                    if (v.indexOf("第0關") > -1) { //下注0的不用顯示在log
-//                        continue;
-//                    }
+                    if (Integer.parseInt(c) < 6) { //下注0的不用顯示在log
+                        continue;
+                    }
                     String index = "";
                     if (key_form.equals("6")) {
                         index = "01";
@@ -979,8 +979,8 @@ public class Controller {
             String path = System.getProperty("user.dir");
             String hisFile = path + "/" + user + "_log.properties";
             File file = new File(hisFile);
-            // System.out.println(hisFile);
-            // System.out.println(file.exists());
+             System.out.println(hisFile);
+             System.out.println(file.exists());
 
             if (file.exists()) {
                 file.delete();
@@ -1538,7 +1538,7 @@ public class Controller {
     public String getHistoryBydate(@RequestParam("d") String d) {
 
         try {
-            
+            overmp = new HashMap();
             //write history
             String url = "http://api.api68.com/pks/getPksHistoryList.do?date="+d+"&lotCode=10001";
             String ret = null;
@@ -2257,9 +2257,9 @@ public class Controller {
 
         try {
 
-            clearLog(user + "bet");
-            clearLog(user + "overLOGDIS");
-            clearLog(user + "_over");
+            clearLog(u + "bet");
+            clearLog(u + "overLOGDIS");
+            clearLog(u + "_over");
 
         } catch (Exception e) {
             e.printStackTrace();

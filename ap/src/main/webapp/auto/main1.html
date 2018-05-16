@@ -1026,6 +1026,7 @@
 		 
 		 $( "#loadHistory" ).click(function() {
 			 deleteHistory();
+			 clearIndex(); 
 			 clearAll();
 			 let d = document.getElementById("texstdate").value  ;
 			 let url = u + '/getHistoryBydate?d=' + d;
@@ -1517,18 +1518,18 @@
 			//const bet_before4 = array_before4[i];
 			
 			
-			var z = i+1;  
-			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-  		    var amount = bArray[bIndex[z]%bArray.length] ;
-		    
-  		   	let btnSN='';
+		
+  		   //	let btnSN='';
   		    if(bet_n == '8'){
 	  		    //	betTemp1[z] =  '3,4,5,6,7,8' ;
 	  		    //	if(!projectBet[1][i]){
-	  					 
+  					 	var z = i+1;  
+						var betc = bArray[bIndex[8]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[8]%bArray.length );
+  		   				var amount = bArray[bIndex[8]%bArray.length] ;
+		    
 						let rbf = reallyBet(z, amount, (phase_now+1) , betc , '3,4,5,6,7,8', formu ,8);
 				   		if(rbf){
-							bIndex[z]++;
+							bIndex[8]++;
 						} 
 					 
 					
