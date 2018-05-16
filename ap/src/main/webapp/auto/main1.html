@@ -975,7 +975,7 @@
  		'5' :  [false,false,false,false,false,false,false,false,false,false], 
  		'6' :  [false,false,false,false,false,false,false,false,false,false], 
  	}
- 	
+ 	let user = '';
     $(document).ready(function(){
    
     		$('#betproject5').change(function(){
@@ -1026,6 +1026,7 @@
 		 
 		 $( "#loadHistory" ).click(function() {
 			 deleteHistory();
+			 clearAll();
 			 let d = document.getElementById("texstdate").value  ;
 			 let url = u + '/getHistoryBydate?d=' + d;
 
@@ -1069,7 +1070,7 @@
 		 }
 		 var uid = (parsed_qs.uid) ;
 		 var pwd = (parsed_qs.pwd) ;
-		 var user= (parsed_qs.user);
+		 user= (parsed_qs.user);
 		 var mid = (parsed_qs.mid) ;
 		 var date = parsed_qs.end_date;
 	     let convrt_date = date.substring(0,4) + '/' + date.substring(4,6)+ '/' + date.substring(6,8)
@@ -1112,7 +1113,7 @@
     
     
     function virtualtest(start,end){
-    		clearAll();
+    		
     		let s = start*1;
     		console.log("start:"+s)
     		console.log("end:"+end)
@@ -2708,7 +2709,7 @@
 		} 
     
     		 let check = false; 
-	   	 $.ajax({ url:  u + "/checkOver?user="+document.getElementById("user").value+"&phase="+phase_now+"&code="+code_n
+	   	 $.ajax({ url:  u + "/checkOver?user="+user+"&phase="+phase_now+"&code="+code_n
 	   		+"&betproject="+	 checkChangeBetProject, 
 	         async: false,
 	         success: function(data) { 
@@ -2929,7 +2930,7 @@
     }
     function clearLog(){
     	
-    	 $.ajax({ url:  u + "/clearLog?user="+document.getElementById("user").value+"bet", 
+    	 $.ajax({ url:  u + "/clearLog?user="+user+"bet", 
 	         async: false,
 	         success: function(data) {
 	        	 $( "div.logHtml" ).html('');
@@ -2941,7 +2942,7 @@
     
     function clearOverLog(){
     	
-   	 $.ajax({ url:  u + "/clearLog?user="+document.getElementById("user").value+"overLOGDIS", 
+   	 $.ajax({ url:  u + "/clearLog?user="+user+"overLOGDIS", 
 	         async: false,
 	         success: function(data) {
 	        	 $( "div.logOverHtml" ).html('');
@@ -3004,7 +3005,7 @@
     }
     
     function clearAll(){
-    	$.ajax({ url:  u + "/deleteAll?user="+document.getElementById("user").value, 
+    	$.ajax({ url:  u + "/deleteAll?user="+user, 
 	         async: false,
 	         success: function(data) {
 	        	     
@@ -3016,7 +3017,7 @@
 	        });
     }
     function deleteHistory(){
-    	$.ajax({ url:  u + "/deleteHistory?user="+document.getElementById("user").value, 
+    	$.ajax({ url:  u + "/deleteHistory?user="+user, 
 	         async: false,
 	         success: function(data) {
 	        	     

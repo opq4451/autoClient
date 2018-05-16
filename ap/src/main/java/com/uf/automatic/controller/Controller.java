@@ -896,6 +896,8 @@ public class Controller {
 
                         for (int overi = 1; overi < 11; overi++) {
                             String key = phase + "@" + sn + "@" + c[i] + "@" + x + "@" + overi;
+                            
+                            System.out.println(key);
                             if (configProperty.getProperty(key) != null) {
                                 if (overmp.get(user + key) == null) {
                                     overmp.put(user + key, "put");
