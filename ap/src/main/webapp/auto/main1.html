@@ -1457,22 +1457,8 @@
 			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
   		    var amount = bArray[bIndex[z]%bArray.length] ;
 		    
-  		    if(bet_n == '1' || bet_n == '6'){
-  		    		betTemp1[z] =  array_n[0] + ',' +  array_n[1] + ',' +  array_n[2] + ',' + 
-  		    					   array_n[3] + ',' +  array_n[4] + ',' +  array_n[5] ;
-  		    }else  if(bet_n == '2' || bet_n == '7'){
-  		   	 	betTemp1[z] =  array_n[1] + ',' +  array_n[2] + ',' +  array_n[3] + ',' + 
-							   array_n[4] + ',' +  array_n[5] + ',' +  array_n[6] ;
-  		    }else if(bet_n == '3' || bet_n == '8'){
-  		   	 	betTemp1[z] =  array_n[2] + ',' +  array_n[3] + ',' +  array_n[4] + ',' + 
-						       array_n[5] + ',' +  array_n[6] + ',' +  array_n[7] ;
-  		    }else if(bet_n == '4' || bet_n == '9'){
-  		   	 	betTemp1[z] =  array_n[3] + ',' +  array_n[4] + ',' +  array_n[5] + ',' + 
-			    				   array_n[6] + ',' +  array_n[7] + ',' +  array_n[8] ;
-  		    }else {
-  		    		betTemp1[z] =  array_n[4] + ',' +  array_n[5] + ',' +  array_n[6] + ',' + 
-							   array_n[7] + ',' +  array_n[8] + ',' +  array_n[9] ;
-  		    }
+  		   
+  		  	betTemp1[z] =  '3,4,5,6,7,8' ;
 	   		 
 		    
 			
@@ -1480,7 +1466,7 @@
 				
 			if(!projectBet[1][i]){
 			 
-					let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp1[z].toString(), formu ,z);
+					let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , betTemp1[z].toString(), formu ,z);
 			   		if(rbf){
 						bIndex[z]++;
 					} 
@@ -2334,7 +2320,7 @@
 	   	 		 if(document.getElementById("autoStart").checked){
 	   	 			 auto = "Y";
 	   	 		 }
-	             window.location.href="http://www.sd8888.net/index.html?auto="+auto+"&user="+
+	             window.location.href="http://localhost:8080/auto/index.html?auto="+auto+"&user="+
 	             document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value;
 		    }
 			    
