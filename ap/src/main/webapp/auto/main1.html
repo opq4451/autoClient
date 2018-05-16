@@ -1511,7 +1511,6 @@
 			return;
 		}
 		for(var i=0;i<10;i++){
-			//const bet_b = array_b[i];
 			const bet_n = array_n[i];
 			//const bet_n2 = array_n2[i];
 			//const bet_before4 = array_before4[i];
@@ -1521,36 +1520,28 @@
 			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
   		    var amount = bArray[bIndex[z]%bArray.length] ;
 		    
-  		    if(bet_n == '1' || bet_n == '6'){
-  		    		betTemp1[z] =  array_n[0] + ',' +  array_n[1] + ',' +  array_n[2] + ',' + 
-  		    					   array_n[3] + ',' +  array_n[4] + ',' +  array_n[5] ;
-  		    }else  if(bet_n == '2' || bet_n == '7'){
-  		   	 	betTemp1[z] =  array_n[1] + ',' +  array_n[2] + ',' +  array_n[3] + ',' + 
-							   array_n[4] + ',' +  array_n[5] + ',' +  array_n[6] ;
-  		    }else if(bet_n == '3' || bet_n == '8'){
-  		   	 	betTemp1[z] =  array_n[2] + ',' +  array_n[3] + ',' +  array_n[4] + ',' + 
-						       array_n[5] + ',' +  array_n[6] + ',' +  array_n[7] ;
-  		    }else if(bet_n == '4' || bet_n == '9'){
-  		   	 	betTemp1[z] =  array_n[3] + ',' +  array_n[4] + ',' +  array_n[5] + ',' + 
-			    				   array_n[6] + ',' +  array_n[7] + ',' +  array_n[8] ;
+  		   	let btnSN='';
+  		    if(bet_n == '8'){
+	  		    //	betTemp1[z] =  '3,4,5,6,7,8' ;
+	  		    //	if(!projectBet[1][i]){
+	  					 
+						let rbf = reallyBet(z, amount, (phase_now+1) , betc , '3,4,5,6,7,8', formu ,8);
+				   		if(rbf){
+							bIndex[z]++;
+						} 
+					 
+					
+				//}
   		    }else {
-  		    		betTemp1[z] =  array_n[4] + ',' +  array_n[5] + ',' +  array_n[6] + ',' + 
-							   array_n[7] + ',' +  array_n[8] + ',' +  array_n[9] ;
+  		   	 	projectBet[1][i] = true;
   		    }
+  		  	
 	   		 
 		    
 			
 			 
 				
-			if(!projectBet[1][i]){
-			 
-					let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp1[z].toString(), formu ,z);
-			   		if(rbf){
-						bIndex[z]++;
-					} 
-				 
-				
-			}
+			
 			
 			 
 		}
@@ -2723,6 +2714,8 @@
 	         success: function(data) { 
 	        	  
 	        	 const json = JSON.parse(data);
+	        	 
+	        	 console.log(json);
 	        	 if(json.a1){betIndex[1] = 0;}  if(json.a2){betIndex2[1] = 0;} 
 	        	 if(json.a3){betIndex3[1] = 0;} if(json.a4){betIndex4[1] = 0;}
 	        	 if(json.a5){betIndex5[1] = 0;} if(json.a6){betIndex6[1] = 0;}
