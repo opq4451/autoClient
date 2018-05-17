@@ -1348,13 +1348,13 @@
 	
 	function getCode_byFormu(formu,codeArray){
 		let total = 0;
-		if(formu == '1'  ){
-			total = codeArray[1] * 1 + codeArray[1] * 1 + codeArray[1] * 1 ;
-		}else if(formu == '2'  ){
-			total = codeArray[2] * 1 + codeArray[3] * 1 + codeArray[4] * 1 ;
+		if(formu == '2'  ){
+			total = codeArray[1] * 1 + codeArray[2] * 1 + codeArray[3] * 1 ;
 		}else if(formu == '3'  ){
+			total = codeArray[2] * 1 + codeArray[3] * 1 + codeArray[4] * 1 ;
+		}else if(formu == '4'  ){
 			total = codeArray[5] * 1 + codeArray[6] * 1 + codeArray[7] * 1 ;
-		}else if(formu == '4'){
+		}else if(formu == '5'){
 			total = codeArray[6] * 1 + codeArray[7] * 1 + codeArray[8] * 1 ;
 		}
 		
@@ -1386,7 +1386,7 @@
 		    
 	    let bet_n =  getCode_byFormu(formu,array_n);
 	    
-	    if(formu == '1' || formu == '2'){
+	    if(formu == '2' || formu == '3'){
 	    		betsn = '1,2,3,4,5,6';
 	    }else {
 	    		betsn = '5,6,7,8,9,10';
@@ -2021,10 +2021,10 @@
 	function checkProjectBetflag(){
 	 	  if(    (
 	 		 
-	 		  (document.getElementById('c2').checked && !(projectBet[1][1])) ||
-	 		  (document.getElementById('c3').checked && !(projectBet[2][2])) ||
-	 		  (document.getElementById('c4').checked && !(projectBet[3][3])) ||
-	 		  (document.getElementById('c5').checked && !(projectBet[4][4])) ||
+	 		  (document.getElementById('c2').checked && !(projectBet[2][2])) ||
+	 		  (document.getElementById('c3').checked && !(projectBet[3][3])) ||
+	 		  (document.getElementById('c4').checked && !(projectBet[4][4])) ||
+	 		  (document.getElementById('c5').checked && !(projectBet[5][5])) ||
 	 		  (document.getElementById('c6').checked && !checkProjectBetFlagIndex(projectBet[5])) ||
 	 		  (document.getElementById('c7').checked && !checkProjectBetFlagIndex(projectBet[6])) ||
 	 		  (document.getElementById('c8').checked && !checkProjectBetFlagIndex(projectBet[7])) ||
@@ -2692,11 +2692,11 @@
 					  
 	        			     let flag = json[letter+''+formu] ;
 	        			     if(flag){
-	        			    	 	  if(formu==1){betIndex[1] = 0 ;}
-	        			    	 	  if(formu==2){betIndex2[2] = 0 ;}
-	        			    	 	  if(formu==3){betIndex3[3] = 0 ;}
-	        			    	 	  if(formu==4){betIndex4[4] = 0 ;}
-	        			    	 	  if(formu==5){betIndex5[sn] = 0 ;}
+	        			    	 	  //if(formu==1){betIndex[1] = 0 ;}
+	        			    	 	  if(formu==2){betIndex[2] = 0 ;}
+	        			    	 	  if(formu==3){betIndex2[3] = 0 ;}
+	        			    	 	  if(formu==4){betIndex3[4] = 0 ;}
+	        			    	 	  if(formu==5){betIndex4[5] = 0 ;}
 	        			    	 	  if(formu==6){betIndex6[sn] = 0 ;}
 	        			    	 	  if(formu==7){betIndex7[sn] = 0 ;}
 	        			    	 	  if(formu==8){betIndex8[sn] = 0 ;}
@@ -2744,45 +2744,45 @@
     	  
 			 
 			    
-			    if(document.getElementById('c2').checked  && !(projectBet[1][1]) ) {
+			    if(document.getElementById('c2').checked  && !(projectBet[2][2]) ) {
 					  console.log('project2'+'-betPhase:'+nextPhase);
 					  obj.b = nextPhase - 5 ;
 					  obj.fourTh = nextPhase - 4 ; 
 					  const b = obj.b ;
 					  const fourTh = obj.fourTh ;
 					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-						  compareByType_from_member(b,n,fourTh,betIndex,betarray,'1');
+						  compareByType_from_member(b,n,fourTh,betIndex,betarray,'2');
 					  } 
 			    }
-			    if(document.getElementById('c3').checked  && !(projectBet[2][2]) ) {
+			    if(document.getElementById('c3').checked  && !(projectBet[3][3]) ) {
 			  		  console.log('project3'+'-betPhase:'+nextPhase);
 			  		  obj.b = nextPhase - 5 ;
 					  obj.fourTh = nextPhase - 4 ;
 					  const b = obj.b ;
 					  const fourTh = obj.fourTh ;
 					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-						  compareByType_from_member(b,n,fourTh,betIndex2,betarray2,'2');		  
+						  compareByType_from_member(b,n,fourTh,betIndex2,betarray2,'3');		  
 				 	  }  
 		      	  }
-			    if(document.getElementById('c4').checked  && !(projectBet[3][3]) ) {
+			    if(document.getElementById('c4').checked  && !(projectBet[4][4]) ) {
 		   	          console.log('project4'+'-betPhase:'+nextPhase);
 		   	       	  obj.b = nextPhase - 5 ;
 					  obj.fourTh = nextPhase - 4 ;
 					  const b = obj.b ;
 					  const fourTh = obj.fourTh ;
 					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-						  compareByType_from_member(b,n,fourTh,betIndex3,betarray3,'3');
+						  compareByType_from_member(b,n,fourTh,betIndex3,betarray3,'4');
 					  }
 				    }
 			    
-			    if(document.getElementById('c5').checked  && !(projectBet[4][4]) ) {
+			    if(document.getElementById('c5').checked  && !(projectBet[5][5]) ) {
 					  console.log('project5'+'-betPhase:'+nextPhase);
 					  obj.b = nextPhase - 5 ;
 					  obj.fourTh = nextPhase - 4 ;
 					  const b = obj.b ;
 					  const fourTh = obj.fourTh ;
 					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-						  compareByType_from_member(b,n,fourTh,betIndex4,betarray4,'4');
+						  compareByType_from_member(b,n,fourTh,betIndex4,betarray4,'5');
 					  }
 				   }
 			    
