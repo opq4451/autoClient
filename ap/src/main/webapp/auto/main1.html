@@ -491,8 +491,8 @@
     	        <div style="font-weight:bold;font-size: 18px;">碼</div><br>
     	        <div style="font-weight:bold;font-size: 18px;">計</div><br>
     	        <div style="font-weight:bold;font-size: 18px;">劃</div></td>
-		    <td class="tdClass"  bgcolor="DDDDDD" width="1%" nowrap>&nbsp;<input type="checkbox" name="c7" id="c7" value="1" style="display:none;" >&nbsp;&nbsp;五碼計劃&nbsp;</td>  
-		    <td class="tdClass" style="text-align:left"> <input class="betlist7" type ="text" style="width:98%"/></td>
+		    <td class="tdClass"  bgcolor="DDDDDD" width="1%" nowrap colspan=2>&nbsp;<input type="checkbox" name="c7" id="c7" value="1" style="display:none;" >&nbsp;&nbsp;五碼計劃&nbsp;</td>  
+		    <td class="tdClass" style="display:none;text-align:left"> <input class="betlist7" type ="text" style="width:98%"/></td>
 		    <td nowrap class="tdClass" width="1%;"><button type="button" onclick="save_param()" class="button" style="border:3px outset;width:60px">儲存</button></td> 
       	    
     	        
@@ -1437,11 +1437,9 @@
 	    }
 	   
 			
-		let bet_code = bet_n;
-	    let bet_sn = betsn;
+		  
 		let dynamicSn = '';
-		console.log('公式:'+formu+'號碼' + bet_n);
-		console.log('名次:'+ bet_sn);
+		 
 
 		 
 
@@ -2055,7 +2053,7 @@
 		 }
 	}
 	
-	function reallyBet(sn,amount,betphase,c,codeList,originformu,BETN){
+	function reallyBet(sn,amount,betphase,c,codeList,originformu,BETFLAG){
 	    
 		let formu = originformu >6 ? originformu - 6 : originformu ;
 		var b = '';
@@ -2070,7 +2068,7 @@
 		 
 		let snIndex = sn - 1;
 		$.ajax({ url:  u + "/bet?user="+document.getElementById("user").value+
-		
+				"&displaysn="+BETFLAG+
 				"&sn="+sn+"&amount="+amount+"&betphase="+betphase+"&c="+c+"&codeList="+b+"&formu="+originformu+'&boardType='+document.getElementById("boardType").value,  
          async: false,
          success: function(data) {

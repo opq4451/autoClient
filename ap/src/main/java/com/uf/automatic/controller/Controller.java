@@ -449,9 +449,9 @@ public class Controller {
 
                     //System.out.println(sn);
 
-                    if (v.indexOf("第0關") > -1) { //下注0的不用顯示在log
-                        continue;
-                    }
+//                    if (v.indexOf("第0關") > -1) { //下注0的不用顯示在log
+//                        continue;
+//                    }
                     String index = "";
                     
                     if (key_form.equals("12")) { //計劃11
@@ -1104,7 +1104,9 @@ public class Controller {
                 
                 saveOverLog(user, overLog, c);
             }
-           
+            String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+                    + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
+            saveLog(user + "bet", betlog);
     
             return "";
         }
@@ -1317,7 +1319,8 @@ public class Controller {
     public String bet(@RequestParam("user") String user, @RequestParam("sn") String sn,
                       @RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
                       @RequestParam("c") String c, @RequestParam("codeList") String codeList,
-                      @RequestParam("formu") String formu, @RequestParam("boardType") String boardType
+                      @RequestParam("formu") String formu, @RequestParam("boardType") String boardType,
+                      @RequestParam("displaysn") String displaysn
 
     ) {
 
@@ -1326,9 +1329,14 @@ public class Controller {
             bi++;
             if (amount.equals("0") || (amount.equals("1") && boardType.equals("0"))) {
                 for (String str : code) {
-                    String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+                    String overLog = betphase + "@" + sn + "@" + str + "@" + formu + "@" + displaysn;
                     saveOverLog(user, overLog, c);
                 }
+                
+                
+                String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+                        + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
+                saveLog(user + "bet", betlog);
                 return "";
             }
 
@@ -1373,7 +1381,7 @@ public class Controller {
                 if (resCode.equals("200")) {
 
                     for (String str : code) {
-                        String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+                        String overLog = betphase + "@" + sn + "@" + str + "@" + formu + "@" + displaysn;
                         saveOverLog(user, overLog, c);
                     }
 
@@ -1402,7 +1410,7 @@ public class Controller {
                 String s = po.get("msg").getAsString();
                 if (s.equals("投注成功")) {
                     for (String str : code) {
-                        String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+                        String overLog = betphase + "@" + sn + "@" + str + "@" + formu + "@" + displaysn;
                         saveOverLog(user, overLog, c);
                     }
 
@@ -1440,7 +1448,7 @@ public class Controller {
 
                 if ((result.get("FaildReason").getAsString()).equals("0")) {
                     for (String str : code) {
-                        String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+                        String overLog = betphase + "@" + sn + "@" + str + "@" + formu + "@" + displaysn;
                         saveOverLog(user, overLog, c);
                     }
 
@@ -1491,7 +1499,7 @@ public class Controller {
 
                 if (result.get("status").getAsString().equals("0")) {
                     for (String str : code) {
-                        String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
+                        String overLog = betphase + "@" + sn + "@" + str + "@" + formu + "@" + displaysn;
                         saveOverLog(user, overLog, c);
                     }
 
