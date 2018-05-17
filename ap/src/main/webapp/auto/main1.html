@@ -1358,7 +1358,7 @@
 			total = codeArray[6] * 1 + codeArray[7] * 1 + codeArray[8] * 1 ;
 		}
 		
-		return (total%10) + '' ;
+		return ((total%10)==0?10:(total%10)) + '' ;
 	}
 	
 	function compareByType_from_member(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
