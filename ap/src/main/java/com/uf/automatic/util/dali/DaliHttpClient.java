@@ -288,6 +288,35 @@ public class DaliHttpClient {
     // }
     // return "";
     // }
+    
+    public static String getLottery() throws Exception{
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        HttpPost Post = new HttpPost(daliUrl[daliUrl_index % 5] + "/member/Submit/trend_12");
+
+        Post.setHeader("Cookie", daliCookie);
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+        params.add(new BasicNameValuePair("No", "400"));
+
+        Post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+
+        CloseableHttpResponse response = httpclient.execute(Post);
+        try {
+
+            String content = EntityUtils.toString(response.getEntity());
+
+            return content;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            response.close();
+        }
+        
+        return "";    
+    }
+    
     public static String hitEvent() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
 

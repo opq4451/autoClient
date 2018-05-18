@@ -653,13 +653,35 @@ public class Controller {
                 String phase = data.get("draw_phase").getAsString();
                  
                 JsonArray draw_result = data.getAsJsonArray("draw_result");
+                String totalcode = "";
                 for(int i = 0; i<draw_result.size();i++) {
                     String code = draw_result.get(i).getAsString().substring(0, 1).equals("0") ?  draw_result.get(i).getAsString().substring(1, 2) 
                                                                                                : draw_result.get(i).getAsString();
-                    Utils.WritePropertiesFile("history", phase, code);
+                    totalcode += code +",";
+                    //Utils.WritePropertiesFile("history", phase, code);
                 }
-                
+                Utils.WritePropertiesFile("history", phase, totalcode.substring(0,totalcode.length()-1));
+
                // 
+            }else if (boardType.equals("2")) {
+                String history= DaliHttpClient.getLottery();
+                JsonParser parser = new JsonParser();
+                JsonArray o = parser.parse(history).getAsJsonArray();
+                JsonObject json = o.get(0).getAsJsonObject();
+                JsonArray data = json.getAsJsonArray("data");
+                JsonObject c = data.get(0).getAsJsonObject();
+                String phase = c.get("PhaseNO").getAsString();
+                 
+                JsonObject content =  c.get("Content").getAsJsonObject();
+                String totalcode = "";
+                for(int i = 1 ; i<11 ; i ++) {
+                    String draw_result =  content.get(Integer.toString(i)).getAsString();
+                    String code = draw_result.substring(0, 1).equals("0") ?  draw_result.substring(1, 2) 
+                                                                                               : draw_result;
+                    totalcode += code +",";
+                    
+                }
+                Utils.WritePropertiesFile("history", phase, totalcode.substring(0,totalcode.length()-1));
             }
                 
             //open source
