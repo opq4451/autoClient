@@ -115,9 +115,25 @@ public class DaliHttpClient {
     public static void main(String[] args) {
         try {
             DaliHttpClient d_h = DaliHttpClient.getInstance("bee6611", "asd123123123");
-            String history= getLottery();
+            String history= DaliHttpClient.getLottery();
+            JsonParser parser = new JsonParser();
+            JsonArray o = parser.parse(history).getAsJsonArray();
+            JsonObject json = o.get(0).getAsJsonObject();
+            JsonArray data = json.getAsJsonArray("data");
+            JsonObject c = data.get(0).getAsJsonObject();
+            String phase = c.get("PhaseNO").getAsString();
+             
+            JsonObject content =  c.get("Content").getAsJsonObject();
+            String totalcode = "";
+            for(int i = 1 ; i<11 ; i ++) {
+                String draw_result =  content.get(Integer.toString(i)).getAsString();
+                String code = draw_result.substring(0, 1).equals("0") ?  draw_result.substring(1, 2) 
+                                                                                           : draw_result;
+                totalcode += code +",";
+                
+            }
+            System.out.println( totalcode.substring(0,totalcode.length()-1));
             
-            System.out.println(history);
 //            JsonObject a = getBetMD5_PL();
 //
 //            

@@ -45,6 +45,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.uf.automatic.util.dali.DaliHttpClient;
 
 public class Utils {
 
@@ -70,31 +71,74 @@ public class Utils {
     }
 
     public static void main(String[] args) {
-        long unixTime = System.currentTimeMillis() / 1000L;
-
-        String query = "McID=02RVE&Nose=bb4NvVOMtX&Sern=0&Time=" + unixTime;
-        System.out.println(query + "&key=jVPdwq0BDW");
-        String sign = MD5(query + "&key=jVPdwq0BDW").toUpperCase();
-
-        String url = "http://47.90.109.200/chatbet_v3/award_sync/get_award.php?" + query + "&Sign=" + sign;
-        System.out.println(url);
-
-        //part2
-        query = "McID=03RGK&Nose=bb4NvVOMtX&Sern=0&Time=" + unixTime;
-        System.out.println(query + "&key=EUAwtKL0A1");
-        sign = MD5(query + "&key=EUAwtKL0A1").toUpperCase();
-
-        url = "http://47.90.109.200/chatbet_v3/award_sync/get_award.php?" + query + "&Sign=" + sign;
-        System.out.println(url);
+//        long unixTime = System.currentTimeMillis() / 1000L;
+//
+//        String query = "McID=02RVE&Nose=bb4NvVOMtX&Sern=0&Time=" + unixTime;
+//        System.out.println(query + "&key=jVPdwq0BDW");
+//        String sign = MD5(query + "&key=jVPdwq0BDW").toUpperCase();
+//
+//        String url = "http://47.90.109.200/chatbet_v3/award_sync/get_award.php?" + query + "&Sign=" + sign;
+//        System.out.println(url);
+//
+//        //part2
+//        query = "McID=03RGK&Nose=bb4NvVOMtX&Sern=0&Time=" + unixTime;
+//        System.out.println(query + "&key=EUAwtKL0A1");
+//        sign = MD5(query + "&key=EUAwtKL0A1").toUpperCase();
+//
+//        url = "http://47.90.109.200/chatbet_v3/award_sync/get_award.php?" + query + "&Sign=" + sign;
+//        System.out.println(url);
+//        
+//        
+//        String a = "(第0關)(公式12)";
+//        
+//        System.out.println(a.substring(0, a.lastIndexOf("(")));
+        DaliHttpClient d_h = DaliHttpClient.getInstance("bee6611","asd123123123");
         
-        
-        String a = "(第0關)(公式12)";
-        
-        System.out.println(a.substring(0, a.lastIndexOf("(")));
         
 
     }
 
+    public static String getMaxPhase() {
+        FileInputStream fileIn = null;
+        String max = "";
+        try {
+            Properties configProperty = new Properties();
+            String path = System.getProperty("user.dir");
+            String hisFile = path + "/history.properties";
+            File file = new File(hisFile);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            fileIn = new FileInputStream(file);
+            configProperty.load(fileIn);
+            Enumeration<String> enums = (Enumeration<String>) configProperty.propertyNames();
+            
+            try {
+                while (enums.hasMoreElements()) {
+                    String key = enums.nextElement();
+                    String value = configProperty.getProperty(key);
+                    //System.out.println(key + " : " + value);
+                    if(max.equals("")) {
+                        max = key;
+                    }else {
+                        if(Integer.parseInt(key)  > Integer.parseInt(max) ) {
+                            max = key ;
+                        }
+                    }
+                   
+                  }
+                
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+             
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        return max;
+    }
+
+    
     public static String MD5(String md5) {
         try {
 

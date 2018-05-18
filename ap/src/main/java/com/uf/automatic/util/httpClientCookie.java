@@ -286,6 +286,16 @@ public class httpClientCookie {
         return "";
     }
 	
+	public String getOpenBall() {
+        String query = uraal[urli%5] + "/L_PK10/Handler/Handler.ashx?action=get_openball&playpage=pk10_lmp";
+        try {
+            return instance.httpClientUseCookie(query);
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+	
 	public String getoddsInfo() {
 	    String query = uraal[urli%5] + "/L_PK10/Handler/Handler.ashx?action=get_oddsinfo&playid=1%2C5%2C9%2C13%2C17%2C21%2C24%2C27%2C30%2C33&playpage=pk10_d1_10";
         try {
