@@ -114,32 +114,34 @@ public class DaliHttpClient {
 
     public static void main(String[] args) {
         try {
-            DaliHttpClient d_h = DaliHttpClient.getInstance("bee6611", "asdf123123");
+            DaliHttpClient d_h = DaliHttpClient.getInstance("bee6611", "asd123123123");
+            String history= getLottery();
             
-            JsonObject a = getBetMD5_PL();
-
-            
-                String MD5 = a.get("MD5").getAsString();
-                System.out.println(MD5);
-           
-            
-            
-            JsonArray o = a.getAsJsonArray("DATAODDS") ;
-            
-            String betString = "";//40001,9.909,1|40018,9.909,1|40036,9.909,1
-            
-            String[] code = {"4"};
-            for (String str : code) { 
-                int index = DaliHttpClient.getPlIndex("4", str) ;
-                JsonObject bet = o.get(index).getAsJsonObject();
-                String pl = bet.get("OddsValue1").getAsString();
-                String betItemNo = bet.get("ItemNO").getAsString();
-                betString += betItemNo+","+pl+","+1+"|"; 
-            }
-            betString = betString.substring(0,betString.length()-1);
-            System.out.println(betString);
-            String betid = DaliHttpClient.getBetID(betString);
-            System.out.println(betid);
+            System.out.println(history);
+//            JsonObject a = getBetMD5_PL();
+//
+//            
+//                String MD5 = a.get("MD5").getAsString();
+//                System.out.println(MD5);
+//           
+//            
+//            
+//            JsonArray o = a.getAsJsonArray("DATAODDS") ;
+//            
+//            String betString = "";//40001,9.909,1|40018,9.909,1|40036,9.909,1
+//            
+//            String[] code = {"4"};
+//            for (String str : code) { 
+//                int index = DaliHttpClient.getPlIndex("4", str) ;
+//                JsonObject bet = o.get(index).getAsJsonObject();
+//                String pl = bet.get("OddsValue1").getAsString();
+//                String betItemNo = bet.get("ItemNO").getAsString();
+//                betString += betItemNo+","+pl+","+1+"|"; 
+//            }
+//            betString = betString.substring(0,betString.length()-1);
+//            System.out.println(betString);
+//            String betid = DaliHttpClient.getBetID(betString);
+//            System.out.println(betid);
             
             //dali_bet(betid,MD5);
             // String force = Utils.httpClientGet(forceUrl);
@@ -252,42 +254,34 @@ public class DaliHttpClient {
         }
     }
 
-    // 單球
-    // public String query() {
-    // String query = uraal[urli % 5] +
-    // "/Handler/QueryHandler.ashx?action=get_ad";
-    // try {
-    // return instance.httpClientUseCookie(query);
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // }
-    // return "";
-    // }
+    
+    public static String getLottery() throws Exception{
+        CloseableHttpClient httpclient = HttpClients.createDefault();
 
-    // 兩面ＺＲＵＦ
-    // public String getoddsInfoForDouble() {
-    // String query = uraal[urli % 5]
-    // +
-    // "/L_PK10/Handler/Handler.ashx?action=get_oddsinfo&playid=2%2C3%2C4%2C6%2C7%2C8%2C10%2C11%2C12%2C14%2C15%2C16%2C18%2C19%2C20%2C22%2C23%2C25%2C26%2C28%2C29%2C31%2C32%2C34%2C35%2C37%2C38&playpage=pk10_lmp";
-    // try {
-    // return instance.httpClientUseCookie(query);
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // }
-    // return "";
-    // }
+        HttpPost Post = new HttpPost(daliUrl[daliUrl_index % 5] + "/member/Submit/trend_12");
 
-    // public String getoddsInfo() {
-    // String query = uraal[urli % 5]
-    // +
-    // "/L_PK10/Handler/Handler.ashx?action=get_oddsinfo&playid=1%2C5%2C9%2C13%2C17%2C21%2C24%2C27%2C30%2C33&playpage=pk10_d1_10";
-    // try {
-    // return instance.httpClientUseCookie(query);
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // }
-    // return "";
-    // }
+        Post.setHeader("Cookie", daliCookie);
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+        params.add(new BasicNameValuePair("No", "400"));
+
+        Post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+
+        CloseableHttpResponse response = httpclient.execute(Post);
+        try {
+
+            String content = EntityUtils.toString(response.getEntity());
+
+            return content;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            response.close();
+        }
+        
+        return "";    
+    }
     public static String hitEvent() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
