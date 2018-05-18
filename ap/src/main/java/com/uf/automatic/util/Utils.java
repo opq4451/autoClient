@@ -3,6 +3,7 @@ package com.uf.automatic.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URLEncoder;
@@ -70,31 +71,84 @@ public class Utils {
     }
 
     public static void main(String[] args) {
-        long unixTime = System.currentTimeMillis() / 1000L;
-
-        String query = "McID=02RVE&Nose=bb4NvVOMtX&Sern=0&Time=" + unixTime;
-        System.out.println(query + "&key=jVPdwq0BDW");
-        String sign = MD5(query + "&key=jVPdwq0BDW").toUpperCase();
-
-        String url = "http://47.90.109.200/chatbet_v3/award_sync/get_award.php?" + query + "&Sign=" + sign;
-        System.out.println(url);
-
-        //part2
-        query = "McID=03RGK&Nose=bb4NvVOMtX&Sern=0&Time=" + unixTime;
-        System.out.println(query + "&key=EUAwtKL0A1");
-        sign = MD5(query + "&key=EUAwtKL0A1").toUpperCase();
-
-        url = "http://47.90.109.200/chatbet_v3/award_sync/get_award.php?" + query + "&Sign=" + sign;
-        System.out.println(url);
-        
-        
-        String a = "(第0關)(公式12)";
-        
-        System.out.println(a.substring(0, a.lastIndexOf("(")));
-        
-
+//        long unixTime = System.currentTimeMillis() / 1000L;
+//
+//        String query = "McID=02RVE&Nose=bb4NvVOMtX&Sern=0&Time=" + unixTime;
+//        System.out.println(query + "&key=jVPdwq0BDW");
+//        String sign = MD5(query + "&key=jVPdwq0BDW").toUpperCase();
+//
+//        String url = "http://47.90.109.200/chatbet_v3/award_sync/get_award.php?" + query + "&Sign=" + sign;
+//        System.out.println(url);
+//
+//        //part2
+//        query = "McID=03RGK&Nose=bb4NvVOMtX&Sern=0&Time=" + unixTime;
+//        System.out.println(query + "&key=EUAwtKL0A1");
+//        sign = MD5(query + "&key=EUAwtKL0A1").toUpperCase();
+//
+//        url = "http://47.90.109.200/chatbet_v3/award_sync/get_award.php?" + query + "&Sign=" + sign;
+//        System.out.println(url);
+//        
+//        
+//        String a = "(第0關)(公式12)";
+//        
+//        System.out.println(a.substring(0, a.lastIndexOf("(")));
+//        httpClientCookie h = httpClientCookie.getInstance("wabs5511", "asd123123");
+//        //String open = h.getOpenBall();
+//        String open = h.getOpenBall();
+//        JsonParser parser = new JsonParser();
+//        JsonObject o = parser.parse(open).getAsJsonObject();
+//        JsonObject data = o.get("data").getAsJsonObject();
+//        String phase = data.get("draw_phase").getAsString();
+//        System.out.println(phase);
+//        JsonArray draw_result = data.getAsJsonArray("draw_result");
+//        for(int i = 0; i<draw_result.size();i++) {
+//            String code = draw_result.get(i).getAsString().substring(0, 1).equals("0") ?  draw_result.get(i).getAsString().substring(1, 2) 
+//                                                                                       : draw_result.get(i).getAsString();
+//           
+//        }
+       
+       
+    
     }
-
+    public static String getMaxPhase() {
+        FileInputStream fileIn = null;
+        String max = "";
+        try {
+            Properties configProperty = new Properties();
+            String path = System.getProperty("user.dir");
+            String hisFile = path + "/history.properties";
+            File file = new File(hisFile);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            fileIn = new FileInputStream(file);
+            configProperty.load(fileIn);
+            Enumeration<String> enums = (Enumeration<String>) configProperty.propertyNames();
+            
+            try {
+                while (enums.hasMoreElements()) {
+                    String key = enums.nextElement();
+                    String value = configProperty.getProperty(key);
+                    //System.out.println(key + " : " + value);
+                    if(max.equals("")) {
+                        max = key;
+                    }else {
+                        if(Integer.parseInt(key)  > Integer.parseInt(max) ) {
+                            max = key ;
+                        }
+                    }
+                   
+                  }
+                
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+             
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        return max;
+    }
     public static String MD5(String md5) {
         try {
 

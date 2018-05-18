@@ -449,9 +449,9 @@ public class Controller {
 
                     //System.out.println(sn);
 
-//                    if (v.indexOf("第0關") > -1) { //下注0的不用顯示在log
-//                        continue;
-//                    }
+                    if (v.indexOf("第0關") > -1) { //下注0的不用顯示在log
+                        continue;
+                    }
                     String index = "";
                     
                     if (key_form.equals("12")) { //計劃11
@@ -588,10 +588,10 @@ public class Controller {
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("07")) {//計劃六
-                        logHtml.append("<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">"
-                                      + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
-                    }
+//                    if (formu.equals("06")) {//計劃六
+//                        logHtml.append("<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">"
+//                                      + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+//                    }
 
                     if (formu.equals("06")) {//計劃七
                         logHtml.append("<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">"
@@ -613,7 +613,7 @@ public class Controller {
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("01")) {//計劃1 1
+                    if (formu.equals("02")) {//計劃1 1
                         logHtml.append("<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
@@ -644,27 +644,45 @@ public class Controller {
     public String getPhase(@RequestParam("user") String user, @RequestParam("pwd") String pwd,
                            @RequestParam("boardType") String boardType) {
         try {
-            if (boardType.equals("0") && h == null)
+            if (boardType.equals("0") && h == null) {
                 h = httpClientCookie.getInstance(user, pwd);
-
+                String open = h.getOpenBall();
+                JsonParser parser = new JsonParser();
+                JsonObject o = parser.parse(open).getAsJsonObject();
+                JsonObject data = o.get("data").getAsJsonObject();
+                String phase = data.get("draw_phase").getAsString();
+                 
+                JsonArray draw_result = data.getAsJsonArray("draw_result");
+                for(int i = 0; i<draw_result.size();i++) {
+                    String code = draw_result.get(i).getAsString().substring(0, 1).equals("0") ?  draw_result.get(i).getAsString().substring(1, 2) 
+                                                                                               : draw_result.get(i).getAsString();
+                    Utils.WritePropertiesFile("history", phase, code);
+                }
+                
+               // 
+            }
+                
+            //open source
             Utils.writeHistory();
 
-            long unixTime = System.currentTimeMillis() / 1000L;
-
-            String query = "McID=03RGK&Nose=bb4NvVOMtX&Sern=0&Time=" + unixTime;
-            String sign = Utils.MD5(query + "&key=EUAwtKL0A1").toUpperCase();
-
-            String url = "http://47.90.109.200/chatbet_v3/award_sync/get_award.php?" + query + "&Sign=" + sign;
-
-            String ret = Utils.httpClientGet(url);
-            JsonParser parser = new JsonParser();
-            JsonObject o = parser.parse(ret).getAsJsonObject();
-            String a = o.get("Award").getAsString();
-            JsonArray data = parser.parse(a).getAsJsonArray();
-            String drawIssue = data.get(0).getAsJsonObject().get("I").getAsString();
-            if (drawIssue != null && !drawIssue.equals("")) {
-                return Integer.toString(Integer.parseInt(drawIssue) + 1);
-            }
+            String nexphase = Utils.getMaxPhase();
+            return Integer.toString(Integer.parseInt(nexphase) + 1);
+//            long unixTime = System.currentTimeMillis() / 1000L;
+//
+//            String query = "McID=03RGK&Nose=bb4NvVOMtX&Sern=0&Time=" + unixTime;
+//            String sign = Utils.MD5(query + "&key=EUAwtKL0A1").toUpperCase();
+//
+//            String url = "http://47.90.109.200/chatbet_v3/award_sync/get_award.php?" + query + "&Sign=" + sign;
+//
+//            String ret = Utils.httpClientGet(url);
+//            JsonParser parser = new JsonParser();
+//            JsonObject o = parser.parse(ret).getAsJsonObject();
+//            String a = o.get("Award").getAsString();
+//            JsonArray data = parser.parse(a).getAsJsonArray();
+//            String drawIssue = data.get(0).getAsJsonObject().get("I").getAsString();
+//            if (drawIssue != null && !drawIssue.equals("")) {
+//                return Integer.toString(Integer.parseInt(drawIssue) + 1);
+//            }
 
         } catch (Exception e) {
             saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : getPhase 斷");
@@ -1104,9 +1122,13 @@ public class Controller {
                 
                 saveOverLog(user, overLog, c);
             }
-            String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                    + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
-            saveLog(user + "bet", betlog);
+            
+             
+//            String betlog = "第" + betphase + "期" +
+//                    "計劃" +   sn 
+//                    + "，第" + betsn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+//                    + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
+//            saveLog(user + "bet", betlog);
     
             return "";
         }
@@ -1157,8 +1179,10 @@ public class Controller {
                         saveOverLog(user, overLog, c);
                     }
 
-                    String betlog = "第" + betphase + "期" + "，第" + betsn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
+                    String betlog = "第" + betphase + "期" +
+                            "計劃" +   sn 
+                            + "，第" + betsn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+                            + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
                     saveLog(user + "bet", betlog);
 
                 } else {
@@ -1191,8 +1215,10 @@ public class Controller {
                         saveOverLog(user, overLog, c);
                     }
 
-                    String betlog = "第" + betphase + "期" + "，第" + betsn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
+                    String betlog = "第" + betphase + "期" +
+                            "計劃" +   sn 
+                            + "，第" + betsn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+                            + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
                     saveLog(user + "bet", betlog);
                 } else {
                     recoup++;
@@ -1237,8 +1263,10 @@ public class Controller {
                         saveOverLog(user, overLog, c);
                     }
 
-                    String betlog = "第" + betphase + "期" + "，第" + betsn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
+                    String betlog = "第" + betphase + "期" +
+                            "計劃" +   sn 
+                            + "，第" + betsn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+                            + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
                     saveLog(user + "bet", betlog);
                 } else {
                    /* recoup++;
@@ -1288,8 +1316,10 @@ public class Controller {
                         saveOverLog(user, overLog, c);
                     }
 
-                    String betlog = "第" + betphase + "期" + "，第" + betsn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
+                    String betlog = "第" + betphase + "期" +
+                            "計劃" +   sn 
+                            + "，第" + betsn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+                            + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
                     saveLog(user + "bet", betlog);
                 } else {
                     
@@ -1334,9 +1364,11 @@ public class Controller {
                 }
                 
                 
-                String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                        + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
-                saveLog(user + "bet", betlog);
+//                String betlog = "第" + betphase + "期"  +
+//                        "計劃" +   displaysn 
+//                        + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+//                                + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
+//                saveLog(user + "bet", betlog);
                 return "";
             }
 
@@ -1385,7 +1417,9 @@ public class Controller {
                         saveOverLog(user, overLog, c);
                     }
 
-                    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+                    String betlog = "第" + betphase + "期"  +
+                            "計劃" +   displaysn 
+                            + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
                                     + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
                     saveLog(user + "bet", betlog);
 
@@ -1414,7 +1448,9 @@ public class Controller {
                         saveOverLog(user, overLog, c);
                     }
 
-                    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+                    String betlog = "第" + betphase + "期"  +
+                            "計劃" +   displaysn 
+                            + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
                                     + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
                     saveLog(user + "bet", betlog);
                 } else {
@@ -1452,7 +1488,9 @@ public class Controller {
                         saveOverLog(user, overLog, c);
                     }
 
-                    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+                    String betlog = "第" + betphase + "期"  +
+                            "計劃" +   displaysn 
+                            + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
                                     + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
                     saveLog(user + "bet", betlog);
                 } else {
@@ -1503,7 +1541,9 @@ public class Controller {
                         saveOverLog(user, overLog, c);
                     }
 
-                    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+                    String betlog = "第" + betphase + "期"  +
+                            "計劃" +   displaysn 
+                            + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
                                     + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
                     saveLog(user + "bet", betlog);
                 } else {
