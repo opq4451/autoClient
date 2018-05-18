@@ -491,8 +491,8 @@
     	        <div style="font-weight:bold;font-size: 18px;">碼</div><br>
     	        <div style="font-weight:bold;font-size: 18px;">計</div><br>
     	        <div style="font-weight:bold;font-size: 18px;">劃</div></td>
-		    <td class="tdClass"  bgcolor="DDDDDD" width="1%" nowrap colspan=2>&nbsp;<input type="checkbox" name="c7" id="c7" value="1" style="display:none;" >&nbsp;&nbsp;五碼計劃&nbsp;</td>  
-		    <td class="tdClass" style="display:none;text-align:left"> <input class="betlist7" type ="text" style="width:98%"/></td>
+		    <td class="tdClass"  bgcolor="DDDDDD" width="1%" nowrap >&nbsp;<input type="checkbox" name="c7" id="c7" value="1"  >&nbsp;&nbsp;計劃六&nbsp;</td>  
+		    <td class="tdClass" style="text-align:left"> <input class="betlist7" type ="text" style="width:98%"/></td>
 		    <td nowrap class="tdClass" width="1%;"><button type="button" onclick="save_param()" class="button" style="border:3px outset;width:60px">儲存</button></td> 
       	    
     	        
@@ -552,7 +552,7 @@
 			        <td class="tdClass" bgcolor="5599FF" width="1%"> &nbsp;<input type="checkbox" name="c2" id="c2" value="2"  >&nbsp;&nbsp;計劃一&nbsp;</td> 
 					<td style="text-align:left" class="tdClass"> <input class="betlist2" type ="text" style="width:98%"/></td>
 					
-				    <td class="tdClass" bgcolor="FF8888" nowrap width="1%"> &nbsp;<input type="checkbox" name="c8" id="c8" value="8"  >&nbsp;&nbsp;直式七&nbsp;</td> 
+				    <td class="tdClass" bgcolor="FF8888" nowrap width="1%"> &nbsp;<input type="checkbox" name="c8" id="c8" value="8"  >&nbsp;&nbsp;計劃七&nbsp;</td> 
 			     
 					<td style="text-align:left" class="tdClass"> <input class="betlist8" type ="text" style="width:98%"/></td>
 					
@@ -581,7 +581,7 @@
 			<td nowrap class="tdClass" bgcolor="666666" width="1%">&nbsp;<input type="checkbox" name="c3" id="c3" value="1"  >&nbsp;&nbsp;計劃二&nbsp;</td> 
 			<td style="text-align:left" class="tdClass"><input class="betlist3" type ="text" style="width:98%"/></td>
 			
-			<td nowrap class="tdClass" bgcolor="DEB887" width="1%">&nbsp;<input type="checkbox" name="c9" id="c9" value="1"  >&nbsp;&nbsp;直式八&nbsp;</td>  
+			<td nowrap class="tdClass" bgcolor="DEB887" width="1%">&nbsp;<input type="checkbox" name="c9" id="c9" value="1"  >&nbsp;&nbsp;計劃八&nbsp;</td>  
 			<td style="text-align:left" class="tdClass"> <input class="betlist9" type ="text" style="width:98%"/></td>
 			
 			
@@ -1412,6 +1412,203 @@
 		//console.log(JSON.stringify(betIndex)); 
 	}
 	
+	function compareByType_from_member_project5(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
+		 
+		//const code_b = getCodeByPhase(phase_before); 
+		const code_n = getCodeByPhase(phase_now);
+		const code_n2 = getCodeByPhase(phase_now*1 -1);
+		const code_n3 = getCodeByPhase(phase_now*1 -2);
+		
+		 
+		const array_n =  code_n.split(',');
+		const array_n2 = code_n2.split(',');
+		const array_n3 = code_n3.split(',');
+
+		if( array_n.length==0  ){
+			return;
+		} 
+		  
+		var z = formu ;  
+		
+		
+		let total = array_n[0] * 1 + array_n2[5] * 1 + array_n3[6] * 1 ;
+		 
+		
+		let bet_code = ((total%10)==0?10:(total%10)) + '' ;
+		
+		
+		
+		
+		
+		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+	    var amount = bArray[bIndex[z]%bArray.length] ;
+		    
+	  
+	      
+	    let bet_sn = '1,2,3,4,5,6';
+		let dynamicSn = '';
+		 
+		let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
+   		if(rbf){
+			bIndex[z]++;
+			projectBet[(formu*1)][(formu*1)] = true;
+		} 
+			
+			 
+				
+			 
+		 
+		//console.log(JSON.stringify(betIndex)); 
+	}
+	
+	function compareByType_from_member_project6(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
+		 
+		//const code_b = getCodeByPhase(phase_before); 
+		const code_n = getCodeByPhase(phase_now);
+		const code_n2 = getCodeByPhase(phase_now*1 -1);
+		const code_n3 = getCodeByPhase(phase_now*1 -2);
+		
+		 
+		const array_n =  code_n.split(',');
+		const array_n2 = code_n2.split(',');
+		const array_n3 = code_n3.split(',');
+
+		if( array_n.length==0  ){
+			return;
+		} 
+		  
+		var z = formu ;  
+		
+		
+		let total = array_n[1] * 1 + array_n2[3] * 1 + array_n3[8] * 1 ;
+		 
+		
+		let bet_code = ((total%10)==0?10:(total%10)) + '' ;
+		
+		
+		
+		
+		
+		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+	    var amount = bArray[bIndex[z]%bArray.length] ;
+		    
+	  
+	      
+	    let bet_sn = '5,6,7,8,9,10';
+		let dynamicSn = '';
+		 
+		let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
+   		if(rbf){
+			bIndex[z]++;
+			projectBet[(formu*1)][(formu*1)] = true;
+		} 
+			
+			 
+				
+			 
+		 
+		//console.log(JSON.stringify(betIndex)); 
+	}
+	
+	
+	function compareByType_from_member_project7(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
+		 
+		//const code_b = getCodeByPhase(phase_before); 
+		const code_n = getCodeByPhase(phase_now);
+		//const code_n2 = getCodeByPhase(phase_now*1 -1);
+		//const code_n3 = getCodeByPhase(phase_now*1 -2);
+		
+		 
+		const array_n =  code_n.split(',');
+		//const array_n2 = code_n2.split(',');
+		//const array_n3 = code_n3.split(',');
+
+		if( array_n.length==0  ){
+			return;
+		} 
+		  
+		var z = formu ;  
+		
+		
+		let total = array_n[0] * 1 + array_n[5] * 1 + array_n[6] * 1 ;
+		 
+		
+		let bet_code = ((total%10)==0?10:(total%10)) + '' ;
+		
+		
+		
+		
+		
+		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+	    var amount = bArray[bIndex[z]%bArray.length] ;
+		    
+	  
+	      
+	    let bet_sn = '1,2,3,4,5,6';
+		let dynamicSn = '';
+		 
+		let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
+   		if(rbf){
+			bIndex[z]++;
+			projectBet[(formu*1)][(formu*1)] = true;
+		} 
+			
+			 
+				
+			 
+		 
+		//console.log(JSON.stringify(betIndex)); 
+	}
+	
+	function compareByType_from_member_project8(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
+		 
+		//const code_b = getCodeByPhase(phase_before); 
+		const code_n = getCodeByPhase(phase_now);
+		//const code_n2 = getCodeByPhase(phase_now*1 -1);
+		//const code_n3 = getCodeByPhase(phase_now*1 -2);
+		
+		 
+		const array_n =  code_n.split(',');
+		//const array_n2 = code_n2.split(',');
+		//const array_n3 = code_n3.split(',');
+
+		if( array_n.length==0  ){
+			return;
+		} 
+		  
+		var z = formu ;  
+		
+		
+		let total = array_n[1] * 1 + array_n[3] * 1 + array_n[8] * 1 ;
+		 
+		
+		let bet_code = ((total%10)==0?10:(total%10)) + '' ;
+		
+		
+		
+		
+		
+		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+	    var amount = bArray[bIndex[z]%bArray.length] ;
+		    
+	  
+	      
+	    let bet_sn = '5,6,7,8,9,10';
+		let dynamicSn = '';
+		 
+		let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
+   		if(rbf){
+			bIndex[z]++;
+			projectBet[(formu*1)][(formu*1)] = true;
+		} 
+			
+			 
+				
+			 
+		 
+		//console.log(JSON.stringify(betIndex)); 
+	}
+	
 	
 	function compareByType_from_member_x(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
 		const code_n = getCodeByPhase(phase_now); 
@@ -2109,7 +2306,11 @@
 	 		  (document.getElementById('c2').checked && !(projectBet[1][1])) ||
 	 		  (document.getElementById('c3').checked && !(projectBet[2][2])) ||
 	 		  (document.getElementById('c4').checked && !(projectBet[3][3])) ||
-	 		  (document.getElementById('c5').checked && !(projectBet[4][4]))
+	 		  (document.getElementById('c5').checked && !(projectBet[4][4]))||
+	 		  (document.getElementById('c6').checked && !(projectBet[5][5]))||
+	 		  (document.getElementById('c7').checked && !(projectBet[6][6]))||
+	 		  (document.getElementById('c8').checked && !(projectBet[7][7]))||
+	 		  (document.getElementById('c9').checked && !(projectBet[8][8]))
 					 )
 	 	  ) {
 	 		 return false;
@@ -2776,7 +2977,8 @@
 	        			    	 	  if(formu==2){betIndex2[2] = 0 ;}
 	        			    	 	  if(formu==3){betIndex3[3] = 0 ;}
 	        			    	 	  if(formu==4){betIndex4[4] = 0 ;}
-	        			    	 	  if(formu==6){betIndex6[sn] = 0 ;}
+	        			    	 	  if(formu==5){betIndex5[5] = 0 ;}
+	        			    	 	  if(formu==6){betIndex6[6] = 0 ;}
 	        			    	 	  if(formu==7){betIndex7[7] = 0 ;}
 	        			    	 	  if(formu==8){betIndex8[8] = 0 ;}
 	        			    	 	  if(formu==9){betIndex9[9] = 0 ;}
@@ -2864,27 +3066,29 @@
 						  compareByType_from_member(b,n,fourTh,betIndex4,betarray4,'4');
 					  }
 				   }
+			    //
 			    
-			    /*if(document.getElementById('c6').checked  && !checkProjectBetFlagIndex(projectBet[5]) ) {
+			    
+			    if(document.getElementById('c6').checked  && !(projectBet[5][5])  ) {
 					  console.log('project6'+'-betPhase:'+nextPhase);
 					  obj.b = nextPhase - 5 ;
 					  obj.fourTh = nextPhase - 4 ; 
 					  const b = obj.b ;
 					  const fourTh = obj.fourTh ;
 					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-						  compareByType1(b,n,fourTh,betIndex5,betarray5,'5');
+						  compareByType_from_member_project5(b,n,fourTh,betIndex5,betarray5,'5');
 					  }
 				  }
 			    
 	  		  
-			    if(document.getElementById('c7').checked  && !checkProjectBetFlagIndex(projectBet[6]) ) { 
+			    if(document.getElementById('c7').checked  && !(projectBet[6][6])  ) { 
 		    		  console.log('project1'+'-betPhase:'+nextPhase);
 		    		  obj.b = nextPhase - 5 ;
 		    		  obj.fourTh = nextPhase - 4 ;
 		    		  const b = obj.b ;
 				  const fourTh = obj.fourTh ;
 				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-					  compareByType1(b,n,fourTh,betIndex6,betarray6,'6');
+					  compareByType_from_member_project6(b,n,fourTh,betIndex6,betarray6,'6');
 				  } 
 		    	    }
 			    //直七
@@ -2895,7 +3099,7 @@
 					  const b = obj.b ;
 					  const fourTh = obj.fourTh ;
 					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-						  compareByType_from_member_x(b,n,fourTh,betIndex7,betarray7,'7');
+						  compareByType_from_member_project7(b,n,fourTh,betIndex7,betarray7,'7');
 					  } 
 				    }
 			    if(document.getElementById('c9').checked  && !(projectBet[8][8]) ) {
@@ -2905,9 +3109,11 @@
 				  const b = obj.b ;
 				  const fourTh = obj.fourTh ;
 				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-					  compareByType_from_member_x(b,n,fourTh,betIndex8,betarray8,'8');
+					  compareByType_from_member_project8(b,n,fourTh,betIndex8,betarray8,'8');
 			 	  }  
 	      	  }
+			    
+			    /*
 			    
 			   if(document.getElementById('c10').checked  && !(projectBet[9][9]) ) {
 	   	          console.log('project4'+'-betPhase:'+nextPhase);

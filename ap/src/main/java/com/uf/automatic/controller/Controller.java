@@ -588,10 +588,10 @@ public class Controller {
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-//                    if (formu.equals("06")) {//計劃六
-//                        logHtml.append("<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">"
-//                                      + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
-//                    }
+                    if (formu.equals("07")) {//計劃六
+                        logHtml.append("<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">"
+                                      + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+                    }
 
                     if (formu.equals("06")) {//計劃七
                         logHtml.append("<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">"
