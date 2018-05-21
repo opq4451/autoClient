@@ -1479,9 +1479,9 @@
 				
 			if(!projectBet[1][i]){
 			 
-					let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp1[z].toString(), formu ,z);
+					let rbf = reallyBet(z, amount, (phase_now+1) , betc , compute4Code(betTemp1[z].toString()), formu ,z);
 			   		if(rbf){
-						bIndex[z]++;
+						//bIndex[z]++;
 					} 
 				 
 				
@@ -1562,9 +1562,9 @@
 		 	if(!projectBet[2][i]){
 		 		
 		 		 
-		 			let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , betTemp2[z].toString(),formu,z);
+		 			let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , compute4Code(betTemp2[z].toString()),formu,z);
 			   		if(rbf){
-						bIndex[z]++;
+						//bIndex[z]++;
 					} 
 		 	 
 		   		
@@ -1629,9 +1629,9 @@
 				    //let bet_sn = betsn;
 					let dynamicSn = '';
 
-					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, betsn,dynamicSn);
+					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, compute4Code(betsn),dynamicSn);
 			   		if(rbf){
-						bIndex[z]++;
+						//bIndex[z]++;
 					} 
 			}
 		}
@@ -1641,13 +1641,12 @@
 	
 	function combind(arra){
   	  
-	       var arr = new Array(6)
+	       var arr = new Array(4)
 	       arr[0] =  arra.split(',')[0];
 	       arr[1] =  arra.split(',')[1];
 	       arr[2] =  arra.split(',')[2];
 	       arr[3] =  arra.split(',')[3];
-	       arr[4] =  arra.split(',')[4];
-	       arr[5] =  arra.split(',')[5];
+	      
 	   	  
 	  
 	       return arr.sort(sortNumber);  
@@ -1692,9 +1691,9 @@
 				
 			if(!projectBet[4][i]){
 			 
-					let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , betTemp4[z].toString(), formu ,z);
+					let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , compute4Code(betTemp4[z].toString()), formu ,z);
 			   		if(rbf){
-						bIndex[z]++;
+						//bIndex[z]++;
 					} 
 				 
 				
@@ -1764,9 +1763,9 @@
 			if(!projectBet[5][i]){
 				let dynamicSn = '';
 
-				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, betsn,dynamicSn);
+				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, compute4Code(betsn),dynamicSn);
 		   		if(rbf){
-					bIndex[z]++;
+					//bIndex[z]++;
 				}
 			}
 			  
@@ -1809,13 +1808,11 @@
 						projectBet[6][i] = true;
 						return;
 					}
-				    console.log("第"+ z + "名");
-
-					console.log(betTemp6[z].toString());
+				     
 		 		 
-		 			let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp6[z].toString(),formu,z);
+		 			let rbf = reallyBet(z, amount, (phase_now+1) , betc , compute4Code(betTemp6[z].toString()),formu,z);
 			   		if(rbf){
-						bIndex[z]++;
+						//bIndex[z]++;
 					} 
 		 	 
 		   		
@@ -1828,7 +1825,22 @@
 	
 	
 	
- 
+ 	function compute4Code(remove){
+ 		let total = ['1','2','3','4','5','6','7','8','9','10'];
+ 		let arra = remove.split(',');
+ 		 
+ 		for(var i =0 ; i < arra.length; i++){
+	    	  	let removecode = arra[i];
+	    	  	 
+	    	  	let removeindex = total.indexOf(removecode);
+	    	  	if (removeindex > -1) {
+	    	  		total.splice(removeindex, 1);
+	    	  	}
+	    	  	
+        }
+ 		
+ 		return total.toString();
+ 	}
 	
  
 
@@ -2390,7 +2402,7 @@
 			            var phase =  $( "div.toPhase" ).text();
 			            console.log(phase);
 						if( phase ){  
-							if(checkOver(phase)){
+							if(true){
 								//console.log(JSON.stringify(betIndex)); 
 
 							   if(checkClearMinute(min) && !checkProjectBetflag()){ //到了最後還下注不了，只好關數歸零
@@ -2620,7 +2632,68 @@
 	         success: function(data) { 
 	        	  
 	        	 const json = JSON.parse(data);
-	        	 if(json.a1){betIndex[1] = 0;}  if(json.a2){betIndex2[1] = 0;} 
+	        	 for(var formu = 1 ; formu<7 ; formu++){
+	        		 for(var sn=1 ; sn<11 ; sn++){
+	        			  let letter = '';
+	        			  let indexstr = '';
+	        			     if(sn == 1){letter = 'a'};
+	        			     if(sn == 2){letter = 'b'};
+	        			     if(sn == 3){letter = 'c'};
+	        			     if(sn == 4){letter = 'd'};
+	        			     if(sn == 5){letter = 'e'};
+	        			     if(sn == 6){letter = 'f'};
+	        			     if(sn == 7){letter = 'g'};
+	        			     if(sn == 8){letter = 'h'};
+	        			     if(sn == 9){letter = 'i'};
+	        			     if(sn == 10){letter = 'j'};
+					  
+	        			     let flag = json[letter+''+formu] ;
+	        			     if(flag){
+	        			    	 	  
+	        			    	 	  if(formu==1){
+	        			    	 		 betIndex[sn] = betIndex[sn] + 1 ;
+	        			    	 		 console.log('formu:'+ formu + 'sn:' + sn + ' value:' +betIndex[sn]);
+
+        			    	 		  } else if(formu==2){
+ 
+	        			    	 		  betIndex2[sn] = betIndex2[sn] + 1 ;
+      			    	 		  } else if(formu==3){
+	        			    	 		 console.log('formu:'+ formu + 'sn:' + sn);
+
+	        			    	 		  betIndex3[sn] = betIndex3[sn] + 1 ;
+     			    	 		  } else if(formu==4){
+		        			    	 		 console.log('formu:'+ formu + 'sn:' + sn);
+
+	        			    	 		 betIndex4[sn] = betIndex4[sn] + 1 ;
+      			    	 		  } else if(formu==5){
+	        			    	 		 console.log('formu:'+ formu + 'sn:' + sn);
+
+	        			    	 		  betIndex5[sn] = betIndex5[sn] + 1 ;
+     			    	 		  } else if(formu==6){
+	        			    	 		 console.log('formu:'+ formu + 'sn:' + sn);
+
+	        			    	 		  betIndex6[sn] = betIndex6[sn] + 1 ;
+    			    	 		  	  }	else {
+        			    	 			  betIndex[sn] = 0 ;
+        			    	 			  betIndex2[sn] = 0 ;
+        			    	 			  betIndex3[sn] = 0 ;
+        			    	 			  betIndex4[sn] = 0 ;
+        			    	 			  betIndex5[sn] = 0 ;
+        			    	 			  betIndex6[sn] = 0 ;
+        			    	 		  }
+	        			    	 	 
+	        			    	 	  
+	        			    	 	   
+	        			    	 	   
+	        			     }
+	        			    	  
+	        		 }
+	        		 
+	        	 }
+	        	 
+	        	 
+	        	 /*if(json.a1){betIndex[1] = 0;}  
+	        	 if(json.a2){betIndex2[1] = 0;} 
 	        	 if(json.a3){betIndex3[1] = 0;} if(json.a4){betIndex4[1] = 0;}
 	        	 if(json.a5){betIndex5[1] = 0;} if(json.a6){betIndex6[1] = 0;}
 	        	 if(json.b1){betIndex[2] = 0;}  if(json.b2){betIndex2[2] = 0;} 
@@ -2649,7 +2722,7 @@
 	        	 if(json.i5){betIndex5[9] = 0;} if(json.i6){betIndex6[9] = 0;}
 	        	 if(json.j1){betIndex[10] = 0;}  if(json.j2){betIndex2[10] = 0;} 
 	        	 if(json.j3){betIndex3[10] = 0;} if(json.j4){betIndex4[10] = 0;}
-	        	 if(json.j5){betIndex5[10] = 0;} if(json.j6){betIndex6[10] = 0;}
+	        	 if(json.j5){betIndex5[10] = 0;} if(json.j6){betIndex6[10] = 0;}*/
 	        	 
 	        	  
 	        	 if(json.checkFlag=='Y'){
