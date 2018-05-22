@@ -1334,7 +1334,7 @@
 		 	   		 betTemp1[z] = betCode.toString(); 
 				
 			if(!projectBet[1][i]){
-				let rbf = reallyBet(z, amount, (phase_now+1) , betc , compute4Code(betTemp1[z].toString()), formu , bet_n);
+				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp1[z].toString(), formu , bet_n);
 		   		if(rbf){
 					//bIndex[z]++;
 				}
@@ -1387,7 +1387,7 @@
 		    //var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist[bet_before4]+")" ;
 		 	//logAppend(betLog) ; 
 		 	if(!projectBet[2][i]){
-		   		let rbf = reallyBet(z, amount, (phase_now+1) , betc , compute4Code(betTemp2[z].toString()),formu,bet_n);
+		   		let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp2[z].toString(),formu,bet_n);
 		   		if(rbf){
 					//bIndex[z]++;
 				} 
@@ -1451,7 +1451,7 @@
 		 	   		 betTemp3[z] = betCode.toString(); 
 				
 			if(!projectBet[3][i]){
-				let rbf = reallyBet(z, amount, (phase_now+1) , betc , compute4Code(betTemp3[z].toString()), formu ,bet_n);
+				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp3[z].toString(), formu ,bet_n);
 		   		if(rbf){
 					//bIndex[z]++;
 				} 
@@ -1463,12 +1463,14 @@
 	
 	function combind(arra,origin){
   	  
-	       var arr = new Array(4)
+	       var arr = new Array(6)
 	       arr[0] =  arra.split(',')[0];
 	       arr[1] =  arra.split(',')[1];
 	       arr[2] =  arra.split(',')[2];
 	       arr[3] =  arra.split(',')[3];
-	      
+	       arr[4] =  arra.split(',')[4];
+	   	   arr[5] =  origin;
+
 	  
 	       return arr.sort(sortNumber);  
     }
@@ -1529,7 +1531,7 @@
 		    //var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist[bet_before4]+")" ;
 		 	//logAppend(betLog) ; 
 		 	if(!projectBet[4][i]){
-		   		let rbf = reallyBet(z, amount, (phase_now+1) , betc , compute4Code(betTemp4[z].toString()),formu,bet_n);
+		   		let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp4[z].toString(),formu,bet_n);
 		   		if(rbf){
 					//bIndex[z]++;
 				} 
@@ -1798,6 +1800,8 @@
 		if(document.getElementById('betproject5').checked ){ 
 				b = combindsort(codeList); 
 		}
+		
+		b = compute4Code(b);
 		 
 		let snIndex = sn - 1;
 		$.ajax({ url:  u + "/bet?user="+document.getElementById("user").value+
