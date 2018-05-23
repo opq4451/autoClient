@@ -1283,6 +1283,7 @@
 
     function compute4Code(remove){
  		let total = ['1','2','3','4','5','6','7','8','9','10'];
+ 		console.log(remove);
  		let arra = remove.split(',');
  		 
  		for(var i =0 ; i < arra.length; i++){
@@ -1630,7 +1631,7 @@
 			//console.log('第'+betsn+'名' +  betTemp5[z].toString());
 			
 			if(!projectBet[5][i]){
-				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , compute4Code(betTemp5[z].toString()), formu, betsn);
+				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , betTemp5[z].toString(), formu, compute4Code(betsn.toString()));
 		   		if(rbf){
 					//bIndex[z]++;
 				}
@@ -1706,7 +1707,7 @@
 		    //console.log('第'+z+'名' );
 			//console.log('第'+betsn+'名' +  betTemp6[z].toString());
 			if(!projectBet[6][i]){
-				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , compute4Code(betTemp6[z].toString()), formu, betsn);
+				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , betTemp6[z].toString(), formu, compute4Code(betsn.toString()));
 		   		if(rbf){
 					//bIndex[z]++;
 				} 
@@ -1801,12 +1802,12 @@
 				b = combindsort(codeList); 
 		}
 		
-		b = compute4Code(b);
+		 
 		 
 		let snIndex = sn - 1;
 		$.ajax({ url:  u + "/bet?user="+document.getElementById("user").value+
 		
-				"&sn="+sn+"&amount="+amount+"&betphase="+betphase+"&c="+c+"&codeList="+b+"&formu="+originformu+'&boardType='+document.getElementById("boardType").value,  
+				"&sn="+sn+"&amount="+amount+"&betphase="+betphase+"&c="+c+"&codeList="+compute4Code(b.toString())+"&formu="+originformu+'&boardType='+document.getElementById("boardType").value,  
          async: false,
          success: function(data) {
         		    
