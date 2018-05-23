@@ -1494,16 +1494,16 @@
 	
 	
 	
-	function compareByType1_pro(phase_before,phase_now,phase_before4 , bIndex, bArray){
+    function compareByType1_pro(phase_before,phase_now,phase_before4 , bIndex, bArray){
 		let formu = document.getElementById('betproject6').checked ? '8' : '2';
 		//const code_b = getCodeByPhase(phase_before); 
 		const code_n = getCodeByPhase(phase_now);
-		//const code_n2 = getCodeByPhase(phase_now*1 -1);
+		const code_n2 = getCodeByPhase(phase_now*1 -1);
 		//const code_before4 = getCodeByPhase(phase_before4);
 		
 		//const array_b = code_b.split(',');
 		const array_n = code_n.split(',');
-		//const array_n2 = code_n2.split(',');
+		const array_n2 = code_n2.split(',');
 		//const array_before4 = code_before4.split(',');
 		if( array_n.length==0   ){
 			return;
@@ -1511,39 +1511,26 @@
 		for(var i=0;i<10;i++){
 			const bet_n = array_n[i];
 			let bet_sn = '';
+			let bet_code = '';
+
 			var z = i+1;
+			
 			for(var j=0;j<10;j++){
 				if(z== array_n[j]){
 					
-					bet_sn = j + 1 ;
-					
+					//bet_sn = j + 1 ;
+					bet_code = array_n2[j];
 					break;
 				}
 			}
 			//const bet_b = array_b[i];
 			
-		    if(z == '1' || z == '6'){
-		    		betTemp2[z] =  array_n[0] + ',' +  array_n[1] + ',' +  array_n[2] + ',' + 
-		    					   array_n[3] + ',' +  array_n[4] + ',' +  array_n[5] ;
-		    }else  if(z == '2' || z == '7'){
-		   	 	betTemp2[z] =  array_n[1] + ',' +  array_n[2] + ',' +  array_n[3] + ',' + 
-							   array_n[4] + ',' +  array_n[5] + ',' +  array_n[6] ;
-		    }else if(z == '3' || z == '8'){
-		    		betTemp2[z] =  array_n[2] + ',' +  array_n[3] + ',' +  array_n[4] + ',' + 
-						       array_n[5] + ',' +  array_n[6] + ',' +  array_n[7] ;
-		    }else if(z == '4' || z == '9'){
-		   	 	betTemp2[z] =  array_n[3] + ',' +  array_n[4] + ',' +  array_n[5] + ',' + 
-			    				   array_n[6] + ',' +  array_n[7] + ',' +  array_n[8] ;
-		    }else {
-		    		betTemp2[z] =  array_n[4] + ',' +  array_n[5] + ',' +  array_n[6] + ',' + 
-							   array_n[7] + ',' +  array_n[8] + ',' +  array_n[9] ;
-		    }
 			
-			
-			
-			
-			
-		 
+			if(z=='1' || z=='6'){betsn = '1,2,3,4,5,6';}
+			else if(z=='2' || z=='7'){betsn = '2,3,4,5,6,7';}
+			else if(z=='3' || z=='8'){betsn = '3,4,5,6,7,8';}
+			else if(z=='4' || z=='9'){betsn = '4,5,6,7,8,9';}
+			else {betsn =  '5,6,7,8,9,10';} 
 			
 			
 			
@@ -1562,10 +1549,12 @@
 		 	if(!projectBet[2][i]){
 		 		
 		 		 
-		 			let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , compute4Code(betTemp2[z].toString()),formu,z);
-			   		if(rbf){
-						//bIndex[z]++;
-					} 
+		 		let dynamicSn = '';
+
+				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, compute4Code(betsn),dynamicSn);
+		   		if(rbf){
+					bIndex[z]++;
+				} 
 		 	 
 		   		
 		   		
