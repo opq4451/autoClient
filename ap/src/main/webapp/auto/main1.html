@@ -1446,7 +1446,6 @@
 			return;
 		}
 		for(var i=0;i<10;i++){
-			//const bet_b = array_b[i];
 			const bet_n = array_n[i];
 			//const bet_n2 = array_n2[i];
 			//const bet_before4 = array_before4[i];
@@ -1456,22 +1455,8 @@
 			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
   		    var amount = bArray[bIndex[z]%bArray.length] ;
 		    
-  		    if(bet_n == '1' || bet_n == '6'){
-  		    		betTemp1[z] =  array_n[0] + ',' +  array_n[1] + ',' +  array_n[2] + ',' + 
-  		    					   array_n[3] + ',' +  array_n[4] + ',' +  array_n[5] ;
-  		    }else  if(bet_n == '2' || bet_n == '7'){
-  		   	 	betTemp1[z] =  array_n[1] + ',' +  array_n[2] + ',' +  array_n[3] + ',' + 
-							   array_n[4] + ',' +  array_n[5] + ',' +  array_n[6] ;
-  		    }else if(bet_n == '3' || bet_n == '8'){
-  		   	 	betTemp1[z] =  array_n[2] + ',' +  array_n[3] + ',' +  array_n[4] + ',' + 
-						       array_n[5] + ',' +  array_n[6] + ',' +  array_n[7] ;
-  		    }else if(bet_n == '4' || bet_n == '9'){
-  		   	 	betTemp1[z] =  array_n[3] + ',' +  array_n[4] + ',' +  array_n[5] + ',' + 
-			    				   array_n[6] + ',' +  array_n[7] + ',' +  array_n[8] ;
-  		    }else {
-  		    		betTemp1[z] =  array_n[4] + ',' +  array_n[5] + ',' +  array_n[6] + ',' + 
-							   array_n[7] + ',' +  array_n[8] + ',' +  array_n[9] ;
-  		    }
+  		   
+  		  	betTemp1[z] =  '1,3,4,7,8,10' ;
 	   		 
 		    
 			
@@ -1479,7 +1464,7 @@
 				
 			if(!projectBet[1][i]){
 			 
-					let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp1[z].toString(), formu ,z);
+					let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , betTemp1[z].toString(), formu ,z);
 			   		if(rbf){
 						bIndex[z]++;
 					} 
@@ -1510,55 +1495,30 @@
 		}
 		for(var i=0;i<10;i++){
 			const bet_n = array_n[i];
-			let bet_sn = '';
-			let bet_code = '';
-
-			var z = i+1;
-			
-			for(var j=0;j<10;j++){
-				if(z== array_n[j]){
-					
-					//bet_sn = j + 1 ;
-					bet_code = array_n2[j];
-					break;
-				}
-			}
-			//const bet_b = array_b[i];
+			//const bet_n2 = array_n2[i];
+			//const bet_before4 = array_before4[i];
 			
 			
-			if(z=='1' || z=='6'){betsn = '1,2,3,4,5,6';}
-			else if(z=='2' || z=='7'){betsn = '2,3,4,5,6,7';}
-			else if(z=='3' || z=='8'){betsn = '3,4,5,6,7,8';}
-			else if(z=='4' || z=='9'){betsn = '4,5,6,7,8,9';}
-			else {betsn =  '5,6,7,8,9,10';} 
-			
-			
-			
-		 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-		 	//var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
-		 	//logAppend(cLog) ;
-		    var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-            //var betList =  rangeExist_pro[bet_before4].toString().split(',');
-			var writeFlag = false;
-	    	//var betStr="";
-		    var amount = bArray[bIndex[z]%bArray.length] ; 
-		     
+			var z = i+1;  
+			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+  		    var amount = bArray[bIndex[z]%bArray.length] ;
 		    
-		    //var betLog =  d + "" + "第"+z+"名,準備下注("+rangeExist[bet_before4]+")" ;
-		 	//logAppend(betLog) ; 
-		 	if(!projectBet[2][i]){
-		 		
-		 		 
-		 		let dynamicSn = '';
-
-				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, betsn,dynamicSn);
-		   		if(rbf){
-					bIndex[z]++;
-				} 
-		 	 
-		   		
-		   		
-		 	}
+  		   
+  		  	betTemp2[z] =  '1,2,5,6,9,10' ;
+	   		 
+		    
+			
+			 
+				
+			if(!projectBet[2][i]){
+			 
+					let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , betTemp2[z].toString(), formu ,z);
+			   		if(rbf){
+						bIndex[z]++;
+					} 
+				 
+				
+			}
 			
 		}
 		
@@ -1584,44 +1544,29 @@
 			
 			 
 			const bet_n = array_n[i];
-			const bet_n2 = array_n2[i];
-		 	let bet_code = '';
-		 	//var d = getYYYYMMDDSS();
-			var z = i+1;
-			let betsn = '';
-			for(var j=0;j<10;j++){
-				if( z == array_n2[j]){
-					
-					bet_code = array_n[j];
-
-					
-					break;
-				}
-			}
+			//const bet_n2 = array_n2[i];
+			//const bet_before4 = array_before4[i];
 			
-			if(z=='1' || z=='6'){betsn = '1,2,3,4,5,6';}
-			else if(z=='2' || z=='7'){betsn = '2,3,4,5,6,7';}
-			else if(z=='3' || z=='8'){betsn = '3,4,5,6,7,8';}
-			else if(z=='4' || z=='9'){betsn = '4,5,6,7,8,9';}
-			else {betsn =  '5,6,7,8,9,10';}
 			
-
+			var z = i+1;  
+			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+  		    var amount = bArray[bIndex[z]%bArray.length] ;
+		    
+  		   
+  		  	betTemp3[z] =  '1,2,3,8,9,10' ;
+	   		 
+		    
+			
 			 
-		    var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-            //var betList =  rangeExist_pro3[bet_before4].toString().split(',');
-		    var writeFlag = false; 
-		    var amount = bArray[bIndex[z]%bArray.length] ;
-		      
 				
 			if(!projectBet[3][i]){
-				 	//let bet_code = bet_n;
-				    //let bet_sn = betsn;
-					let dynamicSn = '';
-
-					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, betsn,dynamicSn);
+			 
+					let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , betTemp3[z].toString(), formu ,z);
 			   		if(rbf){
 						bIndex[z]++;
 					} 
+				 
+				
 			}
 		}
 		
@@ -1714,49 +1659,29 @@
 		for(var i=0;i<10;i++){
 			
 			const bet_n = array_n[i];
-			const bet_n2 = array_n2[i];
-		 	let bet_code = '';
-		 	//var d = getYYYYMMDDSS();
-			var z = i+1;
-			let betsn = '';
-			for(var j=0;j<10;j++){
-				if( z == array_n2[j]){
-					
-					bet_code = array_n[j];
-
-					let snn = j + 1; 
-					if(snn=='1' || snn=='6'){betsn = '1,2,3,4,5,6';}
-					else if(snn=='2' || snn=='7'){betsn = '2,3,4,5,6,7';}
-					else if(snn=='3' || snn=='8'){betsn = '3,4,5,6,7,8';}
-					else if(snn=='4' || snn=='9'){betsn = '4,5,6,7,8,9';}
-					else {betsn =  '5,6,7,8,9,10';}
-					break;
-				}
-			}
-			
-			
-			
-			 
 			//const bet_n2 = array_n2[i];
 			//const bet_before4 = array_before4[i];
- 
-		 	//var d = getYYYYMMDDSS();
-			var z = i+1;
-		 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-		 	//var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
-		 	//logAppend(cLog) ;
-		    var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
- 			//var betList =  rangeExist_pro5[bet_before4].toString().split(',');
-		    var writeFlag = false;
-	    	//var betStr="";
-			var amount = bArray[bIndex[z]%bArray.length] ;
+			
+			
+			var z = i+1;  
+			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+  		    var amount = bArray[bIndex[z]%bArray.length] ;
+		    
+  		   
+  		  	betTemp5[z] =  '2,3,5,6,8,9' ;
+	   		 
+		    
+			
+			 
+				
 			if(!projectBet[5][i]){
-				let dynamicSn = '';
-
-				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, betsn,dynamicSn);
-		   		if(rbf){
-					bIndex[z]++;
-				}
+			 
+					let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , betTemp5[z].toString(), formu ,z);
+			   		if(rbf){
+						bIndex[z]++;
+					} 
+				 
+				
 			}
 			  
 		}
@@ -1781,35 +1706,30 @@
 		}
 		for(var i=0;i<10;i++){
 			const bet_n = array_n[i];
-			let bet_sn = '';
-			var z = i+1;
+			//const bet_n2 = array_n2[i];
+			//const bet_before4 = array_before4[i];
+			
+			
+			var z = i+1;  
+			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+  		    var amount = bArray[bIndex[z]%bArray.length] ;
+		    
+  		   
+  		  	betTemp6[z] =  '1,4,5,6,7,10' ;
+	   		 
+		    
+			
 			 
+				
+			if(!projectBet[6][i]){
 			 
-		    var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
- 			var writeFlag = false;
- 		    var amount = bArray[bIndex[z]%bArray.length] ; 
-		      
-		 	if(!projectBet[6][i]){
-			 		betTemp6[z] = project6_limit(i,phase_now);
-				    console.log("**********");
-
-				     
-					if(betTemp6[z] == null){
-						projectBet[6][i] = true;
-						return;
-					}
-				    console.log("第"+ z + "名");
-
-					console.log(betTemp6[z].toString());
-		 		 
-		 			let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp6[z].toString(),formu,z);
+					let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , betTemp6[z].toString(), formu ,z);
 			   		if(rbf){
 						bIndex[z]++;
 					} 
-		 	 
-		   		
-		   		
-		 	}
+				 
+				
+			}
 			
 		}
 		
@@ -2322,7 +2242,7 @@
 	   	 		 if(document.getElementById("autoStart").checked){
 	   	 			 auto = "Y";
 	   	 		 }
-	             window.location.href="http://www.sd8888.net/index.html?auto="+auto+"&user="+
+	             window.location.href="http://www.sd8888.net/index641_6.html?auto="+auto+"&user="+
 	             document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value;
 		    }
 			    
