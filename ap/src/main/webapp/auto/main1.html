@@ -1446,7 +1446,12 @@
 			return;
 		}
 		for(var i=0;i<10;i++){
-			let bet_sn = '';
+					
+
+			var z = i+1;  
+			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+  		    var amount = bArray[bIndex[z]%bArray.length] ;
+  		  	let bet_sn = '';
 			for(var j=0;j<10;j++){
 				if(z== array_n[j]){
 					
@@ -1454,12 +1459,7 @@
 					//bet_code = array_n2[j];
 					break;
 				}
-			}		
-
-			var z = i+1;  
-			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-  		    var amount = bArray[bIndex[z]%bArray.length] ;
-		    
+			}
   		   
   		  	let bet_ =  '2,5,6,9' ;
 	   		 
@@ -1499,7 +1499,12 @@
 			return;
 		}
 		for(var i=0;i<10;i++){
-			let bet_sn = '';
+					
+			var z = i+1;  
+			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+  		    var amount = bArray[bIndex[z]%bArray.length] ;
+		    
+  		 	 let bet_sn = '';
 			for(var j=0;j<10;j++){
 				if(z== array_n[j]){
 					
@@ -1507,12 +1512,7 @@
 					//bet_code = array_n2[j];
 					break;
 				}
-			}		
-			var z = i+1;  
-			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-  		    var amount = bArray[bIndex[z]%bArray.length] ;
-		    
-  		   
+			}
   		  	let bet_ =  '3,4,7,8' ;
 	   		 
 		    
@@ -1548,7 +1548,11 @@
 			return;
 		}
 		for(var i=0;i<10;i++){
-			let bet_sn = '';
+			
+			var z = i+1;  
+			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+  		    var amount = bArray[bIndex[z]%bArray.length] ;
+  		  	let bet_sn = '';
 			for(var j=0;j<10;j++){
 				if(z== array_n[j]){
 					
@@ -1557,10 +1561,6 @@
 					break;
 				}
 			}
-			var z = i+1;  
-			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-  		    var amount = bArray[bIndex[z]%bArray.length] ;
-		    
   		   
   		  	let bet_ =  '4,5,6,7' ;
 	   		 
@@ -1616,15 +1616,7 @@
 		}
 		for(var i=0;i<10;i++){
 			
-			let bet_sn = '';
-			for(var j=0;j<10;j++){
-				if(z== array_n[j]){
-					
-					bet_sn = j + 1 ;
-					//bet_code = array_n2[j];
-					break;
-				}
-			}
+			
 			
 			//const bet_b = array_b[i];
 			//const bet_n = array_n[i];
@@ -1635,7 +1627,15 @@
 			var z = i+1;  
 			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
   		    var amount = bArray[bIndex[z]%bArray.length] ;
-		    
+  		  	let bet_sn = '';
+			for(var j=0;j<10;j++){
+				if(z== array_n[j]){
+					
+					bet_sn = j + 1 ;
+					//bet_code = array_n2[j];
+					break;
+				}
+			}
   		   
   		  	betTemp4[z] =  '1,2,9,10' ;
 	   		 
@@ -1676,7 +1676,12 @@
 			return;
 		}
 		for(var i=0;i<10;i++){
-			let bet_sn = '';
+			
+			var z = i+1;  
+			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+  		    var amount = bArray[bIndex[z]%bArray.length] ;
+		    
+  		 	 let bet_sn = '';
 			for(var j=0;j<10;j++){
 				if(z== array_n[j]){
 					
@@ -1685,11 +1690,6 @@
 					break;
 				}
 			}
-			var z = i+1;  
-			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-  		    var amount = bArray[bIndex[z]%bArray.length] ;
-		    
-  		   
   		  	let bet_ =  '1,4,7,10' ;
 	   		 
 		    
@@ -1727,7 +1727,13 @@
 			return;
 		}
 		for(var i=0;i<10;i++){
-			let bet_sn = '';
+			
+			
+			//const bet_n = array_n[i];
+			var z = i+1;  
+			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+  		    var amount = bArray[bIndex[z]%bArray.length] ;
+  		  let bet_sn = '';
 			for(var j=0;j<10;j++){
 				if(z== array_n[j]){
 					
@@ -1736,12 +1742,6 @@
 					break;
 				}
 			}
-			
-			//const bet_n = array_n[i];
-			var z = i+1;  
-			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-  		    var amount = bArray[bIndex[z]%bArray.length] ;
-		    
   		   
   		  	let bet_ =  '2,3,8,9' ;
 	   		 
