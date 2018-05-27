@@ -1331,6 +1331,9 @@
 
 			//console.log(betCode);
 			 
+			
+			
+			
 			if(bIndex[z] == 0)
 		 	   		 betTemp1[z] = betCode.toString(); 
 				
@@ -1442,6 +1445,10 @@
 			    }
 			}
 		    
+			if(betCode == ""){
+				projectBet[3][i] = true;
+				return true;
+			}
 			
 			//console.log("**************");
 			//console.log("第"+z+"名");
@@ -1525,6 +1532,11 @@
 			    }
 			 }
 			    
+			if(betCode == ""){
+				projectBet[4][i] = true;
+				return true;
+			}
+			
 		 	//console.log("*******8");
 		    //console.log(betCode);
 		    if(bIndex[z] == 0)
