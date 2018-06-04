@@ -636,49 +636,62 @@ public class Controller {
     public String getPhase(@RequestParam("user") String user, @RequestParam("pwd") String pwd,
                            @RequestParam("boardType") String boardType) {
         try {
+            
+            Utils.writeHistory();
+            
             if (boardType.equals("0") && h == null) {
-                h = httpClientCookie.getInstance(user, pwd);
-                String open = h.getOpenBall();
-                JsonParser parser = new JsonParser();
-                JsonObject o = parser.parse(open).getAsJsonObject();
-                JsonObject data = o.get("data").getAsJsonObject();
-                String phase = data.get("draw_phase").getAsString();
-                 
-                JsonArray draw_result = data.getAsJsonArray("draw_result");
-                String totalcode = "";
-                for(int i = 0; i<draw_result.size();i++) {
-                    String code = draw_result.get(i).getAsString().substring(0, 1).equals("0") ?  draw_result.get(i).getAsString().substring(1, 2) 
-                                                                                               : draw_result.get(i).getAsString();
-                    totalcode += code +",";
-                    //Utils.WritePropertiesFile("history", phase, code);
+                try {
+                    h = httpClientCookie.getInstance(user, pwd);
+                    String open = h.getOpenBall();
+                    JsonParser parser = new JsonParser();
+                    JsonObject o = parser.parse(open).getAsJsonObject();
+                    JsonObject data = o.get("data").getAsJsonObject();
+                    String phase = data.get("draw_phase").getAsString();
+                     
+                    JsonArray draw_result = data.getAsJsonArray("draw_result");
+                    String totalcode = "";
+                    for(int i = 0; i<draw_result.size();i++) {
+                        String code = draw_result.get(i).getAsString().substring(0, 1).equals("0") ?  draw_result.get(i).getAsString().substring(1, 2) 
+                                                                                                   : draw_result.get(i).getAsString();
+                        totalcode += code +",";
+                        //Utils.WritePropertiesFile("history", phase, code);
+                    }
+                    Utils.WritePropertiesFile("history", phase, totalcode.substring(0,totalcode.length()-1));
+ 
+                }catch(Exception e) {
+                    saveLog(user + "getPhase", e.getMessage());
                 }
-                Utils.WritePropertiesFile("history", phase, totalcode.substring(0,totalcode.length()-1));
-
+               
                // 
             }else if (boardType.equals("2")) {
-                String history= DaliHttpClient.getLottery();
-                JsonParser parser = new JsonParser();
-                JsonArray o = parser.parse(history).getAsJsonArray();
-                JsonObject json = o.get(0).getAsJsonObject();
-                JsonArray data = json.getAsJsonArray("data");
-                JsonObject c = data.get(0).getAsJsonObject();
-                String phase = c.get("PhaseNO").getAsString();
-                 
-                JsonObject content =  c.get("Content").getAsJsonObject();
-                String totalcode = "";
-                for(int i = 1 ; i<11 ; i ++) {
-                    String draw_result =  content.get(Integer.toString(i)).getAsString();
-                    String code = draw_result.substring(0, 1).equals("0") ?  draw_result.substring(1, 2) 
-                                                                                               : draw_result;
-                    totalcode += code +",";
-                    
+                try {
+                    String history= DaliHttpClient.getLottery();
+                    JsonParser parser = new JsonParser();
+                    JsonArray o = parser.parse(history).getAsJsonArray();
+                    JsonObject json = o.get(0).getAsJsonObject();
+                    JsonArray data = json.getAsJsonArray("data");
+                    JsonObject c = data.get(0).getAsJsonObject();
+                    String phase = c.get("PhaseNO").getAsString();
+                     
+                    JsonObject content =  c.get("Content").getAsJsonObject();
+                    String totalcode = "";
+                    for(int i = 1 ; i<11 ; i ++) {
+                        String draw_result =  content.get(Integer.toString(i)).getAsString();
+                        String code = draw_result.substring(0, 1).equals("0") ?  draw_result.substring(1, 2) 
+                                                                                                   : draw_result;
+                        totalcode += code +",";
+                        
+                    }
+                    Utils.WritePropertiesFile("history", phase, totalcode.substring(0,totalcode.length()-1));
+                }catch(Exception e) {
+                    saveLog(user + "getPhase", e.getMessage());
                 }
-                Utils.WritePropertiesFile("history", phase, totalcode.substring(0,totalcode.length()-1));
+                
             }
 
             
             
-            Utils.writeHistory();
+           
 
             String nexphase = Utils.getMaxPhase();
             return Integer.toString(Integer.parseInt(nexphase) + 1);
