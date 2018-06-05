@@ -452,49 +452,54 @@ public class Controller {
                     if (v.indexOf("第0關") > -1) { //下注0的不用顯示在log
                         continue;
                     }
-                    String index = "";
-                    if (key_form.equals("6")) {
-                        index = "01";
-                    }
-                    ;
-                    if (key_form.equals("12")) {
-                        index = "07";
-                    }
-                    if (key_form.equals("5")) {
-                        index = "02";
-                    }
-                    ;
-                    if (key_form.equals("11")) {
-                        index = "08";
-                    }
-                    if (key_form.equals("4")) {
-                        index = "03";
-                    }
-                    ;
-                    if (key_form.equals("10")) {
-                        index = "09";
-                    }
-                    if (key_form.equals("3")) {
-                        index = "04";
-                    }
-                    ;
-                    if (key_form.equals("9")) {
-                        index = "10";
-                    }
-                    if (key_form.equals("2")) {
-                        index = "05";
-                    }
-                    ;
-                    if (key_form.equals("8")) {
-                        index = "11";
-                    }
+                    String index = ""; 
+                   
                     if (key_form.equals("1")) {
-                        index = "06";
-                    }
-                    ;
-                    if (key_form.equals("7")) {
                         index = "12";
                     }
+                    ;
+                    if (key_form.equals("2")) {
+                        index = "11";
+                    }
+                    ;
+                    if (key_form.equals("3")) {
+                        index = "10";
+                    }
+                    ;
+                    if (key_form.equals("4")) {
+                        index = "09";
+                    }
+                    ;
+                    
+                    if (key_form.equals("5")) {
+                        index = "08";
+                    }
+                    ;
+                    if (key_form.equals("6")) {
+                        index = "07";
+                    }
+                    ;
+                    
+                    if (key_form.equals("7")) {
+                        index = "06";
+                    }
+                    if (key_form.equals("8")) {
+                        index = "05";
+                    }
+                    if (key_form.equals("9")) {
+                        index = "04";
+                    }
+                    if (key_form.equals("10")) {
+                        index = "03";
+                    }
+                    if (key_form.equals("11")) {
+                        index = "02";
+                    }
+                    if (key_form.equals("12")) {
+                        index = "01";
+                    }
+                   
+                    
 
                     String k = phase + "@" + index + "@" + sn + "@" + c + "@" + cc;
 
@@ -554,58 +559,60 @@ public class Controller {
                         m.put(phase, phase);
                     }
 
-                    if (formu.equals("06")) {
+                    if (formu.equals("12")) {
                         logHtml.append("<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("05")) {
+                    if (formu.equals("11")) {
                         logHtml.append("<tr><td bgcolor=\"5599FF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("04")) {
+                    if (formu.equals("10")) {
                         logHtml.append("<tr><td bgcolor=\"666666\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("03")) {
+                    if (formu.equals("09")) {
                         logHtml.append("<tr><td bgcolor=\"FFAA33\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("02")) {
+                    if (formu.equals("08")) {
                         logHtml.append("<tr><td bgcolor=\"99FFFF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("01")) {
+                    if (formu.equals("07")) {
                         logHtml.append("<tr><td bgcolor=\"B94FFF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
+                    
+                    //6code 
 
-                    if (formu.equals("12")) {
+                    if (formu.equals("06")) {
                         logHtml.append("<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("11")) {
+                    if (formu.equals("05")) {
                         logHtml.append("<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("10")) {
+                    if (formu.equals("04")) {
                         logHtml.append("<tr><td bgcolor=\"DEB887\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("09")) {
+                    if (formu.equals("03")) {
                         logHtml.append("<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("08")) {
+                    if (formu.equals("02")) {
                         logHtml.append("<tr><td bgcolor=\"CCFF99\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("07")) {
+                    if (formu.equals("01")) {
                         logHtml.append("<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
@@ -636,49 +643,62 @@ public class Controller {
     public String getPhase(@RequestParam("user") String user, @RequestParam("pwd") String pwd,
                            @RequestParam("boardType") String boardType) {
         try {
+            
+            Utils.writeHistory();
+            
             if (boardType.equals("0") && h == null) {
-                h = httpClientCookie.getInstance(user, pwd);
-                String open = h.getOpenBall();
-                JsonParser parser = new JsonParser();
-                JsonObject o = parser.parse(open).getAsJsonObject();
-                JsonObject data = o.get("data").getAsJsonObject();
-                String phase = data.get("draw_phase").getAsString();
-                 
-                JsonArray draw_result = data.getAsJsonArray("draw_result");
-                String totalcode = "";
-                for(int i = 0; i<draw_result.size();i++) {
-                    String code = draw_result.get(i).getAsString().substring(0, 1).equals("0") ?  draw_result.get(i).getAsString().substring(1, 2) 
-                                                                                               : draw_result.get(i).getAsString();
-                    totalcode += code +",";
-                    //Utils.WritePropertiesFile("history", phase, code);
+                try {
+                    h = httpClientCookie.getInstance(user, pwd);
+                    String open = h.getOpenBall();
+                    JsonParser parser = new JsonParser();
+                    JsonObject o = parser.parse(open).getAsJsonObject();
+                    JsonObject data = o.get("data").getAsJsonObject();
+                    String phase = data.get("draw_phase").getAsString();
+                     
+                    JsonArray draw_result = data.getAsJsonArray("draw_result");
+                    String totalcode = "";
+                    for(int i = 0; i<draw_result.size();i++) {
+                        String code = draw_result.get(i).getAsString().substring(0, 1).equals("0") ?  draw_result.get(i).getAsString().substring(1, 2) 
+                                                                                                   : draw_result.get(i).getAsString();
+                        totalcode += code +",";
+                        //Utils.WritePropertiesFile("history", phase, code);
+                    }
+                    Utils.WritePropertiesFile("history", phase, totalcode.substring(0,totalcode.length()-1));
+ 
+                }catch(Exception e) {
+                    saveLog(user + "getPhase", e.getMessage());
                 }
-                Utils.WritePropertiesFile("history", phase, totalcode.substring(0,totalcode.length()-1));
-
+               
                // 
             }else if (boardType.equals("2")) {
-                String history= DaliHttpClient.getLottery();
-                JsonParser parser = new JsonParser();
-                JsonArray o = parser.parse(history).getAsJsonArray();
-                JsonObject json = o.get(0).getAsJsonObject();
-                JsonArray data = json.getAsJsonArray("data");
-                JsonObject c = data.get(0).getAsJsonObject();
-                String phase = c.get("PhaseNO").getAsString();
-                 
-                JsonObject content =  c.get("Content").getAsJsonObject();
-                String totalcode = "";
-                for(int i = 1 ; i<11 ; i ++) {
-                    String draw_result =  content.get(Integer.toString(i)).getAsString();
-                    String code = draw_result.substring(0, 1).equals("0") ?  draw_result.substring(1, 2) 
-                                                                                               : draw_result;
-                    totalcode += code +",";
-                    
+                try {
+                    String history= DaliHttpClient.getLottery();
+                    JsonParser parser = new JsonParser();
+                    JsonArray o = parser.parse(history).getAsJsonArray();
+                    JsonObject json = o.get(0).getAsJsonObject();
+                    JsonArray data = json.getAsJsonArray("data");
+                    JsonObject c = data.get(0).getAsJsonObject();
+                    String phase = c.get("PhaseNO").getAsString();
+                     
+                    JsonObject content =  c.get("Content").getAsJsonObject();
+                    String totalcode = "";
+                    for(int i = 1 ; i<11 ; i ++) {
+                        String draw_result =  content.get(Integer.toString(i)).getAsString();
+                        String code = draw_result.substring(0, 1).equals("0") ?  draw_result.substring(1, 2) 
+                                                                                                   : draw_result;
+                        totalcode += code +",";
+                        
+                    }
+                    Utils.WritePropertiesFile("history", phase, totalcode.substring(0,totalcode.length()-1));
+                }catch(Exception e) {
+                    saveLog(user + "getPhase", e.getMessage());
                 }
-                Utils.WritePropertiesFile("history", phase, totalcode.substring(0,totalcode.length()-1));
+                
             }
 
             
             
-            Utils.writeHistory();
+           
 
             String nexphase = Utils.getMaxPhase();
             return Integer.toString(Integer.parseInt(nexphase) + 1);
@@ -906,20 +926,14 @@ public class Controller {
             if (c.length != 10)
                 return "null";
 
-            int s = 1;
-            if (betproject.equals("6")) {
-                s = 7;
-            }
-            int e = s + 6;
+           
 
-            for (int x = s; x < e; x++) { // x → 公式幾
+            for (int x = 1; x < 13; x++) { // x → 公式幾
                 for (int i = 0; i < 10; i++) {
 
                     int sn = i + 1;
-
-                    //if (  x == 6  || x == 12) {
-
-                        for (int overi = 1; overi < 11; overi++) {
+ 
+                        for (int overi = 1; overi < 11; overi++) {//x:formu
                             String key = phase + "@" + sn + "@" + c[i] + "@" + x + "@" + overi;
                             if (configProperty.getProperty(key) != null) {
                                 if (overmp.get(user + key) == null) {
@@ -938,35 +952,12 @@ public class Controller {
                                                                                                   + "關)" + "(公式" + x
                                                                                                   + ")");
 
-                                    j.addProperty(covertIntToLatter(overi) + (x > 6 ? x - 6 : x), "Y");
+                                    j.addProperty(covertIntToLatter(overi) + x, "Y");
                                 }
 
                             }
                         }
-
-                  //  } 
-//                    else {
-//                        String key = phase + "@" + sn + "@" + c[i] + "@" + x;
-//                        if (configProperty.getProperty(key) != null) {
-//                            if (overmp.get(user + key) == null) {
-//                                overmp.put(user + key, "put");
-//                                over_i++;
-//                                // Utils.WritePropertiesFile(user+"overLOGDIS_log",
-//                                // fillZero(Integer.toString(over_i)), "第"+phase +
-//                                // "期，第" + sn + "名，號碼(" + code + ") 已過關!(第"+c+"關)");
-//                                String t = new SimpleDateFormat("HH:mm:ss").format(new Date());
-//                                Utils.WritePropertiesFile(user + "overLOGDIS_log",
-//                                                          fillZero(Integer.toString(over_i)),
-//                                                          "第" + phase + "期，第" + sn + "名，已過關!(第"
-//                                                                                              + configProperty.getProperty(key)
-//                                                                                              + "關)" + "(公式" + x + ")");
-//
-//                                j.addProperty(covertIntToLatter(sn) + (x > 6 ? x - 6 : x), "Y");
-//                            }
-//
-//                        }
-//                    }
-
+ 
                 }
 
             }
