@@ -1457,20 +1457,20 @@
   		    var amount = bArray[bIndex[z]%bArray.length] ;
 		    
   		    if(bet_n == '1' || bet_n == '6'){
-  		    		betTemp1[z] =  array_n[0] + ',' +  array_n[1] + ',' +  array_n[2] + ',' + 
-  		    					   array_n[3] + ',' +  array_n[4] + ',' +  array_n[5] ;
+  		    		betTemp1[z] =  array_n[1] + ',' +  array_n[2] + ',' + 
+  		    					   array_n[3] + ',' +  array_n[4]  ;
   		    }else  if(bet_n == '2' || bet_n == '7'){
-  		   	 	betTemp1[z] =  array_n[1] + ',' +  array_n[2] + ',' +  array_n[3] + ',' + 
-							   array_n[4] + ',' +  array_n[5] + ',' +  array_n[6] ;
+  		   	 	betTemp1[z] =  array_n[2] + ',' +  array_n[3] + ',' + 
+							   array_n[4] + ',' +  array_n[5]   ;
   		    }else if(bet_n == '3' || bet_n == '8'){
-  		   	 	betTemp1[z] =  array_n[2] + ',' +  array_n[3] + ',' +  array_n[4] + ',' + 
-						       array_n[5] + ',' +  array_n[6] + ',' +  array_n[7] ;
+  		   	 	betTemp1[z] =  array_n[3] + ',' +  array_n[4] + ',' + 
+						       array_n[5] + ',' +  array_n[6]  ;
   		    }else if(bet_n == '4' || bet_n == '9'){
-  		   	 	betTemp1[z] =  array_n[3] + ',' +  array_n[4] + ',' +  array_n[5] + ',' + 
-			    				   array_n[6] + ',' +  array_n[7] + ',' +  array_n[8] ;
+  		   	 	betTemp1[z] =  array_n[4] + ',' +  array_n[5] + ',' + 
+			    				   array_n[6] + ',' +  array_n[7]   ;
   		    }else {
-  		    		betTemp1[z] =  array_n[4] + ',' +  array_n[5] + ',' +  array_n[6] + ',' + 
-							   array_n[7] + ',' +  array_n[8] + ',' +  array_n[9] ;
+  		    		betTemp1[z] =  array_n[5] + ',' +  array_n[6] + ',' + 
+							   array_n[7] + ',' +  array_n[8]  ;
   		    }
 	   		 
 		    
@@ -1479,7 +1479,7 @@
 				
 			if(!projectBet[1][i]){
 			 
-					let rbf = reallyBet(z, amount, (phase_now+1) , betc , compute4Code(betTemp1[z].toString()), formu ,z);
+					let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp1[z].toString(), formu ,z);
 			   		if(rbf){
 						//bIndex[z]++;
 					} 
@@ -1526,11 +1526,11 @@
 			//const bet_b = array_b[i];
 			
 			
-			if(z=='1' || z=='6'){betsn = '1,2,3,4,5,6';}
-			else if(z=='2' || z=='7'){betsn = '2,3,4,5,6,7';}
-			else if(z=='3' || z=='8'){betsn = '3,4,5,6,7,8';}
-			else if(z=='4' || z=='9'){betsn = '4,5,6,7,8,9';}
-			else {betsn =  '5,6,7,8,9,10';} 
+			if(z=='1' || z=='6'){betsn = '2,3,4,5';}
+			else if(z=='2' || z=='7'){betsn = '3,4,5,6';}
+			else if(z=='3' || z=='8'){betsn = '4,5,6,7';}
+			else if(z=='4' || z=='9'){betsn = '5,6,7,8';}
+			else {betsn =  '6,7,8,9';} 
 			
 			
 			
@@ -1551,9 +1551,9 @@
 		 		 
 		 		let dynamicSn = '';
 
-				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, compute4Code(betsn),dynamicSn);
+				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, betsn,dynamicSn);
 		   		if(rbf){
-					bIndex[z]++;
+					//bIndex[z]++;
 				} 
 		 	 
 		   		
@@ -1599,11 +1599,11 @@
 				}
 			}
 			
-			if(z=='1' || z=='6'){betsn = '1,2,3,4,5,6';}
-			else if(z=='2' || z=='7'){betsn = '2,3,4,5,6,7';}
-			else if(z=='3' || z=='8'){betsn = '3,4,5,6,7,8';}
-			else if(z=='4' || z=='9'){betsn = '4,5,6,7,8,9';}
-			else {betsn =  '5,6,7,8,9,10';}
+			if(z=='1' || z=='6'){betsn = '2,3,4,5';}
+			else if(z=='2' || z=='7'){betsn = '3,4,5,6';}
+			else if(z=='3' || z=='8'){betsn = '4,5,6,7';}
+			else if(z=='4' || z=='9'){betsn = '5,6,7,8';}
+			else {betsn =  '6,7,8,9';}
 			
 
 			 
@@ -1618,7 +1618,7 @@
 				    //let bet_sn = betsn;
 					let dynamicSn = '';
 
-					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, compute4Code(betsn),dynamicSn);
+					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, betsn,dynamicSn);
 			   		if(rbf){
 						//bIndex[z]++;
 					} 
@@ -1672,15 +1672,12 @@
   		    var amount = bArray[bIndex[z]%bArray.length] ;
 		    
   		   
-  		  	betTemp4[z] =  '3,4,5,6,7,8' ;
-	   		 
-		    
 			
 			 
 				
 			if(!projectBet[4][i]){
 			 
-					let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , compute4Code(betTemp4[z].toString()), formu ,z);
+					let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , '4,5,6,7', formu ,z);
 			   		if(rbf){
 						//bIndex[z]++;
 					} 
@@ -1724,11 +1721,11 @@
 					bet_code = array_n[j];
 
 					let snn = j + 1; 
-					if(snn=='1' || snn=='6'){betsn = '1,2,3,4,5,6';}
-					else if(snn=='2' || snn=='7'){betsn = '2,3,4,5,6,7';}
-					else if(snn=='3' || snn=='8'){betsn = '3,4,5,6,7,8';}
-					else if(snn=='4' || snn=='9'){betsn = '4,5,6,7,8,9';}
-					else {betsn =  '5,6,7,8,9,10';}
+					if(snn=='1' || snn=='6'){betsn = '2,3,4,5';}
+					else if(snn=='2' || snn=='7'){betsn = '3,4,5,6';}
+					else if(snn=='3' || snn=='8'){betsn = '4,5,6,7';}
+					else if(snn=='4' || snn=='9'){betsn = '5,6,7,8';}
+					else {betsn =  '6,7,8,9';}
 					break;
 				}
 			}
@@ -1752,7 +1749,7 @@
 			if(!projectBet[5][i]){
 				let dynamicSn = '';
 
-				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, compute4Code(betsn),dynamicSn);
+				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, (betsn),dynamicSn);
 		   		if(rbf){
 					//bIndex[z]++;
 				}
@@ -1798,8 +1795,12 @@
 						return;
 					}
 				     
+					let f = betTemp6[z].toString().split(',');
+					f.pop();
+					f.shift();
 		 		 
-		 			let rbf = reallyBet(z, amount, (phase_now+1) , betc , compute4Code(betTemp6[z].toString()),formu,z);
+					
+		 			let rbf = reallyBet(z, amount, (phase_now+1) , betc , f.toString(),formu,z);
 			   		if(rbf){
 						//bIndex[z]++;
 					} 
@@ -2392,7 +2393,7 @@
 			            console.log(phase);
 						if( phase ){  
 							if(true){
-								//console.log(JSON.stringify(betIndex)); 
+								console.log(JSON.stringify(betIndex)); 
 
 							   if(checkClearMinute(min) && !checkProjectBetflag()){ //到了最後還下注不了，只好關數歸零
 									clearIndex(); //
