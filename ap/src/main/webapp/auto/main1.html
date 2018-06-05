@@ -893,7 +893,7 @@
 		 });
 		 
 		 $( "#logoutDiv" ).click(function() {
-             window.location.href='/index777_6.html' ;
+             window.location.href='/index777_12.html' ;
 
 		 });
 		 
@@ -1720,15 +1720,9 @@
 	function reallyBet(sn,amount,betphase,c,codeList,formu,BETFLAG){
 	    
 		 
-		var b = '';
+		var b = combind(codeList);
 		 
-		if(document.getElementById('betproject6').checked ){
-			b = combind(codeList);
-		}
-		
-		if(document.getElementById('betproject5').checked ){ 
-				b = combindsort(codeList); 
-		}
+	 
 		 
 		let snIndex = BETFLAG - 1;
 		$.ajax({ url:  u + "/bet?user="+document.getElementById("user").value+
@@ -2134,7 +2128,7 @@
 	   	 		 if(document.getElementById("autoStart").checked){
 	   	 			 auto = "Y";
 	   	 		 }
-	             window.location.href="http://www.sd8888.net/index777_6.html?auto="+auto+"&user="+
+	             window.location.href="http://www.sd8888.net/index777_12.html?auto="+auto+"&user="+
 	             document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value;
 		    }
 			    
