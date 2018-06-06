@@ -636,49 +636,62 @@ public class Controller {
     public String getPhase(@RequestParam("user") String user, @RequestParam("pwd") String pwd,
                            @RequestParam("boardType") String boardType) {
         try {
+            
+            Utils.writeHistory();
+            
             if (boardType.equals("0") && h == null) {
-                h = httpClientCookie.getInstance(user, pwd);
-                String open = h.getOpenBall();
-                JsonParser parser = new JsonParser();
-                JsonObject o = parser.parse(open).getAsJsonObject();
-                JsonObject data = o.get("data").getAsJsonObject();
-                String phase = data.get("draw_phase").getAsString();
-                 
-                JsonArray draw_result = data.getAsJsonArray("draw_result");
-                String totalcode = "";
-                for(int i = 0; i<draw_result.size();i++) {
-                    String code = draw_result.get(i).getAsString().substring(0, 1).equals("0") ?  draw_result.get(i).getAsString().substring(1, 2) 
-                                                                                               : draw_result.get(i).getAsString();
-                    totalcode += code +",";
-                    //Utils.WritePropertiesFile("history", phase, code);
+                try {
+                    h = httpClientCookie.getInstance(user, pwd);
+                    String open = h.getOpenBall();
+                    JsonParser parser = new JsonParser();
+                    JsonObject o = parser.parse(open).getAsJsonObject();
+                    JsonObject data = o.get("data").getAsJsonObject();
+                    String phase = data.get("draw_phase").getAsString();
+                     
+                    JsonArray draw_result = data.getAsJsonArray("draw_result");
+                    String totalcode = "";
+                    for(int i = 0; i<draw_result.size();i++) {
+                        String code = draw_result.get(i).getAsString().substring(0, 1).equals("0") ?  draw_result.get(i).getAsString().substring(1, 2) 
+                                                                                                   : draw_result.get(i).getAsString();
+                        totalcode += code +",";
+                        //Utils.WritePropertiesFile("history", phase, code);
+                    }
+                    Utils.WritePropertiesFile("history", phase, totalcode.substring(0,totalcode.length()-1));
+ 
+                }catch(Exception e) {
+                    saveLog(user + "getPhase", e.getMessage());
                 }
-                Utils.WritePropertiesFile("history", phase, totalcode.substring(0,totalcode.length()-1));
-
+               
                // 
             }else if (boardType.equals("2")) {
-                String history= DaliHttpClient.getLottery();
-                JsonParser parser = new JsonParser();
-                JsonArray o = parser.parse(history).getAsJsonArray();
-                JsonObject json = o.get(0).getAsJsonObject();
-                JsonArray data = json.getAsJsonArray("data");
-                JsonObject c = data.get(0).getAsJsonObject();
-                String phase = c.get("PhaseNO").getAsString();
-                 
-                JsonObject content =  c.get("Content").getAsJsonObject();
-                String totalcode = "";
-                for(int i = 1 ; i<11 ; i ++) {
-                    String draw_result =  content.get(Integer.toString(i)).getAsString();
-                    String code = draw_result.substring(0, 1).equals("0") ?  draw_result.substring(1, 2) 
-                                                                                               : draw_result;
-                    totalcode += code +",";
-                    
+                try {
+                    String history= DaliHttpClient.getLottery();
+                    JsonParser parser = new JsonParser();
+                    JsonArray o = parser.parse(history).getAsJsonArray();
+                    JsonObject json = o.get(0).getAsJsonObject();
+                    JsonArray data = json.getAsJsonArray("data");
+                    JsonObject c = data.get(0).getAsJsonObject();
+                    String phase = c.get("PhaseNO").getAsString();
+                     
+                    JsonObject content =  c.get("Content").getAsJsonObject();
+                    String totalcode = "";
+                    for(int i = 1 ; i<11 ; i ++) {
+                        String draw_result =  content.get(Integer.toString(i)).getAsString();
+                        String code = draw_result.substring(0, 1).equals("0") ?  draw_result.substring(1, 2) 
+                                                                                                   : draw_result;
+                        totalcode += code +",";
+                        
+                    }
+                    Utils.WritePropertiesFile("history", phase, totalcode.substring(0,totalcode.length()-1));
+                }catch(Exception e) {
+                    saveLog(user + "getPhase", e.getMessage());
                 }
-                Utils.WritePropertiesFile("history", phase, totalcode.substring(0,totalcode.length()-1));
+                
             }
 
             
             
-            Utils.writeHistory();
+           
 
             String nexphase = Utils.getMaxPhase();
             return Integer.toString(Integer.parseInt(nexphase) + 1);
@@ -2656,6 +2669,44 @@ public class Controller {
 
         return "null";
     }
+    
+    @RequestMapping("/setLow")
+    public String setLow(@RequestParam("filename") String filename, @RequestParam("start") String v) {
+        FileInputStream fileIn = null;
+        FileOutputStream fileOut = null;
+
+        try {
+            Properties configProperty = new Properties() {
+                @Override
+                public synchronized Enumeration<Object> keys() {
+                    return Collections.enumeration(new TreeSet<Object>(super.keySet()));
+                }
+            };
+            String path = System.getProperty("user.dir");
+            String hisFile = path + "/" + filename + "low.properties";
+            File file = new File(hisFile);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            fileIn = new FileInputStream(file);
+            configProperty.load(new InputStreamReader(fileIn, "UTF-8"));
+            configProperty.setProperty("low", v);
+
+            fileOut = new FileOutputStream(file);
+            configProperty.store(new OutputStreamWriter(fileOut, "UTF-8"), "sample properties");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            try {
+                fileIn.close();
+                fileOut.close();
+            } catch (Exception ex) {
+            }
+        }
+
+        return "null";
+    }
 
     @RequestMapping("/getForce")
     public String getForce(@RequestParam("filename") String filename) {
@@ -2691,6 +2742,43 @@ public class Controller {
         }
 
         return "1";
+    }
+    
+    
+    @RequestMapping("/getLow")
+    public String getLow() {
+        FileInputStream fileIn = null;
+        FileOutputStream fileOut = null;
+
+        try {
+            Properties configProperty = new Properties() {
+                @Override
+                public synchronized Enumeration<Object> keys() {
+                    return Collections.enumeration(new TreeSet<Object>(super.keySet()));
+                }
+            };
+            String path = System.getProperty("user.dir");
+            String hisFile = path + "/low.properties";
+            File file = new File(hisFile);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            fileIn = new FileInputStream(file);
+            configProperty.load(new InputStreamReader(fileIn, "UTF-8"));
+            String low = configProperty.getProperty("low");
+            return low;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            try {
+                fileIn.close();
+                fileOut.close();
+            } catch (Exception ex) {
+            }
+        }
+
+        return "0";
     }
 
     //String mountain_url = "http://w1.5a1234.com";
