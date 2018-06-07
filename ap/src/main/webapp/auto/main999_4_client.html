@@ -2225,23 +2225,24 @@
 			clearIndex();
 		    return false;
 		}
- 	    
- 	    if(s == 0 ){ //低點
+ 	    console.log('是否進入下注:'+ (s == '0'));
+ 	    if(s == '0' ){ //低點
  	 	   	$( ".startstatus" ).val(1) ;
- 	    
- 	 	    if(sw*1 < todayWin*1){ //停利
- 				//$('td.s_win').css('background-color', '#0066FF');
- 				setLow(1);//高點
- 				let nextHigh = sw*1 + todayWin*1;
- 				$( ".stopwin" ).val(nextHigh);
- 	 		}else{
- 	 			//$('td.s_win').css('background-color', 'powderblue');
+ 	        $('select.startstatus').css('background', 'green');
 
- 	 		}
+ 	 	   
  	 	  
  	    		return true;
  	    }else {
- 	   		$( ".startstatus" ).val(0) ;
+ 	    		console.log('set 0');
+ 	    		try{
+ 	    	        $( ".startstatus" ).val(0);
+ 	    	        $('select.startstatus').css('background', 'red');
+ 	    		}catch(err){
+	        	    	console.log(err);
+        	    }
+ 	    		
+ 	   		
  	    		return false;
  	    }
  	    

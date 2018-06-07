@@ -2193,23 +2193,40 @@
  		} 
  		return p;
  	}
- 	
+ 	var secondFlag = false;
+ 	 
+
+	var oringinPoint ='';
  	function checkWin(){
- 		let s = getLow();// 
+ 		
  		
  		
  		var sl= $( ".stoplose" ).val();
  		var sw= $( ".stopwin" ).val();
  		
- 		var startPoint =''
- 		if(s=='' || s=='1'){//高點或是初始值，算入場點數
+ 		/*let s = getLow();// 
+ 		if( s=='1'){//高點 ，算入場點數
  			startPoint = (todayWin*1) - (sl*1) ;
- 		}
+ 		}*/
  		
- 		if(todayWin*1 < startPoint*1){
+ 		console.log('進場點，等今日點數: '+ ( oringinPoint*1 - (sl*1) ));
+ 		/*if(todayWin*1 < startPoint*1){
+ 			setLow(0);//低點
+ 		}*/
+ 		
+ 		
+ 		//當一直贏上去超過起伏點數，計算起跑點數
+ 		if( (todayWin*1 - oringinPoint*1) > (sl*1)){
+ 			oringinPoint = (todayWin*1)  ;
+ 			setLow(1);//高點
+ 			secondFlag = true;
+ 		}
+ 		//當一直輸超過起伏點數，計算高點
+ 		if( (oringinPoint*1  - todayWin*1) > (secondFlag?(sl*1*1.5):(sl*1)) ){
+ 			oringinPoint = (todayWin*1)  ;
  			setLow(0);//低點
  		}
- 		consolog.log('進場點，等今日點數< '+startPoint);
+ 		
  		
  		if(sl*-1> todayWin*1){ //停損
  			//setLow(1);//低點
@@ -2423,7 +2440,8 @@
 		    			}
 				    
 				    
-				    log_betIndex();
+				    //log_betIndex();
+				    
 			        if(!checkProjectBetflag() && checkBetMinute(min) && checkWin() && checkTime(h)){ //bet time每5分鐘下注一次
 			            var phase =  $( "div.toPhase" ).text();
 			            console.log(phase);
@@ -2977,6 +2995,13 @@
     }
     
     function save_param(){
+   	 	var sl= $( ".stoplose" ).val();
+    		/*let s = getLow();// 
+ 		if(s=='' || s=='1'){//高點或是初始值，算入場點數
+ 			startPoint = (todayWin*1) - (sl*1) ;
+ 		}*/
+ 		oringinPoint = (todayWin*1);
+    	
     	    let check = 0;
     		if(document.getElementById("betproject5").checked){
     			  check = 5;

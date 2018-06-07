@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -392,8 +393,7 @@ public class Controller {
     }
 
     public static void main(String[] args) {
-        String s = new Controller().getPredictLog("aaabet");
-        System.out.println(s);
+        removeOverLog("uu5511","686130");
     }
 
     @RequestMapping("/getPredictLog")
@@ -996,6 +996,64 @@ public class Controller {
             System.out.println(code);
             e.printStackTrace();
         } finally {
+            
+            try {
+                fileIn.close();
+                fileOut.close();
+            } catch (Exception ex) {
+            }
+            removeOverLog(user,phase);
+        }
+
+        return "null";
+    }
+    
+    public static void removeOverLog(String user,String checkPhase) {
+        
+        FileInputStream fileIn = null ;
+        FileOutputStream fileOut = null;
+
+        int removePhase = Integer.parseInt(checkPhase) - 1 ;
+        try {
+            Properties configProperty = new OrderedProperties();
+            String path = System.getProperty("user.dir");
+            String hisFile = path + "/" + user + "_over_log.properties";
+            File file = new File(hisFile);
+            if (!file.exists())
+                file.createNewFile();
+            fileIn = new FileInputStream(file);
+            configProperty.load(new InputStreamReader(fileIn, "UTF-8"));
+            
+            Map m = new HashMap();
+
+            Map<String, String> treemap = new TreeMap<String, String>(Collections.reverseOrder());
+            ArrayList<String> removeList = new ArrayList();
+            for (Enumeration e = configProperty.propertyNames(); e.hasMoreElements();) {
+                String key = e.nextElement().toString();
+               
+                removeList.add(key);
+                
+            } 
+            
+            for(String key:removeList) {
+                String phase = key.split("@")[0];
+                if(Integer.parseInt(phase) <= removePhase) {
+                    configProperty.remove(key); 
+
+                    System.out.println("remove ok" + phase);
+                }
+            }
+            
+            fileOut = new FileOutputStream(file);
+            configProperty.store(new OutputStreamWriter(fileOut, "UTF-8"), "sample properties");
+        }catch(Exception e) {
+
+            try {
+                fileIn.close();
+                fileOut.close();
+            } catch (Exception ex) {
+            }
+        }finally{
 
             try {
                 fileIn.close();
@@ -1003,8 +1061,7 @@ public class Controller {
             } catch (Exception ex) {
             }
         }
-
-        return "null";
+        
     }
 
     @RequestMapping("/clearLog")
