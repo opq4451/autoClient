@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -636,49 +637,62 @@ public class Controller {
     public String getPhase(@RequestParam("user") String user, @RequestParam("pwd") String pwd,
                            @RequestParam("boardType") String boardType) {
         try {
+            
+            Utils.writeHistory();
+            
             if (boardType.equals("0") && h == null) {
-                h = httpClientCookie.getInstance(user, pwd);
-                String open = h.getOpenBall();
-                JsonParser parser = new JsonParser();
-                JsonObject o = parser.parse(open).getAsJsonObject();
-                JsonObject data = o.get("data").getAsJsonObject();
-                String phase = data.get("draw_phase").getAsString();
-                 
-                JsonArray draw_result = data.getAsJsonArray("draw_result");
-                String totalcode = "";
-                for(int i = 0; i<draw_result.size();i++) {
-                    String code = draw_result.get(i).getAsString().substring(0, 1).equals("0") ?  draw_result.get(i).getAsString().substring(1, 2) 
-                                                                                               : draw_result.get(i).getAsString();
-                    totalcode += code +",";
-                    //Utils.WritePropertiesFile("history", phase, code);
+                try {
+                    h = httpClientCookie.getInstance(user, pwd);
+                    String open = h.getOpenBall();
+                    JsonParser parser = new JsonParser();
+                    JsonObject o = parser.parse(open).getAsJsonObject();
+                    JsonObject data = o.get("data").getAsJsonObject();
+                    String phase = data.get("draw_phase").getAsString();
+                     
+                    JsonArray draw_result = data.getAsJsonArray("draw_result");
+                    String totalcode = "";
+                    for(int i = 0; i<draw_result.size();i++) {
+                        String code = draw_result.get(i).getAsString().substring(0, 1).equals("0") ?  draw_result.get(i).getAsString().substring(1, 2) 
+                                                                                                   : draw_result.get(i).getAsString();
+                        totalcode += code +",";
+                        //Utils.WritePropertiesFile("history", phase, code);
+                    }
+                    Utils.WritePropertiesFile("history", phase, totalcode.substring(0,totalcode.length()-1));
+ 
+                }catch(Exception e) {
+                    saveLog(user + "getPhase", e.getMessage());
                 }
-                Utils.WritePropertiesFile("history", phase, totalcode.substring(0,totalcode.length()-1));
-
+               
                // 
             }else if (boardType.equals("2")) {
-                String history= DaliHttpClient.getLottery();
-                JsonParser parser = new JsonParser();
-                JsonArray o = parser.parse(history).getAsJsonArray();
-                JsonObject json = o.get(0).getAsJsonObject();
-                JsonArray data = json.getAsJsonArray("data");
-                JsonObject c = data.get(0).getAsJsonObject();
-                String phase = c.get("PhaseNO").getAsString();
-                 
-                JsonObject content =  c.get("Content").getAsJsonObject();
-                String totalcode = "";
-                for(int i = 1 ; i<11 ; i ++) {
-                    String draw_result =  content.get(Integer.toString(i)).getAsString();
-                    String code = draw_result.substring(0, 1).equals("0") ?  draw_result.substring(1, 2) 
-                                                                                               : draw_result;
-                    totalcode += code +",";
-                    
+                try {
+                    String history= DaliHttpClient.getLottery();
+                    JsonParser parser = new JsonParser();
+                    JsonArray o = parser.parse(history).getAsJsonArray();
+                    JsonObject json = o.get(0).getAsJsonObject();
+                    JsonArray data = json.getAsJsonArray("data");
+                    JsonObject c = data.get(0).getAsJsonObject();
+                    String phase = c.get("PhaseNO").getAsString();
+                     
+                    JsonObject content =  c.get("Content").getAsJsonObject();
+                    String totalcode = "";
+                    for(int i = 1 ; i<11 ; i ++) {
+                        String draw_result =  content.get(Integer.toString(i)).getAsString();
+                        String code = draw_result.substring(0, 1).equals("0") ?  draw_result.substring(1, 2) 
+                                                                                                   : draw_result;
+                        totalcode += code +",";
+                        
+                    }
+                    Utils.WritePropertiesFile("history", phase, totalcode.substring(0,totalcode.length()-1));
+                }catch(Exception e) {
+                    saveLog(user + "getPhase", e.getMessage());
                 }
-                Utils.WritePropertiesFile("history", phase, totalcode.substring(0,totalcode.length()-1));
+                
             }
 
             
             
-            Utils.writeHistory();
+           
 
             String nexphase = Utils.getMaxPhase();
             return Integer.toString(Integer.parseInt(nexphase) + 1);
@@ -943,30 +957,7 @@ public class Controller {
 
                             }
                         }
-
-                  //  } 
-//                    else {
-//                        String key = phase + "@" + sn + "@" + c[i] + "@" + x;
-//                        if (configProperty.getProperty(key) != null) {
-//                            if (overmp.get(user + key) == null) {
-//                                overmp.put(user + key, "put");
-//                                over_i++;
-//                                // Utils.WritePropertiesFile(user+"overLOGDIS_log",
-//                                // fillZero(Integer.toString(over_i)), "第"+phase +
-//                                // "期，第" + sn + "名，號碼(" + code + ") 已過關!(第"+c+"關)");
-//                                String t = new SimpleDateFormat("HH:mm:ss").format(new Date());
-//                                Utils.WritePropertiesFile(user + "overLOGDIS_log",
-//                                                          fillZero(Integer.toString(over_i)),
-//                                                          "第" + phase + "期，第" + sn + "名，已過關!(第"
-//                                                                                              + configProperty.getProperty(key)
-//                                                                                              + "關)" + "(公式" + x + ")");
-//
-//                                j.addProperty(covertIntToLatter(sn) + (x > 6 ? x - 6 : x), "Y");
-//                            }
-//
-//                        }
-//                    }
-
+ 
                 }
 
             }
@@ -989,9 +980,67 @@ public class Controller {
                 fileOut.close();
             } catch (Exception ex) {
             }
+            
+            removeOverLog(user,phase);
         }
 
         return "null";
+    }
+    
+    public static void removeOverLog(String user,String checkPhase) {
+        
+        FileInputStream fileIn = null ;
+        FileOutputStream fileOut = null;
+
+        int removePhase = Integer.parseInt(checkPhase) - 1 ;
+        try {
+            Properties configProperty = new OrderedProperties();
+            String path = System.getProperty("user.dir");
+            String hisFile = path + "/" + user + "_over_log.properties";
+            File file = new File(hisFile);
+            if (!file.exists())
+                file.createNewFile();
+            fileIn = new FileInputStream(file);
+            configProperty.load(new InputStreamReader(fileIn, "UTF-8"));
+            
+            Map m = new HashMap();
+
+            Map<String, String> treemap = new TreeMap<String, String>(Collections.reverseOrder());
+            ArrayList<String> removeList = new ArrayList();
+            for (Enumeration e = configProperty.propertyNames(); e.hasMoreElements();) {
+                String key = e.nextElement().toString();
+               
+                removeList.add(key);
+                
+            } 
+            
+            for(String key:removeList) {
+                String phase = key.split("@")[0];
+                if(Integer.parseInt(phase) <= removePhase) {
+                    configProperty.remove(key); 
+
+                    System.out.println("remove ok" + phase);
+                }
+            }
+            
+            fileOut = new FileOutputStream(file);
+            configProperty.store(new OutputStreamWriter(fileOut, "UTF-8"), "sample properties");
+        }catch(Exception e) {
+
+            try {
+                fileIn.close();
+                fileOut.close();
+            } catch (Exception ex) {
+            }
+        }finally{
+
+            try {
+                fileIn.close();
+                fileOut.close();
+            } catch (Exception ex) {
+            }
+        }
+        
     }
 
     @RequestMapping("/clearLog")
