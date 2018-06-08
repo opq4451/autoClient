@@ -2219,12 +2219,15 @@
  	    let s = getLow();// 
  	    
  	    
- 	   if(!(sl*-1 < todayWin*1)  ){
+ 	 
+ 	    
+ 	    if(!(sl*-1 < todayWin*1) || !(todayWin*1 < sw*1)){
 			$( ".startstatus" ).val(0) ;
 			//$('select.startstatus').css('background', 'red');
 			clearIndex();
-		    return false;
+		    //$('.tdstartstatus').css('background', 'red'); 
 		}
+ 	  
  	    console.log('是否進入下注:'+ (s == '0'));
  	    if(s == '0' ){ //低點
  	 	   	$( ".startstatus" ).val(1) ;
