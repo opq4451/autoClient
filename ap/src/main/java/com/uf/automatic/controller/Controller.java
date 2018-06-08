@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -850,8 +851,8 @@ public class Controller {
         return "null";
     }
 
-    Map overmp = new HashMap();
-
+    Map<String,String> overmp = new HashMap();
+    
     @RequestMapping("/checkOver")
     public synchronized String checkOver(@RequestParam("user") String user, @RequestParam("phase") String phase,
                             @RequestParam("code") String code, @RequestParam("betproject") String betproject) {
@@ -881,13 +882,9 @@ public class Controller {
             if (c.length != 10)
                 return "null";
 
-            int s = 1;
-            if (betproject.equals("6")) {
-                s = 7;
-            }
-            int e = s + 6;
+           
 
-            for (int x = s; x < e; x++) { // x → 公式幾
+            for (int x = 1; x < 13; x++) { // x → 公式幾
                 for (int i = 0; i < 10; i++) {
 
                     int sn = i + 1;
@@ -897,52 +894,34 @@ public class Controller {
                         for (int overi = 1; overi < 11; overi++) {
                             String key = phase + "@" + sn + "@" + c[i] + "@" + x + "@" + overi;
                             
-                            System.out.println(key);
+                            //System.out.println(key);
                             if (configProperty.getProperty(key) != null) {
-                                if (overmp.get(user + key) == null) {
-                                    overmp.put(user + key, "put");
+                                if (overmp.get(user +"@"+ key) == null) {
+                                    overmp.put(user +"@"+ key, "put");
                                     over_i++;
                                     // Utils.WritePropertiesFile(user+"overLOGDIS_log",
                                     // fillZero(Integer.toString(over_i)), "第"+phase +
                                     // "期，第" + sn + "名，號碼(" + code + ") 已過關!(第"+c+"關)");
                                     String t = new SimpleDateFormat("HH:mm:ss").format(new Date());
-                                    Utils.WritePropertiesFile(user + "overLOGDIS_log",
-                                                              fillZero(Integer.toString(over_i)),
-                                                              "第" + phase + "期"
-                                                                      + "計劃" + overi
-                                                                      + "，第" + sn + "名，號碼(" + c[i] + ")已過關!(第"
-                                                                                                  + configProperty.getProperty(key)
-                                                                                                  + "關)" + "(公式" + x
-                                                                                                  + ")");
+                                    int cc = Integer.parseInt(configProperty.getProperty(key));
+                                    if(cc>5) {
+                                        Utils.WritePropertiesFile(user + "overLOGDIS_log",
+                                                                  fillZero(Integer.toString(over_i)),
+                                                                  "第" + phase + "期"
+                                                                          + "計劃" + overi
+                                                                          + "，第" + sn + "名，號碼(" + c[i] + ")已過關!(第"
+                                                                                                      + configProperty.getProperty(key)
+                                                                                                      + "關)" + "(公式" + x
+                                                                                                      + ")");
+                                    }
+                                  
 
-                                    j.addProperty(covertIntToLatter(overi) + (x > 6 ? x - 6 : x), "Y");
+                                    j.addProperty(covertIntToLatter(overi) + x, "Y");
                                 }
 
                             }
                         }
-
-                  //  } 
-//                    else {
-//                        String key = phase + "@" + sn + "@" + c[i] + "@" + x;
-//                        if (configProperty.getProperty(key) != null) {
-//                            if (overmp.get(user + key) == null) {
-//                                overmp.put(user + key, "put");
-//                                over_i++;
-//                                // Utils.WritePropertiesFile(user+"overLOGDIS_log",
-//                                // fillZero(Integer.toString(over_i)), "第"+phase +
-//                                // "期，第" + sn + "名，號碼(" + code + ") 已過關!(第"+c+"關)");
-//                                String t = new SimpleDateFormat("HH:mm:ss").format(new Date());
-//                                Utils.WritePropertiesFile(user + "overLOGDIS_log",
-//                                                          fillZero(Integer.toString(over_i)),
-//                                                          "第" + phase + "期，第" + sn + "名，已過關!(第"
-//                                                                                              + configProperty.getProperty(key)
-//                                                                                              + "關)" + "(公式" + x + ")");
-//
-//                                j.addProperty(covertIntToLatter(sn) + (x > 6 ? x - 6 : x), "Y");
-//                            }
-//
-//                        }
-//                    }
+ 
 
                 }
 
@@ -966,11 +945,83 @@ public class Controller {
                 fileOut.close();
             } catch (Exception ex) {
             }
+            removeOverLog(user,phase,overmp);
+
         }
 
         return "null";
     }
 
+ public static void removeOverLog(String user,String checkPhase,Map<String,String> overmp) {
+        
+        FileInputStream fileIn = null ;
+        FileOutputStream fileOut = null;
+
+        int removePhase = Integer.parseInt(checkPhase) - 1 ;
+        try {
+            Properties configProperty = new OrderedProperties();
+            String path = System.getProperty("user.dir");
+            String hisFile = path + "/" + user + "_over_log.properties";
+            File file = new File(hisFile);
+            if (!file.exists())
+                file.createNewFile();
+            fileIn = new FileInputStream(file);
+            configProperty.load(new InputStreamReader(fileIn, "UTF-8"));
+            
+           
+
+             ArrayList<String> removeList = new ArrayList();
+            for (Enumeration e = configProperty.propertyNames(); e.hasMoreElements();) {
+                String key = e.nextElement().toString();
+               
+                removeList.add(key);
+                
+            } 
+            
+            for(String key:removeList) {
+                String phase = key.split("@")[0];
+                if(Integer.parseInt(phase) <= removePhase) {
+                    configProperty.remove(key); 
+
+                    System.out.println("remove ok" + key);
+                }
+            }
+            
+            fileOut = new FileOutputStream(file);
+            configProperty.store(new OutputStreamWriter(fileOut, "UTF-8"), "sample properties");
+            
+            
+            for (Map.Entry<String, String> entry : overmp.entrySet())
+            {
+                String key = entry.getKey();
+                String phase = key.split("@")[1];
+                if(Integer.parseInt(phase) <= removePhase) {
+                    overmp.remove(key);
+                    System.out.println("remove map ok" + key);
+
+                }
+                
+                
+            }
+            System.gc() ;
+        }catch(Exception e) {
+
+            try {
+                fileIn.close();
+                fileOut.close();
+            } catch (Exception ex) {
+            }
+        }finally{
+
+            try {
+                fileIn.close();
+                fileOut.close();
+            } catch (Exception ex) {
+            }
+        }
+        
+    }
+ 
     @RequestMapping("/clearLog")
     public String clearLog(@RequestParam("user") String user) {
 
@@ -1123,11 +1174,16 @@ public class Controller {
                 saveOverLog(user, overLog, c);
             }
             
-            String betlog = "第" + betphase + "期" +
-                    "計劃" +   sn +
-                    "，第" + betsn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                    + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
-                    saveLog(user + "bet", betlog);
+            
+            if(Integer.parseInt(c)>5) {
+                String betlog = "第" + betphase + "期" +
+                        "計劃" +   sn +
+                        "，第" + betsn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+                        + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
+                        saveLog(user + "bet", betlog);
+            }
+            
+          
             
             return "";
         
@@ -1157,11 +1213,15 @@ public class Controller {
                     saveOverLog(user, overLog, c);
                 }
                 
-                String betlog = "第" + betphase + "期" + 
-                        "計劃" + displaysn +
-                        "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                        + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
-                saveLog(user + "bet", betlog);
+                if(Integer.parseInt(c)>5) {
+                    String betlog = "第" + betphase + "期" + 
+                            "計劃" + displaysn +
+                            "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+                            + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
+                    saveLog(user + "bet", betlog);
+                }
+                
+               
         
                 return "";
            
