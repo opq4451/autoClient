@@ -450,7 +450,7 @@ public class Controller {
 
                     //System.out.println(sn);
 
-                    if (Integer.parseInt(c) < 6) { //下注0的不用顯示在log
+                    if (Integer.parseInt(c) < (global_c+1)) { //下注0的不用顯示在log
                         continue;
                     }
                     String index = "";
@@ -904,7 +904,7 @@ public class Controller {
                                     // "期，第" + sn + "名，號碼(" + code + ") 已過關!(第"+c+"關)");
                                     String t = new SimpleDateFormat("HH:mm:ss").format(new Date());
                                     int cc = Integer.parseInt(configProperty.getProperty(key));
-                                    if(cc>5) {
+                                    if(cc>global_c) {
                                         Utils.WritePropertiesFile(user + "overLOGDIS_log",
                                                                   fillZero(Integer.toString(over_i)),
                                                                   "第" + phase + "期"
@@ -1156,7 +1156,7 @@ public class Controller {
     }
 
     int recoup = 0;
-
+    int global_c = 6;
     @RequestMapping("/specialbet")
     public synchronized String specialbet(@RequestParam("user") String user, @RequestParam("sn") String sn,
                              @RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
@@ -1175,7 +1175,7 @@ public class Controller {
             }
             
             
-            if(Integer.parseInt(c)>5) {
+            if(Integer.parseInt(c)>global_c) {
                 String betlog = "第" + betphase + "期" +
                         "計劃" +   sn +
                         "，第" + betsn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
@@ -1213,7 +1213,7 @@ public class Controller {
                     saveOverLog(user, overLog, c);
                 }
                 
-                if(Integer.parseInt(c)>5) {
+                if(Integer.parseInt(c)>global_c) {
                     String betlog = "第" + betphase + "期" + 
                             "計劃" + displaysn +
                             "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
