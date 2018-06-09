@@ -1145,7 +1145,7 @@
 			 
 					let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , '3,5,6,8', '1' ,z);
 			   		if(rbf){
-						bIndex[z]++;
+						//bIndex[z]++;
 					} 
 				 
 				
@@ -1186,7 +1186,7 @@
 				 
 						let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , '2,4,7,9', '2' ,z);
 				   		if(rbf){
-							bIndex[z]++;
+							//bIndex[z]++;
 						} 
 					 
 					
@@ -1223,7 +1223,7 @@
 			 
 					let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , '2,5,8,9', '3' ,z);
 			   		if(rbf){
-						bIndex[z]++;
+						//bIndex[z]++;
 					} 
 				 
 				
@@ -1260,7 +1260,7 @@
 			 
 					let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , '1,5,8,10', '4' ,z);
 			   		if(rbf){
-						bIndex[z]++;
+						//bIndex[z]++;
 					} 
 				 
 				
@@ -1301,7 +1301,7 @@
 			 
 					let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , '1,3,6,8', '5' ,z);
 			   		if(rbf){
-						bIndex[z]++;
+						//bIndex[z]++;
 					} 
 				 
 				
@@ -1344,7 +1344,7 @@
 			 
 					let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , '2,3,7,10', '6' ,z);
 			   		if(rbf){
-						bIndex[z]++;
+						//bIndex[z]++;
 					} 
 				 
 				
@@ -1383,7 +1383,7 @@
 			 
 					let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , '2,5,6,9', '7' ,z);
 			   		if(rbf){
-						bIndex[z]++;
+						//bIndex[z]++;
 					} 
 				 
 				
@@ -1426,7 +1426,7 @@
 			 
 					let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , '3,4,7,8', '8' ,z);
 			   		if(rbf){
-						bIndex[z]++;
+						//bIndex[z]++;
 					} 
 				 
 				
@@ -1466,7 +1466,7 @@
 			 
 					let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , '4,5,6,7', '9' ,z);
 			   		if(rbf){
-						bIndex[z]++;
+						//bIndex[z]++;
 					} 
 				 
 				
@@ -1506,7 +1506,7 @@
 			 
 					let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , '1,2,9,10', '10' ,z);
 			   		if(rbf){
-						bIndex[z]++;
+						//bIndex[z]++;
 					} 
 				 
 				
@@ -1551,7 +1551,7 @@
 			 
 					let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , '1,4,6,9', '11' ,z);
 			   		if(rbf){
-						bIndex[z]++;
+						//bIndex[z]++;
 					} 
 				 
 				
@@ -1593,7 +1593,7 @@
 			 
 					let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , '2,3,8,9', '12' ,z);
 			   		if(rbf){
-						bIndex[z]++;
+						//bIndex[z]++;
 					} 
 				 
 				
@@ -2185,7 +2185,7 @@
 			            var phase =  $( "div.toPhase" ).text();
 			            console.log(phase);
 						if( phase ){  
-							if(checkOver(phase)){
+							if(true){
 								//console.log(JSON.stringify(betIndex)); 
 
 							   if(checkClearMinute(min) && !checkProjectBetflag()){ //到了最後還下注不了，只好關數歸零
@@ -2415,7 +2415,7 @@
 	         success: function(data) { 
 	        	  
 	        	 const json = JSON.parse(data);
-	        	 for(var formu = 1 ; formu<13 ; formu++){
+	        	 for(var formu = 1 ; formu<7 ; formu++){
 	        		 for(var sn=1 ; sn<11 ; sn++){
 	        			  let letter = '';
 	        			  let indexstr = '';
@@ -2432,24 +2432,82 @@
 					  
 	        			     let flag = json[letter+''+formu] ;
 	        			     if(flag){
-	        			    	 	  //if(formu==1){betIndex[1] = 0 ;}
-	        			    	 	  if(formu==1){betIndex51[sn] = 0 ;}
-	        			    	 	  if(formu==2){betIndex52[sn] = 0 ;}
-	        			    	 	  if(formu==3){betIndex53[sn] = 0 ;}
-	        			    	 	  if(formu==4){betIndex54[sn] = 0 ;}
-	        			    	 	  if(formu==5){betIndex55[sn] = 0 ;}
-	        			    	 	  if(formu==6){betIndex56[sn] = 0 ;}
-	        			    	 	  if(formu==7){betIndex[sn] = 0 ;}
-	        			    	 	  if(formu==8){betIndex2[sn] = 0 ;}
-	        			    	 	  if(formu==9){betIndex3[sn] = 0 ;}
-	        			    	 	  if(formu==10){betIndex4[sn] = 0 ;}
-	        			    	 	  if(formu==11){betIndex5[sn] = 0 ;}
-	        			    	 	  if(formu==12){betIndex6[sn] = 0 ;}
+	        			    	 	  
+	        			    	 	  if(formu==1){
+	        			    	 		 betIndex51[sn] = betIndex51[sn] + 1 ;
+	        			    	 		 console.log('formu:'+ formu + 'sn:' + sn + ' value:' +betIndex[sn]);
+        			    	 		  } else if(formu==2){
+ 
+	        			    	 		  betIndex52[sn] = betIndex52[sn] + 1 ;
+      			    	 		  } else if(formu==3){
+	        			    	 		 console.log('formu:'+ formu + 'sn:' + sn);
+	        			    	 		  betIndex53[sn] = betIndex53[sn] + 1 ;
+     			    	 		  } else if(formu==4){
+		        			    	 		 console.log('formu:'+ formu + 'sn:' + sn);
+	        			    	 		 betIndex54[sn] = betIndex54[sn] + 1 ;
+      			    	 		  } else if(formu==5){
+	        			    	 		 console.log('formu:'+ formu + 'sn:' + sn);
+	        			    	 		  betIndex55[sn] = betIndex55[sn] + 1 ;
+     			    	 		  } else if(formu==6){
+	        			    	 		 console.log('formu:'+ formu + 'sn:' + sn);
+	        			    	 		  betIndex56[sn] = betIndex56[sn] + 1 ;
+    			    	 		  	  } else if(formu==7){
+ 	        			    	 		 console.log('formu:'+ formu + 'sn:' + sn);
+	        			    	 		  betIndex[sn] = betIndex[sn] + 1 ;
+   			    	 		  	  }else if(formu==8){
+	        			    	 		 console.log('formu:'+ formu + 'sn:' + sn);
+	        			    	 		  betIndex2[sn] = betIndex2[sn] + 1 ;
+  			    	 		  	  }else if(formu==9){
+	        			    	 		 console.log('formu:'+ formu + 'sn:' + sn);
+	        			    	 		  betIndex3[sn] = betIndex3[sn] + 1 ;
+  			    	 		  	  }else if(formu==10){
+	        			    	 		 console.log('formu:'+ formu + 'sn:' + sn);
+	        			    	 		  betIndex4[sn] = betIndex4[sn] + 1 ;
+  			    	 		  	  }else if(formu==11){
+	        			    	 		 console.log('formu:'+ formu + 'sn:' + sn);
+	        			    	 		  betIndex5[sn] = betIndex5[sn] + 1 ;
+  			    	 		  	  }else if(formu==12){
+	        			    	 		 console.log('formu:'+ formu + 'sn:' + sn);
+	        			    	 		  betIndex6[sn] = betIndex6[sn] + 1 ;
+  			    	 		  	  }
+	        			    	 	  
+	        			    	 	   
+	        			    	 	   
+	        			     }else {
+	        			    	 if(formu==1){
+	        			    		 betIndex51[sn] = 0 ;
+    			    	 		  } else if(formu==2){
+    			    	 			  betIndex52[sn] = 0 ;
+        			    	 		
+  			    	 		  } else if(formu==3){
+  			    	 			 betIndex53[sn] = 0 ;
+ 			    	 		  } else if(formu==4){
+ 			    	 			 betIndex54[sn] = 0 ;
+  			    	 		  } else if(formu==5){
+  			    	 			 betIndex55[sn] = 0 ;
+ 			    	 		  } else if(formu==6){
+ 			    	 			  betIndex56[sn] = 0 ;
+		    	 		  	  }else if(formu==7){
+ 			    	 			  betIndex[sn] = 0 ;
+		    	 		  	  }else if(formu==8){
+ 			    	 			  betIndex2[sn] = 0 ;
+		    	 		  	  }else if(formu==9){
+ 			    	 			  betIndex3[sn] = 0 ;
+		    	 		  	  }else if(formu==10){
+ 			    	 			  betIndex4[sn] = 0 ;
+		    	 		  	  }else if(formu==11){
+ 			    	 			  betIndex5[sn] = 0 ;
+		    	 		  	  }else if(formu==12){
+ 			    	 			  betIndex6[sn] = 0 ;
+		    	 		  	  }
+	        			    	 
 	        			     }
 	        			    	  
 	        		 }
 	        		 
 	        	 }
+	        	 
+	        	  
 	        	  
 	        	 if(json.checkFlag=='Y'){
 	        		 check = true;
