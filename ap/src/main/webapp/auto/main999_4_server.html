@@ -1167,7 +1167,7 @@
 			    	 	$( ".stopwin" ).val(json.stopwin);
 			    	 	firstSet = true;
 			    	 	
-			    	 	setStand(json.todayWin,json.stoplose);
+			    	 	setStand(json.todayWin,json.stoplose,false);
 		    	 	}
 		    	 	
   
@@ -2105,7 +2105,7 @@
  		
  		
  		let check_v = '';
- 		for(var i= 1 ; i<13 ;i++){
+ 		for(var i= 7 ; i<13 ;i++){
  			let id = ".betlist" + (i==1?'':i) ;
  			if( $( id ).val().indexOf(' ')>-1 || $( id ).val().indexOf(',,')>-1 ) {
  				alert('輸入符號有誤');
@@ -2166,7 +2166,7 @@
  	}
  	function getBetListParam(){
  		let p = "";
- 		for(var i = 1 ; i<13;i++){
+ 		for(var i = 7 ; i<13;i++){
  			let id = ".betlist" + (i==1?'':i) ;
  			let pid = "betlist" + (i==1?'':i) ;
  			if($( id ).val()){
@@ -2181,15 +2181,18 @@
 
 	var oringinPoint ='';
 	
-	function setStand(todayWin,sl){
+	function setStand(todayWin,sl,flag){
 		
 		try{
+			var pl = flag ? 1.5 : 1 ;
 	 		let s = getLow();
 	 		oringinPoint = (todayWin *1);
 	    	 	$( ".betlist" ).val(oringinPoint) ;
 	    	 	$( ".betlist2" ).val(oringinPoint + (sl * 1)) ;
-	    	 	$( ".betlist3" ).val(oringinPoint - (sl * 1)) ; 
+	    	 	$( ".betlist3" ).val(oringinPoint - (sl * pl)) ; 
 	    	 	$( ".betlist4" ).val((s==1)?"關":"開") ;
+	    	 	
+	    	 	 
 	 	}catch(err){
 	 		
 	 	}
@@ -2215,17 +2218,17 @@
  		
  		
  		//當一直贏上去超過起伏點數，計算起跑點數
- 		if( (todayWin*1 - oringinPoint*1) > (sl*1)){
+ 		if( (todayWin*1) >  ($( ".betlist2" ).val()*1) ){
  			oringinPoint = (todayWin*1)  ;
  			setLow(1);//高點
- 			secondFlag = true;
- 			setStand(oringinPoint,sl);
+ 			//secondFlag = true;
+ 			setStand(oringinPoint,sl,true);
  		}
  		//當一直輸超過起伏點數，計算高點
- 		if( (oringinPoint*1  - todayWin*1) > (secondFlag?(sl*1*1.5):(sl*1)) ){
+ 		if( (todayWin*1) <  ($( ".betlist3" ).val()*1) ){
  			oringinPoint = (todayWin*1)  ;
  			setLow(0);//低點
- 			setStand(oringinPoint,(secondFlag?(sl*1*1.5):(sl*1)));
+ 			setStand(oringinPoint,sl,false);
  		}
  		
  		
@@ -2461,7 +2464,7 @@
 									
 									console.log('enter selectobet');
 									let o = selectTypeToBet(phase);  
-						       	 	
+									writeTodayDetail(phase);
 								}  
 								
 								if(checkProjectBetflag()) 
@@ -2490,6 +2493,17 @@
 	       // timeout();
 	    }, 10000);
 	}
+    
+    function writeTodayDetail(phase){
+		    	$.ajax({ url:  u + "/writeTodayDetail?phase="+phase+
+					"&todaywin="+todayWin,  
+		     async: false,
+		     success: function(data) {
+		    		    
+		    	        
+		     	 }
+		    });
+    }
     
     function overTimeout() { 
     	workerTimer_timeout.setInterval(function () { 
@@ -2933,20 +2947,9 @@
  		if(s=='' || s=='1'){//高點或是初始值，算入場點數
  			startPoint = (todayWin*1) - (sl*1) ;
  		}*/
- 		oringinPoint = (todayWin*1);
-    	
-    	    let check = 0;
-    		if(document.getElementById("betproject5").checked){
-    			  check = 5;
-    	    	  	  if(!document.getElementById('c1').checked) {betIndex = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
-    	      	  if(!document.getElementById('c2').checked) {betIndex2 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
-    	      	  if(!document.getElementById('c3').checked) {betIndex3 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
-    	      	  if(!document.getElementById('c4').checked) {betIndex4 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
-    	      	  if(!document.getElementById('c5').checked) {betIndex5 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
-    	      	  if(!document.getElementById('c6').checked) {betIndex6 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
-    	      	  
-    		}
-    		
+ 		//oringinPoint = (todayWin*1);
+ 		setStand(todayWin,sl,false)
+    	   
     		if(document.getElementById("betproject6").checked){
     			  check = 6;
 	    	  	  if(!document.getElementById('c7').checked) {betIndex = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
@@ -2958,11 +2961,7 @@
 	      	  
 		}
     		
-    		if(check != checkChangeBetProject){
-    			
-    			clearIndex(); 
-    			clearAll();
-    		}
+    		 
     		
     		
     			

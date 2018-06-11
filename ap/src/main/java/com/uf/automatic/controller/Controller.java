@@ -809,6 +809,97 @@ public class Controller {
         return "null";
     }
 
+    @RequestMapping("/writeTodayDetail")
+    public String writeTodayDetail(@RequestParam("phase") String phase, 
+                                   @RequestParam("todaywin") String todaywin) {
+        FileInputStream fileIn = null;
+        FileOutputStream fileOut = null;
+
+        try {
+            Properties configProperty = new Properties() {
+                @Override
+                public synchronized Enumeration<Object> keys() {
+                    return Collections.enumeration(new TreeSet<Object>(super.keySet()));
+                }
+            };
+            String path = System.getProperty("user.dir");
+            String hisFile = path + "/writeTodayDetail.properties";
+            File file = new File(hisFile);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            fileIn = new FileInputStream(file);
+            configProperty.load(new InputStreamReader(fileIn, "UTF-8"));
+             
+            configProperty.setProperty(phase, todaywin);
+
+            fileOut = new FileOutputStream(file);
+            configProperty.store(new OutputStreamWriter(fileOut, "UTF-8"), "sample properties");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            try {
+                fileIn.close();
+                fileOut.close();
+            } catch (Exception ex) {
+            }
+        }
+
+        return "null";
+    }
+    
+    
+    @RequestMapping("/getTodayDetail")
+    public String getTodayDetail() {
+        FileInputStream fileIn = null;
+        FileOutputStream fileOut = null;
+
+        try {
+            Properties configProperty = new Properties() {
+                @Override
+                public synchronized Enumeration<Object> keys() {
+                    return Collections.enumeration(new TreeSet<Object>(super.keySet()));
+                }
+            };
+            String path = System.getProperty("user.dir");
+            String hisFile = path + "/writeTodayDetail.properties";
+            File file = new File(hisFile);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            fileIn = new FileInputStream(file);
+            configProperty.load(new InputStreamReader(fileIn, "UTF-8"));
+             
+            JsonObject j = new JsonObject();
+            
+            Enumeration<String> enums = (Enumeration<String>) configProperty.propertyNames();
+            
+            try {
+                while (enums.hasMoreElements()) {
+                    String key = enums.nextElement();
+                    String value = configProperty.getProperty(key);
+                    j.addProperty(key, value);
+                   
+                  }
+                return j.toString();
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            try {
+                fileIn.close();
+                fileOut.close();
+            } catch (Exception ex) {
+            }
+        }
+
+        return "null";
+    }
+    
     @RequestMapping("/saveLog")
     public String saveLog(String user, String log) {
         FileInputStream fileIn = null;
