@@ -1388,7 +1388,10 @@
 			const bet_n2 = array_n2[i];
 		 	let bet_code = '';
 		 	//var d = getYYYYMMDDSS();
-			var z = i+1;
+			var z = i+1;  
+			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+  		    var amount = bArray[bIndex[z]%bArray.length] ;
+		    
 			let betsn = '';
 			for(var j=0;j<10;j++){
 				if( z == array_n2[j]){
