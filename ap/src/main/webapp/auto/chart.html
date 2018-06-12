@@ -74,11 +74,11 @@ let vArray=[];
     function pad2(n) { return n < 10 ? '0' + n : n }
 
     function showMap(){
-    	 var d = new Date();
+    	 var date = new Date();
     		
-    	 let date = date.getFullYear().toString() +  pad2(date.getMonth() + 1)    + pad2( date.getDate())  );
+    	 let d = date.getFullYear().toString() +  pad2(date.getMonth() + 1)    + pad2( date.getDate())   ;
 
-	    	$.ajax({ url:  "http://www.sd8888.net:9999/getTodayDetail?date="+date,  
+	    	$.ajax({ url:  "http://www.sd8888.net:9999/getTodayDetail?date="+d,  
 	     async: false,
 	     success: function(data) {
 	    			 var obj = JSON.parse(data);
