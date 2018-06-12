@@ -2106,7 +2106,7 @@
  		
  		let check_v = '';
  		for(var i= 7 ; i<13 ;i++){
- 			let id = ".betlist" + (i==1?'':i) ;
+ 			let id = ".betlist" + i ;
  			if( $( id ).val().indexOf(' ')>-1 || $( id ).val().indexOf(',,')>-1 ) {
  				alert('輸入符號有誤');
  				return;
@@ -2167,8 +2167,8 @@
  	function getBetListParam(){
  		let p = "";
  		for(var i = 7 ; i<13;i++){
- 			let id = ".betlist" + (i==1?'':i) ;
- 			let pid = "betlist" + (i==1?'':i) ;
+ 			let id = ".betlist" + i ;
+ 			let pid = "betlist" + i ;
  			if($( id ).val()){
  				p+= "&"+pid+"="+$( id ).val() ; } else {p+= "&"+pid+"=0" ;
  			}

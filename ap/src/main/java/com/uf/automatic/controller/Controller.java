@@ -279,12 +279,12 @@ public class Controller {
                 fileIn = new FileInputStream(file);
                 configProperty.load(fileIn);
                 String type = configProperty.getProperty("type");
-                String betlist = configProperty.getProperty("betlist");
-                String betlist2 = configProperty.getProperty("betlist2");
-                String betlist3 = configProperty.getProperty("betlist3");
-                String betlist4 = configProperty.getProperty("betlist4");
-                String betlist5 = configProperty.getProperty("betlist5");
-                String betlist6 = configProperty.getProperty("betlist6");
+//                String betlist = configProperty.getProperty("betlist");
+//                String betlist2 = configProperty.getProperty("betlist2");
+//                String betlist3 = configProperty.getProperty("betlist3");
+//                String betlist4 = configProperty.getProperty("betlist4");
+//                String betlist5 = configProperty.getProperty("betlist5");
+//                String betlist6 = configProperty.getProperty("betlist6");
                 String betlist7 = configProperty.getProperty("betlist7");
                 String betlist8 = configProperty.getProperty("betlist8");
                 String betlist9 = configProperty.getProperty("betlist9");
@@ -305,12 +305,12 @@ public class Controller {
                 String startstatus = configProperty.getProperty("startstatus");
 
                 j.addProperty("type", type);
-                j.addProperty("betlist", betlist);
-                j.addProperty("betlist2", betlist2);
-                j.addProperty("betlist3", betlist3);
-                j.addProperty("betlist4", betlist4);
-                j.addProperty("betlist5", betlist5);
-                j.addProperty("betlist6", betlist6);
+//                j.addProperty("betlist", betlist);
+//                j.addProperty("betlist2", betlist2);
+//                j.addProperty("betlist3", betlist3);
+//                j.addProperty("betlist4", betlist4);
+//                j.addProperty("betlist5", betlist5);
+//                j.addProperty("betlist6", betlist6);
                 j.addProperty("betlist7", betlist7);
                 j.addProperty("betlist8", betlist8);
                 j.addProperty("betlist9", betlist9);
@@ -740,9 +740,9 @@ public class Controller {
 
     @RequestMapping("/saveParam")
     public String saveParam(@RequestParam("user") String user, @RequestParam("type") String type,
-                            @RequestParam("betlist") String betlist, @RequestParam("betlist2") String betlist2,
-                            @RequestParam("betlist3") String betlist3, @RequestParam("betlist4") String betlist4,
-                            @RequestParam("betlist5") String betlist5, @RequestParam("betlist6") String betlist6,
+//                            @RequestParam("betlist") String betlist, @RequestParam("betlist2") String betlist2,
+//                            @RequestParam("betlist3") String betlist3, @RequestParam("betlist4") String betlist4,
+//                            @RequestParam("betlist5") String betlist5, @RequestParam("betlist6") String betlist6,
                             @RequestParam("betlist7") String betlist7, @RequestParam("betlist8") String betlist8,
                             @RequestParam("betlist9") String betlist9, @RequestParam("betlist10") String betlist10,
                             @RequestParam("betlist11") String betlist11, @RequestParam("betlist12") String betlist12,
@@ -770,12 +770,12 @@ public class Controller {
             configProperty.load(fileIn);
 
             configProperty.setProperty("type", type);
-            configProperty.setProperty("betlist", betlist);
-            configProperty.setProperty("betlist2", betlist2);
-            configProperty.setProperty("betlist3", betlist3);
-            configProperty.setProperty("betlist4", betlist4);
-            configProperty.setProperty("betlist5", betlist5);
-            configProperty.setProperty("betlist6", betlist6);
+//            configProperty.setProperty("betlist", betlist);
+//            configProperty.setProperty("betlist2", betlist2);
+//            configProperty.setProperty("betlist3", betlist3);
+//            configProperty.setProperty("betlist4", betlist4);
+//            configProperty.setProperty("betlist5", betlist5);
+//            configProperty.setProperty("betlist6", betlist6);
             configProperty.setProperty("betlist7", betlist7);
             configProperty.setProperty("betlist8", betlist8);
             configProperty.setProperty("betlist9", betlist9);
