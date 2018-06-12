@@ -1,0 +1,109 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+ 
+ 
+
+<title>Login</title>
+
+   
+
+
+</head>
+
+  
+<script src="jquery.js" > </script> 
+<canvas id="canvas"></canvas>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
+ 
+<script>
+let keyArray=[];
+let vArray=[];
+	 
+	var lineChartData = {
+	    labels: keyArray, //顯示區間名稱
+	    datasets: [{
+	        label: '期別', // tootip 出現的名稱
+	        lineTension: 0, // 曲線的彎度，設0 表示直線
+	        backgroundColor: "#ea464d",
+	        borderColor: "#ea464d",
+	        borderWidth: 5,
+	        data: vArray, // 資料
+	        fill: false, // 是否填滿色彩
+	    } ]
+	};
+
+    $(document).ready(function(){
+   
+    	showMap();
+  
+	});
+    
+    
+   
+    
+
+    function drawLineCanvas(ctx,data) {
+        window.myLine = new Chart(ctx, {  //先建立一個 chart
+            type: 'line', // 型態
+            data: data,
+            options: {
+                    responsive: true,
+                    legend: { //是否要顯示圖示
+                        display: true,
+                    },
+                    tooltips: { //是否要顯示 tooltip
+                        enabled: true
+                    },
+                    scales: {  //是否要顯示 x、y 軸
+                        xAxes: [{
+                            display: true
+                        }],
+                        yAxes: [{
+                            display: true
+                        }]
+                    },
+                }
+        });
+    };
+    
+    function pad2(n) { return n < 10 ? '0' + n : n }
+
+    function showMap(){
+    	 var d = new Date();
+    		
+    	 let date = date.getFullYear().toString() +  pad2(date.getMonth() + 1)    + pad2( date.getDate())  );
+
+	    	$.ajax({ url:  "http://www.sd8888.net:9999/getTodayDetail?date="+date,  
+	     async: false,
+	     success: function(data) {
+	    			 var obj = JSON.parse(data);
+
+	    	         for(var i in obj){
+	    	        	 	var key = i;
+	    	        	 	var v = obj[i];
+	    	        	 	if(key.toString().length == 6){
+	    	        	 		keyArray.push(key);
+	    	        	 		vArray.push(v);
+	    	        	 	}
+	    	        	 	//console.log(key +'@' + v);
+	    	         }
+	    	         
+	    	         var ctx = document.getElementById("canvas").getContext("2d");
+	    	    	    	drawLineCanvas(ctx,lineChartData);
+	     	 }
+	    });
+    	
+    	
+    	
+    	 
+   	 }
+    
+    
+    
+</script>
+ 

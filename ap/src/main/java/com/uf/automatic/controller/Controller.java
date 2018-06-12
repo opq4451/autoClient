@@ -816,6 +816,8 @@ public class Controller {
         FileOutputStream fileOut = null;
 
         try {
+            String sysDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
+
             Properties configProperty = new Properties() {
                 @Override
                 public synchronized Enumeration<Object> keys() {
@@ -823,7 +825,7 @@ public class Controller {
                 }
             };
             String path = System.getProperty("user.dir");
-            String hisFile = path + "/writeTodayDetail.properties";
+            String hisFile = path + "/"+sysDate+"writeTodayDetail.properties";
             File file = new File(hisFile);
             if (!file.exists()) {
                 file.createNewFile();
@@ -851,7 +853,7 @@ public class Controller {
     
     
     @RequestMapping("/getTodayDetail")
-    public String getTodayDetail() {
+    public String getTodayDetail(@RequestParam("date") String d) {
         FileInputStream fileIn = null;
         FileOutputStream fileOut = null;
 
@@ -863,7 +865,7 @@ public class Controller {
                 }
             };
             String path = System.getProperty("user.dir");
-            String hisFile = path + "/writeTodayDetail.properties";
+            String hisFile = path + "/"+d+"writeTodayDetail.properties";
             File file = new File(hisFile);
             if (!file.exists()) {
                 file.createNewFile();
