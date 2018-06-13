@@ -17,6 +17,9 @@
 
   
 <script src="jquery.js" > </script> 
+<div align='right'>日期<input style=" font-size: 15px;text-align: center;" type="text" id="ddd"   value="20180612" size="8"/>
+<button type="button" id="updateBtn" class="button" style="border:3px outset;font-size: 18px;width:100px;" onclick="updateBtn()">更新</button></div>
+
 <canvas id="canvas"></canvas>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
  
@@ -39,8 +42,12 @@ let vArray=[];
 
     $(document).ready(function(){
    
-    	showMap();
-  
+    	var date = new Date();
+		
+   	 let d = date.getFullYear().toString() +  pad2(date.getMonth() + 1)    + pad2( date.getDate())   ;
+   	document.getElementById('ddd').value = d ;
+    	showMap(d);
+    	refresh();
 	});
     
     
@@ -73,14 +80,15 @@ let vArray=[];
     
     function pad2(n) { return n < 10 ? '0' + n : n }
 
-    function showMap(){
-    	 var date = new Date();
+    function showMap(d){
+    	 //var date = new Date();
     		
-    	 let d = date.getFullYear().toString() +  pad2(date.getMonth() + 1)    + pad2( date.getDate())   ;
+    	 //let d = date.getFullYear().toString() +  pad2(date.getMonth() + 1)    + pad2( date.getDate())   ;
 
 	    	$.ajax({ url:  "http://www.sd8888.net:9999/getTodayDetail?date="+d,  
 	     async: false,
 	     success: function(data) {
+		    	 	 
 	    			 var obj = JSON.parse(data);
 
 	    	         for(var i in obj){
@@ -103,7 +111,17 @@ let vArray=[];
     	 
    	 }
     
+    function updateBtn(){
+   
+     var d = document.getElementById('ddd').value;
+     showMap(d);
+    }
     
+    
+    function refresh(){
+    		setTimeout(function(){ updateBtn();refresh(); }, 300000);
+
+    }
     
 </script>
  
