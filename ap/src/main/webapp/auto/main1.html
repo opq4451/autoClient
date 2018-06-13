@@ -1547,7 +1547,7 @@
 				
 			if(!projectBet[7][i]){
 			 
-				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp7[z].toString(), '7' , bet_n);
+				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp7[z].toString(), '7' , z);
 			   		if(rbf){
 						//bIndex[z]++;
 					} 
@@ -1605,7 +1605,7 @@
 				
 			if(!projectBet[8][i]){
 			 
-				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp8[z].toString(),'8',bet_n);
+				let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp8[z].toString(),'8',z);
 			   		if(rbf){
 						//bIndex[z]++;
 					} 
@@ -1667,7 +1667,7 @@
 			
 			if(!projectBet[9][i]){
 			 
-					let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp9[z].toString(), '9' ,bet_n);
+					let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp9[z].toString(), '9' ,z);
 			   		if(rbf){
 						//bIndex[z]++;
 					} 
@@ -1712,10 +1712,7 @@
 		   	 	betCode = array_before4[3]+','+array_before4[4]+','+array_before4[5]+','+array_before4[6]+','+array_before4[7]+','+array_before4[8] ;
 		    }
 			    
-			if(betCode == ""){
-				projectBet[4][i] = true;
-				return true;
-			}
+			 
 			
 		 	//console.log("*******8");
 		    //console.log(betCode);
@@ -1725,7 +1722,7 @@
 			
 			if(!projectBet[10][i]){
 			 
-					let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp10[z].toString(),'10',bet_n);
+					let rbf = reallyBet(z, amount, (phase_now+1) , betc , betTemp10[z].toString(),'10',z);
 			   		if(rbf){
 						//bIndex[z]++;
 					} 
@@ -1794,7 +1791,7 @@
 			
 			if(!projectBet[11][i]){
 			 
-					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , betTemp11[z].toString(), '11', compute4Code(betsn.toString()));
+					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , betTemp11[z].toString(), '11', compute4Code(betsn.toString()), '');
 			   		if(rbf){
 						//bIndex[z]++;
 					} 
@@ -1848,7 +1845,7 @@
 		    
 			if(!projectBet[12][i]){
 			 
-				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , betTemp12[z].toString(), '12', compute4Code(betsn.toString()));
+				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , betTemp12[z].toString(), '12', compute4Code(betsn.toString()), '');
 			   		if(rbf){
 						//bIndex[z]++;
 					} 
