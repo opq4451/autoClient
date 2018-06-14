@@ -16,12 +16,15 @@
 </head>
 
   
-<script src="jquery.js" > </script> 
-<div align='right'>日期<input style=" font-size: 15px;text-align: center;" type="text" id="ddd"   value="20180612" size="8"/>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<div align='right'>日期<input style="display:none; font-size: 15px;text-align: center;" type="text" id="ddd"   value="20180612" size="8"/>
+ <input type="text" id="datepicker">
 <button type="button" id="updateBtn" class="button" style="border:3px outset;font-size: 18px;width:100px;" onclick="updateBtn()">更新</button></div>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <canvas id="canvas"></canvas>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
  
 <script>
 let keyArray=[];
@@ -41,11 +44,14 @@ let vArray=[];
 	};
 
     $(document).ready(function(){
-   
+    	$( "#datepicker" ).datepicker();
+    	$( "#datepicker" ).datepicker( "option", "dateFormat", "yymmdd" );
+    	
     	var date = new Date();
 		
    	 let d = date.getFullYear().toString() +  pad2(date.getMonth() + 1)    + pad2( date.getDate())   ;
-   	document.getElementById('ddd').value = d ;
+   //	document.getElementById('ddd').value = d ;
+   	$( "#datepicker" ).val(d);
     	showMap(d);
     	refresh();
 	});
@@ -88,7 +94,7 @@ let vArray=[];
 	    	$.ajax({ url:  "http://www.sd8888.net:9999/getTodayDetail?date="+d,  
 	     async: false,
 	     success: function(data) {
-		    	 	 
+			    	 
 	    			 var obj = JSON.parse(data);
 
 	    	         for(var i in obj){
@@ -101,9 +107,23 @@ let vArray=[];
 	    	        	 	//console.log(key +'@' + v);
 	    	         }
 	    	         
-	    	         var ctx = document.getElementById("canvas").getContext("2d");
-	    	    	    	drawLineCanvas(ctx,lineChartData);
-	     	 }
+	    	          
+					  var ctx = document.getElementById("canvas").getContext("2d");
+					  if(window.myLine){
+						  window.myLine.destroy();
+						  
+					  }
+					  //console.log(keyArray);
+					  lineChartData.labels = keyArray;
+					  lineChartData.datasets[0].data = vArray;
+					 // console.log(lineChartData.labels);
+	    	    	    		  drawLineCanvas(ctx,lineChartData);
+	    	    	    		  keyArray=[];
+	    	    	    		  vArray=[];
+				 
+	    	    	    		  
+
+	     }
 	    });
     	
     	
@@ -112,8 +132,8 @@ let vArray=[];
    	 }
     
     function updateBtn(){
-   
-     var d = document.getElementById('ddd').value;
+  // console.log( 	$( "#datepicker" ).val());
+     var d = $( "#datepicker" ).val();
      showMap(d);
     }
     
