@@ -1131,19 +1131,13 @@
 			var z = i+1;  
 			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
   		    var amount = bArray[bIndex[z]%bArray.length] ;
-  		  	let bet_sn = '';
-			for(var j=0;j<10;j++){
-				if(z== array_n[j]){ 
-					bet_sn = j + 1 ; 
-					break;
-				}
-			}
+  		   
   		   
   		  	  
 				
 			if(!projectBet[1][i]){
 			 
-					let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , '1,2,3,4', '1' ,z);
+					let rbf = reallyBet(z, amount, (phase_now+1) , betc , '1,2,3,4', '1' ,z);
 			   		if(rbf){
 						//bIndex[z]++;
 					} 
@@ -1170,21 +1164,12 @@
 				var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 	  		    var amount = bArray[bIndex[z]%bArray.length] ;
 			    
-	  		 	 let bet_sn = '';
-				for(var j=0;j<10;j++){
-					if(z== array_n[j]){
-						
-						bet_sn = j + 1 ;
-						//bet_code = array_n2[j];
-						break;
-					}
-				}
-	
+	  		  
 				 
 					
 				if(!projectBet[2][i]){
 				 
-						let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , '2,3,4,5', '2' ,z);
+						let rbf = reallyBet(z, amount, (phase_now+1) , betc , '2,3,4,5', '2' ,z);
 				   		if(rbf){
 							//bIndex[z]++;
 						} 
@@ -1209,19 +1194,11 @@
 			var z = i+1;  
 			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 			    var amount = bArray[bIndex[z]%bArray.length] ;
-			  	let bet_sn = '';
-			for(var j=0;j<10;j++){
-				if(z== array_n[j]){
-					
-					bet_sn = j + 1 ;
-					//bet_code = array_n2[j];
-					break;
-				}
-			}
+			 
 			
 			if(!projectBet[3][i]){
 			 
-					let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , '3,4,5,6', '3' ,z);
+					let rbf = reallyBet(z, amount, (phase_now+1) , betc , '3,4,5,6', '3' ,z);
 			   		if(rbf){
 						//bIndex[z]++;
 					} 
@@ -1246,19 +1223,11 @@
 			var z = i+1;  
 			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
   		    var amount = bArray[bIndex[z]%bArray.length] ;
-  		  	let bet_sn = '';
-			for(var j=0;j<10;j++){
-				if(z== array_n[j]){
-					
-					bet_sn = j + 1 ;
-					//bet_code = array_n2[j];
-					break;
-				}
-			}
+  		  	 
 
 			if(!projectBet[4][i]){
 			 
-					let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , '4,5,6,7', '4' ,z);
+					let rbf = reallyBet(z, amount, (phase_now+1) , betc , '4,5,6,7', '4' ,z);
 			   		if(rbf){
 						//bIndex[z]++;
 					} 
@@ -1287,19 +1256,11 @@
 			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 			    var amount = bArray[bIndex[z]%bArray.length] ;
 		    
-			 	 let bet_sn = '';
-			for(var j=0;j<10;j++){
-				if(z== array_n[j]){
-					
-					bet_sn = j + 1 ;
-					//bet_code = array_n2[j];
-					break;
-				}
-			}
+			 
 			
 			if(!projectBet[5][i]){
 			 
-					let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , '5,6,7,8', '5' ,z);
+					let rbf = reallyBet(z, amount, (phase_now+1) , betc , '5,6,7,8', '5' ,z);
 			   		if(rbf){
 						//bIndex[z]++;
 					} 
@@ -1330,19 +1291,11 @@
 			var z = i+1;  
 			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 			    var amount = bArray[bIndex[z]%bArray.length] ;
-			    let bet_sn = '';
-			for(var j=0;j<10;j++){
-				if(z== array_n[j]){
-					
-					bet_sn = j + 1 ;
-					//bet_code = array_n2[j];
-					break;
-				}
-			}
+			   
 	
 			if(!projectBet[6][i]){
 			 
-					let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , '6,7,8,9', '6' ,z);
+					let rbf = reallyBet(z, amount, (phase_now+1) , betc , '6,7,8,9', '6' ,z);
 			   		if(rbf){
 						//bIndex[z]++;
 					} 
@@ -1369,19 +1322,11 @@
 			var z = i+1;  
 			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
   		    var amount = bArray[bIndex[z]%bArray.length] ;
-  		  	let bet_sn = '';
-			for(var j=0;j<10;j++){
-				if(z== array_n[j]){
-					
-					bet_sn = j + 1 ;
-					//bet_code = array_n2[j];
-					break;
-				}
-			} 
+  		   
 				
 			if(!projectBet[7][i]){
 			 
-					let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , '7,8,9,10', '7' ,z);
+					let rbf = reallyBet(z, amount, (phase_now+1) , betc , '7,8,9,10', '7' ,z);
 			   		if(rbf){
 						//bIndex[z]++;
 					} 
@@ -1410,21 +1355,12 @@
 			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
   		    var amount = bArray[bIndex[z]%bArray.length] ;
 		    
-  		 	 let bet_sn = '';
-			for(var j=0;j<10;j++){
-				if(z== array_n[j]){
-					
-					bet_sn = j + 1 ;
-					//bet_code = array_n2[j];
-					break;
-				}
-			}
-  		   	
+  		 	 
 			 
 				
 			if(!projectBet[8][i]){
 			 
-					let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , '1,8,9,10', '8' ,z);
+					let rbf = reallyBet(z, amount, (phase_now+1) , betc , '1,8,9,10', '8' ,z);
 			   		if(rbf){
 						//bIndex[z]++;
 					} 
@@ -1452,19 +1388,11 @@
 			var z = i+1;  
 			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
   		    var amount = bArray[bIndex[z]%bArray.length] ;
-  		  	let bet_sn = '';
-			for(var j=0;j<10;j++){
-				if(z== array_n[j]){
-					
-					bet_sn = j + 1 ;
-					//bet_code = array_n2[j];
-					break;
-				}
-			}
+  		   
 			
 			if(!projectBet[9][i]){
 			 
-					let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , '1,2,9,10', '9' ,z);
+					let rbf = reallyBet(z, amount, (phase_now+1) , betc , '1,2,9,10', '9' ,z);
 			   		if(rbf){
 						//bIndex[z]++;
 					} 
@@ -1491,20 +1419,12 @@
 			var z = i+1;  
 			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
   		    var amount = bArray[bIndex[z]%bArray.length] ;
-  		  	let bet_sn = '';
-			for(var j=0;j<10;j++){
-				if(z== array_n[j]){
-					
-					bet_sn = j + 1 ;
-					//bet_code = array_n2[j];
-					break;
-				}
-			} 
+  		 
 
 			
 			if(!projectBet[10][i]){
 			 
-					let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , '1,2,3,10', '10' ,z);
+					let rbf = reallyBet(z, amount, (phase_now+1) , betc , '1,2,3,10', '10' ,z);
 			   		if(rbf){
 						//bIndex[z]++;
 					} 
@@ -1536,20 +1456,11 @@
 			var z = i+1;  
 			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
   		    var amount = bArray[bIndex[z]%bArray.length] ;
-		    
-  		 	 let bet_sn = '';
-			for(var j=0;j<10;j++){
-				if(z== array_n[j]){
-					
-					bet_sn = j + 1 ;
-					//bet_code = array_n2[j];
-					break;
-				}
-			}
+		     
 		
 			if(!projectBet[11][i]){
 			 
-					let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , '1,4,7,10', '11' ,z);
+					let rbf = reallyBet(z, amount, (phase_now+1) , betc , '1,4,7,10', '11' ,z);
 			   		if(rbf){
 						//bIndex[z]++;
 					} 
@@ -1578,20 +1489,12 @@
 			var z = i+1;  
 			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
   		    var amount = bArray[bIndex[z]%bArray.length] ;
-  		 	 let bet_sn = '';
-			for(var j=0;j<10;j++){
-				if(z== array_n[j]){
-					
-					bet_sn = j + 1 ;
-					//bet_code = array_n2[j];
-					break;
-				}
-			}
+  		 	 
   		   
 
 			if(!projectBet[12][i]){
 			 
-					let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , '2,3,8,9', '12' ,z);
+					let rbf = reallyBet(z, amount, (phase_now+1) , betc , '2,3,8,9', '12' ,z);
 			   		if(rbf){
 						//bIndex[z]++;
 					} 
