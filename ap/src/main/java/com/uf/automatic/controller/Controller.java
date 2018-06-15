@@ -1156,7 +1156,7 @@ public class Controller {
     }
 
     int recoup = 0;
-    int global_c = 6;
+    int global_c = 3;
     @RequestMapping("/specialbet")
     public synchronized String specialbet(@RequestParam("user") String user, @RequestParam("sn") String sn,
                              @RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
