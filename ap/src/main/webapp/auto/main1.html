@@ -552,7 +552,7 @@
 			        <td class="tdClass" bgcolor="5599FF" width="1%"> &nbsp;<input type="checkbox" name="c2" id="c2" value="2"  >&nbsp;&nbsp;計劃一&nbsp;</td> 
 					<td style="text-align:left" class="tdClass"> <input class="betlist2" type ="text" style="width:98%"/></td>
 					
-				    <td class="tdClass" bgcolor="FF8888" nowrap width="1%"> &nbsp;<input type="checkbox" name="c8" id="c8" value="8"  >&nbsp;&nbsp;計劃七&nbsp;</td> 
+				    <td class="tdClass" bgcolor="FF8888" nowrap width="1%"> &nbsp;<input style="display:none;" type="checkbox" name="c8" id="c8" value="8"  >&nbsp;&nbsp;計劃七&nbsp;</td> 
 			     
 					<td style="text-align:left" class="tdClass"> <input class="betlist8" type ="text" style="width:98%"/></td>
 					
@@ -610,7 +610,7 @@
 			 <td nowrap class="tdClass" bgcolor="FFAA33" width="1%">&nbsp;<input type="checkbox" name="c4" id="c4" value="4"  >&nbsp;&nbsp;計劃三&nbsp;</td> 
 			 <td style="text-align:left" class="tdClass"><input class="betlist4" type ="text" style="width:98%"/></td>
 			 
-			 <td nowrap class="tdClass" bgcolor="66FF66" width="1%">&nbsp;<input type="checkbox" name="c10" id="c10" value="4"  >&nbsp;&nbsp;計劃九&nbsp;</td> 
+			 <td nowrap class="tdClass" bgcolor="66FF66" width="1%">&nbsp;<input type="checkbox" name="c10" id="c10" value="4"   style="display:none;">&nbsp;&nbsp;計劃九&nbsp;</td> 
 			 <td style="text-align:left" class="tdClass"> <input class="betlist10" type ="text" style="width:98%"/></td>
 			 
 			 <td class="tdClass"><button type="button" onclick="save_param()" class="button" style="border:3px outset;width:60px">儲存</button></td> 
@@ -636,7 +636,7 @@
 			</td>
 			  
 			
-			 		<td nowrap class="tdClass" bgcolor="99FFFF" width="1%">&nbsp;<input type="checkbox" name="c5" id="c5" value="5"  >&nbsp;&nbsp;計劃四&nbsp;</td> 
+			 		<td nowrap class="tdClass" bgcolor="99FFFF" width="1%">&nbsp;<input type="checkbox" name="c5" id="c5" value="5"   style="display:none;">&nbsp;&nbsp;計劃四&nbsp;</td> 
 					<td  class="tdClass" style="text-align:left"> <input class="betlist5" type ="text" style="width:98%"/></td>
 					
 					<td nowrap class="tdClass" bgcolor="CCFF99" width="1%">&nbsp;<input type="checkbox" name="c11" id="c11" value="5"  >&nbsp;&nbsp;計劃十&nbsp;</td> 
@@ -675,7 +675,7 @@
 			 <td class="tdClass" nowrap bgcolor="B94FFF" width="1%"> &nbsp;<input type="checkbox" name="c6" id="c6" value="5"  >&nbsp;&nbsp;計劃五&nbsp;</td>  
 			 <td style="text-align:left" class="tdClass"> <input class="betlist6" type ="text" style="width:98%" /></td>
 			 
-			 <td class="tdClass" nowrap bgcolor="FFB3FF" width="1%"> &nbsp;<input type="checkbox" name="c12" id="c12" value="5"  >&nbsp;&nbsp;計劃1&nbsp;1&nbsp;</td>  
+			 <td class="tdClass" nowrap bgcolor="FFB3FF" width="1%"> &nbsp;<input style="display:none;" type="checkbox" name="c12" id="c12" value="5"  >&nbsp;&nbsp;計劃1&nbsp;1&nbsp;</td>  
 			 <td style="text-align:left" class="tdClass"> <input class="betlist12" type ="text" style="width:98%" /></td>
 			 
 			 <td class="tdClass"  ><button type="button" onclick="save_param()" class="button"  style="border:3px outset;width:60px">儲存</button></td> 
@@ -1393,8 +1393,13 @@
 			}
 		}
 
-		
-		if(formu =='2'){
+		if(formu =='1' || formu =='3'
+			|| formu =='5'
+				|| formu =='6'
+					|| formu =='8'
+						|| formu =='10'){
+			bet_n = formu;
+		} else if(formu =='2'){
 			bet_n = array_n[0];
 		}
 		
@@ -2704,11 +2709,11 @@
 				    	clearProjectBetFlag();
 				    } 
 				    
-				    if( (checkStartHM *1) < 9000){
+				    if( (checkStartHM *1) < 8030 &&  (checkStartHM *1) > 4030){
 				   	 	deleteHistory();
 				    }
 				    
-				    if( (checkStartHM *1) < 9005){
+				    if( (checkStartHM *1) < 8030){
 				   	 	return;
 				    }
 				   
@@ -2776,7 +2781,7 @@
     
     function overTimeout() { 
     	workerTimer_timeout.setInterval(function () { 
-    			if(checkTimeflag(9007)){
+    			if(checkTimeflag(8030)){
     				dynamic_phase =  getPhase(); 
     			    //if(dynamic_phase != 0){
     			    	//	checkOver(dynamic_phase);
