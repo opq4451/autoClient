@@ -288,7 +288,7 @@ public class httpClientCookie {
 	
 	
 	public String getOpenBall() {
-        String query = uraal[urli%5] + "/L_PK10/Handler/Handler.ashx?action=get_openball&playpage=pk10_lmp";
+        String query = uraal[urli%5] + "/L_JSCAR/Handler/Handler.ashx?action=get_openball&playpage=";
         try {
             return instance.httpClientUseCookie(query);
         }catch(Exception e) {
@@ -299,7 +299,7 @@ public class httpClientCookie {
 	
 	
 	public String getoddsInfo() {
-	    String query = uraal[urli%5] + "/L_PK10/Handler/Handler.ashx?action=get_oddsinfo&playid=1%2C5%2C9%2C13%2C17%2C21%2C24%2C27%2C30%2C33&playpage=pk10_d1_10";
+	    String query = uraal[urli%5] + "/L_JSCAR/Handler/Handler.ashx?action=get_oddsinfo&playid=1%2C5%2C9%2C13%2C17%2C21%2C24%2C27%2C30%2C33&playpage=jscar_d1_10";
         try {
             return instance.httpClientUseCookie(query);
         }catch(Exception e) {
@@ -311,7 +311,7 @@ public class httpClientCookie {
 	public synchronized String normalBet(String phaseid,String ossid,  String pl , String i_index , String m ,String type) {
 	    
 	     
-	    String query = uraal[urli%5] + "/L_PK10/Handler/Handler.ashx?action=put_money&";
+	    String query = uraal[urli%5] + "/L_JSCAR/Handler/Handler.ashx?action=put_money&";
         try {
            
 
@@ -343,7 +343,7 @@ public class httpClientCookie {
 
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpClientContext context = HttpClientContext.create();
-		RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(60000).setConnectTimeout(60000).build();
+		RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(10000).setConnectTimeout(10000).build();
 		
 		HttpPost httpget = new HttpPost(uri);
 		httpget.setConfig(requestConfig);

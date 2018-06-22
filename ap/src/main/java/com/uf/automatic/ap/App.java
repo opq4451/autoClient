@@ -28,7 +28,7 @@ public class App {
 			System.out.println(file.exists());
 		}
 
-		Utils.writeHistory();
+		//Utils.writeHistory();
 		SpringApplication.run(App.class, args);
 
 		//run();

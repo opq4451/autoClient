@@ -210,9 +210,10 @@ public class Controller {
                 JsonObject data = o.getAsJsonObject("data");
                 String todayWin = data.get("profit").getAsString();
                 String usable_credit = data.get("usable_credit").getAsString();
-
+                String stop_time =  data.get("stop_time").getAsString();
                 j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(todayWin))));
                 j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
+                j.addProperty("stop_time", stop_time.split(":")[2]);
 
             } else if (boardType.equals("1")) { //華山
                 String ret = MoutainHttpClient.httpGet(mountain_token_sessid,
@@ -428,7 +429,7 @@ public class Controller {
                     String v = configProperty.getProperty(e.nextElement().toString());
 
                     //String formuStr = v.substring(v.length() - 5, v.length()); // (公式1)
-                    String phase = v.substring(1, 7); //期別
+                    String phase = v.substring(1, 12); //期別
                     String key_form = v.substring(v.lastIndexOf("式") + 1, v.lastIndexOf(")")); //公式
 
                     int start = v.indexOf("第", 8);
@@ -644,8 +645,10 @@ public class Controller {
     public String getPhase(@RequestParam("user") String user, @RequestParam("pwd") String pwd,
                            @RequestParam("boardType") String boardType) {
         try {
-            if (boardType.equals("0") && h == null) {
-                h = httpClientCookie.getInstance(user, pwd);
+                if(h == null) {
+                    h = httpClientCookie.getInstance(user, pwd);
+                }
+              
                 String open = h.getOpenBall();
                 JsonParser parser = new JsonParser();
                 JsonObject o = parser.parse(open).getAsJsonObject();
@@ -662,33 +665,10 @@ public class Controller {
                 }
                 Utils.WritePropertiesFile("history", phase, totalcode.substring(0,totalcode.length()-1));
 
-               // 
-            }else if (boardType.equals("2")) {
-                String history= DaliHttpClient.getLottery();
-                JsonParser parser = new JsonParser();
-                JsonArray o = parser.parse(history).getAsJsonArray();
-                JsonObject json = o.get(0).getAsJsonObject();
-                JsonArray data = json.getAsJsonArray("data");
-                JsonObject c = data.get(0).getAsJsonObject();
-                String phase = c.get("PhaseNO").getAsString();
-                 
-                JsonObject content =  c.get("Content").getAsJsonObject();
-                String totalcode = "";
-                for(int i = 1 ; i<11 ; i ++) {
-                    String draw_result =  content.get(Integer.toString(i)).getAsString();
-                    String code = draw_result.substring(0, 1).equals("0") ?  draw_result.substring(1, 2) 
-                                                                                               : draw_result;
-                    totalcode += code +",";
-                    
-                }
-                Utils.WritePropertiesFile("history", phase, totalcode.substring(0,totalcode.length()-1));
-            }
-                
-            //open source
-            Utils.writeHistory();
+        
 
             String nexphase = Utils.getMaxPhase();
-            return Integer.toString(Integer.parseInt(nexphase) + 1);
+            return Long.toString(Long.valueOf(nexphase) + 1 ) ;
 //            long unixTime = System.currentTimeMillis() / 1000L;
 //
 //            String query = "McID=03RGK&Nose=bb4NvVOMtX&Sern=0&Time=" + unixTime;
@@ -1188,7 +1168,7 @@ public class Controller {
                     i++;
                 }
 
-                String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
+                String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "jscar_d1_10");
 
                 JsonParser parser = new JsonParser();
                 JsonObject o = parser.parse(betRet).getAsJsonObject();
@@ -1426,7 +1406,7 @@ public class Controller {
                     i++;
                 }
 
-                String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
+                String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "jscar_d1_10");
 
                 JsonParser parser = new JsonParser();
                 JsonObject o = parser.parse(betRet).getAsJsonObject();
