@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -967,9 +968,81 @@ public class Controller {
                 fileOut.close();
             } catch (Exception ex) {
             }
+            removeOverLog(user,phase,overmp);
+
         }
 
         return "null";
+    }
+    
+public static void removeOverLog(String user,String checkPhase,Map<String,String> overmp) {
+        
+        FileInputStream fileIn = null ;
+        FileOutputStream fileOut = null;
+
+        long removePhase = Long.valueOf(checkPhase)   - 1 ;
+        try {
+            Properties configProperty = new OrderedProperties();
+            String path = System.getProperty("user.dir");
+            String hisFile = path + "/" + user + "_over_log.properties";
+            File file = new File(hisFile);
+            if (!file.exists())
+                file.createNewFile();
+            fileIn = new FileInputStream(file);
+            configProperty.load(new InputStreamReader(fileIn, "UTF-8"));
+            
+           
+
+             ArrayList<String> removeList = new ArrayList();
+            for (Enumeration e = configProperty.propertyNames(); e.hasMoreElements();) {
+                String key = e.nextElement().toString();
+               
+                removeList.add(key);
+                
+            } 
+            
+            for(String key:removeList) {
+                String phase = key.split("@")[0];
+                if(Long.valueOf(phase)  <= removePhase) {
+                    configProperty.remove(key); 
+
+                    System.out.println("remove ok" + key);
+                }
+            }
+            
+            fileOut = new FileOutputStream(file);
+            configProperty.store(new OutputStreamWriter(fileOut, "UTF-8"), "sample properties");
+            
+            
+            for (Map.Entry<String, String> entry : overmp.entrySet())
+            {
+                String key = entry.getKey();
+                String phase = key.split("@")[1];
+                if(Long.valueOf(phase)  <= removePhase) {
+                    overmp.remove(key);
+                    System.out.println("remove map ok" + key);
+
+                }
+                
+                
+            }
+            System.gc() ;
+        }catch(Exception e) {
+
+            try {
+                fileIn.close();
+                fileOut.close();
+            } catch (Exception ex) {
+            }
+        }finally{
+
+            try {
+                fileIn.close();
+                fileOut.close();
+            } catch (Exception ex) {
+            }
+        }
+        
     }
 
     @RequestMapping("/clearLog")
