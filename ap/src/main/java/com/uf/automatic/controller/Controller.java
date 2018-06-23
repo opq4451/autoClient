@@ -456,7 +456,7 @@ public class Controller {
                     String index = "";
                     
                     if (key_form.equals("12")) { //計劃11
-                        index = "01";
+                        index = "02";
                     }
                     if (key_form.equals("10")) {//計劃10
                         index = "03";
@@ -918,7 +918,7 @@ public class Controller {
 
                     
 
-                        for (int overi = 1; overi < 11; overi++) {
+                        for (int overi = 1; overi < 13; overi++) {
                             String key = phase + "@" + sn + "@" + c[i] + "@" + x + "@" + overi; 
                             
                             
@@ -2142,6 +2142,8 @@ public class Controller {
             return "i";
         if (i == 10)
             return "j";
+        if (i == 12)
+            return "z";
 
         return "";
     }
