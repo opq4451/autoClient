@@ -76,10 +76,10 @@ public class httpClientCookie {
         setInitCookie(d);//塞 cookie
     }
     public static httpClientCookie getInstance(String id,String password) {
-        startFlag=checkStart(); 
-        if(!startFlag.equals("Y")) {
-            return null;
-        }
+//        startFlag=checkStart(); 
+//        if(!startFlag.equals("Y")) {
+//            return null;
+//        }
         //if(instance == null) {
             instance = new httpClientCookie(id,password);
         //}
