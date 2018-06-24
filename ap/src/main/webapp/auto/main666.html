@@ -1135,7 +1135,11 @@
 		    	 	$( "div.useBet" ).text(json.useBet);
 		    	 	$( "div.maxcredit" ).text(json.usable_credit);
 		    	 	$( ".stoppoint" ).val(json.stoppoint) ;
+		    	 	 try{
 		    	 	$( "div.extendtime" ).text(json.stop_time);
+				  }catch(err){
+												saveLog('error_bet','extendtime:' + stop);
+				   }
 
 		    	 	
 		    	 	if($( ".stoppoint" ).val()!= ''){
@@ -2703,7 +2707,12 @@
     	        var winFlag = getWinFun(); 
     	        
 			    if(winFlag){
-		    	        let stop = $( "div.extendtime" ).text() * 1;
+		    	         let stop = 0;
+						try{
+							stop = $( "div.extendtime" ).text() * 1;
+		    	         }catch(err){
+	   	        	    		saveLog('error_bet','stoptime:' + stop);
+	   	        	    }
 		    	        
 				    
 				    if(stop>50){
