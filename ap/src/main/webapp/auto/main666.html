@@ -1309,7 +1309,48 @@
     var betTemp4   = { '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : '', '10' : '', };
     var betTemp5   = { '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : '', '10' : '', };
     var betTemp6   = { '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : '', '10' : '', };
-	 
+	function project1_limit(sn,phase,single){
+		 let tenArray = [];
+		 
+		 
+		 for(var i=0;i<phase;i++){
+			 
+			 if(single =='s'){
+				 if((i%2) ==0){
+					 let p = phase - i ;
+					 let nCodeArra = getCodeByPhase(p);
+					 if(nCodeArra=='null'){
+						 return null;
+					 }
+					 let c = nCodeArra.split(',')[sn];
+					 if(tenArray.length == 5){
+						 return tenArray.sort(sortNumber);
+					 }else if(tenArray.indexOf(c)==-1){  tenArray.push(c);}
+					 
+				 }
+			 }else if(single =='d'){
+				 if( (i%2) ==1 ){
+					 let p = phase - i ;
+					 let nCodeArra = getCodeByPhase(p);
+					 if(nCodeArra=='null'){
+						 return null;
+					 }
+					 let c = nCodeArra.split(',')[sn];
+					 if(tenArray.length == 5){
+						 return tenArray.sort(sortNumber);
+					 }else if(tenArray.indexOf(c)==-1){  tenArray.push(c);}
+					 
+				 }
+			 }
+			 
+			
+			 
+		 } 
+	       
+		
+
+	}
+	
 	
 	function getCode_byFormu(formu,codeArray){
 		let total = 0;
@@ -1325,43 +1366,44 @@
 		
 		return ((total%10)==0?10:(total%10)) + '' ;
 	}
-	function project6_limit(snIndex,phase,length){
-		 let tenArray = [];
-		 
-		 
-		 for(var i=0;i<phase;i++){
-			 let p = phase - i ;
-			 let nCodeArra = getCodeByPhase(p);
-			 if(nCodeArra=='null'){
-				 return null;
-			 }
-			 let c = nCodeArra.split(',')[snIndex];
-			 if(tenArray.length == length){
-				 return tenArray.sort(sortNumber);
-			 }else if(tenArray.indexOf(c)==-1){  tenArray.push(c);}
-			 
-			
-			 
-		 } 
-	       
-		
-	}
+	
 	function compareByType_from_member(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
 		
+		 
+			
+		//const code_b = getCodeByPhase(phase_before); 
+		const code_n = getCodeByPhase(phase_now);
+		const code_n2 = getCodeByPhase(phase_now*1 -1);
+		//const code_before4 = getCodeByPhase(phase_before4);
+		
+		 
+		const array_n2 = code_n2.split(',');
+		const array_n = code_n.split(',');
+
+		if( array_n2.length==0  ){
+			return;
+		} 
 		  
 		var z = formu ;  
 		var sn = z-1;
-		let bet_code = project6_limit(sn,phase_now,6);
-		console.log(bet_code);
-		if(bet_code == null){
-			projectBet[(formu*1)][(formu*1)] = true;
-			return;
+		let bet_n = '';
+
+		for(var j=0;j<10;j++){
+			if(z== array_n2[j]){
+				
+				bet_n = j + 1 ;
+				//bet_code = array_n2[j];
+				break;
+			}
+		}
+		  let bet_code =  '2,3,5,6,8,9';
+		 if(formu =='12'){
+			bet_n = array_n[0];
+			bet_code =  '1,3,5,6,8,10';
+		} else {
+			bet_n = formu;
 		}
 		
-		
-		let bet_n = formu;
-		
-		 
 		
 		
 		
@@ -1371,7 +1413,7 @@
 	  
 	         
 
-   		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,z);
+   		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code ,formu,z);
    		if(rbf){
 			bIndex[z]++;
 			projectBet[(formu*1)][(formu*1)] = true;
@@ -2675,7 +2717,6 @@
 				    
 				    
 				     
-				    log_betIndex();
 			        if((stop<25 && stop>15) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
 			            var phase =  $( "div.toPhase" ).text();
 			            //console.log(phase);
