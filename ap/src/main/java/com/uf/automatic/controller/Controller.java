@@ -1599,11 +1599,14 @@ public class Controller {
 
         try {
             overmp = new HashMap();
+            if(h ==null)
+               h = httpClientCookie.getInstance("yy5511", "qaz123123");
+            
             //write history
-            String url = "http://api.api68.com/pks/getPksHistoryList.do?date="+d+"&lotCode=10001";
+            //String url = "http://mem1.ytrqeb712.zongxiart.com:88/Result.aspx?page=2&id=10&tabletype=1";
             String ret = null;
             try {
-                ret = Utils.httpClientGet(url);
+                ret = h.getH();
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

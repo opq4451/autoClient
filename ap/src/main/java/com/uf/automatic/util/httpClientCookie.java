@@ -274,6 +274,15 @@ public class httpClientCookie {
         }
         return "";
 	}
+	public String getH() {
+        String query = uraal[urli%5] + "/Result.aspx?id=10&tabletype=1";
+        try {
+            return instance.httpClientUseCookie(query);
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 	
 	//兩面ＺＲＵＦ
 	public String getoddsInfoForDouble() {
