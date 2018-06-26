@@ -214,7 +214,15 @@ public class Controller {
                 String stop_time =  data.get("stop_time").getAsString();
                 j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(todayWin))));
                 j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
-                j.addProperty("stop_time", stop_time.split(":")[2]);
+                try {
+                     
+                        j.addProperty("stop_time", stop_time.split(":")[2]);
+ 
+                   
+                }catch(Exception e) {
+                    
+                }
+                
 
             } else if (boardType.equals("1")) { //華山
                 String ret = MoutainHttpClient.httpGet(mountain_token_sessid,
