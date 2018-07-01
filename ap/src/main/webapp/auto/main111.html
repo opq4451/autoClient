@@ -1391,17 +1391,21 @@
 		var sn = z-1;
 		let bet_n = '';
 
-		/*for(var j=0;j<10;j++){
+		for(var j=0;j<10;j++){
 			if(z== array_n2[j]){
 				
 				bet_n = j + 1 ;
 				//bet_code = array_n2[j];
 				break;
 			}
-		}*/
-		let bet_code =   '3,4,5,6,9,10';
-		bet_n = array_n[sn];
-		
+		}
+		  let bet_code =  '1,2,4,7,8,9';
+		 if(formu =='12'){
+			bet_n = array_n[0];
+			bet_code =  '1,3,5,6,8,10';
+		} else {
+			bet_n = formu;
+		}
 		
 		
 		
