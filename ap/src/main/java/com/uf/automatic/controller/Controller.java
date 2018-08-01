@@ -216,7 +216,7 @@ public class Controller {
                 j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
                 try {
                      
-                        j.addProperty("stop_time", stop_time.split(":")[2]);
+                        j.addProperty("stop_time", stop_time.split(":")[1] + ":" + stop_time.split(":")[2]);
  
                    
                 }catch(Exception e) {

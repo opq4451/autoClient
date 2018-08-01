@@ -85,11 +85,11 @@ public class httpClientCookie {
         return instance;
          
     }
-    static String uraal[] = {"http://mem1.ytrqeb712.zongxiart.com:88/",
-                    "http://mem5.ytrqeb712.syyanshou.com/",
-                    "http://mem2.ytrqeb712.syyanshou.com/",
-                    "http://mem3.ytrqeb712.zongxiart.com:88/",
-                    "http://mem4.ytrqeb712.syyanshou.com/"
+    static String uraal[] = {"http://mem1.maoefo418.cdbybj.com:88/",
+                    "http://mem5.maoefo418.besrubber.com/",
+                    "http://mem2.maoefo418.besrubber.com:88/",
+                    "http://mem3.maoefo418.cdbybj.com:88/",
+                    "http://mem4.maoefo418.besrubber.com//"
                     }; 
     //sd8885 //Aa258369
     static int urli = 0 ;
@@ -272,7 +272,6 @@ public class httpClientCookie {
         return "";
 	}
 	
-	//兩面ＺＲＵＦ
 	public String getoddsInfoForDouble() {
         String query = uraal[urli%5] + "/L_PK10/Handler/Handler.ashx?action=get_oddsinfo&playid=2%2C3%2C4%2C6%2C7%2C8%2C10%2C11%2C12%2C14%2C15%2C16%2C18%2C19%2C20%2C22%2C23%2C25%2C26%2C28%2C29%2C31%2C32%2C34%2C35%2C37%2C38&playpage=pk10_lmp";
         try {
@@ -283,9 +282,8 @@ public class httpClientCookie {
         return "";
     }
 	
-	
 	public String getOpenBall() {
-        String query = uraal[urli%5] + "/L_JSCAR/Handler/Handler.ashx?action=get_openball&playpage=";
+        String query = uraal[urli%5] + "/L_PK10/Handler/Handler.ashx?action=get_openball&playpage=pk10_lmp";
         try {
             return instance.httpClientUseCookie(query);
         }catch(Exception e) {
@@ -296,19 +294,19 @@ public class httpClientCookie {
 	
 	
 	public String getoddsInfo() {
-	    String query = uraal[urli%5] + "/L_JSCAR/Handler/Handler.ashx?action=get_oddsinfo&playid=1%2C5%2C9%2C13%2C17%2C21%2C24%2C27%2C30%2C33&playpage=jscar_d1_10";
+        String query = uraal[urli%5] + "/L_PK10/Handler/Handler.ashx?action=get_oddsinfo&playid=1%2C5%2C9%2C13%2C17%2C21%2C24%2C27%2C30%2C33&playpage=pk10_d1_10";
         try {
             return instance.httpClientUseCookie(query);
         }catch(Exception e) {
             e.printStackTrace();
         }
         return "";
-	}
+    }
 	
 	public synchronized String normalBet(String phaseid,String ossid,  String pl , String i_index , String m ,String type) {
 	    
 	     
-	    String query = uraal[urli%5] + "/L_JSCAR/Handler/Handler.ashx?action=put_money&";
+	    String query = uraal[urli%5] + "/L_PK10/Handler/Handler.ashx?action=put_money&";
         try {
            
 

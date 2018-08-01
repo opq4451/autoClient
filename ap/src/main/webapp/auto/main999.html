@@ -1371,6 +1371,24 @@
 		return ((total%10)==0?10:(total%10)) + '' ;
 	}
 	
+	function getFixCode(code){
+		let bet = {
+			'1':'1,2,3,4,5,6',
+			'2':'2,3,4,5,6,7',
+			'3':'3,4,5,6,7,8',
+			'4':'4,5,6,7,8,9',
+			'5':'5,6,7,8,9,10',
+			'6':'6,7,8,9,10,1',
+			'7':'7,8,9,10,1,2',
+			'8':'8,9,10,1,2,3',
+			'9':'9,10,1,2,3,4',
+			'0':'10,1,2,3,4,5',
+
+		}
+		return bet[code];
+
+	}
+
 	function compareByType_from_member(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
 		
 		 
@@ -1387,37 +1405,41 @@
 		if( array_n2.length==0  ){
 			return;
 		} 
-		  
+
 		var z = formu ;  
 		var sn = z-1;
-		let bet_n = '';
-
-		for(var j=0;j<10;j++){
-			if(z== array_n2[j]){
-				
-				bet_n = j + 1 ;
-				//bet_code = array_n2[j];
-				break;
-			}
-		}
-		  let bet_code =  '1,3,4,6,7,8';
-		 if(formu =='12'){
-			bet_n = array_n[0];
-			bet_code =  '1,3,5,6,8,10';
-		} else {
-			bet_n = formu;
-		}
+		let ccc = (array_n[sn] *1  + array_n2[sn] *1) % 10 ;
+		let bet_code = getFixCode(ccc);
+		let btempArray = bet_code.toString().split(',');
 		
+		let betCodeString = btempArray.sort(sortNumber);
+
+
+		
+		
+		let bet_n = formu;
+		
+		 
 		
 		
 		
 		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 	    var amount = bArray[bIndex[z]%bArray.length] ;
 		    
-	  
-	         
+/*
+	    if(bIndex[z] ==0){
+	    	setTemp(formu,bet_code);
+	    } 
+	    
 
-   		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code ,formu,z);
+	    let btemp = getTemp(formu);*/
+	       /*  
+	    let btempArray = btemp.toString().split(',');
+	    let arra = checkExist(btempArray,array_n[sn]);
+	    arra = checkExist(arra,array_n2[sn]);
+		let betCodeString = arra.sort(sortNumber);
+	    console.log(formu + '第' + z + '名:' + betCodeString.toString());*/
+   		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , betCodeString.toString() ,formu,z);
    		if(rbf){
 			bIndex[z]++;
 			projectBet[(formu*1)][(formu*1)] = true;
@@ -2681,7 +2703,7 @@
 	   	 		 if(document.getElementById("autoStart").checked){
 	   	 			 auto = "Y";
 	   	 		 }
-	             window.location.href="http://www.sd8888.net/index666.html?auto="+auto+"&user="+
+	             window.location.href="http://www.sd8888.net/index999.html?auto="+auto+"&user="+
 	             document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value;
 		    }
 			    
@@ -2708,6 +2730,9 @@
     	        
 			    if(winFlag){
 		    	         let stop = 0;
+		    	         let cccheck = stop.toString().split(':')[0];
+ 		    	         let cccheck_S = stop.toString().split(':')[1];
+
 						try{
 							stop = $( "div.extendtime" ).text() * 1;
 		    	         }catch(err){
@@ -2715,7 +2740,7 @@
 	   	        	    }
 		    	        
 				    
-				    if(stop>50){
+				    if(cccheck>4){
 				    //	betflag = false; 
 				    	clearProjectBetFlag();
 				    } 
@@ -2726,14 +2751,14 @@
 				    
 				    
 				     
-			        if((stop<25 && stop>0) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
+			        if((cccheck<4 ) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
 			            var phase =  $( "div.toPhase" ).text();
 			            //console.log(phase);
 						if( phase ){  
 							if(true){
 								//console.log(JSON.stringify(betIndex)); 
 
-							   if(stop<3 && !checkProjectBetflag()){ //到了最後還下注不了，只好關數歸零
+							   if(cccheck_S<10 && !checkProjectBetflag()){ //到了最後還下注不了，只好關數歸零
 									clearIndex(); //
 									var d = getYYYYMMDDSS();
 					        	    		var log =  d + "error!" ;
