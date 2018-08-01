@@ -438,7 +438,7 @@ public class Controller {
                     String v = configProperty.getProperty(e.nextElement().toString());
 
                     //String formuStr = v.substring(v.length() - 5, v.length()); // (公式1)
-                    String phase = v.substring(1, 12); //期別
+                    String phase = v.substring(1, 7); //期別
                     String key_form = v.substring(v.lastIndexOf("式") + 1, v.lastIndexOf(")")); //公式
 
                     int start = v.indexOf("第", 8);
