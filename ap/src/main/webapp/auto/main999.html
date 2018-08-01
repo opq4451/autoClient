@@ -1037,7 +1037,7 @@
 		 });
 		 
 		 $( "#logoutDiv" ).click(function() {
-             window.location.href='/index666.html' ;
+             window.location.href='/index999.html' ;
 
 		 });
 		 
@@ -2730,17 +2730,17 @@
     	        
 			    if(winFlag){
 		    	         let stop = 0;
-		    	         let cccheck = stop.toString().split(':')[0];
- 		    	         let cccheck_S = stop.toString().split(':')[1];
+		    	         let cccheck = $( "div.extendtime" ).text().toString().split(':')[0];
+ 		    	         let cccheck_S = $( "div.extendtime" ).text().toString().split(':')[1];
 
-						try{
-							stop = $( "div.extendtime" ).text() * 1;
-		    	         }catch(err){
-	   	        	    		saveLog('error_bet','stoptime:' + stop);
-	   	        	    }
+						// try{
+						// 	stop = $( "div.extendtime" ).text() * 1;
+		    // 	         }catch(err){
+	   	 //        	    		saveLog('error_bet','stoptime:' + stop);
+	   	 //        	    }
 		    	        
-				    
-				    if(cccheck>4){
+				    console.log(stop + 'cccheck' + cccheck)
+				    if(cccheck*1 >3){
 				    //	betflag = false; 
 				    	clearProjectBetFlag();
 				    } 
@@ -3338,7 +3338,7 @@
     	 	for(var i=1;i<11;i++){console.log('計劃9:  第'+i+'名:'+betIndex9[i]);}
     	 	for(var i=1;i<11;i++){console.log('計劃10:  第'+i+'名:'+betIndex10[i]);} 
     	 	for(var i=1;i<11;i++){console.log('計劃11:  第'+i+'名:'+betIndex11[i]);} */
-    	 	for(var i=1;i<13;i++){console.log('計劃12:  第'+i+'名:'+betIndex12[i]);} 
+    	 	//for(var i=1;i<13;i++){console.log('計劃12:  第'+i+'名:'+betIndex12[i]);} 
 
 
     }
