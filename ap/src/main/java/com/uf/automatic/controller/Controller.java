@@ -1487,7 +1487,7 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                     i++;
                 }
 
-                String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "jscar_d1_10");
+                String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
 
                 JsonParser parser = new JsonParser();
                 JsonObject o = parser.parse(betRet).getAsJsonObject();
