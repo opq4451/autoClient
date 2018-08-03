@@ -709,7 +709,7 @@ public class Controller {
     }
 
     @RequestMapping("/getCode")
-    public String getCode(@RequestParam("phase") String phase) {
+    public static String getCode(@RequestParam("phase") String phase) {
         FileInputStream fileIn = null;
         try {
             Properties configProperty = new Properties();
@@ -723,6 +723,45 @@ public class Controller {
             configProperty.load(fileIn);
             if (configProperty.getProperty(phase) != null)
                 return configProperty.getProperty(phase);
+            else {
+                String url = "http://www.speedy-ball.com/speedy10-result.aspx?drawid=" + phase;
+                String ret = Utils.httpClientGet(url);
+                int o_1 = ret.indexOf("resultnum3") + 10 ;
+                int o_2 = ret.indexOf("resultnum3",o_1) + 10 ;
+                int o_3 = ret.indexOf("resultnum3",o_2) + 10 ;
+                int o_4 = ret.indexOf("resultnum3",o_3) + 10 ;
+                int o_5 = ret.indexOf("resultnum3",o_4) + 10 ;
+                int o_6 = ret.indexOf("resultnum3",o_5) + 10 ;
+                int o_7 = ret.indexOf("resultnum3",o_6) + 10 ;
+                int o_8 = ret.indexOf("resultnum3",o_7) + 10 ;
+                int o_9 = ret.indexOf("resultnum3",o_8) + 10 ;
+                int o_0 = ret.indexOf("resultnum3",o_9) + 10 ;
+                String c_1 = ret.substring(ret.indexOf("</div>",o_1)-2,ret.indexOf("</div>",o_1))  ;
+                String c_2 = ret.substring(ret.indexOf("</div>",o_2)-2,ret.indexOf("</div>",o_2))  ;
+                String c_3 = ret.substring(ret.indexOf("</div>",o_3)-2,ret.indexOf("</div>",o_3))  ;
+                String c_4 = ret.substring(ret.indexOf("</div>",o_4)-2,ret.indexOf("</div>",o_4))  ;
+                String c_5 = ret.substring(ret.indexOf("</div>",o_5)-2,ret.indexOf("</div>",o_5))  ;
+                String c_6 = ret.substring(ret.indexOf("</div>",o_6)-2,ret.indexOf("</div>",o_6))  ;
+                String c_7 = ret.substring(ret.indexOf("</div>",o_7)-2,ret.indexOf("</div>",o_7))  ;
+                String c_8 = ret.substring(ret.indexOf("</div>",o_8)-2,ret.indexOf("</div>",o_8))  ;
+                String c_9 = ret.substring(ret.indexOf("</div>",o_9)-2,ret.indexOf("</div>",o_9))  ;
+                String c_0 = ret.substring(ret.indexOf("</div>",o_0)-2,ret.indexOf("</div>",o_0))  ;
+                String c1 = c_1.substring(0, 1).equals("0") ? c_1.substring(1, 2) : c_1 ;
+                String c2 = c_2.substring(0, 1).equals("0") ? c_2.substring(1, 2) : c_2 ; 
+                String c3 = c_3.substring(0, 1).equals("0") ? c_3.substring(1, 2) : c_3 ; 
+                String c4 = c_4.substring(0, 1).equals("0") ? c_4.substring(1, 2) : c_4 ; 
+                String c5 = c_5.substring(0, 1).equals("0") ? c_5.substring(1, 2) : c_5 ; 
+                String c6 = c_6.substring(0, 1).equals("0") ? c_6.substring(1, 2) : c_6 ; 
+                String c7 = c_7.substring(0, 1).equals("0") ? c_7.substring(1, 2) : c_7 ; 
+                String c8 = c_8.substring(0, 1).equals("0") ? c_8.substring(1, 2) : c_8 ; 
+                String c9 = c_9.substring(0, 1).equals("0") ? c_9.substring(1, 2) : c_9 ; 
+                String c0 = c_0.substring(0, 1).equals("0") ? c_0.substring(1, 2) : c_0 ; 
+                String code = c1 + "," + c2 + "," + c3+ "," + c4+ "," + c5
+                        + "," + c6+ "," + c7+ "," + c8+ "," + c9+ "," + c0 ;
+                
+                Utils.WritePropertiesFile("history", phase, code);
+
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
