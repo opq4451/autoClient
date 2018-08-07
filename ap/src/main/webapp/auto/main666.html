@@ -1358,10 +1358,10 @@
 			 
 		 } 
   	     tenArray.splice(9, 1);
+	     tenArray.splice(8, 1);
 
 	     tenArray.splice(7, 1);
 		 tenArray.splice(5, 1);
-		 tenArray.splice(3, 1);
  
 		 return tenArray.sort(sortNumber);
 			 
@@ -2396,6 +2396,27 @@
 	}
 	
 	function getCodeByPhase(phase){ //取得號碼
+		 
+		 if(phase){
+		 	let nowDD = phase.toString().substring(0,8);
+
+		 	var currentDate = new Date();
+			var year = currentDate.getFullYear();
+			var month = currentDate.getMonth() + 1;
+			month = month < 10 ? '0' + month : month;
+			var day = currentDate.getDate();
+			day = day < 10 ? '0' + day : day;
+			var date = year + month + day;
+			console.log(phase);
+
+			console.log(nowDD);
+
+			console.log(date);
+			if(nowDD != date){
+				
+				return ;
+			}
+		 }
 		 let code=""; 
 		 $.ajax({ url:  u + "/getCode?phase="+phase, 
 	         async: false,
@@ -2420,7 +2441,7 @@
 			           	   $( "div.toPhase" ).text(data);
 			           	   let nphase = data - 1;
 			           	   $( "div.toNowPhase" ).text(nphase);
-			           	   
+			           	   console.log('getPhase:' + nphase)
 			               let c = getCodeByPhase(nphase);
 			               console.log("blinkPhase"+blinkPhase);
 			               if(c=='null'){//開獎中
