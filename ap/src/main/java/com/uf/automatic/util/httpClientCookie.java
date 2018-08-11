@@ -85,11 +85,11 @@ public class httpClientCookie {
         return instance;
          
     }
-    static String uraal[] = {"http://mem1.maoefo418.cdbybj.com:88/",
-                             "http://mem5.maoefo418.besrubber.com/",
-                             "http://mem2.maoefo418.besrubber.com:88/",
-                             "http://mem3.maoefo418.cdbybj.com:88/",
-                             "http://mem4.maoefo418.besrubber.com//"
+    static String uraal[] = {"http://mem1.wmiygd418.cdbybj.com:88/",
+                             "http://mem5.wmiygd418.besrubber.com/",
+                             "http://mem2.wmiygd418.besrubber.com:88/",
+                             "http://mem3.wmiygd418.cdbybj.com:88/",
+                             "http://mem4.wmiygd418.besrubber.com/"
                              }; 
 
     //sd8885 //Aa258369
