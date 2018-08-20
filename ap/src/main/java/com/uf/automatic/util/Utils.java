@@ -71,22 +71,22 @@ public class Utils {
     }
 
     public static void main(String[] args) {
-//        long unixTime = System.currentTimeMillis() / 1000L;
+        long unixTime = System.currentTimeMillis() / 1000L;
+
+        String query = "McID=02RVE&Nose=bb4NvVOMtX&Sern=0&Time=" + unixTime;
+        System.out.println(query + "&key=jVPdwq0BDW");
+        String sign = MD5(query + "&key=jVPdwq0BDW").toUpperCase();
+
+        String url = "http://47.90.109.200/chatbet_v3/award_sync/get_award.php?" + query + "&Sign=" + sign;
+        System.out.println(url);
 //
-//        String query = "McID=02RVE&Nose=bb4NvVOMtX&Sern=0&Time=" + unixTime;
-//        System.out.println(query + "&key=jVPdwq0BDW");
-//        String sign = MD5(query + "&key=jVPdwq0BDW").toUpperCase();
-//
-//        String url = "http://47.90.109.200/chatbet_v3/award_sync/get_award.php?" + query + "&Sign=" + sign;
-//        System.out.println(url);
-//
-//        //part2
-//        query = "McID=03RGK&Nose=bb4NvVOMtX&Sern=0&Time=" + unixTime;
-//        System.out.println(query + "&key=EUAwtKL0A1");
-//        sign = MD5(query + "&key=EUAwtKL0A1").toUpperCase();
-//
-//        url = "http://47.90.109.200/chatbet_v3/award_sync/get_award.php?" + query + "&Sign=" + sign;
-//        System.out.println(url);
+        //part2
+        query = "McID=03RGK&Nose=bb4NvVOMtX&Sern=0&Time=" + unixTime;
+        System.out.println(query + "&key=EUAwtKL0A1");
+        sign = MD5(query + "&key=EUAwtKL0A1").toUpperCase();
+
+        url = "http://47.90.109.200/chatbet_v3/award_sync/get_award.php?" + query + "&Sign=" + sign;
+        System.out.println(url);
 //        
 //        
 //        String a = "(第0關)(公式12)";

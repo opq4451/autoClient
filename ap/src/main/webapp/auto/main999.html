@@ -863,6 +863,34 @@
     var betIndex11  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
     var betIndex12  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, '12' : 0, };
 
+    var projectIndex = {
+    	'1' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+    	'2' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+    	'3' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+    	'4' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+    	'5' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+    	'6' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+    	'7' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+    	'8' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+    	'9' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+    	'10' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+
+    }
+
+    var projectTemp = {
+    	'1' : '' ,
+    	'2' : '' ,
+    	'3' : '' ,
+    	'4' : '' ,
+    	'5' : '' ,
+    	'6' : '' ,
+    	'7' : '' ,
+    	'8' : '' ,
+    	'9' : '' ,
+    	'10' : '' ,
+    }
+
+
     const rangeExist = {
  			'1' : ['1','2','3','4','9','10'] ,
  			'2' : ['1','2','3','4','5','10'] ,
@@ -1313,109 +1341,87 @@
     var betTemp4   = { '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : '', '10' : '', };
     var betTemp5   = { '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : '', '10' : '', };
     var betTemp6   = { '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : '', '10' : '', };
-	function project1_limit(sn,phase,single){
+	
+
+
+	function accumulate(formu){
+ 		for(var i = 1;i<11;i++){
+ 			projectIndex[formu][i] ++ ;
+ 		}
+ 	}
+ 	function getcumulate(formu){
+ 		let tenArray = [];
+
+ 	 
+ 		for(var i = 1;i<11;i++){
+ 			if(projectIndex[formu][i] >=16){ tenArray.push(i);};
+ 		}
+
+ 		 
+		if(tenArray.length ==4){
+			for(var i = 1;i<11;i++){
+	 			projectIndex[formu][i] = 0 ; 
+	 		}
+
+			return tenArray;
+		}
+
+		return null;
+
+ 	}
+
+	function project6_limit(snIndex,phase,length){
 		 let tenArray = [];
-		 
-		 
-		 for(var i=0;i<phase;i++){
+		 let formu = snIndex + 1;
+		  //clearIndex();
+		 //for(var i=0;i<=phase;i++){
+			  
+			 let p =  phase*1 - 0  ;
+			 //  if(p.toString().substring(8,11) == '000'){
+			 // 	return null;
+			 // }
 			 
-			 if(single =='s'){
-				 if((i%2) ==0){
-					 let p = phase - i ;
-					 let nCodeArra = getCodeByPhase(p);
-					 if(nCodeArra=='null'){
-						 return null;
-					 }
-					 let c = nCodeArra.split(',')[sn];
-					 if(tenArray.length == 5){
-						 return tenArray.sort(sortNumber);
-					 }else if(tenArray.indexOf(c)==-1){  tenArray.push(c);}
-					 
-				 }
-			 }else if(single =='d'){
-				 if( (i%2) ==1 ){
-					 let p = phase - i ;
-					 let nCodeArra = getCodeByPhase(p);
-					 if(nCodeArra=='null'){
-						 return null;
-					 }
-					 let c = nCodeArra.split(',')[sn];
-					 if(tenArray.length == 5){
-						 return tenArray.sort(sortNumber);
-					 }else if(tenArray.indexOf(c)==-1){  tenArray.push(c);}
-					 
-				 }
+			 let nCodeArra = getCodeByPhase(p);
+			 if(nCodeArra=='null'){
+				 return null;
 			 }
+			 let c = nCodeArra.split(',')[snIndex];
+			 accumulate(formu);
+			 projectIndex[formu][c] = 0 ;
+			 tenArray=getcumulate(formu);
+ 			 
+ 			 if(tenArray)
+ 			 	return tenArray.sort(sortNumber);
+	 
+ 
+		 
+
+	    
+ 		 return null;
+		 //return tenArray.sort(sortNumber);
 			 
-			
-			 
-		 } 
-	       
 		
-
 	}
-	
-	
-	function getCode_byFormu(formu,codeArray){
-		let total = 0;
-		if(formu == '1'  ){
-			total = codeArray[1] * 1 + codeArray[2] * 1 + codeArray[3] * 1 ;
-		}else if(formu == '2'  ){
-			total = codeArray[2] * 1 + codeArray[3] * 1 + codeArray[4] * 1 ;
-		}else if(formu == '3'  ){
-			total = codeArray[5] * 1 + codeArray[6] * 1 + codeArray[7] * 1 ;
-		}else if(formu == '4'){
-			total = codeArray[6] * 1 + codeArray[7] * 1 + codeArray[8] * 1 ;
-		}
-		
-		return ((total%10)==0?10:(total%10)) + '' ;
-	}
-	
-	function getFixCode(code){
-		let bet = {
-			'1':'1,2,3,4,5,6',
-			'2':'2,3,4,5,6,7',
-			'3':'3,4,5,6,7,8',
-			'4':'4,5,6,7,8,9',
-			'5':'5,6,7,8,9,10',
-			'6':'6,7,8,9,10,1',
-			'7':'7,8,9,10,1,2',
-			'8':'8,9,10,1,2,3',
-			'9':'9,10,1,2,3,4',
-			'0':'10,1,2,3,4,5',
-
-		}
-		return bet[code];
-
-	}
-
 	function compareByType_from_member(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
 		
-		 
-			
-		//const code_b = getCodeByPhase(phase_before); 
-		const code_n = getCodeByPhase(phase_now*1 -2);
-		const code_n2 = getCodeByPhase(phase_now*1 -3);
-		//const code_before4 = getCodeByPhase(phase_before4);
-		
-		 
-		const array_n2 = code_n2.split(',');
-		const array_n = code_n.split(',');
-
-		if( array_n2.length==0  ){
-			return;
-		} 
 
 		var z = formu ;  
 		var sn = z-1;
-		let ccc = (array_n[sn] *1  + array_n2[sn] *1) % 10 ;
-		let bet_code = getFixCode(ccc);
-		let btempArray = bet_code.toString().split(',');
-		
-		let betCodeString = btempArray.sort(sortNumber);
+		console.log('project:'+ formu);
 
+		if(projectTemp[formu]){
 
-		
+		}else {
+			projectTemp[formu] =project6_limit(sn,phase_now,7);
+
+		}
+		 
+		if(projectTemp[formu] == null){
+			projectBet[(formu*1)][(formu*1)] = true;
+			return;
+		}
+		let bet_code = projectTemp[formu];
+
 		
 		let bet_n = formu;
 		
@@ -1426,20 +1432,9 @@
 		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 	    var amount = bArray[bIndex[z]%bArray.length] ;
 		    
-/*
-	    if(bIndex[z] ==0){
-	    	setTemp(formu,bet_code);
-	    } 
-	    
 
-	    let btemp = getTemp(formu);*/
-	       /*  
-	    let btempArray = btemp.toString().split(',');
-	    let arra = checkExist(btempArray,array_n[sn]);
-	    arra = checkExist(arra,array_n2[sn]);
-		let betCodeString = arra.sort(sortNumber);
-	    console.log(formu + '第' + z + '名:' + betCodeString.toString());*/
-   		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , betCodeString.toString() ,formu,z);
+	    
+   		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,z);
    		if(rbf){
 			bIndex[z]++;
 			projectBet[(formu*1)][(formu*1)] = true;
@@ -2979,7 +2974,7 @@
 			return;
 		} 
     
-    		 let check = false; 
+    		 let check = true; 
 	   	 $.ajax({ url:  u + "/checkOver?user="+document.getElementById("user").value+"&phase="+phase_now+"&code="+code_n
 	   		+"&betproject="+	 checkChangeBetProject, 
 	         async: false,
@@ -3005,6 +3000,7 @@
 					  
 	        			     let flag = json[letter+''+formu] ;
 	        			     if(flag){
+        			     			  projectTemp[formu] = '';
 	        			    	 	  //if(formu==1){betIndex[1] = 0 ;}
 	        			    	 	  if(formu==1){betIndex[1] = 0 ;}
 	        			    	 	  if(formu==2){betIndex2[2] = 0 ;}
