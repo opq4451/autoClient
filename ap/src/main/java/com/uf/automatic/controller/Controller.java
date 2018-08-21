@@ -298,6 +298,18 @@ public class Controller {
                 String betlist8 = configProperty.getProperty("betlist8");
                 String betlist9 = configProperty.getProperty("betlist9");
                 String betlist10 = configProperty.getProperty("betlist10");
+                
+                String betlist_param = configProperty.getProperty("betlist_param");
+                String betlist2_param = configProperty.getProperty("betlist2_param");
+                String betlist3_param = configProperty.getProperty("betlist3_param");
+                String betlist4_param = configProperty.getProperty("betlist4_param");
+                String betlist5_param = configProperty.getProperty("betlist5_param");
+                String betlist6_param = configProperty.getProperty("betlist6_param");
+                String betlist7_param = configProperty.getProperty("betlist7_param");
+                String betlist8_param = configProperty.getProperty("betlist8_param");
+                String betlist9_param = configProperty.getProperty("betlist9_param");
+                String betlist10_param = configProperty.getProperty("betlist10_param");
+                
                 String betlist11 = configProperty.getProperty("betlist11");
                 String betlist12 = configProperty.getProperty("betlist12");
                 String betproject5 = configProperty.getProperty("betproject5");
@@ -324,6 +336,18 @@ public class Controller {
                 j.addProperty("betlist8", betlist8);
                 j.addProperty("betlist9", betlist9);
                 j.addProperty("betlist10", betlist10);
+                
+                j.addProperty("betlist_param", betlist_param);
+                j.addProperty("betlist2_param", betlist2_param);
+                j.addProperty("betlist3_param", betlist3_param);
+                j.addProperty("betlist4_param", betlist4_param);
+                j.addProperty("betlist5_param", betlist5_param);
+                j.addProperty("betlist6_param", betlist6_param);
+                j.addProperty("betlist7_param", betlist7_param);
+                j.addProperty("betlist8_param", betlist8_param);
+                j.addProperty("betlist9_param", betlist9_param);
+                j.addProperty("betlist10_param", betlist10_param);
+                
                 j.addProperty("betlist11", betlist11);
                 j.addProperty("betlist12", betlist12);
                 j.addProperty("betproject5", betproject5);
@@ -464,9 +488,9 @@ public class Controller {
                     }
                     String index = "";
                     
-                    if (key_form.equals("12")) { //計劃11
-                        index = "02";
-                    }
+//                    if (key_form.equals("12")) { //計劃11
+//                        index = "02";
+//                    }
                     if (key_form.equals("10")) {//計劃10
                         index = "03";
                     }
@@ -572,61 +596,61 @@ public class Controller {
                         m.put(phase, phase);
                     }
 
-//                    if (formu.equals("12")) {
-//                        logHtml.append("<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">"
-//                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
-//                    }
-                    if (formu.equals("12")) {//計劃一
+                    if (formu.equals("12")) {
+                        logHtml.append("<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">"
+                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+                    }
+                    if (formu.equals("11")) {//計劃2
                         logHtml.append("<tr><td bgcolor=\"5599FF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("11")) {//計劃二
+                    if (formu.equals("10")) {//計劃3
                         logHtml.append("<tr><td bgcolor=\"666666\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("10")) {//計劃三
+                    if (formu.equals("09")) {//計劃4
                         logHtml.append("<tr><td bgcolor=\"FFAA33\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("09")) {// 計劃四
+                    if (formu.equals("08")) {// 計劃5
                         logHtml.append("<tr><td bgcolor=\"99FFFF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("08")) {//計劃五
+                    if (formu.equals("07")) {//計劃6
                         logHtml.append("<tr><td bgcolor=\"B94FFF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("07")) {//計劃六
+                    if (formu.equals("06")) {//計劃7
                         logHtml.append("<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">"
                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("06")) {//計劃七
+                    if (formu.equals("05")) {//計劃8
                         logHtml.append("<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("05")) {//計劃八
+                    if (formu.equals("04")) {//計劃9
                         logHtml.append("<tr><td bgcolor=\"DEB887\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("04")) {//計劃九
+                    if (formu.equals("03")) {//計劃10
                         logHtml.append("<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("03")) {//計劃十
-                        logHtml.append("<tr><td bgcolor=\"CCFF99\"  style=\"border: 1px solid black\">"
-                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
-                    }
-
-                    if (formu.equals("02")) {//計劃1 1
-                        logHtml.append("<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">"
-                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
-                    }
+//                    if (formu.equals("03")) {//計劃十
+//                        logHtml.append("<tr><td bgcolor=\"CCFF99\"  style=\"border: 1px solid black\">"
+//                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+//                    }
+//
+//                    if (formu.equals("02")) {//計劃1 1
+//                        logHtml.append("<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">"
+//                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+//                    }
 
                 }
                 logHtml.append("</table>");
@@ -743,11 +767,16 @@ public class Controller {
                             @RequestParam("betlist3") String betlist3, @RequestParam("betlist4") String betlist4,
                             @RequestParam("betlist5") String betlist5, @RequestParam("betlist6") String betlist6,
                             @RequestParam("betlist7") String betlist7, @RequestParam("betlist8") String betlist8,
-                            @RequestParam("betlist9") String betlist9, @RequestParam("betlist10") String betlist10,
-                            @RequestParam("betlist11") String betlist11, @RequestParam("betlist12") String betlist12,
+                            @RequestParam("betlist9") String betlist9, @RequestParam("betlist10") String betlist10, 
                             @RequestParam("betproject5") String betproject5,
                             @RequestParam("betproject6") String betproject6,
 
+                            @RequestParam("betlist_param") String betlist_param, @RequestParam("betlist2_param") String betlist2_param,
+                            @RequestParam("betlist3_param") String betlist3_param, @RequestParam("betlist4_param") String betlist4_param,
+                            @RequestParam("betlist5_param") String betlist5_param, @RequestParam("betlist6_param") String betlist6_param,
+                            @RequestParam("betlist7_param") String betlist7_param, @RequestParam("betlist8_param") String betlist8_param,
+                            @RequestParam("betlist9_param") String betlist9_param, @RequestParam("betlist10_param") String betlist10_param,
+                            
                             @RequestParam("stoplose") String stoplose, @RequestParam("stopwin") String stopwin,
                             @RequestParam("startstatus") String startstatus, @RequestParam("s_h") String s_h,
                             @RequestParam("s_m") String s_m, @RequestParam("e_h") String e_h,
@@ -779,8 +808,18 @@ public class Controller {
             configProperty.setProperty("betlist8", betlist8);
             configProperty.setProperty("betlist9", betlist9);
             configProperty.setProperty("betlist10", betlist10);
-            configProperty.setProperty("betlist11", betlist11);
-            configProperty.setProperty("betlist12", betlist12);
+            
+            configProperty.setProperty("betlist_param", betlist_param);
+            configProperty.setProperty("betlist2_param", betlist2_param);
+            configProperty.setProperty("betlist3_param", betlist3_param);
+            configProperty.setProperty("betlist4_param", betlist4_param);
+            configProperty.setProperty("betlist5_param", betlist5_param);
+            configProperty.setProperty("betlist6_param", betlist6_param);
+            configProperty.setProperty("betlist7_param", betlist7_param);
+            configProperty.setProperty("betlist8_param", betlist8_param);
+            configProperty.setProperty("betlist9_param", betlist9_param);
+            configProperty.setProperty("betlist10_param", betlist10_param);
+             
             configProperty.setProperty("betproject5", betproject5);
             configProperty.setProperty("betproject6", betproject6);
 
