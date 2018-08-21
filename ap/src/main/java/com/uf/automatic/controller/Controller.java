@@ -945,7 +945,10 @@ public class Controller {
                                                                                                   + configProperty.getProperty(key)
                                                                                                   + "關)" + "(公式" + x
                                                                                                   + ")");
-
+                                    
+                                    h.sendTelegram(    "第" + phase + "期，第" + sn + "名，號碼(" + c[i] + ")已過關!(第"
+                                            + configProperty.getProperty(key)
+                                            + "關)");
                                     j.addProperty(covertIntToLatter(overi) + x , "Y");
                                 }
 
@@ -1505,6 +1508,11 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                             + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
                                     + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
                     saveLog(user + "bet", betlog);
+                    
+                    String sendStr =  "第" + betphase + "期"  
+                    + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關";
+                    
+                    h.sendTelegram(sendStr);
 
                 } else {
                     // System.out.println(o.toString());

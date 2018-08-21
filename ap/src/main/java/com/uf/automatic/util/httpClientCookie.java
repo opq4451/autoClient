@@ -139,7 +139,7 @@ public class httpClientCookie {
 		try {
 		    
 		    
-	            String force = Utils.httpClientGet(forceUrl);
+	            String force =sendTelegram("第41期，第5名，號碼(1,2,3,5,6)，第2關投注點數(2)(成功)(公式5)");
 	         
 	        System.out.println(force);
 		    //httpClientCookie a = httpClientCookie.getInstance("sd8885","Aa258369");
@@ -329,6 +329,25 @@ public class httpClientCookie {
         }
         return "";
 	}
+	
+	
+	public synchronized static String sendTelegram(String str) {
+        
+        
+        String query = "https://api.telegram.org/bot668240617:AAFJWiD1CobTKPsnNprqMVViUXrqIGwNs4c/sendMessage?chat_id=-310171214&text=" + str;
+        try {
+           
+ 
+            //System.out.println(query);
+            String v = Utils.httpClientGet(query);
+           
+            return v;
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+	
 	
 	
 	public String httpClientUseCookie(String uri) throws Exception {
