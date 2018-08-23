@@ -698,9 +698,10 @@
 				<div id="connectURL">連結尚銀</div>	  
 			</td>
 			
-			<td class="tdClass" colspan=5>
+			<td class="tdClass" colspan=3>
+			<button type="button" onclick="save_param()" class="button" style="border:3px outset;width:60px">儲存</button>
 			</td>
-			 <td class="tdClass" ><button type="button" onclick="save_param()" class="button" style="border:3px outset;width:60px">儲存</button></td>
+			 <td class="tdClass"  colspan=3><button type="button" onclick="save_param()" class="button" style="border:3px outset;width:60px">儲存</button></td>
 			 
 			 
 			 <td class="tdClass" style="display:none;" nowrap bgcolor="B94FFF" width="1%"> &nbsp;<input type="checkbox" name="c6" id="c6" value="5"  >&nbsp;&nbsp;六&nbsp;</td>  
@@ -924,7 +925,7 @@
 		 });
 		 
 		 $( "#logoutDiv" ).click(function() {
-             window.location.href='/index666.html' ;
+             window.location.href='/index1234.html' ;
 
 		 });
 		 
@@ -1233,8 +1234,9 @@
 		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 	    var amount = bArray[bIndex[z]%bArray.length] ;
 		    
-	  
-	         
+	    console.log('名次 :'+formu);     
+
+	    console.log('號碼:'+betCode);     
 
    		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , betCode ,formu,z);
    		if(rbf){
@@ -1488,7 +1490,7 @@
 			           	   $( "div.toNowPhase" ).text(nphase);
 			           	   
 			               let c = getCodeByPhase(nphase);
-			               console.log("blinkPhase"+blinkPhase);
+			               //console.log("blinkPhase"+blinkPhase);
 			               if(c=='null'){//開獎中
 			            	   	  //$('.openload').show();
 			            	      //$('.blink').show();
@@ -1595,6 +1597,11 @@
  			
  			let arr_param =  $( id_param ).val().toString().split(',');
  			for(var s in arr_param){
+ 				if((arr_param[s] != '' && arr_param[s]*1 == 0) || arr_param[s]*1 > 10){
+ 					 
+ 					alert('輸入號碼有誤');
+	 				return;
+ 				}
  				if(arr[s].length >1){
  					if(arr[s].substring(0,1) == '0'){
  						alert('輸入符號有誤');
@@ -1816,7 +1823,7 @@
 	   	 		 if(document.getElementById("autoStart").checked){
 	   	 			 auto = "Y";
 	   	 		 }
-	             window.location.href="http://www.sd8888.net/index.html?auto="+auto+"&user="+
+	             window.location.href="http://www.sd8888.net/index1234.html?auto="+auto+"&user="+
 	             document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value;
 		    }
 			    
@@ -1839,18 +1846,21 @@
 		    		 
 		     }
 	   	 
-    	        var winFlag = getWinFun(); 
-    	        
+		   	var winFlag = getWinFun(); 
+	        
 			    if(winFlag){
 		    	         let stop = 0;
-						try{
-							stop = $( "div.extendtime" ).text() * 1;
-		    	         }catch(err){
-	   	        	    		saveLog('error_bet','stoptime:' + stop);
-	   	        	    }
+		    	         let cccheck = $( "div.extendtime" ).text().toString().split(':')[0];
+			    	         let cccheck_S = $( "div.extendtime" ).text().toString().split(':')[1];
+	
+						// try{
+						// 	stop = $( "div.extendtime" ).text() * 1;
+		    // 	         }catch(err){
+	   	 //        	    		saveLog('error_bet','stoptime:' + stop);
+	   	 //        	    }
 		    	        
-				    
-				    if(stop>50){
+				    console.log(stop + 'cccheck' + cccheck)
+				    if(cccheck*1 >3){
 				    //	betflag = false; 
 				    	clearProjectBetFlag();
 				    } 
@@ -1861,14 +1871,14 @@
 				    
 				    
 				     
-			        if((stop<25 && stop>0) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
+			        if((cccheck<3 ) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
 			            var phase =  $( "div.toPhase" ).text();
 			            //console.log(phase);
 						if( phase ){  
 							if(true){
 								//console.log(JSON.stringify(betIndex)); 
-
-							   if(stop<3 && !checkProjectBetflag()){ //到了最後還下注不了，只好關數歸零
+	
+							   if(cccheck_S<10 && !checkProjectBetflag()){ //到了最後還下注不了，只好關數歸零
 									clearIndex(); //
 									var d = getYYYYMMDDSS();
 					        	    		var log =  d + "error!" ;

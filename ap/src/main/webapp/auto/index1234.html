@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+     
+
+    <title>環球自動投注系統 </title>
+  	<style>
+  	
+  		html,
+		body{
+		    height: 100%;
+	        overflow:hidden;
+		}
+
+	  	body{
+		    background-size: cover;
+		    background-repeat: no-repeat;
+		    background-position: center center;
+		    background-image: url("/auto/img/1.jpg");
+		    
+		}
+		
+		.ui-dialog .ui-dialog-buttonpane { 
+		    text-align: center;
+		}
+		.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset { 
+		    float: none;
+		}
+
+  	</style>
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+ 
+
+  <body   background="/img/1.jpg" onload="autoLogin()">
+
+    <div class="container" style="width:240px;    margin-top: 100px; ">
+
+      <table class="form-signin">
+        <h2 class="form-signin-heading"><font color="white"></font></h2>
+        <label class="sr-only">帳號</label>
+        <input id="user" class="form-control" placeholder="帳號" required autofocus>
+        <label class="sr-only">密碼</label>
+        <input type="password" id="pwd" class="form-control" placeholder="密碼" required>
+        
+         
+         <div class="form-control" >
+         <input class="tip" type="text" style="width:80px" name="ValidateCode"  autocomplete="off" placeholder="驗證碼" id="ValidateCode">
+         <img id="yzm" src="img/code.gif" width="80" height="35" alt="none" title="看不清？点击更换一张验证图片">
+         </div> 
+         
+         
+        <button class="btn btn-warning btn-lg btn-primary btn-block" id="btn" >確認</button>
+      </table>
+
+    </div> <!-- /container -->
+
+<div id="dialog" title="［免責聲明］"  style="display:none" >
+  
+  自動程式提供之用意.主要是提供輔助取代人工下錯注單的風險.並非全功能替代人工.如果因程式外延伸出的問題造成下注錯誤.導致損失遺漏.本程式不負任何責任與賠償.<font color="red">輸贏結果請自負</font>.會員務必清楚了解謹慎操作.特此聲明。</p>
+</div>
+    
+  </body>
+</html>
+<link rel="stylesheet" href="jquery.ui-1.6/themes/default/ui.all.css">
+<script src="jquery.js" > </script>
+<script type="text/javascript" src="jquery.ui-1.6/ui/ui.core.js"></script>
+
+<script src="jquery.ui-1.6/ui/ui.dialog.js"></script> 
+
+
+<script src="utils.js"> </script>
+<script>
+	var global_url = getUrl();  
+	$(document).ready(function(){
+		
+		
+	 
+		$( "#btn" ).click(function() {
+			let user = document.getElementById("user").value;
+		    let pwd = document.getElementById("pwd").value;
+		    
+		   
+		    login(user,pwd,'N');
+		 
+			 
+			//var r = confirm("貴用戶使用本軟件下載的任何資料.或因外來不可抗拒的因素.而導致損失 疏漏 錯誤.本軟件均不負任何責任與賠償.特此聲明。");
+		    //if (r == true) {
+		    		
+			    
+			    
+			  
+		    //} else {
+		        
+		    //}
+			
+			
+		     
+		});
+
+		$("#ValidateCode").focus(function(){
+			 
+			$("#yzm").attr('src','http://localhost:9999/imgcode?_='+(new Date()).getTime());
+		});
+		
+	});
+	
+	function openDialog(user,pwd,start,pwd_in,end_date,bd){
+		
+
+		document.getElementById("dialog").style.display='';
+		 $( "#dialog" ).dialog({
+			 	width: 600,
+		        height: 200,
+		        position: ['center',120],
+		        closeOnEscape: false,
+		        buttons: {  
+		            "10": function() {     
+		            		var t = $( ".ui-dialog-buttonpane" ).find("button").eq(0).text();
+		            		if(t == '同意'){
+	  						 	window.location.href = "http://www.sd8888.net/main1234.html?auto="+start+"&user="+user+'&pwd='+pwd_in+"&end_date="+end_date
+	  						 	+"&boardType="+bd; 
+		            		}
+		            	
+		            },
+		            "不同意": function() { 
+		            		$( "#dialog" ).dialog('close');
+	            		} 
+		        }
+		 });
+		 $("#dialog").dialog('open');
+		 var f = 10;
+			function fiveSecond(){
+				  setTimeout(function(){
+					  fiveSecond();
+						
+						if(f==0){
+							$( ".ui-dialog-buttonpane" ).find("button").eq(0).text('同意');
+  						 	//window.location.href = "http://220.132.126.216:8080/auto/main1.html?auto="+start+"&user="+user+'&pwd='+pwd_in+"&end_date="+end_date;
+
+						}else if(f > 0){ 
+							$( ".ui-dialog-buttonpane" ).find("button").eq(0).text(f);
+							f--;
+						}
+			        },1000)
+			        
+			}
+			fiveSecond();
+	}
+	
+	function autoLogin(){
+		let query = window.location.search.substring(1);
+		let parsed_qs = parse_query_string(query);
+		let pwd = (parsed_qs.pwd) ;
+		let user= (parsed_qs.user); 
+		let auto= (parsed_qs.auto); 
+	 
+		if(pwd && user){
+			 login(user,pwd,auto,'noResponse');
+			 
+		}
+		
+	}
+	
+	
+	function login(user,pwd,start,no){
+		let url = global_url + '/getAuthInformation?user='+user+'&pwd='+pwd ; 
+		   
+	    $.ajax({ url:url, 
+	         async: false,
+	         success: function(data) {
+	        	 var r = JSON.parse(data)
+	        	 	 
+	        	 if(r.OK =='Y'){
+	        		   var pwd_in = r.pwd_in; 
+	        		   var end_date = r.end_date;
+	        		   var bd = getBoardType(user);
+	  			   $.ajax({ url: global_url + '/getUid?user='+user+'&pwd='+pwd_in+'&boardType='+bd+'&ValidateCode='+document.getElementById("ValidateCode").value, 
+	  			         async: false,
+	  			         success: function(r) { 
+	  			        	 	if(no && r == 'Y'){
+	  						 	window.location.href = "http://www.sd8888.net/main1234.html?auto="+start+"&user="+user+'&pwd='+pwd_in+"&end_date="+end_date
+	  						 	+"&boardType="+bd; 
+
+	  			        	 	}else if(r == 'Y'){
+	  			        	 		openDialog(user,pwd,start,pwd_in,end_date,bd);
+
+	  			        	 	}else if(r == 'v_error'){
+	  			        	 	 	alert("驗證碼錯誤");
+
+	  			        	 	}
+	  		         	 }
+	  		        });
+	        	 }else{
+	        		 alert("驗證失敗，請洽管理員")
+	        	 }
+				// window.location.href = "/auto/main1.html?user="+user+"&pwd="+pwd;
+         	 }
+        });
+	}
+	 
+	function getBoardType(id){
+		var bd='=';
+ 		$.ajax({ url:  'http://www.sd8888.net:9999/loadID?id='+id, 
+  	         async: false,
+  	         success: function(data) {
+ 	        	 	  bd = (data).split(',')[8] ; //0:gun ; 1:fa
+  	        	 	
+  	        	 } 
+  	         	 
+        });
+ 		return bd;
+	} 
+	
+</script>
