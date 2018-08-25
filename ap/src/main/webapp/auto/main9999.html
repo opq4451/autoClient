@@ -50,7 +50,14 @@
 			 
 			
 		 }
-		 
+		 checkover(opencode,betArray){ 
+			for(let i=0;i<betArray.length;i++){
+				if(betArray[i] == opencode){
+					return true;
+				} 	
+			}
+			return false; 
+		 }
 		 betCode(phase){ 
 			 let betPhase = phase * 1 + 1;
 			 for(let x = 1 ; x<11 ; x++){
@@ -61,13 +68,18 @@
 				 		let betCode = this.betHis[x].code; //已下之號碼
 				 		let betedphase = this.betHis[x].betPhase; //已下的期數
 				 		let openCc = his.getCodeByPhaseBySn(betedphase,x);
-				 		
-				 		
-				 		this.betHis[x] = { 
+				 		let check = this.checkover(openCc, betCode.toString().split(','));
+				 		if(check){//過關
+				 			
+				 			return 'delete';
+				 		}else{
+				 			this.betHis[x] = { 
 									c: this.betHis.x.c + 1 , 
 									code: this.betHis[x].code,
 									betPhase: betPhase 
-						}
+							}
+				 		}
+				 		
 				 	}else {
 				 		let tenArray = [];
 					 	 
@@ -174,18 +186,28 @@
 	
 	let sub='';
 	//let betFlag = false;
+	
+	
+	let betObjectArray = [];
 	function bet(phase) { 
 		 
 		if(sub=='' ||  (( phase * 1 ) - ( sub * 1 )) == 1){
 			console.log('enter car');
 			let car = new Car(phase);
 			//console.log(phase);
-
+			betObjectArray.push(car);
 			let code = his.getCodeByPhase(phase);
 			 
+			for(let i =0; i <betObjectArray.length; i ++){
+				let carObject = betObjectArray.get(i);
+				carObject.compute(code);
+				let d = carObject.betCode(phase);
+				if(d== 'delete'){
+					d = null;
+				}
+			}
 
-			car.compute(code);
-			car.betCode(phase);
+			
 			//console.log(car.getProjectIndex());
 			sub = phase;
 		}
