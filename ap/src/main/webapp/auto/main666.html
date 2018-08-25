@@ -1166,10 +1166,10 @@
 
 		    	 	let betType = json.type;
 		    	  
-		    	 	setbetType(betType);
-		    	 	
+		    	 			    	 	
 		    	 	if(!firstSet){
-		    	 		document.getElementById("s_h").value = json.s_h;
+	setbetType(betType);
+	    	 		document.getElementById("s_h").value = json.s_h;
 			    	 	document.getElementById("s_m").value = json.s_m;
 		    	 		$( ".betlist" ).val(json.betlist) ;
 			    	 	$( ".betlist2" ).val(json.betlist2) ;
@@ -1345,6 +1345,9 @@
 		 for(var i=0;i<=phase;i++){
 			  
 			 let p =  phase*1 - i ;
+			  if(p.toString().substring(8,11) == '000'){
+			 	return null;
+			 }
 			 let nCodeArra = getCodeByPhase(p);
 			 if(nCodeArra=='null'){
 				 return null;
@@ -1357,27 +1360,56 @@
 			
 			 
 		 } 
-  	     tenArray.splice(9, 1);
-	     tenArray.splice(8, 1);
-
+	      
 	     tenArray.splice(7, 1);
-		 tenArray.splice(5, 1);
+		 tenArray.splice(4, 1);
+		 tenArray.splice(2, 1);
  
 		 return tenArray.sort(sortNumber);
 			 
 		
 	}
+
+
+	var projectTemp = {
+    	'1' : '' ,
+    	'2' : '' ,
+    	'3' : '' ,
+    	'4' : '' ,
+    	'5' : '' ,
+    	'6' : '' ,
+    	'7' : '' ,
+    	'8' : '' ,
+    	'9' : '' ,
+    	'10' : '' ,
+    }
+
 	function compareByType_from_member(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
 		
 
 		var z = formu ;  
 		var sn = z-1;
-		let bet_code = project6_limit(sn,phase_now,7);
-		console.log(bet_code);
-		if(bet_code == null){
-			projectBet[(formu*1)][(formu*1)] = true;
-			return;
+
+		let bet_code = '';
+		if(projectTemp[z]){
+			 bet_code =  projectTemp[z];
+		} else{
+			 projectTemp[z] =  project6_limit(sn,phase_now,7);
+	   		 bet_code =  projectTemp[z];
+				if(bet_code == null){
+				projectBet[(formu*1)][(formu*1)] = true;
+				return;
+				}
 		}
+
+
+
+		// let bet_code = project6_limit(sn,phase_now,7);
+		// console.log(bet_code);
+		// if(bet_code == null){
+		// 	projectBet[(formu*1)][(formu*1)] = true;
+		// 	return;
+		// }
 		
 		
 		let bet_n = formu;
@@ -2396,27 +2428,6 @@
 	}
 	
 	function getCodeByPhase(phase){ //取得號碼
-		 
-		 if(phase){
-		 	let nowDD = phase.toString().substring(0,8);
-
-		 	var currentDate = new Date();
-			var year = currentDate.getFullYear();
-			var month = currentDate.getMonth() + 1;
-			month = month < 10 ? '0' + month : month;
-			var day = currentDate.getDate();
-			day = day < 10 ? '0' + day : day;
-			var date = year + month + day;
-			console.log(phase);
-
-			console.log(nowDD);
-
-			console.log(date);
-			if(nowDD != date){
-				
-				return ;
-			}
-		 }
 		 let code=""; 
 		 $.ajax({ url:  u + "/getCode?phase="+phase, 
 	         async: false,
@@ -2441,7 +2452,7 @@
 			           	   $( "div.toPhase" ).text(data);
 			           	   let nphase = data - 1;
 			           	   $( "div.toNowPhase" ).text(nphase);
-			           	   console.log('getPhase:' + nphase)
+			           	   
 			               let c = getCodeByPhase(nphase);
 			               console.log("blinkPhase"+blinkPhase);
 			               if(c=='null'){//開獎中
@@ -2780,7 +2791,7 @@
 				    
 				     
 				    log_betIndex();
-			        if((stop<35 && stop>0) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
+			        if((stop<25 && stop>0) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
 			            var phase =  $( "div.toPhase" ).text();
 			            //console.log(phase);
 						if( phase ){  
@@ -3034,6 +3045,8 @@
 					  
 	        			     let flag = json[letter+''+formu] ;
 	        			     if(flag){
+ 		        			     	  projectTemp[formu] = '';
+
 	        			    	 	  //if(formu==1){betIndex[1] = 0 ;}
 	        			    	 	  if(formu==1){betIndex[1] = 0 ;}
 	        			    	 	  if(formu==2){betIndex2[2] = 0 ;}
