@@ -1390,17 +1390,13 @@
 		var z = formu ;  
 		var sn = z-1;
 
-		let bet_code = '';
-		if(projectTemp[z]){
-			 bet_code =  projectTemp[z];
-		} else{
-			 projectTemp[z] =  project6_limit(sn,phase_now,7);
-	   		 bet_code =  projectTemp[z];
+		let bet_code = project6_limit(sn,phase_now,7);
+	   		 //bet_code =  projectTemp[z];
 				if(bet_code == null){
 				projectBet[(formu*1)][(formu*1)] = true;
 				return;
 				}
-		}
+
 
 
 		// let bet_code = project6_limit(sn,phase_now,7);

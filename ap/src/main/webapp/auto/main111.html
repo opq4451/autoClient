@@ -1545,26 +1545,41 @@ setbetType(betType);
 		var z = formu ;  
 		var sn = z-1;
 
-
-		let bet_code = '';
-		if(projectTemp[z]){
-			 bet_code =  projectTemp[z];
-		} else{
-			let nopostion = project6_limit(sn,phase_now);
+		let nopostion = project6_limit(sn,phase_now);
 			if(!nopostion){
 				projectBet[(formu*1)][(formu*1)] = true;
 				return;
 			}
-			projectTemp[formu] = nopostion;
+			//projectTemp[formu] = nopostion;
 			// const code_n = getCodeByPhase(phase_now);
 			// const array_n = code_n.split(',');
-			projectTemp[z] = projectTemp[formu].toString();
-	   		bet_code =  projectTemp[z];
-				if(bet_code == null){
-				projectBet[(formu*1)][(formu*1)] = true;
-				return;
-				}
-		}
+			//projectTemp[z] = projectTemp[formu].toString();
+	   		let bet_code =  nopostion.toString();
+				// if(bet_code == null){
+				// projectBet[(formu*1)][(formu*1)] = true;
+				// return;
+				// }
+
+
+		// let bet_code = '';
+		// if(projectTemp[z]){
+		// 	 bet_code =  projectTemp[z];
+		// } else{
+		// 	let nopostion = project6_limit(sn,phase_now);
+		// 	if(!nopostion){
+		// 		projectBet[(formu*1)][(formu*1)] = true;
+		// 		return;
+		// 	}
+		// 	projectTemp[formu] = nopostion;
+		// 	// const code_n = getCodeByPhase(phase_now);
+		// 	// const array_n = code_n.split(',');
+		// 	projectTemp[z] = projectTemp[formu].toString();
+	 //   		bet_code =  projectTemp[z];
+		// 		if(bet_code == null){
+		// 		projectBet[(formu*1)][(formu*1)] = true;
+		// 		return;
+		// 		}
+		// }
 
 		// if(projectTemp[formu]){
 
