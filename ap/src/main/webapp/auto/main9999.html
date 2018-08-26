@@ -1,4 +1,4 @@
-
+<meta charset="utf-8">
 
  
 <div id="content"> </div> 
@@ -17,6 +17,7 @@
 		 constructor(phase) {
 			    this.betHis = { } ;
 				this.phase = phase; 
+				this.log ='';
 				this.projectIndex = {
 					phase: this.phase ,
 				    	'1' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
@@ -36,9 +37,10 @@
 		 
 		 getProjectIndex(){
 				let json = JSON.stringify( this.projectIndex  ); 
-				 document.getElementById("content").innerHTML =  json +'<br><br><hr>';
+				//this.log += json  +'<br><br><hr>';
+				// document.getElementById("content").innerHTML =  this.log;
 
-			 return  this.projectIndex.toString() ;
+			 return  json  +'<br><br><hr>';
 			 
 		 }
 		 
@@ -68,22 +70,33 @@
 				 
 				 	//let cover = this.betHis.x ? this.betHis.x.c : 0 ;
 				 	//let betCode = '';
+				 	console.log('是否下注過:'+this.betHis[x])
 				 	if(this.betHis[x]){
 				 		let betCode = this.betHis[x].code; //已下之號碼
+					 	console.log('下注過號碼:'+betCode)
+
 				 		let betedphase = this.betHis[x].betPhase; //已下的期數
+					 	console.log('下注過期數:'+betedphase)
+
 				 		let openCc = his.getCodeByPhaseBySn(betedphase,x);
+					 	console.log('開號:'+openCc)
+
 				 		let check = this.checkover(openCc, betCode.toString().split(','));
+					 	console.log('是否過關:'+check)
+
 				 		if(check){//過關
-							this.sendMessage(betPhase,x,openCc,this.betHis.x.c,true );
+				 			console.log('第幾關:'+ this.betHis[x].c)
+ 
+							this.sendMessage(this.betHis[x].betPhase,x,openCc,this.betHis[x].c,true );
 
 				 			return 'delete';
 				 		}else{
 				 			this.betHis[x] = { 
-									c: this.betHis.x.c + 1 , 
+									c: this.betHis[x].c + 1 , 
 									code: this.betHis[x].code,
 									betPhase: betPhase 
 							}
-							this.sendMessage(betPhase,x,this.betHis[x].code,this.betHis.x.c + 1);
+							this.sendMessage(betPhase,x,this.betHis[x].code,this.betHis[x].c );
 
 				 		}
 				 		
@@ -91,21 +104,27 @@
 				 		let tenArray = [];
 					 	 
 				 		for(let i = 1;i<11;i++){
-				 			if(this.projectIndex[x][i] >=16){ tenArray.push(i);};
+				 			//console.log(this.projectIndex[x][i])
+				 			if(this.projectIndex[x][i] >=10){ tenArray.push(i);};
 				 		} 
+			 			//console.log(tenArray)
+
+			 			//console.log(tenArray.sort(this.sortNumber))
+			 			console.log('^^^')
+
 				 		
-				 		if(tenArray.length ==4){ 
-							this.betHis[x] = { 
-										c: 1 , 
-										code: tenArray.sort(sortNumber),
-										betPhase: betPhase  
-							}
-							
-							this.sendMessage(betPhase,x,tenArray.sort(sortNumber),c);
-							//betJson[x] = tenArray.sort(sortNumber);
-							
-							//return tenArray.sort(sortNumber); 
-						} 
+				 		
+				 		    if(tenArray.length ==4){ 
+							  this.betHis[x] = { 
+								c: 1 , 
+								code: tenArray.sort(this.sortNumber),
+								betPhase: betPhase  
+						    }
+				 			//console.log(this.betHis[x] .c)
+				 			console.log('send message')
+	
+							this.sendMessage(betPhase,x,tenArray.sort(this.sortNumber),1);
+							}  
 				 		
 				 		
 				 	}
@@ -121,11 +140,16 @@
 		 
 		 sendMessage(phase,sn,code,c,over){
 			 
-			 let str = '第'+phase+'期，第'+sn+'名，號碼('+code+')，第'+c+'關';
+			 let str = '第'+phase+'期，'+sn+'名，('+code+')，第'+c+'關';
+			 console.log(str)
+
+			 console.log(over)
+
 			 if(over){
-				 str = '<a href="http://www.example.com/">'+str+'(已過關)</a>';
+				 str = '<a href="http://www.example.com/">'+str+'(中)</a>';
 			 }
-			 let url = "https://api.telegram.org/bot668240617:AAFJWiD1CobTKPsnNprqMVViUXrqIGwNs4c/sendMessage?chat_id=-310171214&text="+str+"&parse_mode=Markdown";
+			 console.log(str)
+			 let url = "https://api.telegram.org/bot636715661:AAE5GhrR95BCAlvxSEEW-edwO9ksJFSO4hM/sendMessage?chat_id=689594379&text="+str+"&parse_mode=HTML";
 			 
 	       	 $.ajax({ url:  url, 
 	    	         async: false,
@@ -191,9 +215,19 @@
 	});
 	 
     
-   
+    function pad2(n) { return n < 10 ? '0' + n : n }
+
 	function getHistoryTimeout() { 
-			workerTimer_timeout.setInterval(function () { 
+			workerTimer_timeout.setInterval(function () {
+			    var d = new Date();
+			    var h = d.getHours();
+				    
+			    let checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
+				//console.log(checkStartHM)
+    	   	 	    if( (checkStartHM *1) >= 12000  && (checkStartHM *1) <= 22000){ 
+
+    	   	 		   
+    	   	 	    }
 			 		 let url = u + '/getHistory'; 
 			       	 $.ajax({ url:  url, 
 			    	         async: false,
@@ -216,6 +250,7 @@
 	
 	
 	let betObjectArray = [];
+	
 	function bet(phase) { 
 		 
 		if(sub=='' ||  (( phase * 1 ) - ( sub * 1 )) == 1){
@@ -225,19 +260,23 @@
 			betObjectArray.push(car);
 			let code = his.getCodeByPhase(phase);
 			 //console.log(betObjectArray.length)
+			 
+			let log='';
 			for(let i =0; i <betObjectArray.length; i ++){
 				 
 				let carObject = betObjectArray[i];
 				 
 				carObject.compute(code);
-				 
+				console.log('compute over')
+
 				let d = carObject.betCode(phase);
-				console.log(carObject.getProjectIndex())
-				if(d== 'delete'){
-					d = null;
-				}
+				let ll = carObject.getProjectIndex();
+				log+= ll;
+				 if(d== 'delete'){
+					 carObject = null;
+				} 
 			}
-			 
+			 document.getElementById("content").innerHTML = log;
 			
 			//console.log(car.getProjectIndex());
 			sub = phase;
