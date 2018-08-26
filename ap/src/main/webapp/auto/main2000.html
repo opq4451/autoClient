@@ -2505,7 +2505,7 @@
 			            	   	  //$('#openCode').hide(); 
 			               }else if(blinkPhase=='' ||  (nphase* 1 - blinkPhase*1 ) > 0){ //已開獎
 			            	      blinkPhase = nphase ;
-			            	      //checkOver(data);
+			            	      checkOver(data);
 			            	      $('.openload').hide(); 
 			            	      $('.blink').hide();
 			            	   	  $('#openCode').show(); 
@@ -2838,7 +2838,7 @@
 				    
 				    
 				     
-			        if((cccheck<4 ) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
+			        if((cccheck<3 ) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
 			            var phase =  $( "div.toPhase" ).text();
 			            //console.log(phase);
 						if( phase ){  
