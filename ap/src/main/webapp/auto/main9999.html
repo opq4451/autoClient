@@ -1,7 +1,7 @@
 
 
  
- 
+<div id="content"> </div> 
    
 <script src="jquery.js" > </script> 
 <script src="utils.js"> </script>
@@ -18,6 +18,7 @@
 			    this.betHis = { } ;
 				this.phase = phase; 
 				this.projectIndex = {
+					phase: this.phase ,
 				    	'1' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
 				    	'2' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
 				    	'3' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
@@ -34,7 +35,10 @@
 		 }
 		 
 		 getProjectIndex(){
-			 return this.projectIndex ;
+				let json = JSON.stringify( this.projectIndex  ); 
+				 document.getElementById("content").innerHTML =  json +'<br><br><hr>';
+
+			 return  this.projectIndex.toString() ;
 			 
 		 }
 		 
@@ -70,7 +74,8 @@
 				 		let openCc = his.getCodeByPhaseBySn(betedphase,x);
 				 		let check = this.checkover(openCc, betCode.toString().split(','));
 				 		if(check){//過關
-				 			
+							this.sendMessage(betPhase,x,openCc,this.betHis.x.c,true );
+
 				 			return 'delete';
 				 		}else{
 				 			this.betHis[x] = { 
@@ -78,6 +83,8 @@
 									code: this.betHis[x].code,
 									betPhase: betPhase 
 							}
+							this.sendMessage(betPhase,x,this.betHis[x].code,this.betHis.x.c + 1);
+
 				 		}
 				 		
 				 	}else {
@@ -93,6 +100,8 @@
 										code: tenArray.sort(sortNumber),
 										betPhase: betPhase  
 							}
+							
+							this.sendMessage(betPhase,x,tenArray.sort(sortNumber),c);
 							//betJson[x] = tenArray.sort(sortNumber);
 							
 							//return tenArray.sort(sortNumber); 
@@ -108,6 +117,24 @@
 			   
 				
 			//	return betJson;   
+		 }
+		 
+		 sendMessage(phase,sn,code,c,over){
+			 
+			 let str = '第'+phase+'期，第'+sn+'名，號碼('+code+')，第'+c+'關';
+			 if(over){
+				 str = '<a href="http://www.example.com/">'+str+'(已過關)</a>';
+			 }
+			 let url = "https://api.telegram.org/bot668240617:AAFJWiD1CobTKPsnNprqMVViUXrqIGwNs4c/sendMessage?chat_id=-310171214&text="+str+"&parse_mode=Markdown";
+			 
+	       	 $.ajax({ url:  url, 
+	    	         async: false,
+	    	         success: function(data) { 
+	    	        	     
+	    	        	    
+    	         	 }   	 
+	          });
+			 
 		 }
 		 
 		 sortNumber(a,b){
@@ -197,16 +224,20 @@
 			//console.log(phase);
 			betObjectArray.push(car);
 			let code = his.getCodeByPhase(phase);
-			 
+			 //console.log(betObjectArray.length)
 			for(let i =0; i <betObjectArray.length; i ++){
-				let carObject = betObjectArray.get(i);
+				 
+				let carObject = betObjectArray[i];
+				 
 				carObject.compute(code);
+				 
 				let d = carObject.betCode(phase);
+				console.log(carObject.getProjectIndex())
 				if(d== 'delete'){
 					d = null;
 				}
 			}
-
+			 
 			
 			//console.log(car.getProjectIndex());
 			sub = phase;
