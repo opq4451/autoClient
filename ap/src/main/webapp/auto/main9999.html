@@ -105,7 +105,7 @@
 					 	 
 				 		for(let i = 1;i<11;i++){
 				 			//console.log(this.projectIndex[x][i])
-				 			if(this.projectIndex[x][i] >=10){ tenArray.push(i);};
+				 			if(this.projectIndex[x][i] >=16){ tenArray.push(i);};
 				 		} 
 			 			//console.log(tenArray)
 
@@ -149,7 +149,7 @@
 				 str = '<a href="http://www.example.com/">'+str+'(中)</a>';
 			 }
 			 console.log(str)
-			 let url = "https://api.telegram.org/bot636715661:AAE5GhrR95BCAlvxSEEW-edwO9ksJFSO4hM/sendMessage?chat_id=689594379&text="+str+"&parse_mode=HTML";
+			 let url = "https://api.telegram.org/bot636715661:AAE5GhrR95BCAlvxSEEW-edwO9ksJFSO4hM/sendMessage?chat_id=-198720221&text="+str+"&parse_mode=HTML";
 			 
 	       	 $.ajax({ url:  url, 
 	    	         async: false,
@@ -272,9 +272,9 @@
 				let d = carObject.betCode(phase);
 				let ll = carObject.getProjectIndex();
 				log+= ll;
-				 if(d== 'delete'){
+				/*  if(d== 'delete'){
 					 carObject = null;
-				} 
+				}  */
 			}
 			 document.getElementById("content").innerHTML = log;
 			
