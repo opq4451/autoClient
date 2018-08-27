@@ -139,9 +139,9 @@ public class httpClientCookie {
 		try {
 		    
 		    
-	            String force =sendTelegram("第41期，第5名，號碼(1,2,3,5,6)，第2關投注點數(2)(成功)(公式5)");
+	       //     String force =sendTelegram("第41期，第5名，號碼(1,2,3,5,6)，第2關投注點數(2)(成功)(公式5)");
 	         
-	        System.out.println(force);
+	        //System.out.println(force);
 		    //httpClientCookie a = httpClientCookie.getInstance("sd8885","Aa258369");
 		  //  httpClientCookie t = httpClientCookie.getInstance("qq7711","qaz123123");
 		 //   String ret = t.getoddsInfo();
@@ -331,10 +331,13 @@ public class httpClientCookie {
 	}
 	
 	
-	public synchronized static String sendTelegram(String str) {
+	public synchronized static String sendTelegram(String str,boolean over) {
         
-        
-        String query = "https://api.telegram.org/bot668240617:AAFJWiD1CobTKPsnNprqMVViUXrqIGwNs4c/sendMessage?chat_id=-310171214&text=" + str;
+	    if(over){
+            str = "<a href=\"http://www.example.com/\">"+str+"</a>";
+        }
+	    
+        String query = "https://api.telegram.org/bot668240617:AAFJWiD1CobTKPsnNprqMVViUXrqIGwNs4c/sendMessage?chat_id=-310171214&parse_mode=HTML&text=" + str;
         try {
            
  
