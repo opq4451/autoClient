@@ -1331,7 +1331,57 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
         return "null";
     }
 
-        
+    @RequestMapping("/getWechatToken")
+    public String getWechatToken(@RequestParam("appid") String appid, @RequestParam("secret") String secret) {
+
+        try {
+
+//            JsonObject j = new JsonObject();
+ 
+            String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="+appid+"&secret="+secret;
+
+            //String url = "http://api.1680210.com/pks/getPksHistoryList.do?lotCode=10001";
+            String ret = Utils.httpClientGet(url);
+            JsonParser parser = new JsonParser();
+            JsonObject o = parser.parse(ret).getAsJsonObject();
+            String a = o.get("access_token").getAsString();
+ 
+            return a;
+             
+            } catch (Exception e) {
+                e.printStackTrace();
+            } 
+ 
+
+        return "null";
+    }
+    
+    
+    @RequestMapping("/getOpenId")
+    public String getOpenId(@RequestParam("token") String token ) {
+
+        try {
+
+//            JsonObject j = new JsonObject();
+ 
+            String url = "https://api.weixin.qq.com/cgi-bin/user/get?access_token="+token;
+
+            //String url = "http://api.1680210.com/pks/getPksHistoryList.do?lotCode=10001";
+            String ret = Utils.httpClientGet(url);
+//            JsonParser parser = new JsonParser();
+//            JsonObject o = parser.parse(ret).getAsJsonObject();
+//            JsonObject data = o.get("data").getAsJsonObject();
+//            JsonArray openid = data.getAsJsonArray("openid");
+            return ret;
+             
+            } catch (Exception e) {
+                e.printStackTrace();
+            } 
+ 
+
+        return "null";
+    }
+    
 
     @RequestMapping("/getBETTIME")
     public String getBETTIME() {

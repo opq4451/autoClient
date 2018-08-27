@@ -1,0 +1,337 @@
+<meta charset="utf-8">
+
+ 
+<div id="content"> </div> 
+   
+<script src="jquery.js" > </script> 
+<script src="utils.js"> </script>
+<script src="pro.js"> </script> 
+<script src="worker-timer.js"> </script> 
+<script src="timer-worker.js"> </script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/md5.js" > </script>
+<script type="text/javascript" src="http://www.myersdaily.org/joseph/javascript/md5.js"></script>
+
+<script>
+	 class Car {
+		  
+		 constructor(phase) {
+			    this.betHis = { } ;
+				this.phase = phase; 
+				this.log ='';
+				this.projectIndex = {
+					phase: this.phase ,
+				    	'1' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+				    	'2' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+				    	'3' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+				    	'4' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+				    	'5' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+				    	'6' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+				    	'7' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+				    	'8' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+				    	'9' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+				    	'10' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+
+			 };
+
+		 }
+		 
+		 getProjectIndex(){
+				let json = JSON.stringify( this.projectIndex  ); 
+				//this.log += json  +'<br><br><hr>';
+				// document.getElementById("content").innerHTML =  this.log;
+
+			 return  json  +'<br><br><hr>';
+			 
+		 }
+		 
+		 compute(code){
+			 let arr = code.split(',');
+			 for(let x = 0 ; x < arr.length ; x++){
+				 let sn = x + 1;
+				 for(let i = 1;i<11;i++){
+			 			this.projectIndex[sn][i] ++ ;
+		 		 }
+				 this.projectIndex[sn][arr[x]] = 0 ;
+			 }
+			 
+			
+		 }
+		 checkover(opencode,betArray){ 
+			for(let i=0;i<betArray.length;i++){
+				if(betArray[i] == opencode){
+					return true;
+				} 	
+			}
+			return false; 
+		 }
+		 betCode(phase){ 
+			 let betPhase = phase * 1 + 1;
+			 for(let x = 1 ; x<11 ; x++){
+				 
+				 	//let cover = this.betHis.x ? this.betHis.x.c : 0 ;
+				 	//let betCode = '';
+				 	console.log('是否下注過:'+this.betHis[x])
+				 	if(this.betHis[x]){
+				 		let betCode = this.betHis[x].code; //已下之號碼
+					 	console.log('下注過號碼:'+betCode)
+
+				 		let betedphase = this.betHis[x].betPhase; //已下的期數
+					 	console.log('下注過期數:'+betedphase)
+
+				 		let openCc = his.getCodeByPhaseBySn(betedphase,x);
+					 	console.log('開號:'+openCc)
+
+				 		let check = this.checkover(openCc, betCode.toString().split(','));
+					 	console.log('是否過關:'+check)
+
+				 		if(check){//過關
+				 			console.log('第幾關:'+ this.betHis[x].c)
+ 
+							this.sendMessage(this.betHis[x].betPhase,x,openCc,this.betHis[x].c,true );
+
+				 			return 'delete';
+				 		}else{
+				 			this.betHis[x] = { 
+									c: this.betHis[x].c + 1 , 
+									code: this.betHis[x].code,
+									betPhase: betPhase 
+							}
+							this.sendMessage(betPhase,x,this.betHis[x].code,this.betHis[x].c );
+
+				 		}
+				 		
+				 	}else {
+				 		let tenArray = [];
+					 	 
+				 		for(let i = 1;i<11;i++){
+				 			//console.log(this.projectIndex[x][i])
+				 			if(this.projectIndex[x][i] >=10){ tenArray.push(i);};
+				 		} 
+			 			//console.log(tenArray)
+
+			 			//console.log(tenArray.sort(this.sortNumber))
+			 			console.log('^^^')
+
+				 		
+				 		
+				 		    if(tenArray.length ==4){ 
+							  this.betHis[x] = { 
+								c: 1 , 
+								code: tenArray.sort(this.sortNumber),
+								betPhase: betPhase  
+						    }
+				 			//console.log(this.betHis[x] .c)
+				 			console.log('send message')
+	
+							this.sendMessage(betPhase,x,tenArray.sort(this.sortNumber),1);
+							}  
+				 		
+				 		
+				 	}
+				 	
+			 		 
+					
+				 
+			 }
+			   
+				
+			//	return betJson;   
+		 }
+		 
+		 sendMessage(phase,sn,code,c,over){
+			 
+			 let str = '第'+phase+'期，'+sn+'名，('+code+')，第'+c+'關';
+			 console.log(str)
+
+			 console.log(over)
+
+			 if(over){
+				 str = '<a href="http://www.example.com/">'+str+'(中)</a>';
+			 }
+			 console.log(str)
+			 let url = "https://api.telegram.org/bot636715661:AAE5GhrR95BCAlvxSEEW-edwO9ksJFSO4hM/sendMessage?chat_id=-198720221&text="+str+"&parse_mode=HTML";
+			 
+	       	 $.ajax({ url:  url, 
+	    	         async: false,
+	    	         success: function(data) { 
+	    	        	     
+	    	        	    
+    	         	 }   	 
+	          });
+			 
+		 }
+		 
+		 sortNumber(a,b){
+			return a - b
+		 }
+		 
+		 
+	 }
+	 
+	 class history {
+		 constructor() {
+			 this.history = {};
+		 }
+		 setHistory(data){
+			 let temp ='';
+			 for(let i in data){ 
+				 if(!temp){
+					 temp = i*1;
+				 }else if(i*1 > temp) {
+					 temp = i*1;
+				 }
+				 this.maxPhase = temp;
+				 this.history[i] = data[i] ;
+			 }
+		 } 
+		 getHistory(){ 
+			 return this.history ;
+		 }
+		 
+		 getMaxPhase(){ 
+			 return  this.maxPhase  ;
+		 }
+		 
+		 getCodeByPhase(phase){
+			// console.log(this.history)
+			 return this.history[phase];
+		 }
+		 
+		 getCodeByPhaseBySn(phase,sn){
+			 let code = this.history[phase];
+			 let cc = code.toString().split(',')[sn*1 -1];
+			 return cc;
+		 }
+		 
+	 }
+ 	
+	 
+ 	let u = 'http://localhost:8888';
+	let his = new history();
+    $(document).ready(function(){ 
+      	let t = getToken();
+      	 
+      	getOpenid(t);
+	});
+    
+    
+    function getToken(){
+    	   let t = '';     
+			 let appid = "wx93799c75ce7c40a1"; 	
+			 let secret = "2fbb52bc38d869fb2381ded42d502b39"; 	
+    	         let url = u + '/getWechatToken?appid='+appid+'&secret='+secret; 
+	       	 $.ajax({ url:  url, 
+	    	         async: false,
+	    	         success: function(data) { 
+	    	        	 t = (data)
+	    	        	    /* const json = JSON.parse(data);
+	    	        	    his.setHistory(json); 
+	    	        	    bet(his.getMaxPhase()); */
+	    	        	    
+  	         	 }   	 
+	          });
+	       	 
+    	   /*   let getToken = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx93799c75ce7c40a1&secret=2fbb52bc38d869fb2381ded42d502b39"
+      		 $.ajax({ url:  getToken, 
+    	         async: false,
+    	         success: function(data) { 
+    	        	    const json = JSON.parse(data);
+    	        	  	t = json.access_token;
+    	        	    
+	         	}   	 
+          }); */
+    		return t;
+    }
+	 
+    function getOpenid(token){
+   // 	let t = '';     
+    	
+	     let url = u+"/getOpenId?token="+token
+ 		 $.ajax({ url:  getToken, 
+	         async: false,
+	         success: function(data) { 
+	        	 alert(data)
+	        	  //  const json = JSON.parse(data);
+	        	  	//t = json.access_token;
+	        	    
+        	}   	 
+     });
+		//return t;
+ 
+    	
+    }
+    
+    function pad2(n) { return n < 10 ? '0' + n : n }
+
+	function getHistoryTimeout() { 
+			workerTimer_timeout.setInterval(function () {
+			    var d = new Date();
+			    var h = d.getHours();
+				    
+			    let checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
+				//console.log(checkStartHM)
+    	   	 	    if( (checkStartHM *1) >= 12000  && (checkStartHM *1) <= 22000){ 
+
+    	   	 		   
+    	   	 	    }
+			 		 let url = u + '/getHistory'; 
+			       	 $.ajax({ url:  url, 
+			    	         async: false,
+			    	         success: function(data) { 
+			    	        	    const json = JSON.parse(data);
+			    	        	    his.setHistory(json); 
+			    	        	    bet(his.getMaxPhase());
+			    	        	    
+		    	         	 }   	 
+			          });
+			       	// console.log(his.getHistory());
+			       	 //console.log(his.getMaxPhase());
+
+				    //getHistoryTimeout();
+		    }, 5000);
+	}
+	
+	let sub='';
+	//let betFlag = false;
+	
+	
+	let betObjectArray = [];
+	
+	function bet(phase) { 
+		 
+		if(sub=='' ||  (( phase * 1 ) - ( sub * 1 )) == 1){
+			console.log('enter car');
+			let car = new Car(phase);
+			//console.log(phase);
+			betObjectArray.push(car);
+			let code = his.getCodeByPhase(phase);
+			 //console.log(betObjectArray.length)
+			 
+			let log='';
+			for(let i =0; i <betObjectArray.length; i ++){
+				 
+				let carObject = betObjectArray[i];
+				 
+				carObject.compute(code);
+				console.log('compute over')
+
+				let d = carObject.betCode(phase);
+				let ll = carObject.getProjectIndex();
+				log+= ll;
+				 if(d== 'delete'){
+					 carObject = null;
+				} 
+			}
+			 document.getElementById("content").innerHTML = log;
+			
+			//console.log(car.getProjectIndex());
+			sub = phase;
+		}
+		
+		//if(betFlag)
+			
+		 
+	}
+	
+</script>
+ 
