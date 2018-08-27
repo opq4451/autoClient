@@ -728,7 +728,7 @@ public class Controller {
                 //String url = "http://www.speedy-ball.com/speedy10-result.aspx?drawid=" + phase;
                 String yyymmdd = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
                 
-                String url = "https://api.api68.com/pks/getPksHistoryList.do?date="+yyymmdd+"&lotCode=10001";
+                String url = "http://api.api68.com/pks/getPksHistoryList.do?date="+yyymmdd+"&lotCode=10001";
                 String ret = Utils.httpClientGet(url);
                 JsonParser parser = new JsonParser();
                 JsonObject o = parser.parse(ret).getAsJsonObject();
