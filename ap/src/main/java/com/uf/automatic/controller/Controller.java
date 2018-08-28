@@ -946,9 +946,15 @@ public class Controller {
                                                                                                   + "關)" + "(公式" + x
                                                                                                   + ")");
                                     
-                                    h.sendTelegram( "第" + phase + "期，" + sn + "名，(" + c[i] + ")，第"
+                                    
+                                    
+                                    String string = "第" + phase + "期，" + sn + "名，(" + c[i] + ")，第"
                                             + configProperty.getProperty(key)
-                                            + "關(中)",true);
+                                            + "關(中)";
+                                    String query = "https://api.telegram.org/bot668240617:AAFJWiD1CobTKPsnNprqMVViUXrqIGwNs4c/sendMessage?chat_id=-310171214&text=%3Ca%20href=%22http://www.example.com/%22%3E"+string+"%3C/a%3E%20&parse_mode=HTML" ;
+
+                                    
+                                    h.sendTelegram(query);
                                     j.addProperty(covertIntToLatter(overi) + x , "Y");
                                 }
 

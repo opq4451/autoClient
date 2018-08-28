@@ -139,6 +139,22 @@ public class httpClientCookie {
 		try {
 		    
 		    
+		     
+	        String    str = "第一期";
+	         
+	        
+	        String query = "https://api.telegram.org/bot668240617:AAFJWiD1CobTKPsnNprqMVViUXrqIGwNs4c/sendMessage?chat_id=-310171214&text=%3Ca%20href=%22http://www.example.com/%22%3E"+str+"%3C/a%3E%20&parse_mode=HTML" ;
+	        try {
+	           
+	 
+	            //System.out.println(query);
+	            String v = Utils.httpClientGet(query);
+	           
+	          //  return v;
+	        }catch(Exception e) {
+	            e.printStackTrace();
+	        }
+	        
 	       //     String force =sendTelegram("第41期，第5名，號碼(1,2,3,5,6)，第2關投注點數(2)(成功)(公式5)");
 	         
 	        //System.out.println(force);
@@ -351,6 +367,25 @@ public class httpClientCookie {
         return "";
     }
 	
+	
+	public synchronized static String sendTelegram(String query ) {
+        
+        
+        
+       // String query = "https://api.telegram.org/bot668240617:AAFJWiD1CobTKPsnNprqMVViUXrqIGwNs4c/sendMessage?chat_id=-310171214&parse_mode=HTML&text=" + str;
+        try {
+           
+ 
+            //System.out.println(query);
+            String v = Utils.httpClientGet(query);
+           
+            return v;
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
 	
 	
 	public String httpClientUseCookie(String uri) throws Exception {
