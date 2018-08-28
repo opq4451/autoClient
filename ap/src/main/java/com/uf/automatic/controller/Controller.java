@@ -761,7 +761,7 @@ public class Controller {
                           + "," + c6+ "," + c7+ "," + c8+ "," + c9+ "," + c0 ;
                   
                   Utils.WritePropertiesFile("history", phase, code);
-                    
+                  return code; 
                 }
                 
 //                int o_1 = ret.indexOf("resultnum3") + 10 ;

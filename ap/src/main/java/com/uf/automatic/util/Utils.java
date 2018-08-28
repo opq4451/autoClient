@@ -130,6 +130,9 @@ public class Utils {
                     String key = enums.nextElement();
                     String value = configProperty.getProperty(key);
                     //System.out.println(key + " : " + value);
+                    if(key.equals("")) {
+                        continue;
+                    }
                     if(max.equals("")) {
                         max = key;
                     }else {
@@ -146,6 +149,13 @@ public class Utils {
              
         }catch(Exception e) {
             e.printStackTrace();
+        } finally {
+            try {
+                fileIn.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         return max;
     }
