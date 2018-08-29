@@ -948,7 +948,7 @@ public class Controller {
                                     
                                     
                                     
-                                    String string = "第" + phase + "期，" + sn + "名，(" + c[i] + ")，第"
+                                    String string = "第" + phase + "期%0A第" + sn + "名，(" + c[i] + ")，第"
                                             + configProperty.getProperty(key)
                                             + "關(中)";
                                     String query = "https://api.telegram.org/bot668240617:AAFJWiD1CobTKPsnNprqMVViUXrqIGwNs4c/sendMessage?chat_id=-310171214&text=%3Ca%20href=%22http://www.example.com/%22%3E"+string+"%3C/a%3E%20&parse_mode=HTML" ;
@@ -1461,8 +1461,8 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                                 + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
                 saveLog(user + "bet", betlog);
                 
-                String sendStr =  "第" + betphase + "期"  
-                + "，" + sn + "名，(" + codeList + ")" + "，第" + c + "關";
+                String sendStr =  "第" + betphase + "期%0A"  
+                + "第" + sn + "名，(" + codeList + ")" + "，第" + c + "關";
                 
                 h.sendTelegram(sendStr,false);
                 
