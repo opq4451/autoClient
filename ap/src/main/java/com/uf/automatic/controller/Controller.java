@@ -15,6 +15,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -402,8 +403,8 @@ public class Controller {
     }
 
     public static void main(String[] args) {
-        String s = new Controller().getPredictLog("aaabet");
-        System.out.println(s);
+        Map s = combindHistoryMap();
+        System.out.println(s.toString());
     }
 
     @RequestMapping("/getPredictLog")
@@ -707,6 +708,66 @@ public class Controller {
         return "null";
 
     }
+    
+    public static Map combindHistoryMap() {
+        Map m = new HashMap();
+        try {
+            Date dNow = new Date();   //当前时间
+
+            Date dBefore = new Date();
+
+            Calendar calendar = Calendar.getInstance(); //得到日历
+            calendar.setTime(dNow);//把当前时间赋给日历
+            calendar.add(Calendar.DAY_OF_MONTH, -1);  //设置为前一天
+            dBefore = calendar.getTime();   //得到前一天的时间
+
+            String byyymmdd = new SimpleDateFormat("yyyy-MM-dd").format(dBefore); 
+            
+            String yyymmdd = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+            
+            String url = "http://api.api68.com/pks/getPksHistoryList.do?date="+yyymmdd+"&lotCode=10001";
+            String ret = Utils.httpClientGet(url);
+            JsonParser parser = new JsonParser();
+            JsonObject o = parser.parse(ret).getAsJsonObject();
+            
+            
+            JsonObject result = o.get("result").getAsJsonObject();
+            JsonArray data = result.getAsJsonArray("data");
+            
+           
+            for (JsonElement pa : data) {
+                JsonObject paymentObj = pa.getAsJsonObject();
+                String     code     = paymentObj.get("preDrawCode").getAsString();
+                String     preDrawIssue = paymentObj.get("preDrawIssue").getAsString();
+                m.put(preDrawIssue, code);
+            }
+            
+            
+            url = "http://api.api68.com/pks/getPksHistoryList.do?date="+byyymmdd+"&lotCode=10001";
+            ret = Utils.httpClientGet(url);
+            parser = new JsonParser();
+            o = parser.parse(ret).getAsJsonObject();
+            
+            
+            result = o.get("result").getAsJsonObject();
+            data = result.getAsJsonArray("data");
+            
+           
+            for (JsonElement pa : data) {
+                JsonObject paymentObj = pa.getAsJsonObject();
+                String     code     = paymentObj.get("preDrawCode").getAsString();
+                String     preDrawIssue = paymentObj.get("preDrawIssue").getAsString();
+                m.put(preDrawIssue, code);
+            }
+            
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+       
+        
+        return m;
+    }
 
     @RequestMapping("/getCode")
     public String getCode(@RequestParam("phase") String phase) {
@@ -726,24 +787,24 @@ public class Controller {
             else {
                 //String p = 
                 //String url = "http://www.speedy-ball.com/speedy10-result.aspx?drawid=" + phase;
-                String yyymmdd = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+//                String yyymmdd = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+//                
+//                String url = "http://api.api68.com/pks/getPksHistoryList.do?date="+yyymmdd+"&lotCode=10001";
+//                String ret = Utils.httpClientGet(url);
+//                JsonParser parser = new JsonParser();
+//                JsonObject o = parser.parse(ret).getAsJsonObject();
+//                
+//                
+//                JsonObject result = o.get("result").getAsJsonObject();
+//                JsonArray data = result.getAsJsonArray("data");
                 
-                String url = "http://api.api68.com/pks/getPksHistoryList.do?date="+yyymmdd+"&lotCode=10001";
-                String ret = Utils.httpClientGet(url);
-                JsonParser parser = new JsonParser();
-                JsonObject o = parser.parse(ret).getAsJsonObject();
-                
-                
-                JsonObject result = o.get("result").getAsJsonObject();
-                JsonArray data = result.getAsJsonArray("data");
-                
-                Map m = new HashMap();
-                for (JsonElement pa : data) {
-                    JsonObject paymentObj = pa.getAsJsonObject();
-                    String     code     = paymentObj.get("preDrawCode").getAsString();
-                    String     preDrawIssue = paymentObj.get("preDrawIssue").getAsString();
-                    m.put(preDrawIssue, code);
-                }
+                Map m = combindHistoryMap();
+//                for (JsonElement pa : data) {
+//                    JsonObject paymentObj = pa.getAsJsonObject();
+//                    String     code     = paymentObj.get("preDrawCode").getAsString();
+//                    String     preDrawIssue = paymentObj.get("preDrawIssue").getAsString();
+//                    m.put(preDrawIssue, code);
+//                }
                 
                 if(m.get(phase) != null) {
                     String[] c = m.get(phase).toString().split(",");
