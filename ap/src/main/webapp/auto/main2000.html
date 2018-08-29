@@ -8,6 +8,8 @@
 
 
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1932,53 +1934,56 @@
 			
 			 
 		 } 
-	      
-	     if(sn == '1'){
-	     	  tenArray.splice(9, 1);
-			  tenArray.splice(6, 1);
-			  tenArray.splice(3, 1);
-	     }else if(sn == '2'){
-			  tenArray.splice(7, 1);
-			  tenArray.splice(4, 1);
-			  tenArray.splice(1, 1);
-	     }else if(sn == '3'){
-			  tenArray.splice(6, 1);
-			  tenArray.splice(4, 1);
-			  tenArray.splice(2, 1);
-	     } else if(sn == '4'){
-			  tenArray.splice(7, 1);
-			  tenArray.splice(4, 1);
-			  tenArray.splice(2, 1);
-	     }else if(sn == '5'){
-			  tenArray.splice(9, 1);
-			  tenArray.splice(7, 1);
-			  tenArray.splice(5, 1);
-	     }else if(sn == '6'){
-			  tenArray.splice(8, 1);
-			  tenArray.splice(6, 1);
-			  tenArray.splice(4, 1);
-	     }else if(sn == '7'){
-			  tenArray.splice(9, 1);
-			  tenArray.splice(6, 1);
-			  tenArray.splice(3, 1);
-	     } else if(sn == '8'){
-			  tenArray.splice(8, 1);
-			  tenArray.splice(5, 1);
-			  tenArray.splice(2, 1);
-	     }else if(sn == '9'){
-			  tenArray.splice(5, 1);
-			  tenArray.splice(3, 1);
-			  tenArray.splice(1, 1);
-	     } else if(sn == '10'){
-			  tenArray.splice(7, 1);
-			  tenArray.splice(5, 1);
-			  tenArray.splice(3, 1);
-	     } 
+	        if(tenArray.length ==10){
+	        		if(sn == '1'){
+				     	  tenArray.splice(9, 1);
+						  tenArray.splice(6, 1);
+						  tenArray.splice(3, 1);
+				     }else if(sn == '2'){
+						  tenArray.splice(7, 1);
+						  tenArray.splice(4, 1);
+						  tenArray.splice(1, 1);
+				     }else if(sn == '3'){
+						  tenArray.splice(9, 1);
+						  tenArray.splice(6, 1);
+						  tenArray.splice(4, 1);
+				     } else if(sn == '4'){
+						  tenArray.splice(7, 1);
+						  tenArray.splice(4, 1);
+						  tenArray.splice(2, 1);
+				     }else if(sn == '5'){
+						  tenArray.splice(9, 1);
+						  tenArray.splice(7, 1);
+						  tenArray.splice(5, 1);
+				     }else if(sn == '6'){
+						  tenArray.splice(8, 1);
+						  tenArray.splice(6, 1);
+						  tenArray.splice(2, 1);
+				     }else if(sn == '7'){
+						  tenArray.splice(9, 1);
+						  tenArray.splice(6, 1);
+						  tenArray.splice(3, 1);
+				     } else if(sn == '8'){
+						  tenArray.splice(8, 1);
+						  tenArray.splice(5, 1);
+						  tenArray.splice(2, 1);
+				     }else if(sn == '9'){
+						  tenArray.splice(5, 1);
+						  tenArray.splice(3, 1);
+						  tenArray.splice(1, 1);
+				     } else if(sn == '10'){
+						  tenArray.splice(7, 1);
+						  tenArray.splice(5, 1);
+						  tenArray.splice(3, 1);
+				     } 
 	   
  
 		 return tenArray.sort(sortNumber);
+
+	        }
+	     
 			 
-		
+		return null;
 	}
 
 	function compareByType_from_member999(phase_before,phase_now,phase_before4 , bIndex, bArray,formu,betSn){
