@@ -11,6 +11,8 @@
 
 
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1851,7 +1853,10 @@
 			  
 			 let p =  phase*1 - i ;
 			 
+			 console.log('project999_limit_getPosition:'+p);
 			 let nCodeArra = getCodeByPhase(p);
+ 			 console.log(nCodeArra);
+
 			 if(nCodeArra=='null'){
 				 return null;
 			 }
@@ -1892,12 +1897,13 @@
 			 let position = project999_limit_getPosition(nextI,sn,phase,c,snIndex);
 
 
-			 if(positionArray.indexOf(position)==-1){  
+			 if(positionArray.indexOf(position)==-1){ 
+			 	console.log('positon:'+position); 
 			 	positionArray.push(position);
 
 			 }
 			 
-			 if(positionArray.length ==3)
+			 if(positionArray.length ==7)
 			 	break;
 			
 			 
@@ -1930,13 +1936,31 @@
 
 
 		positionArray = positionArray.sort(sortNumber);
+
+
+
 		console.log(positionArray.toString());
-		tenArray.splice(positionArray[2], 1);
-		tenArray.splice(positionArray[1], 1);
-		tenArray.splice(positionArray[0], 1);
-			 
- 
-	 	return tenArray.sort(sortNumber); 
+		let r1 = tenArray[positionArray[0]];
+		let r2 = tenArray[positionArray[1]];
+		let r3 = tenArray[positionArray[2]];
+		let r4 = tenArray[positionArray[3]];
+		let r5 = tenArray[positionArray[4]];
+		let r6 = tenArray[positionArray[5]];
+		let r7 = tenArray[positionArray[6]];
+		// tenArray.splice(positionArray[2], 1);
+		// tenArray.splice(positionArray[1], 1);
+		// tenArray.splice(positionArray[0], 1);
+		let finalarray = [];
+ 		finalarray.push(r1);
+ 		finalarray.push(r2);
+ 		finalarray.push(r3);
+ 		finalarray.push(r4);
+ 		finalarray.push(r5);
+ 		finalarray.push(r6);
+ 		finalarray.push(r7);
+
+
+	 	return finalarray.sort(sortNumber); 
 	}
 
 	function compareByType_from_member999(phase_before,phase_now,phase_before4 , bIndex, bArray,formu,betSn){
@@ -2803,7 +2827,7 @@
 							if(true){
 								//console.log(JSON.stringify(betIndex)); 
 
-							   if(cccheck_S<10 && !checkProjectBetflag()){ //到了最後還下注不了，只好關數歸零
+							   if((cccheck ==0 && cccheck_S<10) && !checkProjectBetflag()){ //到了最後還下注不了，只好關數歸零
 									clearIndex(); //
 									var d = getYYYYMMDDSS();
 					        	    		var log =  d + "error!" ;
