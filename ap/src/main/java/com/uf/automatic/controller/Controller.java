@@ -1032,6 +1032,7 @@ public class Controller {
     }
 
     Map overmp = new HashMap();
+    Map opencodemp = new HashMap();
 
     @RequestMapping("/checkOver")
     public String checkOver(@RequestParam("user") String user, @RequestParam("phase") String phase,
@@ -1061,10 +1062,19 @@ public class Controller {
 
             if (c.length != 10)
                 return "null";
-
-            String opencode = getCode(phase);
-            String s = "第"+phase+"期，开奖号码:" + opencode;
-            robotSend(s);
+            
+            if(opencodemp.get(phase) == null) {
+                opencodemp.put(phase, phase);
+                String opencode = getCode(phase);
+                String s = "🏎️第"+phase+"期🏎️开奖号码" + opencode;
+                robotSend(s);
+                
+                int bef = Integer.parseInt(phase) - 1;
+                if(opencodemp.get(Integer.toString(bef)) !=null) {
+                    opencodemp.remove(Integer.toString(bef));
+                }
+            }
+           
 
             for (int x = 1; x < 13; x++) { // x → 公式幾
                 for (int i = 0; i < 10; i++) {
@@ -1093,12 +1103,15 @@ public class Controller {
                                                                                                   + ")");
                                     
                                     
-                                    
-                                    String string = "第" + phase + "期，第" + sn + "名，(" + c[i] + ")，第"
-                                            + configProperty.getProperty(key)
-                                            + "关(中)";
-                                    //String query = "https://api.telegram.org/bot668240617:AAFJWiD1CobTKPsnNprqMVViUXrqIGwNs4c/sendMessage?chat_id=-310171214&text=%3Ca%20href=%22http://www.example.com/%22%3E"+string+"%3C/a%3E%20&parse_mode=HTML" ;
-                                    robotSend(string);
+                                    int cc = Integer.parseInt(configProperty.getProperty(key));
+                                    if(cc>0) {
+                                        String string = "第" + phase + "期， 第" + sn + "名， (" + c[i] + ")， 第"
+                                                + configProperty.getProperty(key)
+                                                + "关(中)🎉";
+                                        //String query = "https://api.telegram.org/bot668240617:AAFJWiD1CobTKPsnNprqMVViUXrqIGwNs4c/sendMessage?chat_id=-310171214&text=%3Ca%20href=%22http://www.example.com/%22%3E"+string+"%3C/a%3E%20&parse_mode=HTML" ;
+                                        robotSend(string);
+                                    }
+                                   
                                     
                                     //h.sendTelegram(query);
                                     j.addProperty(covertIntToLatter(overi) + x , "Y");
