@@ -1066,7 +1066,7 @@ public class Controller {
             if(opencodemp.get(phase) == null) {
                 opencodemp.put(phase, phase);
                 String opencode = getCode(phase);
-                String s = "🏎️第"+phase+"期🏎️开奖号码" + opencode;
+                String s = "🚗️第"+phase+"期🚗️开奖号码" + opencode;
                 robotSend(s);
                 
                 int bef = Integer.parseInt(phase) - 1;
@@ -1105,9 +1105,9 @@ public class Controller {
                                     
                                     int cc = Integer.parseInt(configProperty.getProperty(key));
                                     if(cc>0) {
-                                        String string = "第" + phase + "期， 第" + sn + "名， (" + c[i] + ")， 第"
+                                        String string = "第" + phase + "期， 第" + sn + "名， (" + c[i] + ")， ⭐️第"
                                                 + configProperty.getProperty(key)
-                                                + "关(中)🎉";
+                                                + "关(中)⭐️";
                                         //String query = "https://api.telegram.org/bot668240617:AAFJWiD1CobTKPsnNprqMVViUXrqIGwNs4c/sendMessage?chat_id=-310171214&text=%3Ca%20href=%22http://www.example.com/%22%3E"+string+"%3C/a%3E%20&parse_mode=HTML" ;
                                         robotSend(string);
                                     }
@@ -1670,7 +1670,7 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                                 + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
                 saveLog(user + "bet", betlog);
                 
-                String sendStr =  "第" + betphase + "期，"  
+                String sendStr =  "📣第" + betphase + "期📣"  
                 + "第" + sn + "名，(" + codeList + ")" + "，第" + c + "关";
                 robotSend(sendStr);
                 //h.sendTelegram(sendStr,false);
