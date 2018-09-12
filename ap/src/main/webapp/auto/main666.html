@@ -1,6 +1,21 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1161,9 +1176,9 @@
 
 		    	 	let betType = json.type;
 		    	  
-		    	 	setbetType(betType);
-		    	 	
+		    	 		    	 	
 		    	 	if(!firstSet){
+	setbetType(betType);
 		    	 		document.getElementById("s_h").value = json.s_h;
 			    	 	document.getElementById("s_m").value = json.s_m;
 		    	 		$( ".betlist" ).val(json.betlist) ;
@@ -1307,54 +1322,17 @@
 
     	
     }
-    var betTemp1   = { '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : '', '10' : '', };
-    var betTemp2   = { '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : '', '10' : '', };
-    var betTemp3   = { '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : '', '10' : '', };
-    var betTemp4   = { '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : '', '10' : '', };
-    var betTemp5   = { '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : '', '10' : '', };
-    var betTemp6   = { '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : '', '10' : '', };
-	function project1_limit(sn,phase,single){
-		 let tenArray = [];
-		 
-		 
-		 for(var i=0;i<phase;i++){
-			 
-			 if(single =='s'){
-				 if((i%2) ==0){
-					 let p = phase - i ;
-					 let nCodeArra = getCodeByPhase(p);
-					 if(nCodeArra=='null'){
-						 return null;
-					 }
-					 let c = nCodeArra.split(',')[sn];
-					 if(tenArray.length == 5){
-						 return tenArray.sort(sortNumber);
-					 }else if(tenArray.indexOf(c)==-1){  tenArray.push(c);}
-					 
-				 }
-			 }else if(single =='d'){
-				 if( (i%2) ==1 ){
-					 let p = phase - i ;
-					 let nCodeArra = getCodeByPhase(p);
-					 if(nCodeArra=='null'){
-						 return null;
-					 }
-					 let c = nCodeArra.split(',')[sn];
-					 if(tenArray.length == 5){
-						 return tenArray.sort(sortNumber);
-					 }else if(tenArray.indexOf(c)==-1){  tenArray.push(c);}
-					 
-				 }
-			 }
-			 
-			
-			 
-		 } 
-	       
-		
+    var betTemp1   = '';
+    var betTemp2   = '';
+    var betTemp3   = '';
+    var betTemp4   = '';
+    var betTemp5   = '';
+    var betTemp6   = '';
+    var betTemp7   = '';
+    var betTemp8   = '';
+    var betTemp9   = '';
+    var betTemp10   = '';
 
-	}
-	
 	
 	function getCode_byFormu(formu,codeArray){
 		let total = 0;
@@ -1370,488 +1348,737 @@
 		
 		return ((total%10)==0?10:(total%10)) + '' ;
 	}
-	
-	function compareByType_from_member(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
-		
-		 
-			
-		//const code_b = getCodeByPhase(phase_before); 
-		const code_n = getCodeByPhase(phase_now);
-		const code_n2 = getCodeByPhase(phase_now*1 -1);
-		//const code_before4 = getCodeByPhase(phase_before4);
-		
-		 
-		const array_n2 = code_n2.split(',');
-		const array_n = code_n.split(',');
 
-		if( array_n2.length==0  ){
-			return;
-		} 
+	function project3_limit(snIndex,phase,length){
+		 let tenArray = [];
+		 
 		  
-		var z = formu ;  
-		var sn = z-1;
-		let bet_n = '';
-
-		for(var j=0;j<10;j++){
-			if(z== array_n2[j]){
-				
-				bet_n = j + 1 ;
-				//bet_code = array_n2[j];
-				break;
-			}
-		}
-		  let bet_code =  '1,3,4,6,7,8';
-		 if(formu =='12'){
-			bet_n = array_n[0];
-			bet_code =  '1,3,5,6,8,10';
-		} else {
-			bet_n = formu;
-		}
-		
-		
-		
-		
-		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-	    var amount = bArray[bIndex[z]%bArray.length] ;
-		    
-	  
-	         
-
-   		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code ,formu,z);
-   		if(rbf){
-			bIndex[z]++;
-			projectBet[(formu*1)][(formu*1)] = true;
-		} 
-		 
+		 for(var i=0;i<=phase;i++){
+			 
+			 let p =  phase*1 - i ;
+			  if(p.toString().substring(8,11) == '000'){
+			 	return null;
+			 }
+			 
+			 let nCodeArra = getCodeByPhase(p);
+			 if(nCodeArra=='null'){
+				 return null;
+			 }
+			 let c = nCodeArra.split(',')[snIndex];
+			 if(tenArray.indexOf(c)==-1){  tenArray.push(c);}
+			 
+			 if(tenArray.length ==4)
+			 	return tenArray;//.sort(sortNumber);
 			
 			 
-				
-			 
+		 } 
+	  //    tenArray.splice(9, 1);
+		 // tenArray.splice(8, 1);
+		 // tenArray.splice(6, 1);
+		 // tenArray.splice(4, 1);
+		 // tenArray.splice(2, 1);
+		 // tenArray.splice(0, 1);
+ 
 		 
-		//console.log(JSON.stringify(betIndex)); 
+			 
+		
 	}
-	
-	function compareByType_from_member_project5(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
-		 
-		//const code_b = getCodeByPhase(phase_before); 
-		const code_n = getCodeByPhase(phase_now);
-		const code_n2 = getCodeByPhase(phase_now*1 -1);
-		const code_n3 = getCodeByPhase(phase_now*1 -2);
-		
-		 
-		const array_n =  code_n.split(',');
-		const array_n2 = code_n2.split(',');
-		const array_n3 = code_n3.split(',');
 
-		if( array_n.length==0  ){
-			return;
-		} 
+	function project6_limit(snIndex,phase){
+		 let tenArray = [];
+		 
 		  
-		var z = formu ;  
-		
-		
-		let total = array_n[0] * 1 + array_n2[5] * 1 + array_n3[6] * 1 ;
-		 
-		
-		let bet_code = ((total%10)==0?10:(total%10)) + '' ;
-		
-		
-		
-		
-		
-		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-	    var amount = bArray[bIndex[z]%bArray.length] ;
-		    
-	  
-	      
-	    let bet_sn = '1,2,3,4,5,6';
-		let dynamicSn = '';
-		 
-		let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
-   		if(rbf){
-			bIndex[z]++;
-			projectBet[(formu*1)][(formu*1)] = true;
-		} 
-			
-			 
-				
-			 
-		 
-		//console.log(JSON.stringify(betIndex)); 
-	}
-	
-	function compareByType_from_member_project6(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
-		 
-		//const code_b = getCodeByPhase(phase_before); 
-		const code_n = getCodeByPhase(phase_now);
-		const code_n2 = getCodeByPhase(phase_now*1 -1);
-		const code_n3 = getCodeByPhase(phase_now*1 -2);
-		
-		 
-		const array_n =  code_n.split(',');
-		const array_n2 = code_n2.split(',');
-		const array_n3 = code_n3.split(',');
-
-		if( array_n.length==0  ){
-			return;
-		} 
-		  
-		var z = formu ;  
-		
-		
-		let total = array_n[1] * 1 + array_n2[3] * 1 + array_n3[8] * 1 ;
-		 
-		
-		let bet_code = ((total%10)==0?10:(total%10)) + '' ;
-		
-		
-		
-		
-		
-		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-	    var amount = bArray[bIndex[z]%bArray.length] ;
-		    
-	  
-	      
-	    let bet_sn = '5,6,7,8,9,10';
-		let dynamicSn = '';
-		 
-		let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
-   		if(rbf){
-			bIndex[z]++;
-			projectBet[(formu*1)][(formu*1)] = true;
-		} 
-			
-			 
-				
-			 
-		 
-		//console.log(JSON.stringify(betIndex)); 
-	}
-	
-	
-	function compareByType_from_member_project7(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
-		 
-		//const code_b = getCodeByPhase(phase_before); 
-		const code_n = getCodeByPhase(phase_now);
-		//const code_n2 = getCodeByPhase(phase_now*1 -1);
-		//const code_n3 = getCodeByPhase(phase_now*1 -2);
-		
-		 
-		const array_n =  code_n.split(',');
-		//const array_n2 = code_n2.split(',');
-		//const array_n3 = code_n3.split(',');
-
-		if( array_n.length==0  ){
-			return;
-		} 
-		  
-		var z = formu ;  
-		
-		
-		let total = array_n[0] * 1 + array_n[5] * 1 + array_n[6] * 1 ;
-		 
-		
-		let bet_code = ((total%10)==0?10:(total%10)) + '' ;
-		
-		
-		
-		
-		
-		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-	    var amount = bArray[bIndex[z]%bArray.length] ;
-		    
-	  
-	      
-	    let bet_sn = '1,2,3,4,5,6';
-		let dynamicSn = '';
-		 
-		let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
-   		if(rbf){
-			bIndex[z]++;
-			projectBet[(formu*1)][(formu*1)] = true;
-		} 
-			
-			 
-				
-			 
-		 
-		//console.log(JSON.stringify(betIndex)); 
-	}
-	
-	function compareByType_from_member_project8(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
-		 
-		//const code_b = getCodeByPhase(phase_before); 
-		const code_n = getCodeByPhase(phase_now);
-		//const code_n2 = getCodeByPhase(phase_now*1 -1);
-		//const code_n3 = getCodeByPhase(phase_now*1 -2);
-		
-		 
-		const array_n =  code_n.split(',');
-		//const array_n2 = code_n2.split(',');
-		//const array_n3 = code_n3.split(',');
-
-		if( array_n.length==0  ){
-			return;
-		} 
-		  
-		var z = formu ;  
-		
-		
-		let total = array_n[1] * 1 + array_n[3] * 1 + array_n[8] * 1 ;
-		 
-		
-		let bet_code = ((total%10)==0?10:(total%10)) + '' ;
-		
-		
-		
-		
-		
-		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-	    var amount = bArray[bIndex[z]%bArray.length] ;
-		    
-	  
-	      
-	    let bet_sn = '5,6,7,8,9,10';
-		let dynamicSn = '';
-		 
-		let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
-   		if(rbf){
-			bIndex[z]++;
-			projectBet[(formu*1)][(formu*1)] = true;
-		} 
-			
-			 
-				
-			 
-		 
-		//console.log(JSON.stringify(betIndex)); 
-	}
-	
-	
-	function compareByType_from_member_x(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
-		const code_n = getCodeByPhase(phase_now); 
-		const array_n = code_n.split(',');
-		 
-		if( array_n.length==0  ){
-			return;
-		} 
-		  
-		var z = formu ;  
-		
-		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-	    var amount = bArray[bIndex[z]%bArray.length] ;
-		    
-	    let bet_sn =  '';
-	    let bet_code = '';
-	    if(formu == '7'){
-	   	 	bet_code = '3,4,5,6,7';
-	    		bet_sn =  array_n[6];
-	    }else {
-	    		bet_code = '4,5,6,7,8';
-	    		bet_sn =  array_n[7];
-	    }
-	   
-			
-		  
-		let dynamicSn = '';
-		 
-
-		 
-
-		let rbf = reallyBet(betsn, amount, (phase_now+1) , betc , bet_code ,formu,bet_sn);
-   		if(rbf){
-			bIndex[z]++;
-			projectBet[(formu*1)][(formu*1)] = true;
-		} 
-		 
-		
-	  
-			
-			 
-				
+		 for(var i=0;i<=phase;i++){
 			  
-	}
-	function compareByType_from_member_v(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
-		const code_n = getCodeByPhase(phase_now); 
-		const array_n = code_n.split(',');
+			 let p =  phase*1 - i ;
+			 //  if(p.toString().substring(8,11) == '000'){
+			 // 	return null;
+			 // }
+			 
+			 let nCodeArra = getCodeByPhase(p);
+			 if(nCodeArra=='null'){
+				 return null;
+			 }
+			 let c = nCodeArra.split(',')[snIndex];
+
+			 //let position = project6_limit_2(snIndex,(i+1),phase,c);
+
+			 if(tenArray.indexOf(c)==-1){  tenArray.push(c);}
+			 
+			 if(tenArray.length ==7)
+			 	break;
+			
+			 
+		 } 
+		 return tenArray.sort(sortNumber);
+		// let nopostion = removepostion.split(',');
+
+	  //    tenArray.splice(nopostion[2]*1-1, 1);
+		 // tenArray.splice(nopostion[1]*1-1, 1);
+		 // tenArray.splice(nopostion[0]*1-1, 1);
 		 
-		if( array_n.length==0  ){
-			return;
-		} 
+ 
+		 //return tenArray.sort(sortNumber);
+			 
+		
+	}
+
+	function project6_limit_2(snIndex,start,phase,code){
+		 let tenArray = [];
+		 
 		  
+		 for(var i=start;i<=phase;i++){
+			  
+			 let p =  phase*1 - i ;
+			 //  if(p.toString().substring(8,11) == '000'){
+			 // 	return null;
+			 // }
+			 
+			 let nCodeArra = getCodeByPhase(p);
+			 if(nCodeArra=='null'){
+				 return null;
+			 }
+			 let c = nCodeArra.split(',')[snIndex];
+			 if(tenArray.indexOf(c)==-1){  tenArray.push(c);}
+			 
+			 if(tenArray.length ==10)
+			 	break;
+			
+			 
+		 } 
+		 return tenArray.indexOf(code);
+		// let nopostion = removepostion.split(',');
+
+	  //    tenArray.splice(nopostion[2]*1-1, 1);
+		 // tenArray.splice(nopostion[1]*1-1, 1);
+		 // tenArray.splice(nopostion[0]*1-1, 1);
+		 
+ 
+		 //return tenArray.sort(sortNumber);
+			 
+		
+	}
+
+	function project6_limit_final(snIndex,phase,nopostion){
+		 let tenArray = [];
+		 
+		  
+		 for(var i=0;i<=phase;i++){
+			  
+			 let p =  phase*1 - i ;
+			  if(p.toString().substring(8,11) == '000'){
+			 	return null;
+			 }
+			 
+			 let nCodeArra = getCodeByPhase(p);
+			 if(nCodeArra=='null'){
+				 return null;
+			 }
+			 let c = nCodeArra.split(',')[snIndex];
+ 
+			 if(tenArray.indexOf(c)==-1){  tenArray.push(c);}
+			 
+			 if(tenArray.length ==10)
+			 	break;
+			
+			 
+		 } 
+
+		 let wantarray = [];
+		 for(var i=0;i<nopostion.length;i++){
+		 	wantarray.push(tenArray[nopostion[i]]);
+		 }
+	  //    tenArray.splice(nopostion[2], 1);
+		 // tenArray.splice(nopostion[1], 1);
+		 // tenArray.splice(nopostion[0], 1);
+
+		 return wantarray.sort(sortNumber);
+		// let nopostion = removepostion.split(',');
+
+	  //    tenArray.splice(nopostion[2]*1-1, 1);
+		 // tenArray.splice(nopostion[1]*1-1, 1);
+		 // tenArray.splice(nopostion[0]*1-1, 1);
+		 
+ 
+		 //return tenArray.sort(sortNumber);
+			 
+		
+	}
+
+
+
+	var projectTemp = {
+    	'1' : '' ,
+    	'2' : '' ,
+    	'3' : '' ,
+    	'4' : '' ,
+    	'5' : '' ,
+    	'6' : '' ,
+    	'7' : '' ,
+    	'8' : '' ,
+    	'9' : '' ,
+    	'10' : '' ,
+    }
+
+    function computeRange(a,b){
+    	if(a == b)
+    		return 0;
+    	else if(a>b)
+    		return a-b;
+    	else
+    		return (a+10) - b ;
+    }
+    function getFixCode(code,array){
+    	let arr = ['1','2','3','4','5','6','7','8','9','10'];
+    	if( (code*1 + array[0]*1)  >10)
+    		 arr.push(array[0]*1 - code*1);
+
+
+    } 
+	function compareByType_from_member(phase_before,phase_now,phase_before4 , bIndex, bArray,formu,betSn){
+		
+
 		var z = formu ;  
+		var sn = betSn*1 -1;
+
+		 
+
+		let bet_code = project6_limit(sn,phase_now);
+		if(bet_code == null){
+			projectBet[(formu*1)][(formu*1)] = true;
+			return;
+		}
+	 
+		
+		let bet_n = betSn;
+		
+		 
+		
+		
 		
 		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 	    var amount = bArray[bIndex[z]%bArray.length] ;
 		    
-	    let bet_n =  '';
+
 	    
-	    if(formu == '9'){
-	    		betsn = '3,4,5,6,7';
-	    		bet_n =  array_n[6];
-	    }else {
-	    		betsn = '4,5,6,7,8';
-	    		bet_n =  array_n[7];
-	    }
-	   
-			
-		let bet_code = bet_n;
-	    let bet_sn = betsn;
-		let dynamicSn = '';
-		console.log('公式:'+formu+'號碼' + bet_n);
-		console.log('名次:'+ bet_sn);
-
-		let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
+   		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,z);
    		if(rbf){
 			bIndex[z]++;
 			projectBet[(formu*1)][(formu*1)] = true;
 		} 
-			
-			 
-				
-			  
-	}
-	
-	
-	
-	function compareByType1(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
 		 
-		const code_b = getCodeByPhase(phase_before); 
-		const code_n = getCodeByPhase(phase_now);
-		const code_n2 = getCodeByPhase(phase_now*1 -1);
-		const code_before4 = getCodeByPhase(phase_before4);
-		
-		const array_b = code_b.split(',');
-		const array_n = code_n.split(',');
-		const array_n2 = code_n2.split(',');
-		const array_before4 = code_before4.split(',');
-		if(array_b.length==0 || array_n.length==0 || array_before4.length==0  ){
-			return;
-		}
-		for(var i=0;i<10;i++){
-			const bet_b = array_b[i];
-			const bet_n = array_n[i];
-			const bet_n2 = array_n2[i];
-			const bet_before4 = array_before4[i]; 
-			var z = getZ(bIndex)>0 ? getZ(bIndex) :  i+1;  
-			
-			
-			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-  		    var amount = bArray[bIndex[z]%bArray.length] ;
-  		    
-  		    if(formu == '1' || formu == '6' ){
-  		    	    if(bet_n2 == formu){
-  					betsn = '1,2,3,4,5,6';
-  					
-  					let bet_code = bet_n;
-  				    let bet_sn = betsn;
-  					let dynamicSn = '';
-  					console.log('公式:'+formu+'號碼' + bet_n);
-  					console.log('名次:'+ bet_sn);
-
-  					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
-  			   		if(rbf){
-  						bIndex[z]++;
-  						projectBet[(formu*1)][i] = true;
-  					} 
-  			   		
-  				}else {
-  					projectBet[(formu*1)][i] = true;
-  				}
-  		    	
-  		    }else if(formu == '2'|| formu == '7'){
-		    	    if(bet_n2 == formu){
-	  					betsn = '2,3,4,5,6,7';
-	  					
-	  					let bet_code = bet_n;
-	  				    let bet_sn = betsn;
-	  					let dynamicSn = '';
-	  					 
-
-	  					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
-	  			   		if(rbf){
-	  						bIndex[z]++;
-	  						projectBet[(formu*1)][i] = true;
-	  					} 
-	  			   		
-	  				}else {
-	  					projectBet[(formu*1)][i] = true;
-	  				}
-	  		    	
-  		    }else if(formu == '3'|| formu == '8'){
-	    	    if(bet_n2 == formu){
-  					betsn = '3,4,5,6,7,8';
-  					
-  					let bet_code = bet_n;
-  				    let bet_sn = betsn;
-  					let dynamicSn = '';
-  					 
-
-  					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
-  			   		if(rbf){
-  						bIndex[z]++;
-  						projectBet[(formu*1)][i] = true;
-  					} 
-  			   		
-  				}else {
-  					projectBet[(formu*1)][i] = true;
-  				}
-  		    	
-		    }else if(formu == '4'|| formu == '9'){
-	    	    if(bet_n2 == formu){
-  					betsn = '4,5,6,7,8,9';
-  					
-  					let bet_code = bet_n;
-  				    let bet_sn = betsn;
-  					let dynamicSn = '';
-  					 
-
-  					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
-  			   		if(rbf){
-  						bIndex[z]++;
-  						projectBet[(formu*1)][i] = true;
-  					} 
-  			   		
-  				}else {
-  					projectBet[(formu*1)][i] = true;
-  				}
-  		    	
-		    }else if(formu == '5'|| formu == '10'){
-	    	    if(bet_n2 == formu){
-  					betsn = '5,6,7,8,9,10';
-  					
-  					let bet_code = bet_n;
-  				    let bet_sn = betsn;
-  					let dynamicSn = '';
-  					 
-
-  					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
-  			   		if(rbf){
-  						bIndex[z]++;
-  						projectBet[(formu*1)][i] = true;
-  					} 
-  			   		
-  				}else {
-  					projectBet[(formu*1)][i] = true;
-  				}
-  		    	
-		    } 
-  		    
-  		    
-  		    
-  		    
-  		   
 			
 			 
 				
 			 
-			
-			 
-		}
+		 
 		//console.log(JSON.stringify(betIndex)); 
 	}
-	
+
+
+
+	function project111_limit(snIndex,phase){
+		 let tenArray = [];
+		 
+		  
+		 for(var i=0;i<=phase;i++){
+			  
+			 let p =  phase*1 - i ;
+			  if(p.toString().substring(8,11) == '000'){
+			 	return null;
+			 }
+			 
+			 let nCodeArra = getCodeByPhase(p);
+			 if(nCodeArra=='null'){
+				 return null;
+			 }
+			 let c = nCodeArra.split(',')[snIndex];
+
+			 let wantCode = project111_limit_2(snIndex,(i+1),phase,c);
+
+			 if(wantCode && tenArray.indexOf(wantCode)==-1){  tenArray.push(wantCode);}
+			 
+			 if(tenArray.length ==7)
+			 	break;
+			
+			 
+		 } 
+		 return tenArray.sort(sortNumber);
+		// let nopostion = removepostion.split(',');
+
+	  //    tenArray.splice(nopostion[2]*1-1, 1);
+		 // tenArray.splice(nopostion[1]*1-1, 1);
+		 // tenArray.splice(nopostion[0]*1-1, 1);
+		 
+ 
+		 //return tenArray.sort(sortNumber);
+			 
+		
+	}
+
+	function project111_limit_2(snIndex,start,phase,code){
+		 let tenArray = [];
+		 
+		 let s = phase*1 - start ;
+		 for(var i=start;i<=phase;i++){
+			  
+			 let p =  phase*1 - i ;
+			  if(p.toString().substring(8,11) == '000'){
+			 	return null;
+			 }
+			 
+			 let nCodeArra = getCodeByPhase(p);
+			 if(nCodeArra=='null'){
+				 return null;
+			 }
+			 let c = nCodeArra.split(',')[snIndex];
+			 if(c == code){
+			 	let want = p+1;
+				let wantnCodeArra = getCodeByPhase(want);
+
+			 	return  wantnCodeArra.split(',')[snIndex];
+			 }
+			 // if(tenArray.indexOf(c)==-1){  tenArray.push(c);}
+			 
+			 // if(tenArray.length ==10)
+			 // 	break;
+			
+			 
+		 } 
+		 return null;
+		// let nopostion = removepostion.split(',');
+
+	  //    tenArray.splice(nopostion[2]*1-1, 1);
+		 // tenArray.splice(nopostion[1]*1-1, 1);
+		 // tenArray.splice(nopostion[0]*1-1, 1);
+		 
+ 
+		 //return tenArray.sort(sortNumber);
+			 
+		
+	}
+
+
+	function compareByType_from_member111(phase_before,phase_now,phase_before4 , bIndex, bArray,formu,betSn){
+		
+
+		var z = formu ;  
+		var sn = betSn*1 -1;
+
+
+		let nopostion = project111_limit(sn,phase_now);
+		if(!nopostion){
+			projectBet[(formu*1)][(formu*1)] = true;
+			return;
+		}
+		projectTemp[formu] = nopostion;
+		// const code_n = getCodeByPhase(phase_now);
+		// const array_n = code_n.split(',');
+
+		let bet_code = projectTemp[formu].toString();
+
+		let bet_n = betSn;
+		
+		 
+		
+		
+		
+		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+	    var amount = bArray[bIndex[z]%bArray.length] ;
+		    
+
+	    
+   		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,z);
+   		if(rbf){
+			bIndex[z]++;
+			projectBet[(formu*1)][(formu*1)] = true;
+		} 
+		 
+			
+			 
+				
+			 
+		 
+		//console.log(JSON.stringify(betIndex)); 
+	}
+
+
+
+	function project666_limit(snIndex,phase,length){
+		 let tenArray = [];
+		 
+		  
+		 for(var i=0;i<=phase;i++){
+			  
+			 let p =  phase*1 - i ;
+			  if(p.toString().substring(8,11) == '000'){
+			 	return null;
+			 }
+			 let nCodeArra = getCodeByPhase(p);
+			 if(nCodeArra=='null'){
+				 return null;
+			 }
+			 let c = nCodeArra.split(',')[snIndex];
+			 if(tenArray.indexOf(c)==-1){  tenArray.push(c);}
+			 
+			 if(tenArray.length ==10)
+			 	break;
+			
+			 
+		 } 
+	      
+	     tenArray.splice(7, 1);
+		 tenArray.splice(4, 1);
+		 tenArray.splice(2, 1);
+ 
+		 return tenArray.sort(sortNumber);
+			 
+		
+	}
+
+	function compareByType_from_member666(phase_before,phase_now,phase_before4 , bIndex, bArray,formu,betSn){
+		
+
+		var z = formu ;  
+		var sn = betSn*1 -1;
+		let bet_code = project666_limit(sn,phase_now,7);
+		console.log(bet_code);
+		if(bet_code == null){
+			projectBet[(formu*1)][(formu*1)] = true;
+			return;
+		}
+		
+		
+		let bet_n = betSn;
+		
+		 
+		
+		
+		
+		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+	    var amount = bArray[bIndex[z]%bArray.length] ;
+		    
+
+	    
+   		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,z);
+   		if(rbf){
+			bIndex[z]++;
+			projectBet[(formu*1)][(formu*1)] = true;
+		} 
+		 
+			
+			 
+				
+			 
+		 
+		//console.log(JSON.stringify(betIndex)); 
+	}
+
+
+
+	function project777_limit(snIndex,phase,length){
+		 let tenArray = [];
+		 
+		  
+		 for(var i=0;i<=phase;i++){
+			  
+			 let p =  phase*1 - i ;
+			  if(p.toString().substring(8,11) == '000'){
+			 	return null;
+			 }
+			 
+			 let nCodeArra = getCodeByPhase(p);
+			 if(nCodeArra=='null'){
+				 return null;
+			 }
+			 let c = nCodeArra.split(',')[snIndex];
+			 if(tenArray.indexOf(c)==-1){  tenArray.push(c);}
+			 
+			 if(tenArray.length ==10)
+			 	break;
+			
+			 
+		 } 
+	      
+	     tenArray.splice(9, 1);
+		 tenArray.splice(7, 1);
+		 tenArray.splice(5, 1);
+ 
+		 return tenArray.sort(sortNumber);
+			 
+		
+	}
+	function compareByType_from_member777(phase_before,phase_now,phase_before4 , bIndex, bArray,formu,betSn){
+		
+
+		var z = formu ;  
+		var sn = betSn*1 -1;
+		let bet_code = project777_limit(sn,phase_now,7);
+		console.log(bet_code);
+		if(bet_code == null){
+			projectBet[(formu*1)][(formu*1)] = true;
+			return;
+		}
+		
+		
+		let bet_n = betSn;
+		
+		 
+		
+		
+		
+		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+	    var amount = bArray[bIndex[z]%bArray.length] ;
+		    
+
+	    
+   		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,z);
+   		if(rbf){
+			bIndex[z]++;
+			projectBet[(formu*1)][(formu*1)] = true;
+		} 
+		 
+			
+			 
+				
+			 
+		 
+		//console.log(JSON.stringify(betIndex)); 
+	}
+
+
+
+	function project999_getcode(arr,phase,snIndex){
+		 let nCodeArra = getCodeByPhase(phase);
+		 if(nCodeArra=='null'){
+			 return null;
+		 }
+		 let c = nCodeArra.split(',')[snIndex];
+
+		 let tenArray = [];
+		 
+		 
+
+		 for(var i=0;i<arr.length;i++){
+			 let add = arr[i];
+			 
+			 let code = c*1 + add*1 ;
+			 if(code >10){
+			 	code = code - 10 ;
+			 }
+
+			 tenArray.push(code+'');
+		 } 
+	     
+ 
+		 return tenArray.sort(sortNumber);
+			 
+		
+	}
+	 
+
+	function project999_limit(sn,phase,length,cover){
+		 let snIndex = sn*1  - 1 ;
+		 let tenArray = [];
+		 let positionArray = [];
+		  
+
+
+		 for(var i=0;i<=phase;i++){
+			  
+			 let p =  phase*1 - i ;
+			 //  if(p.toString().substring(8,11) == '000'){
+			 // 	return null;
+			 // }
+			 let nCodeArra = getCodeByPhase(p);
+			 if(nCodeArra=='null'){
+				 return null;
+			 }
+			 let c = nCodeArra.split(',')[snIndex];
+
+			 //let nextI = i + 1;
+ 			//  let nexnCodeArra = getCodeByPhase(p*1 - 1);
+			 // let nextc = nexnCodeArra.split(',')[snIndex];
+
+			 // let add = 0;
+			 // if(c*1 < nextc*1){
+			 // 	add = (c*1 +10) - nextc*1;
+			 // }else {
+			 // 	add = (c*1 ) - nextc*1;
+			 // }
+			 // //let position = project999_limit_getPosition(nextI,sn,phase,c,snIndex);
+			 // console.log('add:'+add);
+ 			 if(tenArray.indexOf(c)==-1){ 
+			 	 
+			 	tenArray.push(c);
+
+			 }
+			 
+			 if(tenArray.length ==10)
+			 	break;
+			
+			 
+		 } 
+
+
+		 let removeIndex = 10 - cover*1 - 1;
+ 		 tenArray.splice(removeIndex, 1);
+
+
+		 return project999_getcode(tenArray.sort(sortNumber),phase,snIndex);
+
+		//  for(var i=0;i<=phase;i++){
+			  
+		// 	 let p =  phase*1 - i ;
+		// 	 //  if(p.toString().substring(8,11) == '000'){
+		// 	 // 	return null;
+		// 	 // }
+		// 	 let nCodeArra = getCodeByPhase(p);
+		// 	 if(nCodeArra=='null'){
+		// 		 return null;
+		// 	 }
+		// 	 let c = nCodeArra.split(',')[snIndex];
+ 
+
+		// 	 if(tenArray.indexOf(c)==-1){  
+		// 	 	tenArray.push(c);
+
+		// 	 }
+			 
+		// 	 if(tenArray.length ==10)
+		// 	 	break;
+			
+			 
+		//  } 
+
+
+		// positionArray = positionArray.sort(sortNumber);
+
+
+
+		// console.log(positionArray.toString());
+		// let r1 = tenArray[positionArray[0]];
+		// let r2 = tenArray[positionArray[1]];
+		// let r3 = tenArray[positionArray[2]];
+		// let r4 = tenArray[positionArray[3]];
+		// let r5 = tenArray[positionArray[4]];
+		// let r6 = tenArray[positionArray[5]];
+		// let r7 = tenArray[positionArray[6]];
+		// // tenArray.splice(positionArray[2], 1);
+		// // tenArray.splice(positionArray[1], 1);
+		// // tenArray.splice(positionArray[0], 1);
+		// let finalarray = [];
+ 	// 	finalarray.push(r1);
+ 	// 	finalarray.push(r2);
+ 	// 	finalarray.push(r3);
+ 	// 	finalarray.push(r4);
+ 	// 	finalarray.push(r5);
+ 	// 	finalarray.push(r6);
+ 	// 	finalarray.push(r7);
+
+
+	 	// return finalarray.sort(sortNumber); 
+	}
+
+	function compareByType_from_member999(phase_before,phase_now,phase_before4 , bIndex, bArray,formu,betSn){
+		
+
+		var z = formu ;  
+		var sn = betSn;
+		let bet_code = project999_limit(sn,phase_now,7,bIndex[z]);
+		console.log(bet_code);
+		if(bet_code == null){
+			projectBet[(formu*1)][(formu*1)] = true;
+			return;
+		}
+		
+		
+		let bet_n = betSn;
+		
+		 
+		
+		
+		
+		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+	    var amount = bArray[bIndex[z]%bArray.length] ;
+		    
+
+	    
+   		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,z);
+   		if(rbf){
+			bIndex[z]++;
+			projectBet[(formu*1)][(formu*1)] = true;
+		} 
+		 
+			
+			 
+				
+			 
+		 
+		//console.log(JSON.stringify(betIndex)); 
+	}
+
+
+
+	function checkExist(btempArray,code){
+		let exist =false;
+	    for(var l = 0 ; l<btempArray.length ; l++){
+	    	if(btempArray[l] == code){
+	    		return btempArray;
+	    		break;
+	    	}
+    	}
+    	btempArray.push(code);
+    	return btempArray;
+	}
+
+	function setTemp(formu,b){
+		if(formu =='1'){
+			betTemp1 = b;
+		}else if(formu =='2'){
+			betTemp2 = b;
+		}else if(formu =='3'){
+			betTemp3 = b;
+		}else if(formu =='4'){
+			betTemp4 = b;
+		}else if(formu =='5'){
+			betTemp5 = b;
+		}else if(formu =='6'){
+			betTemp6 = b;
+		}else if(formu =='7'){
+			betTemp7 = b;
+		}else if(formu =='8'){
+			betTemp8 = b;
+		}else if(formu =='9'){
+			betTemp9 = b;
+		}else if(formu =='10'){
+			betTemp10 = b;
+		}
+	}
+	function getTemp(formu){
+		if(formu =='1'){
+			return betTemp1 ;
+		}else if(formu =='2'){
+			return betTemp2 ;
+		}else if(formu =='3'){
+			return betTemp3 ;
+		}else if(formu =='4'){
+			return betTemp4 ;
+		}else if(formu =='5'){
+			return betTemp5 ;
+		}else if(formu =='6'){
+			return betTemp6 ;
+		}else if(formu =='7'){
+			return betTemp7 ;
+		}else if(formu =='8'){
+			return betTemp8 ;
+		}else if(formu =='9'){
+			return betTemp9 ;
+		}else if(formu =='10'){
+			return betTemp10 ;
+		}
+	}
+
 	function getZ(obj){
 		for(var i in obj){
 			if(obj[i]>0){
@@ -1861,126 +2088,7 @@
 		
 		return 0 ;
 	}
-	 
-	function compareByType1_pro11(phase_before,phase_now,phase_before4 , bIndex, bArray){
-
-		const code_b = getCodeByPhase(phase_before); 
-		const code_n = getCodeByPhase(phase_now);
-		const code_n2 = getCodeByPhase(phase_now*1 -1);
-		const code_before4 = getCodeByPhase(phase_before4);
-		
-		const array_b = code_b.split(',');
-		const array_n = code_n.split(',');
-		const array_n2 = code_n2.split(',');
-		const array_before4 = code_before4.split(',');
-		if(array_b.length==0 || array_n.length==0 || array_before4.length==0  ){
-			return;
-		}
-		for(var i=0;i<10;i++){
-			const bet_b = array_b[i];
-			const bet_n = array_n[i];
-			const bet_n2 = array_n2[i];
-			const bet_before4 = array_before4[i];
- 
-		 	//var d = getYYYYMMDDSS();
-			var z =  i+1; 
-		 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-		 	//var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
-		 	//logAppend(cLog) ;
-		    var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
- 			//var betList =  rangeExist_pro5[bet_before4].toString().split(',');
-		    var writeFlag = false;
-	    	//var betStr="";
-			var amount = bArray[bIndex[z]%bArray.length] ;
-			
-			if(z == 8){
-				if(bet_n2 == '1' || bet_n2 == '6'){
-					betsn = '1,2,3,4,5,6';
-				}else if(bet_n2 == '2' || bet_n2 == '7'){
-					betsn = '2,3,4,5,6,7';
-				}else if(bet_n2 == '3' || bet_n2 == '8'){
-					betsn = '3,4,5,6,7,8';
-				}else if(bet_n2 == '4' || bet_n2 == '9'){
-					betsn = '4,5,6,7,8,9';
-				}else if(bet_n2 == '5' || bet_n2 == '10'){
-					betsn = '5,6,7,8,9,10';
-				}
-				
-				
-				let bet_code = bet_n;
-			    let bet_sn = betsn;
-				let dynamicSn = '';
-				
-				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, '11', bet_sn,dynamicSn);
-		   		if(rbf){
-					bIndex[z]++;
-					projectBet[11][i] = true;
-				}
-				 
-			}else {
-				projectBet[11][i] = true;
-			}
-			
-			 
-			 
-			 
-		}
-		
-	}
-	
-	function compareByType1_pro12(phase_before,phase_now,phase_before4 , bIndex, bArray){
-
-		const code_b = getCodeByPhase(phase_before); 
-		const code_n = getCodeByPhase(phase_now);
-		const code_n2 = getCodeByPhase(phase_now*1 -1);
-
-		const code_before4 = getCodeByPhase(phase_before4);
-		
-		const array_b = code_b.split(',');
-		const array_n = code_n.split(',');
-		const array_n2 = code_n2.split(',');
-
-		const array_before4 = code_before4.split(',');
-		if(array_b.length==0 || array_n.length==0 || array_before4.length==0  ){
-			return;
-		}
-		for(var i=0;i<10;i++){
-			const bet_b = array_b[i];
-			const bet_n = array_n[i];
-			const bet_n2 = array_n2[i];
-
-			const bet_before4 = array_before4[i]; 
-			var z = i+1; 
-		    var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
- 			 
-			var amount = bArray[bIndex[z]%bArray.length] ; 
-			
-			let betsn='';
-			if(! (z==3 || z==8) ){
-				projectBet[12][i] = true;
-			}else if((z==3 || z==8)){ 
-				betsn = '1,3,5,6,8,10';
-			} 
-			
-			
-			//if(bIndex[z] == 0)
-	 	   	//	 betTemp6[z] = rangeExist_pro6[bet_before4].toString();
-			    
-		  
-		 	if(!projectBet[12][i]){ 
-		 		    let bet_code = bet_n;
-				    let bet_sn = betsn;
-					let dynamicSn = '';
-
-					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, '12', bet_sn,dynamicSn);
-			   		if(rbf){
-						bIndex[z]++;
-					}  
-		   		
-		 	}
-		}
-		
-	}
+	  
 	function combind(arra,origin){
   	  
 	       var arr = new Array(7)
@@ -2396,7 +2504,7 @@
 			            	   	  //$('#openCode').hide(); 
 			               }else if(blinkPhase=='' ||  (nphase* 1 - blinkPhase*1 ) > 0){ //已開獎
 			            	      blinkPhase = nphase ;
-			            	      //checkOver(data);
+			            	      checkOver(data);
 			            	      $('.openload').hide(); 
 			            	      $('.blink').hide();
 			            	   	  $('#openCode').show(); 
@@ -2654,10 +2762,10 @@
  	var betflag=false;
  	
  	var checkSub1= "";
-    function timeout() {
+ 	function timeout() {
     	
-  
-	
+ 		  
+ 		
     	workerTimer_timeout.setInterval(function () {
 		    	  	//var checkFlag = checkForce();	
 		    		//if(checkFlag == '1'){ //全部停止走關
@@ -2708,14 +2816,17 @@
     	        
 			    if(winFlag){
 		    	         let stop = 0;
-						try{
-							stop = $( "div.extendtime" ).text() * 1;
-		    	         }catch(err){
-	   	        	    		saveLog('error_bet','stoptime:' + stop);
-	   	        	    }
+		    	         let cccheck = $( "div.extendtime" ).text().toString().split(':')[0];
+ 		    	         let cccheck_S = $( "div.extendtime" ).text().toString().split(':')[1];
+
+						// try{
+						// 	stop = $( "div.extendtime" ).text() * 1;
+		    // 	         }catch(err){
+	   	 //        	    		saveLog('error_bet','stoptime:' + stop);
+	   	 //        	    }
 		    	        
-				    
-				    if(stop>50){
+				    console.log(stop + 'cccheck' + cccheck)
+				    if(cccheck*1 >3){
 				    //	betflag = false; 
 				    	clearProjectBetFlag();
 				    } 
@@ -2726,14 +2837,14 @@
 				    
 				    
 				     
-			        if((stop<25 && stop>0) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
+			        if((cccheck<3 ) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
 			            var phase =  $( "div.toPhase" ).text();
 			            //console.log(phase);
 						if( phase ){  
 							if(true){
 								//console.log(JSON.stringify(betIndex)); 
 
-							   if(stop<6 && !checkProjectBetflag()){ //到了最後還下注不了，只好關數歸零
+							   if((cccheck ==0 && cccheck_S<10) && !checkProjectBetflag()){ //到了最後還下注不了，只好關數歸零
 									clearIndex(); //
 									var d = getYYYYMMDDSS();
 					        	    		var log =  d + "error!" ;
@@ -2980,6 +3091,7 @@
 					  
 	        			     let flag = json[letter+''+formu] ;
 	        			     if(flag){
+	        			     	  projectTemp[formu] = '';
 	        			    	 	  //if(formu==1){betIndex[1] = 0 ;}
 	        			    	 	  if(formu==1){betIndex[1] = 0 ;}
 	        			    	 	  if(formu==2){betIndex2[2] = 0 ;}
@@ -3040,7 +3152,7 @@
 					  const b = obj.b ;
 					  const fourTh = obj.fourTh ;
 					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-						  compareByType_from_member(b,n,fourTh,betIndex,betarray,'1');
+						  compareByType_from_member999(b,n,fourTh,betIndex,betarray,'1','1');
 					  } 
 			    }
 			    if(document.getElementById('c3').checked  && !(projectBet[2][2]) ) {
@@ -3050,7 +3162,7 @@
 					  const b = obj.b ;
 					  const fourTh = obj.fourTh ;
 					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-						  compareByType_from_member(b,n,fourTh,betIndex2,betarray2,'2');		  
+						  compareByType_from_member999(b,n,fourTh,betIndex2,betarray2,'2','2');		  
 				 	  }  
 		      	  }
 			    if(document.getElementById('c4').checked  && !(projectBet[3][3]) ) {
@@ -3060,7 +3172,7 @@
 					  const b = obj.b ;
 					  const fourTh = obj.fourTh ;
 					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-						  compareByType_from_member(b,n,fourTh,betIndex3,betarray3,'3');
+						  compareByType_from_member999(b,n,fourTh,betIndex3,betarray3,'3','3');
 					  }
 				    }
 			    
@@ -3071,7 +3183,7 @@
 					  const b = obj.b ;
 					  const fourTh = obj.fourTh ;
 					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-						  compareByType_from_member(b,n,fourTh,betIndex4,betarray4,'4');
+						  compareByType_from_member999(b,n,fourTh,betIndex4,betarray4,'4','4');
 					  }
 				   }
 			    //
@@ -3084,7 +3196,7 @@
 					  const b = obj.b ;
 					  const fourTh = obj.fourTh ;
 					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-						  compareByType_from_member(b,n,fourTh,betIndex5,betarray5,'5');
+						  compareByType_from_member999(b,n,fourTh,betIndex5,betarray5,'5','5');
 					  }
 				  }
 			    
@@ -3096,7 +3208,7 @@
 		    		  const b = obj.b ;
 				  const fourTh = obj.fourTh ;
 				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-					  compareByType_from_member(b,n,fourTh,betIndex6,betarray6,'6');
+					  compareByType_from_member999(b,n,fourTh,betIndex6,betarray6,'6','6');
 				  } 
 		    	    }
 			    //直七
@@ -3107,7 +3219,7 @@
 					  const b = obj.b ;
 					  const fourTh = obj.fourTh ;
 					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-						  compareByType_from_member(b,n,fourTh,betIndex7,betarray7,'7');
+						  compareByType_from_member999(b,n,fourTh,betIndex7,betarray7,'7','7');
 					  } 
 				    }
 			    if(document.getElementById('c9').checked  && !(projectBet[8][8]) ) {
@@ -3117,7 +3229,7 @@
 				  const b = obj.b ;
 				  const fourTh = obj.fourTh ;
 				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-					  compareByType_from_member(b,n,fourTh,betIndex8,betarray8,'8');
+					  compareByType_from_member999(b,n,fourTh,betIndex8,betarray8,'8','8');
 			 	  }  
 	      	  	}
 			    
@@ -3128,7 +3240,7 @@
 					  const b = obj.b ;
 					  const fourTh = obj.fourTh ;
 					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-						  compareByType_from_member(b,n,fourTh,betIndex9,betarray9,'9');
+						  compareByType_from_member999(b,n,fourTh,betIndex9,betarray9,'9','9');
 				 	  }  
 		      	  	}
 			    
@@ -3139,7 +3251,7 @@
 					  const b = obj.b ;
 					  const fourTh = obj.fourTh ;
 					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-						  compareByType_from_member(b,n,fourTh,betIndex10,betarray10,'10');
+						  compareByType_from_member999(b,n,fourTh,betIndex10,betarray10,'10','10');
 				 	  }  
 		      	  	}
 			    
@@ -3154,60 +3266,7 @@
 				 	  }  
 		      	  	}
 			    
-			    
-			    /*
-			    
-			   if(document.getElementById('c10').checked  && !(projectBet[9][9]) ) {
-	   	          console.log('project4'+'-betPhase:'+nextPhase);
-				  obj.b = nextPhase - 5 ;
-				  obj.fourTh = nextPhase - 4 ; 
-				  const b = obj.b ;
-				  const fourTh = obj.fourTh ;
-				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-					  compareByType_from_member_v(b,n,fourTh,betIndex9,betarray9,'9');
-				  }
-			    }
-			  
-			   
-			   if(document.getElementById('c11').checked  && !(projectBet[10][10]) ) {
-					  console.log('project5'+'-betPhase:'+nextPhase);
-					  obj.b = nextPhase - 5 ;
-					  obj.fourTh = nextPhase - 4 ; 
-					  const b = obj.b ;
-					  const fourTh = obj.fourTh ;
-					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-						  compareByType_from_member_v(b,n,fourTh,betIndex10,betarray10,'10');
-					  }
-				   }
-				   
-			   
-			   
-			   //
-			   if(document.getElementById('c12').checked  && !checkProjectBetFlagIndex(projectBet[12]) ) {
-				  console.log('project6'+'-betPhase:'+nextPhase);
-				  obj.b = nextPhase - 5 ;
-				  obj.fourTh = nextPhase - 4 ; 
-				  const b = obj.b ;
-				  const fourTh = obj.fourTh ;
-				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-					  compareByType1_pro12(b,n,fourTh,betIndex12,betarray12);
-				  }
-			  }*/
-	  	  
-	  		  
-			 
-			  
-			  
-			
-			  
-			   
-			  
-	   
-	  	  
-   	     
-		  
-		  
-		  
+			     
 		  
 		  
 		  
@@ -3305,15 +3364,16 @@
     	 /*	for(var i=1;i<11;i++){console.log('計劃1:  第'+i+'名:'+betIndex[i]);}
     	 	for(var i=1;i<11;i++){console.log('計劃2:  第'+i+'名:'+betIndex2[i]);}
     	 	for(var i=1;i<11;i++){console.log('計劃3:  第'+i+'名:'+betIndex3[i]);}
-    	 	for(var i=1;i<11;i++){console.log('計劃4:  第'+i+'名:'+betIndex4[i]);}
+    	 	for(var i=1;i<11;i++){console.log('計劃4:  第'+i+'名:'+betIndex4[i])
+    	 	;}
     	 	for(var i=1;i<11;i++){console.log('計劃5:  第'+i+'名:'+betIndex5[i]);}
     	 	for(var i=1;i<11;i++){console.log('計劃6:  第'+i+'名:'+betIndex6[i]);}
     	 	for(var i=1;i<11;i++){console.log('計劃7:  第'+i+'名:'+betIndex7[i]);}
     	 	for(var i=1;i<11;i++){console.log('計劃8:  第'+i+'名:'+betIndex8[i]);}
     	 	for(var i=1;i<11;i++){console.log('計劃9:  第'+i+'名:'+betIndex9[i]);}
     	 	for(var i=1;i<11;i++){console.log('計劃10:  第'+i+'名:'+betIndex10[i]);} 
-    	 	for(var i=1;i<11;i++){console.log('計劃11:  第'+i+'名:'+betIndex11[i]);} */
-    	 	for(var i=1;i<13;i++){console.log('計劃12:  第'+i+'名:'+betIndex12[i]);} 
+    	 	for(var i=1;i<11;i++){console.log('計劃11:  第'+i+'名:'+betIndex11[i]);}
+    	 	for(var i=1;i<13;i++){console.log('計劃12:  第'+i+'名:'+betIndex12[i]);}  */
 
 
     }

@@ -25,6 +25,7 @@ import java.util.TimerTask;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -56,6 +57,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.uf.automatic.util.leein.*;
+import com.uf.automatic.util.mountain.MoutainHttpClient;
 import com.uf.automatic.controller.Controller;
 import com.uf.automatic.util.Utils;
 
@@ -178,6 +180,13 @@ public class LeeinHttpClient {
      
      }
  
+     public static String getStopTime(String url,String cookie) throws Exception {
+         long unixTime = System.currentTimeMillis() / 1000L;
+
+         String u =
+                 url + "/member/period?lottery=BJPK10&games=DX1%2CDX2%2CDX3%2CDX4%2CDX5%2CDX6%2CDX7%2CDX8%2CDX9%2CDX10%2CDS1%2CDS2%2CDS3%2CDS4%2CDS5%2CDS6%2CDS7%2CDS8%2CDS9%2CDS10%2CGDX%2CGDS%2CLH1%2CLH2%2CLH3%2CLH4%2CLH5&_="+unixTime;
+         return httpGet(cookie,u);
+     }
     // "http://w1.5a1234.com/?m=acc&gameId=2"
     public static String httpGet(String cookie, String url) throws Exception {
 
@@ -215,7 +224,7 @@ public class LeeinHttpClient {
 
         HttpPost httpPost = new HttpPost(url + "/member/bet");
 
-        httpPost.setHeader("Cookie", cookie);
+        httpPost.setHeader("Cookie", "ssid1=58c77f11c46b3b903e22ee405ae005c8; random=7341;"+cookie);
 
         httpPost.setHeader("content-type", "application/json");
         StringEntity postingString = new StringEntity(betString);//gson.tojson() converts your pojo to json
@@ -240,7 +249,27 @@ public class LeeinHttpClient {
         }
         return null;
     }
+    public static String getInitCookie(String url) {
+        try {
+            String im = "";
+            CloseableHttpResponse httpresponse = null;
+
+            CloseableHttpClient httpclient = HttpClients.createDefault();
+            long unixTime = System.currentTimeMillis() / 1000L;
  
+            HttpGet HttpGet = new HttpGet(url + "/code?_="+unixTime);
+
+            httpresponse = httpclient.execute(HttpGet);
+            String cookie  = MoutainHttpClient.setCookie(httpresponse);
+            System.out.println(cookie);
+ 
+            return cookie;
+        } catch (Exception e) {
+            //mountain_index++;
+        }
+        return "";
+    }
+    
 
     public static String httpPostInit(String url, String PHPSESSID_COOKIE, String ValidateCode, String loginName,
                                       String loginPwd) throws Exception {
@@ -249,7 +278,7 @@ public class LeeinHttpClient {
 
         HttpPost httpPost = new HttpPost(url + "/login");
 
-        httpPost.setHeader("Cookie", PHPSESSID_COOKIE);
+        httpPost.setHeader("Cookie", "ssid1=58c77f11c46b3b903e22ee405ae005c8; random=7341;"+PHPSESSID_COOKIE);
 
         List<NameValuePair> nvps = new ArrayList<NameValuePair>();
         nvps.add(new BasicNameValuePair("type", "1"));
@@ -259,11 +288,25 @@ public class LeeinHttpClient {
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         CloseableHttpResponse response = httpclient.execute(httpPost);
         try {
+            
+            
+           
             Header headers[] = response.getHeaders("location");
             if (headers == null || headers.length == 0) {
 
                 return null;
             }
+            
+            //
+            String cookieString = "";
+            Header initheaders[] = response.getHeaders("Set-Cookie");
+            for (Header h : initheaders) {
+                cookieString+=h.getValue().toString()+";";
+                System.out.println(h.getValue().toString());  
+            }
+            System.out.println(cookieString);
+            
+            
             String location = "";
 
             for (Header h : headers) {
@@ -272,7 +315,7 @@ public class LeeinHttpClient {
 
             if (!location.equals("")) {
                   
-                String agreementCookie = httpGetAgreement( url , "/" + location, "defaultLT=PK10JSC;"+PHPSESSID_COOKIE);
+                String agreementCookie = httpGetAgreement( url , "/" + location, "defaultLT=BJPK10;"+PHPSESSID_COOKIE);
                 System.out.println(agreementCookie);
                 return agreementCookie;
             }
