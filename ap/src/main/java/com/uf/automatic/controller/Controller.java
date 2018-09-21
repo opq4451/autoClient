@@ -1596,10 +1596,15 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
     
     public String robotSend(String text) {
         try {
-            robot.mouseMove(900, 650); // x,y為螢幕像素位置
-            Thread.sleep(3000);  // 讓執行緒睡3秒
-            robot.mousePress(InputEvent.BUTTON1_MASK);
-            robot.mouseRelease(InputEvent.BUTTON1_MASK);
+            System.setProperty("java.awt.headless", "false");
+            if(robot == null) {
+                System.setProperty("java.awt.headless", "false");
+                robot = new Robot();
+            }
+//            robot.mouseMove(900, 650); // x,y為螢幕像素位置
+//            Thread.sleep(3000);  // 讓執行緒睡3秒
+//            robot.mousePress(InputEvent.BUTTON1_MASK);
+//            robot.mouseRelease(InputEvent.BUTTON1_MASK);
             
             //String text ="Hello World";
             StringSelection stringSelection = new StringSelection(text);

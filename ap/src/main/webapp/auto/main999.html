@@ -1,6 +1,8 @@
 
 
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1189,9 +1191,9 @@
 
 		    	 	let betType = json.type;
 		    	  
-		    	 	setbetType(betType);
-		    	 	
+		    	 			    	 	
 		    	 	if(!firstSet){
+setbetType(betType);
 		    	 		document.getElementById("s_h").value = json.s_h;
 			    	 	document.getElementById("s_m").value = json.s_m;
 		    	 		$( ".betlist" ).val(json.betlist) ;
@@ -1358,10 +1360,10 @@
  		}
 
  		 
-		if(tenArray.length ==4){
-			for(var i = 1;i<11;i++){
-	 			projectIndex[formu][i] = 0 ; 
-	 		}
+		if(tenArray.length >=4){
+			// for(var i = 1;i<11;i++){
+	 	// 		projectIndex[formu][i] = 0 ; 
+	 	// 	}
 
 			return tenArray;
 		}
@@ -1386,7 +1388,7 @@
 				 return null;
 			 }
 			 let c = nCodeArra.split(',')[snIndex];
-			 accumulate(formu);
+			 //accumulate(formu);
 			 projectIndex[formu][c] = 0 ;
 			 tenArray=getcumulate(formu);
  			 
@@ -1397,7 +1399,7 @@
 		 
 
 	    
- 		 return null;
+ 		 return 'ok';
 		 //return tenArray.sort(sortNumber);
 			 
 		
@@ -1408,18 +1410,29 @@
 		var z = formu ;  
 		var sn = z-1;
 		console.log('project:'+ formu);
+	    let nCodeArra = getCodeByPhase(phase_now);
 
+		let c = nCodeArra.split(',')[sn];
 		if(projectTemp[formu]){
-
+			 
+			 
+			 projectIndex[formu][c] = 0 ;
 		}else {
-			projectTemp[formu] =project6_limit(sn,phase_now,7);
+			let status = project6_limit(sn,phase_now,7);
+			if(status =='ok'){
+				accumulate(formu);
+				projectIndex[formu][c] = 0 ;
+				projectBet[(formu*1)][(formu*1)] = true;
+				return;
+			}else if(status == null){
+				projectBet[(formu*1)][(formu*1)] = false;
+				return;
+			}
+			projectTemp[formu] = status ;
 
 		}
 		 
-		if(projectTemp[formu] == null){
-			projectBet[(formu*1)][(formu*1)] = true;
-			return;
-		}
+		 
 		let bet_code = projectTemp[formu];
 
 		
@@ -1436,6 +1449,8 @@
 	    
    		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,z);
    		if(rbf){
+   			accumulate(formu);
+   			projectIndex[formu][c] = 0 ;
 			bIndex[z]++;
 			projectBet[(formu*1)][(formu*1)] = true;
 		} 
