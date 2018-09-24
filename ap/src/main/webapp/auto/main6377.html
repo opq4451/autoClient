@@ -535,8 +535,7 @@
 	   					 <div style="text-align:left;font-size: 15px;">　8.官方網站停止開獎。</div>
 						 		<div style="line-height:10%;"><br></div>
 	   					 <div style="text-align:left;font-size: 15px;">　9.不明原因無開獎號。</div>
-	   					 		<div style="line-height:10%;"><br></div>
-	   					 <div style="text-align:left;font-size: 15px;"> &nbsp;&nbsp;10.五碼六碼計劃切換。</div>
+	   					 		<div style="line-height:10%;"><br> 
    					 </div>
    					 </td>
         </tr>
@@ -759,6 +758,7 @@
 
 	   }else{
 		   $('select.startstatus').css('background', 'red');
+		   clearIndex(); 
 		  // $('.tdstartstatus').css('background', 'red'); 
 		   betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
 		   betIndex2 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
@@ -1580,6 +1580,8 @@
 		 return betArray.sort(sortNumber); 
 	}
 
+	let one = ['1','2','3','4','5'];
+	let two = ['6','7','8','9','10'];
 	function compareByType_from_member999(phase_before,phase_now,phase_before4 , bIndex, bArray,formu,betSn){
 		
 
@@ -1588,12 +1590,20 @@
 		
 		let removeCode ='';
 
-		if( (z*1 +  bIndex[z]*1) > 10  ){
-			removeCode = (z*1 +  bIndex[z]*1) - 10 ;
-		}else {
-			removeCode = (z*1 +  bIndex[z]*1)  ;
+		let indexFlag = (z*1 +  bIndex[z]*1) ;
+		let indexPosition = (indexFlag - 1 ) % 5  ;
+		if(z<6){ //1~5
+			removeCode = one[indexPosition];
+		}else{
+			removeCode = two[indexPosition];
 
 		}
+		// if( (z*1 +  bIndex[z]*1) > 10  ){
+		// 	removeCode = (z*1 +  bIndex[z]*1) - 10 ;
+		// }else {
+		// 	removeCode = (z*1 +  bIndex[z]*1)  ;
+
+		// }
 
 
 		let bet_code = project999_limit(removeCode);
