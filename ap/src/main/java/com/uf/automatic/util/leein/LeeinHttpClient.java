@@ -179,6 +179,16 @@ public class LeeinHttpClient {
      
      
      }
+     
+     
+     public static String getTodayWin2(String url,String cookie) throws Exception {
+         String u = url + "pk10/renewInfo";
+         
+         return httpGet(cookie,u);
+     
+     
+     }
+     
  
      public static String getStopTime(String url,String cookie) throws Exception {
          long unixTime = System.currentTimeMillis() / 1000L;
