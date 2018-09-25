@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
@@ -23,8 +24,11 @@ import java.util.TreeSet;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.protocol.HttpClientContext;
@@ -34,6 +38,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.cookie.BasicClientCookie;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -47,75 +52,74 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.uf.automatic.controller.Controller;
 
- 
 public class httpClientCookie {
     private static String id;
     private static String password;
     private String cookie = null;
-    
+
     private static httpClientCookie instance;
     private static String checkStartUrl = "https://drive.google.com/uc?export=download&id=17PsTMGjyNnGga5wWjZ4CQS6dOm4OdcxF";
     private static String forceUrl = "http://220.132.126.216:9999/getForce";
-    private static String startFlag="";
+    private static String startFlag = "";
+
     public static String checkStart() {
         String flag = "N";
         try {
             flag = Utils.httpClientGet(checkStartUrl);
-        }catch(Exception e) {
-            
+        } catch (Exception e) {
+
         }
         return flag;
     }
+
     public httpClientCookie(String id, String password) {
         // TODO Auto-generated constructor stub
         setId(id);
-        setPassword(password); 
-        
-        String d =  uraal[urli%5] + "/Handler/LoginHandler.ashx?action=user_login"+
-                "&loginName="+id+"&loginPwd="+password+"";
+        setPassword(password);
+
+        String d = uraal[urli % 5] + "/Handler/LoginHandler.ashx?action=user_login" + "&loginName=" + id + "&loginPwd="
+                   + password + "";
         setInitCookie(d);//塞 cookie
     }
-    public static httpClientCookie getInstance(String id,String password) {
-        
+
+    public static httpClientCookie getInstance(String id, String password) {
+
         //if(instance == null) {
-            instance = new httpClientCookie(id,password);
+        instance = new httpClientCookie(id, password);
         //}
-        
-        
+
         return instance;
-         
+
     }
-    static String uraal[] = {"http://mem1.amctqk418.cdbybj.com:88/",
-                             "http://mem5.amctqk418.besrubber.com/",
-                             "http://mem2.amctqk418.besrubber.com:88/",
-                             "http://mem3.amctqk418.cdbybj.com:88/",
-                             "http://mem4.amctqk418.besrubber.com/"
-                             }; 
+
+    public static String uraal[] = { "http://1904.1988330.com/", "http://1920.1988330.com/", "http://1501.1988330.com/",
+                              "http://1284.1988330.com/", "http://1094.1988330.com/" };
 
     //sd8885 //Aa258369
-    static int urli = 0 ;
+    public static int urli = 0;
+
     private String setInitCookie(String url) {
-       
+
         try {
-             
+
             String cookie = getCookieHttpClient(url);
             System.out.println("************" + urli);
             System.out.println(cookie);
-            if(!cookie.equals("")) {
+            if (!cookie.equals("")) {
                 setCookie(cookie);
-            }else {
+            } else {
                 urli++;
-                String urla = uraal[urli%5] + "Handler/LoginHandler.ashx?action=user_login"+
-                        "&loginName="+id+"&loginPwd="+password+"";
+                String urla = uraal[urli % 5] + "Handler/LoginHandler.ashx?action=user_login" + "&loginName=" + id
+                              + "&loginPwd=" + password + "";
                 setInitCookie(urla);
             }
-            
-        }catch(Exception e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "";
     }
-   
+
     public static void testBet(httpClientCookie h) {
         String ret = h.getoddsInfo();
         // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
@@ -124,8 +128,7 @@ public class httpClientCookie {
         JsonObject o = parser.parse(ret).getAsJsonObject();
         JsonObject data = o.getAsJsonObject("data");
         Map<Integer, String> normal = new TreeMap<Integer, String>();
-        Utils.producePl(normal,ret); //產生倍率 for single
- 
+        Utils.producePl(normal, ret); //產生倍率 for single
 
         String drawIssue = data.get("nn").getAsString();
         String p_id = data.get("p_id").getAsString();
@@ -133,240 +136,310 @@ public class httpClientCookie {
         String betRet = h.normalBet(p_id, "2,", "9.8", "0,", "1,", "pk10_d1_10");
         System.out.println(betRet);
     }
-    
-     
-	public static void main(String[] args ){
-		try {
-		    
-		    
-	            String force = Utils.httpClientGet(forceUrl);
-	         
-	        System.out.println(force);
-		    //httpClientCookie a = httpClientCookie.getInstance("sd8885","Aa258369");
-		  //  httpClientCookie t = httpClientCookie.getInstance("qq7711","qaz123123");
-		 //   String ret = t.getoddsInfo();
-		 //   System.out.println(ret);
-//		    testBet(t);
-//		    String ret = a.getoddsInfo();
-//		    
-//		    JsonParser parser = new JsonParser();
-//            JsonObject o = parser.parse(ret).getAsJsonObject();
-//            JsonObject data = o.getAsJsonObject("data");
-//            JsonObject play_odds = data.getAsJsonObject("play_odds");
-//            Set<Entry<String, JsonElement>> entrySet = play_odds.entrySet();
-//            int i = 0;
-//            Map<Integer, String > m = new TreeMap<Integer, String >();   
-//            for(Map.Entry<String,JsonElement> entry : entrySet){
-//              String key = (entry.getKey());
-//              String k = key.substring(key.indexOf("_")+1,key.length());
-//              JsonElement j = entry.getValue();
-//              String pl = j.getAsJsonObject().get("pl").getAsString();
-//              
-//              m.put(i, k+"@"+pl);
-//              i++;
-//              
-//              
-//               
-//            }
-//            Set set = m.entrySet();
-//            
-//            // Get an iterator
-//            Iterator it = set.iterator();
-//         
-//            // Display elements
-//            while(it.hasNext()) {
-//              Map.Entry me = (Map.Entry)it.next();
-//              System.out.print("Key is: "+me.getKey() + " & ");
-//              System.out.println("Value is: "+me.getValue());
-//            } 
-            
-            
-          
-		 // a.getoddsInfoForDouble();
-		 /*action:put_money
-		    phaseid:165921
-		    oddsid:1,2
-		    uPI_P:9.81,9.81
-		    uPI_M:10,10
-		    i_index:0,1
-		    JeuValidate:11170449105207
-		    playpage:pk10_d1_10
-		    
-		    
-		    action:put_money
-            phaseid:165921
-            oddsid:17,146
-            uPI_P:9.81,9.81
-            uPI_M:10,10
-            i_index:0,1
-            JeuValidate:11170449214316
-            playpage:pk10_d1_10
-		 */
-		    
-		    
-//			String a = new SimpleDateFormat("MMddhhmmsssSSS").format(new Date());
-//
-//			String bet ="http://mem1.fpaesf109.pasckr.com:88/L_PK10/Handler/Handler.ashx" +
-//			"?action=put_money&" +
-//			"phaseid="+phaseid+"&" +
-//			"oddsid=1&" +
-//			"uPI_P=9.81&" +
-//			"uPI_M=10&" +
-//			"i_index=0&" +
-//			//"JeuValidate="+a+"&" +
-//			"playpage=pk10_d1_10" ;
-			 
-			/*
-			 * 
-			 * action:put_money
-				phaseid:163754
-				oddsid:2
-				uPI_P:9.81
-				uPI_M:10
-				i_index:0
-				JeuValidate:11050308464138
-				playpage:pk10_d1_10
-			 */
-			//649096
-			 //phaseid 163755
-//			;
-//			String v = httpClientCookieGet(bet);
-//			JsonParser parser = new JsonParser();
-//			JsonObject o = parser.parse(v).getAsJsonObject();
-//			JsonObject data = o.getAsJsonObject("data");
-//			String t = data.get("JeuValidate").getAsString();
-//			String aa ="http://mem1.fpaesf109.pasckr.com:88/L_PK10/Handler/Handler.ashx" +
-//					"?action=put_money&" +
-//		            "phaseid="+phaseid+"&" +
-//					"oddsid=2&" +
-//					"uPI_P=9.81&" +
-//					"uPI_M=10&" +
-//					"i_index=0&" +
-//					"JeuValidate="+t+"&" +
-//					"playpage=pk10_d1_10" ;
-//			httpClientCookieGet(aa);
-			//action=put_money&phaseid=163760&oddsid=1&uPI_P=9.81&uPI_M=10&i_index=0&JeuValidate=11050344302630&playpage=pk10_d1_10
-		//	action=put_money&phaseid=163760&oddsid=1&uPI_P=9.81&uPI_M=10&i_index=0&JeuValidate=11050343054559&playpage=pk10_d1_10
-			//
-			//action:put_money
-			//phaseid:163752
-			//oddsid:1
-			//uPI_P:9.81
-			//uPI_M:10
-			//i_index:0
-			//JeuValidate:11050301105529
-			//playpage:pk10_d1_10
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	//單球
-	public String query() {
-	    String query = uraal[urli%5] + "/Handler/QueryHandler.ashx?action=get_ad";
-        try {
-            return instance.httpClientUseCookie(query);
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
-        return "";
-	}
-	
-	public String getoddsInfoForDouble() {
-        String query = uraal[urli%5] + "/L_PK10/Handler/Handler.ashx?action=get_oddsinfo&playid=2%2C3%2C4%2C6%2C7%2C8%2C10%2C11%2C12%2C14%2C15%2C16%2C18%2C19%2C20%2C22%2C23%2C25%2C26%2C28%2C29%2C31%2C32%2C34%2C35%2C37%2C38&playpage=pk10_lmp";
-        try {
-            return instance.httpClientUseCookie(query);
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-	
-	public String getOpenBall() {
-        String query = uraal[urli%5] + "/L_PK10/Handler/Handler.ashx?action=get_openball&playpage=pk10_lmp";
-        try {
-            return instance.httpClientUseCookie(query);
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-	
-	
-	public String getoddsInfo() {
-        String query = uraal[urli%5] + "/L_PK10/Handler/Handler.ashx?action=get_oddsinfo&playid=1%2C5%2C9%2C13%2C17%2C21%2C24%2C27%2C30%2C33&playpage=pk10_d1_10";
-        try {
-            return instance.httpClientUseCookie(query);
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-	
-	public synchronized String normalBet(String phaseid,String ossid,  String pl , String i_index , String m ,String type) {
-	    
-	     
-	    String query = uraal[urli%5] + "/L_PK10/Handler/Handler.ashx?action=put_money&";
-        try {
-           
 
-            query += "phaseid="+ phaseid+"&" +
-                     "oddsid="+ ossid.substring(0,ossid.length()-1) + "&" +
-                     "uPI_P="+ pl.substring(0,pl.length()-1) + "&" +
-                     "uPI_M="+ m.substring(0,m.length()-1) + "&" +
-                     "i_index="+ i_index.substring(0,i_index.length()-1) + "&playpage="+type+"" ;
+    public static void main(String[] args) {
+        try {
+
+            String force = Utils.httpClientGet(forceUrl);
+
+            System.out.println(force);
+            //httpClientCookie a = httpClientCookie.getInstance("sd8885","Aa258369");
+            //  httpClientCookie t = httpClientCookie.getInstance("qq7711","qaz123123");
+            //   String ret = t.getoddsInfo();
+            //   System.out.println(ret);
+            //		    testBet(t);
+            //		    String ret = a.getoddsInfo();
+            //		    
+            //		    JsonParser parser = new JsonParser();
+            //            JsonObject o = parser.parse(ret).getAsJsonObject();
+            //            JsonObject data = o.getAsJsonObject("data");
+            //            JsonObject play_odds = data.getAsJsonObject("play_odds");
+            //            Set<Entry<String, JsonElement>> entrySet = play_odds.entrySet();
+            //            int i = 0;
+            //            Map<Integer, String > m = new TreeMap<Integer, String >();   
+            //            for(Map.Entry<String,JsonElement> entry : entrySet){
+            //              String key = (entry.getKey());
+            //              String k = key.substring(key.indexOf("_")+1,key.length());
+            //              JsonElement j = entry.getValue();
+            //              String pl = j.getAsJsonObject().get("pl").getAsString();
+            //              
+            //              m.put(i, k+"@"+pl);
+            //              i++;
+            //              
+            //              
+            //               
+            //            }
+            //            Set set = m.entrySet();
+            //            
+            //            // Get an iterator
+            //            Iterator it = set.iterator();
+            //         
+            //            // Display elements
+            //            while(it.hasNext()) {
+            //              Map.Entry me = (Map.Entry)it.next();
+            //              System.out.print("Key is: "+me.getKey() + " & ");
+            //              System.out.println("Value is: "+me.getValue());
+            //            } 
+
+            // a.getoddsInfoForDouble();
+            /*
+             * action:put_money phaseid:165921 oddsid:1,2 uPI_P:9.81,9.81 uPI_M:10,10 i_index:0,1
+             * JeuValidate:11170449105207 playpage:pk10_d1_10
+             * 
+             * 
+             * action:put_money phaseid:165921 oddsid:17,146 uPI_P:9.81,9.81 uPI_M:10,10 i_index:0,1
+             * JeuValidate:11170449214316 playpage:pk10_d1_10
+             */
+
+            //			String a = new SimpleDateFormat("MMddhhmmsssSSS").format(new Date());
+            //
+            //			String bet ="http://mem1.fpaesf109.pasckr.com:88/L_PK10/Handler/Handler.ashx" +
+            //			"?action=put_money&" +
+            //			"phaseid="+phaseid+"&" +
+            //			"oddsid=1&" +
+            //			"uPI_P=9.81&" +
+            //			"uPI_M=10&" +
+            //			"i_index=0&" +
+            //			//"JeuValidate="+a+"&" +
+            //			"playpage=pk10_d1_10" ;
+
+            /*
+             * 
+             * action:put_money phaseid:163754 oddsid:2 uPI_P:9.81 uPI_M:10 i_index:0 JeuValidate:11050308464138
+             * playpage:pk10_d1_10
+             */
+            //649096
+            //phaseid 163755
+            //			;
+            //			String v = httpClientCookieGet(bet);
+            //			JsonParser parser = new JsonParser();
+            //			JsonObject o = parser.parse(v).getAsJsonObject();
+            //			JsonObject data = o.getAsJsonObject("data");
+            //			String t = data.get("JeuValidate").getAsString();
+            //			String aa ="http://mem1.fpaesf109.pasckr.com:88/L_PK10/Handler/Handler.ashx" +
+            //					"?action=put_money&" +
+            //		            "phaseid="+phaseid+"&" +
+            //					"oddsid=2&" +
+            //					"uPI_P=9.81&" +
+            //					"uPI_M=10&" +
+            //					"i_index=0&" +
+            //					"JeuValidate="+t+"&" +
+            //					"playpage=pk10_d1_10" ;
+            //			httpClientCookieGet(aa);
+            //action=put_money&phaseid=163760&oddsid=1&uPI_P=9.81&uPI_M=10&i_index=0&JeuValidate=11050344302630&playpage=pk10_d1_10
+            //	action=put_money&phaseid=163760&oddsid=1&uPI_P=9.81&uPI_M=10&i_index=0&JeuValidate=11050343054559&playpage=pk10_d1_10
+            //
+            //action:put_money
+            //phaseid:163752
+            //oddsid:1
+            //uPI_P:9.81
+            //uPI_M:10
+            //i_index:0
+            //JeuValidate:11050301105529
+            //playpage:pk10_d1_10
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    //單球
+    public String query() {
+        String query = uraal[urli % 5] + "/Handler/QueryHandler.ashx?action=get_ad";
+        try {
+            return instance.httpClientUseCookie(query);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public String getoddsInfoForDouble() {
+        String query = uraal[urli % 5]
+                       + "/L_PK10/Handler/Handler.ashx?action=get_oddsinfo&playid=2%2C3%2C4%2C6%2C7%2C8%2C10%2C11%2C12%2C14%2C15%2C16%2C18%2C19%2C20%2C22%2C23%2C25%2C26%2C28%2C29%2C31%2C32%2C34%2C35%2C37%2C38&playpage=pk10_lmp";
+        try {
+            return instance.httpClientUseCookie(query);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public String getOpenBall() {
+        String query = uraal[urli % 5] + "/L_PK10/Handler/Handler.ashx?action=get_openball&playpage=pk10_lmp";
+        try {
+            return instance.httpClientUseCookie(query);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public String getoddsInfo() {
+        String query = uraal[urli % 5]
+                       + "/L_PK10/Handler/Handler.ashx?action=get_oddsinfo&playid=1%2C5%2C9%2C13%2C17%2C21%2C24%2C27%2C30%2C33&playpage=pk10_d1_10";
+        try {
+            return instance.httpClientUseCookie(query);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public synchronized String normalBet(String phaseid, String ossid, String pl, String i_index, String m,
+                                         String type) {
+
+        String query = uraal[urli % 5] + "/L_PK10/Handler/Handler.ashx?action=put_money&";
+        try {
+
+            query += "phaseid=" + phaseid + "&" + "oddsid=" + ossid.substring(0, ossid.length() - 1) + "&" + "uPI_P="
+                     + pl.substring(0, pl.length() - 1) + "&" + "uPI_M=" + m.substring(0, m.length() - 1) + "&"
+                     + "i_index=" + i_index.substring(0, i_index.length() - 1) + "&playpage=" + type + "";
 
             //System.out.println(query);
             String v = instance.httpClientUseCookie(query);
             JsonParser parser = new JsonParser();
             JsonObject o = parser.parse(v).getAsJsonObject();
             JsonObject data = o.getAsJsonObject("data");
-            String t = data.get("JeuValidate").getAsString(); 
-            return instance.httpClientUseCookie(query+"&JeuValidate=" + t );
-        }catch(Exception e) {
+            String t = data.get("JeuValidate").getAsString();
+            return instance.httpClientUseCookie(query + "&JeuValidate=" + t);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "";
-	}
-	
-	
-	public String httpClientUseCookie(String uri) throws Exception {
-		BasicCookieStore cookieStore = new BasicCookieStore();
-		HttpClientBuilder builder = HttpClientBuilder.create().setDefaultCookieStore(cookieStore);
+    }
 
-	   
-
-		CloseableHttpClient httpClient = HttpClients.createDefault();
-		HttpClientContext context = HttpClientContext.create();
-		RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(10000).setConnectTimeout(10000).build();
-		
-		HttpPost httpget = new HttpPost(uri);
-		httpget.setConfig(requestConfig);
-
-	    httpget.setHeader("Cookie",cookie );
- 
-		
-		String result = null; 
-		try {
-			HttpResponse httpresponse = httpClient.execute(httpget);
-			HttpEntity entity = httpresponse.getEntity();
-			result = EntityUtils.toString(entity);
-//			System.out.println(result);
-			
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			httpClient.close();
-		}
-		return result;
-	}
-	
-	public static String getCookieHttpClient(String uri) throws Exception {
+    public String httpClientUseCookie(String uri) throws Exception {
         BasicCookieStore cookieStore = new BasicCookieStore();
         HttpClientBuilder builder = HttpClientBuilder.create().setDefaultCookieStore(cookieStore);
 
-       
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpClientContext context = HttpClientContext.create();
+        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(10000).setConnectTimeout(10000).build();
+
+        HttpPost httpget = new HttpPost(uri);
+        httpget.setConfig(requestConfig);
+
+        httpget.setHeader("Cookie", cookie);
+
+        String result = null;
+        try {
+            HttpResponse httpresponse = httpClient.execute(httpget);
+            HttpEntity entity = httpresponse.getEntity();
+            result = EntityUtils.toString(entity);
+            //			System.out.println(result);
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            httpClient.close();
+        }
+        return result;
+    }
+
+    public static String getInitCookieHttpClient(String uri) throws Exception {
+        BasicCookieStore cookieStore = new BasicCookieStore();
+        HttpClientBuilder builder = HttpClientBuilder.create().setDefaultCookieStore(cookieStore);
+
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpClientContext context = HttpClientContext.create();
+        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(5000).setConnectTimeout(5000).build();
+        if (uri == null) {
+            uri = uraal[urli % 5];
+        }
+        HttpPost httpget = new HttpPost(uri);
+        httpget.setConfig(requestConfig);
+        httpget.setHeader("Cookie", "");
+
+        String result = null;
+        String cookieString = "";
+        try {
+            HttpResponse httpresponse = httpClient.execute(httpget);
+            HttpEntity entity = httpresponse.getEntity();
+            result = EntityUtils.toString(entity);
+
+            try {
+
+                Header[] headers = httpresponse.getHeaders("Set-Cookie");
+                for (Header h : headers) {
+                    cookieString += h.getValue().toString() + ";";
+                    System.out.println(h.getValue().toString());
+                }
+
+            } finally {
+
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            urli++;
+            String urla = uraal[urli % 5];
+
+            getInitCookieHttpClient(urla);
+            throw e;
+        } finally {
+            httpClient.close();
+        }
+        return cookieString;
+    }
+
+    public static String httpPostGetToken(String url, String PHPSESSID_COOKIE , String loginName,
+                                          String loginPwd) throws Exception {
+
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        HttpPost httpPost = new HttpPost(url);
+
+        httpPost.setHeader("Cookie", PHPSESSID_COOKIE);
+
+        List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+        nvps.add(new BasicNameValuePair("account", loginName));
+        nvps.add(new BasicNameValuePair("password", loginPwd));
+        nvps.add(new BasicNameValuePair("cID", ""));
+        nvps.add(new BasicNameValuePair("userLang", "tw"));
+       // nvps.add(new BasicNameValuePair("ValidateCode", ValidateCode));
+        httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+        CloseableHttpResponse response = httpclient.execute(httpPost);
+
+        
+        try {
+            String location = "";
+            Header[] headers = response.getHeaders("Location");
+            for (Header h : headers) {
+                location += h.getValue().toString() ;
+                
+            }
+            
+            String cookieString = "";
+
+            if(location.equals("/index")) {
+                Header[] getheaders = response.getHeaders("Set-Cookie");
+                for (Header h : getheaders) {
+                    cookieString += h.getValue().toString() + ";";
+                    System.out.println(h.getValue().toString());
+                }
+                
+                if(cookieString.equals(""))
+                    return PHPSESSID_COOKIE;
+                else
+                    return cookieString;
+            }
+           
+
+           
+           
+           // return cookie.substring(0, cookie.indexOf(";") + 1);// token=10112e4e12aa494db03ea2462302d34d;
+        } catch (Exception e) {
+
+        } finally {
+
+        }
+        return "";
+    }
+
+    public static String getCookieHttpClient(String uri) throws Exception {
+        BasicCookieStore cookieStore = new BasicCookieStore();
+        HttpClientBuilder builder = HttpClientBuilder.create().setDefaultCookieStore(cookieStore);
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpClientContext context = HttpClientContext.create();
@@ -374,10 +447,10 @@ public class httpClientCookie {
         System.out.println(uri);
         HttpPost httpget = new HttpPost(uri);
         httpget.setConfig(requestConfig);
-        httpget.setHeader("Cookie",""); 
-        
+        httpget.setHeader("Cookie", "");
+
         String result = null;
-        String cookieString="";
+        String cookieString = "";
         try {
             HttpResponse httpresponse = httpClient.execute(httpget);
             HttpEntity entity = httpresponse.getEntity();
@@ -387,61 +460,61 @@ public class httpClientCookie {
             JsonObject o = parser.parse(result).getAsJsonObject();
             String code = o.get("success").getAsString();
             System.out.println(code);
-            if(!code.equals("200")) {
-                    urli++;
-                    String urla = uraal[urli%5] + "Handler/LoginHandler.ashx?action=user_login"+
-                            "&loginName="+id+"&loginPwd="+password+"";
-                     
-                    getCookieHttpClient(urla);
+            if (!code.equals("200")) {
+                urli++;
+                String urla = uraal[urli % 5] + "Handler/LoginHandler.ashx?action=user_login" + "&loginName=" + id
+                              + "&loginPwd=" + password + "";
+
+                getCookieHttpClient(urla);
             }
             try {
-                
+
                 Header[] headers = httpresponse.getHeaders("Set-Cookie");
                 for (Header h : headers) {
-                    cookieString+=h.getValue().toString()+";";
-                    System.out.println(h.getValue().toString());  
+                    cookieString += h.getValue().toString() + ";";
+                    System.out.println(h.getValue().toString());
                 }
-                cookieString+="menuId=2;cookiescurrentmlid=2; cookiescurrentlid=2;";
+                cookieString += "menuId=2;cookiescurrentmlid=2; cookiescurrentlid=2;";
             } finally {
-                
+
             }
-            
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             urli++;
-            String urla = uraal[urli%5] + "Handler/LoginHandler.ashx?action=user_login"+
-                    "&loginName="+id+"&loginPwd="+password+"";
-             
+            String urla = uraal[urli % 5] + "Handler/LoginHandler.ashx?action=user_login" + "&loginName=" + id
+                          + "&loginPwd=" + password + "";
+
             getCookieHttpClient(urla);
             throw e;
         } finally {
             httpClient.close();
         }
         return cookieString;
-    } 
-	
-	
-	public String getId() {
+    }
+
+    public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
+
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
+
     public void setCookie(String cookie) {
         this.cookie = cookie;
     }
+
     public String getCookie() {
         return cookie;
     }
-    
-    
-    
-    
-    
+
 }

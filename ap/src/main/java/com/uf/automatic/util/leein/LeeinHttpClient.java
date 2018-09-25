@@ -173,9 +173,9 @@ public class LeeinHttpClient {
     
     // 兩面ＺＲＵＦ
      public static String getTodayWin(String url,String cookie) throws Exception {
-         String u = url + "/member/accounts?_=1522119266532";
+         String u = url + "user/getUserInfo";
          
-         return httpGet(cookie,url);
+         return httpGet(cookie,u);
      
      
      }

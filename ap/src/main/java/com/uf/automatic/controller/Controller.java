@@ -100,41 +100,47 @@ public class Controller {
             String IFOK = o.get("OK").getAsString();
             if (IFOK.equals("Y")) {
                 boardType = bd;
+                
+                
+                String cookie = httpClientCookie.getInitCookieHttpClient(null);
 
-                if (boardType.equals("0")) {
-                    h = httpClientCookie.getInstance(user, pwd);
-                } else if (boardType.equals("1")) {
-                    token = MoutainHttpClient.httpPostGetToken(mountain_url[mountain_index % 4] + "/?m=logined",
-                                                               mountain_php_cookid,
-                                                               ValidateCode,
-                                                               u,
-                                                               p);
-                    if (token.equals("v_error")) {
-                        return "v_error";
-                    } else if (token.equals("")) {
-                        return "N";
-                    }
-                    mountain_token_sessid = token + mountain_php_cookid;
-                } else if (boardType.equals("2")) {
-                    d_h = DaliHttpClient.getInstance(user, pwd);
-                } else if (boardType.equals("3")) {
-                    leein_php_cookid = LeeinHttpClient.httpPostInit(leein_url[leein_index % 4],
-                                                                    leein_php_cookid,
-                                                                    "1111",
-                                                                    u,
-                                                                    p);
-                    System.out.println(leein_php_cookid);
- 
-                } else if (boardType.equals("4")) {
-                    futsai_php_cookid = LeeinHttpClient.getInitCookie(futsai_url[futsai_index % 4] );
-                    futsai_php_cookid = LeeinHttpClient.httpPostInit(futsai_url[futsai_index % 4],
-                                                                    futsai_php_cookid,
-                                                                    "1111",
-                                                                    u,
-                                                                    p);
-                    System.out.println(futsai_php_cookid);
- 
-                }
+                String url =  httpClientCookie.uraal[httpClientCookie.urli % 5] ;
+                leein_php_cookid = httpClientCookie.httpPostGetToken(url + "login/check",cookie,u,p);
+//                
+//                if (boardType.equals("0")) {
+//                    h = httpClientCookie.getInstance(user, pwd);
+//                } else if (boardType.equals("1")) {
+//                    token = MoutainHttpClient.httpPostGetToken(mountain_url[mountain_index % 4] + "/login/check",
+//                                                               mountain_php_cookid,
+//                                                               ValidateCode,
+//                                                               u,
+//                                                               p);
+//                    if (token.equals("v_error")) {
+//                        return "v_error";
+//                    } else if (token.equals("")) {
+//                        return "N";
+//                    }
+//                    mountain_token_sessid = token + mountain_php_cookid;
+//                } else if (boardType.equals("2")) {
+//                    d_h = DaliHttpClient.getInstance(user, pwd);
+//                } else if (boardType.equals("3")) {
+//                    leein_php_cookid = LeeinHttpClient.httpPostInit(leein_url[leein_index % 4],
+//                                                                    leein_php_cookid,
+//                                                                    "1111",
+//                                                                    u,
+//                                                                    p);
+//                    System.out.println(leein_php_cookid);
+// 
+//                } else if (boardType.equals("4")) {
+//                    futsai_php_cookid = LeeinHttpClient.getInitCookie(futsai_url[futsai_index % 4] );
+//                    futsai_php_cookid = LeeinHttpClient.httpPostInit(futsai_url[futsai_index % 4],
+//                                                                    futsai_php_cookid,
+//                                                                    "1111",
+//                                                                    u,
+//                                                                    p);
+//                    System.out.println(futsai_php_cookid);
+// 
+//                }
 
                 clearLog(user + "bet");
                 clearLog(user + "overLOGDIS");
@@ -202,36 +208,38 @@ public class Controller {
             JsonObject j = new JsonObject();
             JsonParser parser = new JsonParser();
             DecimalFormat df = new DecimalFormat("##.00");
+            String url =  httpClientCookie.uraal[httpClientCookie.urli % 5] ;
 
-            if (boardType.equals("4")) {
-                String ret = LeeinHttpClient.getTodayWin(futsai_url[futsai_index % 4]
-                        + "/member/accounts?_=1522119266532",
-                        futsai_php_cookid);
-            
-            JsonArray o = parser.parse(ret).getAsJsonArray();
-            
-            JsonObject r = o.get(0).getAsJsonObject();
-            
-            String usable_credit = r.get("balance").getAsString();
-            String unbalancedMoney = r.get("result")==null?"0":r.get("result").getAsString();
-            j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
-            j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(unbalancedMoney))));
-            
-            String time =  LeeinHttpClient.getStopTime(futsai_url[futsai_index % 4] ,  futsai_php_cookid);
-            r = parser.parse(time).getAsJsonObject();
-            long nexttime = Long.parseLong(r.get("closeTime").getAsString()) / 1000;
-            long unixTime = System.currentTimeMillis() / 1000L;
-            long range = nexttime - unixTime;//sec
-            long m = range/60;
-            long s = range%60;
-                try {
-                    if(range > 0 )
-                    j.addProperty("stop_time", m + ":" + s);
-    
-               
-                }catch(Exception e) {
+
+           // String c = httpClientCookie.httpPostGetToken(url + "login/check",leein_php_cookid,"csb599","zxc123123");
+
+            if (boardType.equals("5")) {
+                    String ret = LeeinHttpClient.getTodayWin(url,leein_php_cookid);
                     
-                }
+                    JsonArray o = parser.parse(ret).getAsJsonArray();
+                    
+                    JsonObject r = o.get(0).getAsJsonObject();
+                    
+                    String usable_credit = r.get("currentPoint").getAsString();
+                    String unbalancedMoney = r.get("todayResult")==null?"0":r.get("todayResult").getAsString();
+                    j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
+                    j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(unbalancedMoney))));
+                    
+                    String time =  LeeinHttpClient.getStopTime(futsai_url[futsai_index % 4] ,  futsai_php_cookid);
+                    r = parser.parse(time).getAsJsonObject();
+                    long nexttime = Long.parseLong(r.get("closeTime").getAsString()) / 1000;
+                    long unixTime = System.currentTimeMillis() / 1000L;
+                    long range = nexttime - unixTime;//sec
+                    long m = range/60;
+                    long s = range%60;
+                        try {
+                            if(range > 0 )
+                            j.addProperty("stop_time", m + ":" + s);
+            
+                       
+                        }catch(Exception e) {
+                            
+                        }
              
             }
 
@@ -311,34 +319,8 @@ public class Controller {
         } catch (Exception e) {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : getToday 斷");
-            if (boardType.equals("0")) {
-                h = httpClientCookie.getInstance(user, pwd);
-            } else if (boardType.equals("1")) {
-                //mountain_index++;
-
-                if (token.equals("")) {
-                    return "N";
-                }
-
-                mountain_token_sessid = token + getPhpCookie();
-
-            } else if (boardType.equals("2")) {
-                d_h = DaliHttpClient.getInstance(user, pwd);
-            } else if (boardType.equals("3")) {
-                leein_index++;
-                try {
-                    leein_php_cookid = "2a29530a2306=b00b0a238f1bb76547c75c442ce5bc273859ad7904b7bc3e;";
-                    leein_php_cookid = LeeinHttpClient.httpPostInit(leein_url[leein_index % 4],
-                                                                    leein_php_cookid,
-                                                                    "1111",
-                                                                    user,
-                                                                    pwd);
-                } catch (Exception e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
-
-            }else if (boardType.equals("4")) {
+           
+            if (boardType.equals("5")) {
                 leein_index++;
                 try {
                     futsai_php_cookid = "2a29530a2306=b00b0a238f1bb76547c75c442ce5bc273859ad7904b7bc3e;";
@@ -361,8 +343,25 @@ public class Controller {
     }
 
     public static void main(String[] args) {
-        Map s = combindHistoryMap();
-        System.out.println(s.toString());
+        String cookie;
+        try {
+            cookie = httpClientCookie.getInitCookieHttpClient(null);
+            System.out.println(cookie.toString());
+            String url =  httpClientCookie.uraal[httpClientCookie.urli % 5] ;
+            String c = httpClientCookie.httpPostGetToken(url + "login/check",cookie,"csb599","zxc123123");
+            String ret = LeeinHttpClient.getTodayWin(url ,
+                    c);
+            
+            JsonParser parser = new JsonParser();
+
+            JsonArray o = parser.parse(ret).getAsJsonArray();
+            
+            JsonObject r = o.get(0).getAsJsonObject();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
     }
 
     @RequestMapping("/getPredictLog")
