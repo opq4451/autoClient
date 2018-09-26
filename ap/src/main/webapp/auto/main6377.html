@@ -1605,12 +1605,41 @@
 
 		let indexFlag = (z*1 +  bIndexFix[z]*1) ;
 		let indexPosition = (indexFlag - 1 ) % 5  ;
-		if(z<6){ //1~5
-			removeCode = one[indexPosition];
-		}else{
+		 
+			if(z ==1){
+				if( (bIndexFix[z]%2) ==0){
+					removeCode = '1' ;
+				} else{
+					removeCode = '2' ;
+				}
+			}else if(z ==2){
+				if( (bIndexFix[z]%2) ==0){
+					removeCode = '3' ;
+				} else{
+					removeCode = '4' ;
+				}
+			}else if(z ==3){
+				if( (bIndexFix[z]%2) ==0){
+					removeCode = '5' ;
+				} else{
+					removeCode = '6' ;
+				}
+			}else if(z ==4){
+				if( (bIndexFix[z]%2) ==0){
+					removeCode = '7' ;
+				} else{
+					removeCode = '8' ;
+				}
+			}else if(z ==5){
+				if( (bIndexFix[z]%2) ==0){
+					removeCode = '9' ;
+				} else{
+					removeCode = '10' ;
+				}
+			}else{
 			removeCode = two[indexPosition];
 
-		}
+			}
 		// if( (z*1 +  bIndex[z]*1) > 10  ){
 		// 	removeCode = (z*1 +  bIndex[z]*1) - 10 ;
 		// }else {
