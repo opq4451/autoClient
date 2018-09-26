@@ -66,6 +66,46 @@ public class httpClientCookie {
         }
         return flag;
     }
+    
+    public synchronized static String sendTelegram(String str,boolean over) {
+        
+        if(over){
+            str = "<a href=\"http://www.example.com/\">"+str+"</a>";
+        }
+        
+        String query = "https://api.telegram.org/bot668240617:AAFJWiD1CobTKPsnNprqMVViUXrqIGwNs4c/sendMessage?chat_id=-310171214&parse_mode=HTML&text=" + str;
+        try {
+           
+ 
+            //System.out.println(query);
+            String v = Utils.httpClientGet(query);
+           
+            return v;
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+    
+    
+    public synchronized static String sendTelegram(String query ) {
+        
+        
+        
+       // String query = "https://api.telegram.org/bot668240617:AAFJWiD1CobTKPsnNprqMVViUXrqIGwNs4c/sendMessage?chat_id=-310171214&parse_mode=HTML&text=" + str;
+        try {
+           
+ 
+            //System.out.println(query);
+            String v = Utils.httpClientGet(query);
+           
+            return v;
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+    
     public httpClientCookie(String id, String password) {
         // TODO Auto-generated constructor stub
         setId(id);
