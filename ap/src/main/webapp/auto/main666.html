@@ -21,6 +21,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1931,7 +1932,7 @@
 
 		var z = formu ;  
 		var sn = betSn;
-		if( !projectTemp[formu] ){
+		//if( !projectTemp[formu] ){
 			//step1
 			let total=0;
 			for(let a =0 ;a<9;a++){
@@ -1942,7 +1943,7 @@
 			console.log('total:'+total);
 			let p_ = total % 10 ;
 			projectTemp[formu] = step3(10 - p_);
-		}
+		//}
 		 
 		
 			
@@ -1951,6 +1952,10 @@
 		  
 		
 		let bet_code = projectTemp[formu].toString();
+		if(bIndex[z] >0){
+			bet_code = '1,2,3,4,6,7,8,9,10';
+		}
+
 		console.log(bet_code);
 		if(bet_code == null){
 			projectBet[(formu*1)][(formu*1)] = false;
