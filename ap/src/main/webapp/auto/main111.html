@@ -23,6 +23,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1934,50 +1935,23 @@
 		var z = formu ;  
 		var sn = betSn;
 
-		let removeCode ='';
-		if(bIndex[z] ==0){
+		//let removeCode ='';
+		
+		
+		if( !projectTemp[formu] ){
 			let total=0;
-			for(let a =0 ;a<9;a++){
+			for(let a =0 ;a<10;a++){
 				let nCodeArra = getCodeByPhase(phase_now*1 - a);
 		 		let b = nCodeArra.split(',')[z*1-1];
 		 		total += b*1;
 			}
 			console.log('total:'+total);
 			let p_ = total % 10 ;
-			removeCode = 10 - p_ ;
-		}else{
-			if(! projectTemp[formu] ){
-			let nCodeArra = getCodeByPhase(phase_now*1);
-			let snIndex = z*1-1 ;
-			let one ='';
-			let two ='';
-			if(formu == '10'){
-				one = nCodeArra.split(',')[9];
-				two = nCodeArra.split(',')[0];
-			}else{
-				one = nCodeArra.split(',')[snIndex];
-				two = nCodeArra.split(',')[(snIndex + 1)];
-			}
-			 
-			let total = one*1 + two*1 ;
-			let r =  (total % 10 ) == 0 ? '10' :  (total % 10 )  ;
-			projectTemp[formu]  = r;
-			}
-			removeCode = projectTemp[formu];
+			//removeCode = (p_ == 0 ? '10' : p_) ;
+
+
+			projectTemp[formu] = (p_ == 0 ? '10' : p_);
 		}
-		
-		// if( !projectTemp[formu] ){
-		// 	//step1
-		// 	let total=0;
-		// 	for(let a =0 ;a<9;a++){
-		// 		let nCodeArra = getCodeByPhase(phase_now*1 - a);
-		//  		let b = nCodeArra.split(',')[z*1-1];
-		//  		total += b*1;
-		// 	}
-		// 	console.log('total:'+total);
-		// 	let p_ = total % 10 ;
-		// 	projectTemp[formu] = step3(10 - p_);
-		// }
 		 
 		
 			
@@ -1985,7 +1959,7 @@
 		
 		  
 		
-		let bet_code = step3(removeCode);
+		let bet_code = step3(projectTemp[formu] );
 		console.log(bet_code);
 		if(bet_code == null){
 			projectBet[(formu*1)][(formu*1)] = false;

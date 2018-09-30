@@ -496,7 +496,7 @@
     	        <div style="font-weight:bold;font-size: 18px;">碼</div><br>
     	        <div style="font-weight:bold;font-size: 18px;">計</div><br>
     	        <div style="font-weight:bold;font-size: 18px;">劃</div></td>
-	        <td class="tdClass"  bgcolor="FFFF77" width="1%" nowrap colspan=2>&nbsp;<input type="checkbox" name="c1" id="c1" value="1" style="display:none;" >&nbsp;&nbsp;七碼計劃&nbsp;</td> 
+	        <td class="tdClass"  bgcolor="FFFF77" width="1%" nowrap colspan=2>&nbsp;<input type="checkbox" name="c1" id="c1" value="1" style="display:none;" >&nbsp;&nbsp;九碼計劃&nbsp;</td> 
 		    
 		    <td class="tdClass" style="display:none;text-align:left"> <input class="betlist" type ="text" style="width:98%"/></td>
 	        
@@ -1070,7 +1070,7 @@
 		 });
 		 
 		 $( "#logoutDiv" ).click(function() {
-             window.location.href='/index6377.html' ;
+             window.location.href='/index5137.html' ;
 
 		 });
 		 
@@ -1585,19 +1585,27 @@
 	}
 	 
 
-	function project999_limit(removeCode){
+	function project999_limit(removecode){
 		  
  		let betArray  = ['1','2','3','4','5','6','7','8','9','10'];
- 		let remmIndex = betArray.indexOf(removeCode+'');
+ 		let remmIndex = betArray.indexOf(removecode+'');
 		betArray.splice(remmIndex, 1);
+		 
+
+
 		 return betArray.sort(sortNumber); 
 	}
 
-	let betProj = {
-		'0' : '1,2,3,4,5,6,7',
-		'1' : '4,5,6,7,8,9,10',
-		'2' : '2,3,4,5,6,7,8',
-		'3' : '3,4,5,6,7,8,9',
+	function computeAdd(code,add){
+		let removecode='';
+		if( (code*1 + add*1) > 10){
+			removecode = (code*1 + add*1) - 10;
+		}else if( (code*1 + add*1) == 10){
+			removecode = 10;
+		}else{
+			removecode = (code*1 + add*1);
+		}
+		return removecode;
 	}
 	function compareByType_from_member999(phase_before,phase_now,phase_before4 , bIndex, bArray,formu,betSn, bIndexFix){
 		
@@ -1605,11 +1613,19 @@
 		var z = formu ;  
 		var sn = betSn;
 		
-		  
-		let betArrayIndex = bIndex[z] % 4 ;
 
+	 
+		let nCodeArra = getCodeByPhase(phase_now);
+ 		if(nCodeArra=='null'){
+			projectBet[(formu*1)][(formu*1)] = false;
+			return;
+		}
+		let c = nCodeArra.split(',')[z*1 -1];
+ 		 
+		let removecode = computeAdd(c,z);
+	 
 
-		let bet_code = betProj[betArrayIndex];
+		let bet_code = project999_limit(removecode);
 		console.log(bet_code);
 		if(bet_code == null){
 			projectBet[(formu*1)][(formu*1)] = false;
@@ -2413,7 +2429,7 @@
 	   	 		 if(document.getElementById("autoStart").checked){
 	   	 			 auto = "Y";
 	   	 		 }
-	             window.location.href="http://www.sd8888.net/index6377.html?auto="+auto+"&user="+
+	             window.location.href="http://www.sd8888.net/index5137.html?auto="+auto+"&user="+
 	             document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value;
 		    }
 			    
