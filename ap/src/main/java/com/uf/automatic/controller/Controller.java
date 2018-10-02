@@ -403,8 +403,27 @@ public class Controller {
     }
 
     public static void main(String[] args) {
-        Map s = combindHistoryMap();
-        System.out.println(s.toString());
+        String cookie;
+        try {
+            cookie = httpClientCookie.getInitCookieHttpClient(null);
+            System.out.println(cookie.toString());
+            
+            
+            String url =  httpClientCookie.uraal[httpClientCookie.urli % 5] ;
+            String c = httpClientCookie.login(cookie);
+            System.out.println(c);
+//            String ret = LeeinHttpClient.getTodayWin(url ,
+//                    c);
+//            
+//            JsonParser parser = new JsonParser();
+//
+//            JsonArray o = parser.parse(ret).getAsJsonArray();
+//            
+//            JsonObject r = o.get(0).getAsJsonObject();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @RequestMapping("/getPredictLog")

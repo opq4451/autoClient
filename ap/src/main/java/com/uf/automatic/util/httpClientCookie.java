@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
@@ -23,8 +24,11 @@ import java.util.TreeSet;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.protocol.HttpClientContext;
@@ -34,6 +38,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.cookie.BasicClientCookie;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -85,15 +90,15 @@ public class httpClientCookie {
         return instance;
          
     }
-    static String uraal[] = {"http://mem1.amctqk418.cdbybj.com:88/",
-                             "http://mem5.amctqk418.besrubber.com/",
-                             "http://mem2.amctqk418.besrubber.com:88/",
-                             "http://mem3.amctqk418.cdbybj.com:88/",
-                             "http://mem4.amctqk418.besrubber.com/"
+    public static String uraal[] = {"http://ag1.amctqk418.cdbybj.com:88/",
+                             "http://ag5.amctqk418.besrubber.com/",
+                             "http://ag2.amctqk418.besrubber.com:88/",
+                             "http://ag3.amctqk418.cdbybj.com:88/",
+                             "http://ag4.amctqk418.besrubber.com/"
                              }; 
 
     //sd8885 //Aa258369
-    static int urli = 0 ;
+    public static int urli = 0 ;
     private String setInitCookie(String url) {
        
         try {
@@ -263,6 +268,17 @@ public class httpClientCookie {
 	}
 	
 	//單球
+    public static String login(String cc) {
+        String query = uraal[urli%5] + "/Handler/LoginHandler.ashx?action=user_login" ;
+        try {
+            return httpPostParameter(query,cc,"8tts225","qaz123123");
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+    
+	//單球
 	public String query() {
 	    String query = uraal[urli%5] + "/Handler/QueryHandler.ashx?action=get_ad";
         try {
@@ -362,6 +378,82 @@ public class httpClientCookie {
 		return result;
 	}
 	
+	public static String httpPostParameter(String url, String PHPSESSID_COOKIE , String loginName,
+                                      String loginPwd) throws Exception {
+
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        HttpPost httpPost = new HttpPost(url);
+
+        httpPost.setHeader("Cookie", PHPSESSID_COOKIE);
+
+        List<NameValuePair> nvps = new ArrayList<NameValuePair>(); 
+        nvps.add(new BasicNameValuePair("loginName", loginName));
+        nvps.add(new BasicNameValuePair("loginPwd", loginPwd));
+        nvps.add(new BasicNameValuePair("ValidateCode", ""));
+        httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+        CloseableHttpResponse response = httpclient.execute(httpPost);
+        System.out.println(1);
+//        try {
+//            Header headers[] = response.getHeaders("location");
+//            if (headers == null || headers.length == 0) {
+//
+//                return null;
+//            }
+//            String location = "";
+//
+//            for (Header h : headers) {
+//                location += h.getValue().toString();
+//            }
+//
+//            if (!location.equals("")) {
+//                  
+//                String agreementCookie = httpGetAgreement( url , "/" + location, "defaultLT=PK10JSC;"+PHPSESSID_COOKIE);
+//                System.out.println(agreementCookie);
+//                return agreementCookie;
+//            }
+//
+//        }catch(Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            response.close();
+//        }
+       
+        return null;
+    }
+	
+	public static String httpClientUseCookie(String uri,String cc) throws Exception {
+        BasicCookieStore cookieStore = new BasicCookieStore();
+        HttpClientBuilder builder = HttpClientBuilder.create().setDefaultCookieStore(cookieStore);
+
+       
+
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpClientContext context = HttpClientContext.create();
+        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(10000).setConnectTimeout(10000).build();
+        
+        HttpPost httpget = new HttpPost(uri);
+        httpget.setConfig(requestConfig);
+
+        httpget.setHeader("Cookie",cc );
+ 
+        
+        String result = null; 
+        try {
+            HttpResponse httpresponse = httpClient.execute(httpget);
+            HttpEntity entity = httpresponse.getEntity();
+            result = EntityUtils.toString(entity);
+//          System.out.println(result);
+            
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            httpClient.close();
+        }
+        return result;
+    }
+	
+	
 	public static String getCookieHttpClient(String uri) throws Exception {
         BasicCookieStore cookieStore = new BasicCookieStore();
         HttpClientBuilder builder = HttpClientBuilder.create().setDefaultCookieStore(cookieStore);
@@ -413,6 +505,66 @@ public class httpClientCookie {
                     "&loginName="+id+"&loginPwd="+password+"";
              
             getCookieHttpClient(urla);
+            throw e;
+        } finally {
+            httpClient.close();
+        }
+        return cookieString;
+    } 
+	
+	
+	public static String getInitCookieHttpClient(String uri) throws Exception {
+        BasicCookieStore cookieStore = new BasicCookieStore();
+        HttpClientBuilder builder = HttpClientBuilder.create().setDefaultCookieStore(cookieStore);
+
+       
+        if(uri ==null) {
+            uri = uraal[urli%5] ;
+        }
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpClientContext context = HttpClientContext.create();
+        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(5000).setConnectTimeout(5000).build();
+        System.out.println(uri);
+        HttpPost httpget = new HttpPost(uri);
+        httpget.setConfig(requestConfig);
+        httpget.setHeader("Cookie",""); 
+        
+        String result = null;
+        String cookieString="";
+        try {
+            HttpResponse httpresponse = httpClient.execute(httpget);
+//            HttpEntity entity = httpresponse.getEntity();
+//            result = EntityUtils.toString(entity);
+//            //System.out.println(result);
+//            JsonParser parser = new JsonParser();
+//            JsonObject o = parser.parse(result).getAsJsonObject();
+//            String code = o.get("success").getAsString();
+//            System.out.println(code);
+//            if(!code.equals("200")) {
+//                    urli++;
+//                    String urla = uraal[urli%5] + "Handler/LoginHandler.ashx?action=user_login"+
+//                            "&loginName="+id+"&loginPwd="+password+"";
+//                     
+//                    getCookieHttpClient(urla);
+//            }
+            try {
+                
+                Header[] headers = httpresponse.getHeaders("Set-Cookie");
+                for (Header h : headers) {
+                    cookieString+=h.getValue().toString()+";";
+                    System.out.println(h.getValue().toString());  
+                }
+                //cookieString+="menuId=2;cookiescurrentmlid=2; cookiescurrentlid=2;";
+            } finally {
+                
+            }
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            urli++;
+            String urla = uraal[urli%5] ;
+             
+            getInitCookieHttpClient(urla);
             throw e;
         } finally {
             httpClient.close();
