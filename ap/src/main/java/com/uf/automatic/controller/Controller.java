@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -449,51 +450,49 @@ public class Controller {
 
                     //System.out.println(sn);
 
-                    if (Integer.parseInt(c) < 6) { //下注0的不用顯示在log
+                    if (Integer.parseInt(c) < 3) { //下注0的不用顯示在log
                         continue;
                     }
                     String index = "";
                     if (key_form.equals("6")) {
-                        index = "01";
+                        index = "05";
                     }
                     ;
-                    if (key_form.equals("12")) {
-                        index = "07";
-                    }
+                   
                     if (key_form.equals("5")) {
-                        index = "02";
+                        index = "06";
                     }
                     ;
                     if (key_form.equals("11")) {
                         index = "08";
                     }
                     if (key_form.equals("4")) {
-                        index = "03";
+                        index = "07";
                     }
                     ;
                     if (key_form.equals("10")) {
-                        index = "09";
+                        index = "01";
                     }
                     if (key_form.equals("3")) {
-                        index = "04";
+                        index = "08";
                     }
                     ;
                     if (key_form.equals("9")) {
-                        index = "10";
+                        index = "02";
                     }
                     if (key_form.equals("2")) {
-                        index = "05";
+                        index = "09";
                     }
                     ;
                     if (key_form.equals("8")) {
-                        index = "11";
+                        index = "03";
                     }
                     if (key_form.equals("1")) {
-                        index = "06";
+                        index = "10";
                     }
                     ;
                     if (key_form.equals("7")) {
-                        index = "12";
+                        index = "04";
                     }
 
                     String k = phase + "@" + index + "@" + sn + "@" + c + "@" + cc;
@@ -554,43 +553,43 @@ public class Controller {
                         m.put(phase, phase);
                     }
 
-                    if (formu.equals("06")) {
+                    if (formu.equals("10")) {
                         logHtml.append("<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("05")) {
+                    if (formu.equals("09")) {
                         logHtml.append("<tr><td bgcolor=\"5599FF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("04")) {
+                    if (formu.equals("08")) {
                         logHtml.append("<tr><td bgcolor=\"666666\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("03")) {
+                    if (formu.equals("07")) {
                         logHtml.append("<tr><td bgcolor=\"FFAA33\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("02")) {
+                    if (formu.equals("06")) {
                         logHtml.append("<tr><td bgcolor=\"99FFFF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("01")) {
+                    if (formu.equals("05")) {
                         logHtml.append("<tr><td bgcolor=\"B94FFF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("12")) {
+                    if (formu.equals("04")) {
                         logHtml.append("<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("11")) {
+                    if (formu.equals("03")) {
                         logHtml.append("<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("10")) {
+                    if (formu.equals("02")) {
                         logHtml.append("<tr><td bgcolor=\"DEB887\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
@@ -600,7 +599,7 @@ public class Controller {
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("08")) {
+                    if (formu.equals("01")) {
                         logHtml.append("<tr><td bgcolor=\"CCFF99\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
@@ -671,6 +670,65 @@ public class Controller {
 
     }
 
+    public static Map combindHistoryMap() {
+        Map m = new HashMap();
+        try {
+            Date dNow = new Date();   //当前时间
+
+            Date dBefore = new Date();
+
+            Calendar calendar = Calendar.getInstance(); //得到日历
+            calendar.setTime(dNow);//把当前时间赋给日历
+            calendar.add(Calendar.DAY_OF_MONTH, -1);  //设置为前一天
+            dBefore = calendar.getTime();   //得到前一天的时间
+
+            String byyymmdd = new SimpleDateFormat("yyyy-MM-dd").format(dBefore); 
+            
+            String yyymmdd = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+            
+            String url = "http://api.api68.com/pks/getPksHistoryList.do?date="+yyymmdd+"&lotCode=10001";
+            String ret = Utils.httpClientGet(url);
+            JsonParser parser = new JsonParser();
+            JsonObject o = parser.parse(ret).getAsJsonObject();
+            
+            
+            JsonObject result = o.get("result").getAsJsonObject();
+            JsonArray data = result.getAsJsonArray("data");
+            
+           
+            for (JsonElement pa : data) {
+                JsonObject paymentObj = pa.getAsJsonObject();
+                String     code     = paymentObj.get("preDrawCode").getAsString();
+                String     preDrawIssue = paymentObj.get("preDrawIssue").getAsString();
+                m.put(preDrawIssue, code);
+            }
+            
+            
+            url = "http://api.api68.com/pks/getPksHistoryList.do?date="+byyymmdd+"&lotCode=10001";
+            ret = Utils.httpClientGet(url);
+            parser = new JsonParser();
+            o = parser.parse(ret).getAsJsonObject();
+            
+            
+            result = o.get("result").getAsJsonObject();
+            data = result.getAsJsonArray("data");
+            
+           
+            for (JsonElement pa : data) {
+                JsonObject paymentObj = pa.getAsJsonObject();
+                String     code     = paymentObj.get("preDrawCode").getAsString();
+                String     preDrawIssue = paymentObj.get("preDrawIssue").getAsString();
+                m.put(preDrawIssue, code);
+            }
+            
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+       
+        
+        return m;
+    }
     @RequestMapping("/getCode")
     public String getCode(@RequestParam("phase") String phase) {
         FileInputStream fileIn = null;
@@ -686,6 +744,85 @@ public class Controller {
             configProperty.load(fileIn);
             if (configProperty.getProperty(phase) != null)
                 return configProperty.getProperty(phase);
+            else {
+                //String p = 
+                //String url = "http://www.speedy-ball.com/speedy10-result.aspx?drawid=" + phase;
+//                String yyymmdd = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+//                
+//                String url = "http://api.api68.com/pks/getPksHistoryList.do?date="+yyymmdd+"&lotCode=10001";
+//                String ret = Utils.httpClientGet(url);
+//                JsonParser parser = new JsonParser();
+//                JsonObject o = parser.parse(ret).getAsJsonObject();
+//                
+//                
+//                JsonObject result = o.get("result").getAsJsonObject();
+//                JsonArray data = result.getAsJsonArray("data");
+                
+                Map m = combindHistoryMap();
+//                for (JsonElement pa : data) {
+//                    JsonObject paymentObj = pa.getAsJsonObject();
+//                    String     code     = paymentObj.get("preDrawCode").getAsString();
+//                    String     preDrawIssue = paymentObj.get("preDrawIssue").getAsString();
+//                    m.put(preDrawIssue, code);
+//                }
+                
+                if(m.get(phase) != null) {
+                    String[] c = m.get(phase).toString().split(",");
+                  String c1 = c[0].substring(0, 1).equals("0") ? c[0].substring(1, 2) : c[0] ;
+                  String c2 = c[1].substring(0, 1).equals("0") ? c[1].substring(1, 2) : c[1] ; 
+                  String c3 = c[2].substring(0, 1).equals("0") ? c[2].substring(1, 2) : c[2] ; 
+                  String c4 = c[3].substring(0, 1).equals("0") ? c[3].substring(1, 2) : c[3] ; 
+                  String c5 = c[4].substring(0, 1).equals("0") ? c[4].substring(1, 2) : c[4] ; 
+                  String c6 = c[5].substring(0, 1).equals("0") ? c[5].substring(1, 2) : c[5] ; 
+                  String c7 = c[6].substring(0, 1).equals("0") ? c[6].substring(1, 2) : c[6] ; 
+                  String c8 = c[7].substring(0, 1).equals("0") ? c[7].substring(1, 2) : c[7] ; 
+                  String c9 = c[8].substring(0, 1).equals("0") ? c[8].substring(1, 2) : c[8] ; 
+                  String c0 = c[9].substring(0, 1).equals("0") ? c[9].substring(1, 2) : c[9] ; 
+                  String code = c1 + "," + c2 + "," + c3+ "," + c4+ "," + c5
+                          + "," + c6+ "," + c7+ "," + c8+ "," + c9+ "," + c0 ;
+                  
+                  Utils.WritePropertiesFile("history", phase, code);
+                  return code; 
+                }
+                
+//                int o_1 = ret.indexOf("resultnum3") + 10 ;
+//                int o_2 = ret.indexOf("resultnum3",o_1) + 10 ;
+//                int o_3 = ret.indexOf("resultnum3",o_2) + 10 ;
+//                int o_4 = ret.indexOf("resultnum3",o_3) + 10 ;
+//                int o_5 = ret.indexOf("resultnum3",o_4) + 10 ;
+//                int o_6 = ret.indexOf("resultnum3",o_5) + 10 ;
+//                int o_7 = ret.indexOf("resultnum3",o_6) + 10 ;
+//                int o_8 = ret.indexOf("resultnum3",o_7) + 10 ;
+//                int o_9 = ret.indexOf("resultnum3",o_8) + 10 ;
+//                int o_0 = ret.indexOf("resultnum3",o_9) + 10 ;
+//                String c_1 = ret.substring(ret.indexOf("</div>",o_1)-2,ret.indexOf("</div>",o_1))  ;
+//                String c_2 = ret.substring(ret.indexOf("</div>",o_2)-2,ret.indexOf("</div>",o_2))  ;
+//                String c_3 = ret.substring(ret.indexOf("</div>",o_3)-2,ret.indexOf("</div>",o_3))  ;
+//                String c_4 = ret.substring(ret.indexOf("</div>",o_4)-2,ret.indexOf("</div>",o_4))  ;
+//                String c_5 = ret.substring(ret.indexOf("</div>",o_5)-2,ret.indexOf("</div>",o_5))  ;
+//                String c_6 = ret.substring(ret.indexOf("</div>",o_6)-2,ret.indexOf("</div>",o_6))  ;
+//                String c_7 = ret.substring(ret.indexOf("</div>",o_7)-2,ret.indexOf("</div>",o_7))  ;
+//                String c_8 = ret.substring(ret.indexOf("</div>",o_8)-2,ret.indexOf("</div>",o_8))  ;
+//                String c_9 = ret.substring(ret.indexOf("</div>",o_9)-2,ret.indexOf("</div>",o_9))  ;
+//                String c_0 = ret.substring(ret.indexOf("</div>",o_0)-2,ret.indexOf("</div>",o_0))  ;
+//                String c1 = c_1.substring(0, 1).equals("0") ? c_1.substring(1, 2) : c_1 ;
+//                String c2 = c_2.substring(0, 1).equals("0") ? c_2.substring(1, 2) : c_2 ; 
+//                String c3 = c_3.substring(0, 1).equals("0") ? c_3.substring(1, 2) : c_3 ; 
+//                String c4 = c_4.substring(0, 1).equals("0") ? c_4.substring(1, 2) : c_4 ; 
+//                String c5 = c_5.substring(0, 1).equals("0") ? c_5.substring(1, 2) : c_5 ; 
+//                String c6 = c_6.substring(0, 1).equals("0") ? c_6.substring(1, 2) : c_6 ; 
+//                String c7 = c_7.substring(0, 1).equals("0") ? c_7.substring(1, 2) : c_7 ; 
+//                String c8 = c_8.substring(0, 1).equals("0") ? c_8.substring(1, 2) : c_8 ; 
+//                String c9 = c_9.substring(0, 1).equals("0") ? c_9.substring(1, 2) : c_9 ; 
+//                String c0 = c_0.substring(0, 1).equals("0") ? c_0.substring(1, 2) : c_0 ; 
+//                String code = c1 + "," + c2 + "," + c3+ "," + c4+ "," + c5
+//                        + "," + c6+ "," + c7+ "," + c8+ "," + c9+ "," + c0 ;
+//                
+//                Utils.WritePropertiesFile("history", phase, code);
+
+            }
+            
+            
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -881,13 +1018,9 @@ public class Controller {
             if (c.length != 10)
                 return "null";
 
-            int s = 1;
-            if (betproject.equals("6")) {
-                s = 7;
-            }
-            int e = s + 6;
+           
 
-            for (int x = s; x < e; x++) { // x → 公式幾
+            for (int x = 1; x < 11; x++) { // x → 公式幾
                 for (int i = 0; i < 10; i++) {
 
                     int sn = i + 1;
@@ -1555,7 +1688,7 @@ public class Controller {
 
             String s = "";
             String end = "";
-            for(int i=data.size()-1;i>0;i--) {
+            for(int i=data.size()-1;i>=0;i--) {
                 
                 JsonObject paymentObj = data.get(i).getAsJsonObject();
                 String preDrawCode = paymentObj.get("preDrawCode").getAsString();  
@@ -1578,6 +1711,47 @@ public class Controller {
                
             }
             
+            
+            Date dBefore = new SimpleDateFormat("yyyy-MM-dd").parse(d);
+
+            Calendar calendar = Calendar.getInstance(); //得到日历
+            calendar.setTime(dBefore);//把当前时间赋给日历
+            calendar.add(Calendar.DAY_OF_MONTH, -1);  //设置为前一天
+            dBefore = calendar.getTime();   //得到前一天的时间
+
+            String byyymmdd = new SimpleDateFormat("yyyy-MM-dd").format(dBefore);
+            System.out.println(byyymmdd);
+            url = "http://api.api68.com/pks/getPksHistoryList.do?date="+byyymmdd+"&lotCode=10001";
+            
+            try {
+                ret = Utils.httpClientGet(url);
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+             
+             parser = new JsonParser();
+             o = parser.parse(ret).getAsJsonObject();
+             data = o.get("result").getAsJsonObject().get("data").getAsJsonArray();
+
+            
+            for(int i=data.size()-1;i>=0;i--) {
+                
+                JsonObject paymentObj = data.get(i).getAsJsonObject();
+                String preDrawCode = paymentObj.get("preDrawCode").getAsString();  
+                String preDrawIssue = paymentObj.get("preDrawIssue").getAsString(); 
+                
+                String temp = "";
+                for(String str: preDrawCode.split(",")) {
+                    temp+= str.substring(0,1).equals("0")?str.substring(1,2):"10";
+                    temp += ",";
+                }
+                Utils.WritePropertiesFile("history", preDrawIssue, temp.substring(0,temp.length()-1));
+                 
+                
+               
+            }
+             
             //end
 
             JsonObject j = new JsonObject();
