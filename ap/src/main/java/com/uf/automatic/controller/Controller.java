@@ -454,47 +454,50 @@ public class Controller {
                         continue;
                     }
                     String index = "";
+                   
+                   
+                   
+                    
+                    if (key_form.equals("10")) {
+                        index = "01";
+                    }
+                   
+                    if (key_form.equals("9")) {
+                        index = "02";
+                    }
+                    
+                    if (key_form.equals("8")) {
+                        index = "03";
+                    }
+                    if (key_form.equals("7")) {
+                        index = "04";
+                    }
                     if (key_form.equals("6")) {
                         index = "05";
                     }
                     ;
-                   
                     if (key_form.equals("5")) {
                         index = "06";
                     }
                     ;
-                    if (key_form.equals("11")) {
-                        index = "08";
-                    }
                     if (key_form.equals("4")) {
                         index = "07";
                     }
                     ;
-                    if (key_form.equals("10")) {
-                        index = "01";
-                    }
                     if (key_form.equals("3")) {
                         index = "08";
                     }
                     ;
-                    if (key_form.equals("9")) {
-                        index = "02";
-                    }
                     if (key_form.equals("2")) {
                         index = "09";
                     }
                     ;
-                    if (key_form.equals("8")) {
-                        index = "03";
-                    }
+                   
                     if (key_form.equals("1")) {
                         index = "10";
                     }
                     ;
-                    if (key_form.equals("7")) {
-                        index = "04";
-                    }
-
+                   
                     String k = phase + "@" + index + "@" + sn + "@" + c + "@" + cc;
 
                     treemap.put(k, v);
@@ -604,10 +607,10 @@ public class Controller {
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("07")) {
-                        logHtml.append("<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">"
-                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
-                    }
+//                    if (formu.equals("07")) {
+//                        logHtml.append("<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">"
+//                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+//                    }
 
                 }
                 logHtml.append("</table>");
@@ -1039,6 +1042,7 @@ public class Controller {
                                     // fillZero(Integer.toString(over_i)), "第"+phase +
                                     // "期，第" + sn + "名，號碼(" + code + ") 已過關!(第"+c+"關)");
                                     String t = new SimpleDateFormat("HH:mm:ss").format(new Date());
+                                    
                                     Utils.WritePropertiesFile(user + "overLOGDIS_log",
                                                               fillZero(Integer.toString(over_i)),
                                                               "第" + phase + "期"
@@ -1048,7 +1052,7 @@ public class Controller {
                                                                                                   + "關)" + "(公式" + x
                                                                                                   + ")");
 
-                                    j.addProperty(covertIntToLatter(overi) + (x > 6 ? x - 6 : x), "Y");
+                                    j.addProperty(covertIntToLatter(overi) + x , "Y");
                                 }
 
                             }

@@ -833,7 +833,7 @@
  	//const falseMinute = [2,7,12,17,22,27,32,37,42,47,52,57];
 
 
- 	var u = getUrl();
+ 	var u = 'http://localhost:8888';
     var stoplose = "";
     var stopwin = "";
     var todayWin = "";
@@ -2705,51 +2705,202 @@ function reallyBet(sn,amount,betphase,c,codeList,originformu,BETFLAG){
     }
     
     
-function compareByType_from_member999(phase_before,phase_now,phase_before4 , bIndex, bArray,formu,betSn){
+function project999_limit(removeCode){
+		//  let snIndex = sn*1  - 1 ;
+		//  let tenArray = [];
+		//  let positionArray = [];
+		  
+		//  for(var i=1;i<=phase;i++){
+			  
+		// 	 let p =  phase*1 - i ;
+		// 	 //  if(p.toString().substring(8,11) == '000'){
+		// 	 // 	return null;
+		// 	 // }
+		// 	 let nCodeArra = getCodeByPhase(p);
+		// 	 if(nCodeArra=='null'){
+		// 		 return null;
+		// 	 }
+		// 	 let c = nCodeArra.split(',')[snIndex];
+ 
+ 	// 		 if(tenArray.indexOf(c)==-1){ 
+			 	 
+		// 	 	tenArray.push(c);
+
+		// 	 }
+			 
+		// 	 if(tenArray.length ==10)
+		// 	 	break;
+			
+			 
+		//  } 
+		//  //step2 算出位置
+		//  let positionIndex = tenArray.indexOf(add+'');
+		// console.log('前二期後排第幾位置:'+positionIndex);
+
+		//  // step3 找出號碼
+		//  let tenArray_2 = [];
+		// for(var i=0;i<=phase;i++){
+			  
+		// 	 let p =  phase*1 - i ;
+		// 	 //  if(p.toString().substring(8,11) == '000'){
+		// 	 // 	return null;
+		// 	 // }
+		// 	 let nCodeArra = getCodeByPhase(p);
+		// 	 if(nCodeArra=='null'){
+		// 		 return null;
+		// 	 }
+		// 	 let c = nCodeArra.split(',')[snIndex];
+ 
+ 	// 		 if(tenArray_2.indexOf(c)==-1){ 
+			 	 
+		// 	 	tenArray_2.push(c);
+
+		// 	 }
+			 
+		// 	 if(tenArray_2.length ==10)
+		// 	 	break;
+			
+		// }
+
+		// let findCode = tenArray_2[positionIndex];
+		// console.log('前一期後排第幾位置的號碼:'+findCode);
+
+
+ 	// 	let nCodeArra = getCodeByPhase(phase);
+ 	// 	let now1 = nCodeArra.split(',')[snIndex];
+
+
+ 	// 	let removeCode = '';
+ 	// 	if( (now1*1 + findCode*1 ) > 10 ){
+ 	// 		removeCode = (now1*1 + findCode*1 ) % 10;
+
+ 	// 	}else {
+ 	// 		removeCode = (now1*1 + findCode*1 ) ;
+ 	// 	}
+
+
+ 		let betArray  = ['1','2','3','4','5','6','7','8','9','10'];
+ 		let remmIndex = betArray.indexOf(removeCode+'');
+		betArray.splice(remmIndex, 1);
+		 return betArray.sort(sortNumber);
+
+		//  for(var i=0;i<=phase;i++){
+			  
+		// 	 let p =  phase*1 - i ;
+		// 	 //  if(p.toString().substring(8,11) == '000'){
+		// 	 // 	return null;
+		// 	 // }
+		// 	 let nCodeArra = getCodeByPhase(p);
+		// 	 if(nCodeArra=='null'){
+		// 		 return null;
+		// 	 }
+		// 	 let c = nCodeArra.split(',')[snIndex];
+ 
+
+		// 	 if(tenArray.indexOf(c)==-1){  
+		// 	 	tenArray.push(c);
+
+		// 	 }
+			 
+		// 	 if(tenArray.length ==10)
+		// 	 	break;
+			
+			 
+		//  } 
+
+
+		// positionArray = positionArray.sort(sortNumber);
+
+
+
+		// console.log(positionArray.toString());
+		// let r1 = tenArray[positionArray[0]];
+		// let r2 = tenArray[positionArray[1]];
+		// let r3 = tenArray[positionArray[2]];
+		// let r4 = tenArray[positionArray[3]];
+		// let r5 = tenArray[positionArray[4]];
+		// let r6 = tenArray[positionArray[5]];
+		// let r7 = tenArray[positionArray[6]];
+		// // tenArray.splice(positionArray[2], 1);
+		// // tenArray.splice(positionArray[1], 1);
+		// // tenArray.splice(positionArray[0], 1);
+		// let finalarray = [];
+ 	// 	finalarray.push(r1);
+ 	// 	finalarray.push(r2);
+ 	// 	finalarray.push(r3);
+ 	// 	finalarray.push(r4);
+ 	// 	finalarray.push(r5);
+ 	// 	finalarray.push(r6);
+ 	// 	finalarray.push(r7);
+
+
+	 	// return finalarray.sort(sortNumber); 
+	}
+
+	function computeDis(b1,b2){
+		let add =0 ;
+		if(b1*1 < b2*1){
+			add = b1*1 + 10 - b2*1;
+		}else if (b1 == b2){
+			add = 10;
+		}else {
+			add = b1*1 - b2*1;
+		}
+		return add;
+	}
+
+
+	function computeadd(b1,b2){
+		let total = b1*1 + b2*1 ;
+		if(total > 10){
+			return (total % 10 == 0 ) ? '10' : (total % 10);
+		}else {
+			return total;
+		} 
+	}
+
+	function compareByType_from_member999(phase_before,phase_now,phase_before4 , bIndex, bArray,formu,betSn){
 		
 
 		var z = formu ;  
 		var sn = betSn;
 		//step1
-		if(!projectTemp[formu]){
-			console.log(phase_now);
-			let nCodeArra = getCodeByPhase(phase_now);
-	 		let b1 = nCodeArra.split(',')[z*1 -1];
-			console.log(phase_now*1 -1);
+		let nCodeArra = getCodeByPhase(phase_now);
+ 		let b1 = nCodeArra.split(',')[z*1 -1];
+ 		nCodeArra = getCodeByPhase(phase_now*1 -1);
+		let b2 = nCodeArra.split(',')[z*1 -1];
+		nCodeArra = getCodeByPhase(phase_now*1 -2);
+		let b3 = nCodeArra.split(',')[z*1 -1];
+		nCodeArra = getCodeByPhase(phase_now*1 -3);
+		let b4 = nCodeArra.split(',')[z*1 -1];
 
-	 		nCodeArra = getCodeByPhase(phase_now*1 -1);
-			let b2 = nCodeArra.split(',')[z*1 -1];
-			// nCodeArra = getCodeByPhase(phase_now*1 -2);
-			// let b3 = nCodeArra.split(',')[z*1 -1];
-		    let p = getPhasefromCode(phase_now*1 -1 ,b1,b2);
-		    if(p ==null){
-		    	projectTemp[formu] = '';
-		    	projectBet[(formu*1)][(formu*1)] = true;
-		    	return;
-		    }
-		    console.log('第幾名:'+z); 
-		    console.log('b1:'+b1);
-		    console.log('b2:'+b2); 
-		    console.log(p);
+		let dis1 = computeDis(b1,b2);
+		let dis2 = computeDis(b2,b3);
+		let dis3 = computeDis(b3,b4);
+		console.log('第幾名:'+z);
+		console.log('dis1:'+dis1);
+		console.log('dis2:'+dis2);
+		console.log('dis2:'+dis3);
 
-		    console.log('sn:'+p['sn']);
-		    console.log('phase:'+p['p']);
+		let dis11 = computeDis(dis1,dis2);
+		let dis22 = computeDis(dis2,dis3);
+		console.log('dis11:'+dis11);
+		console.log('dis22:'+dis22);
 
-		    projectTemp[formu] = p;
-		}
+		let dis33 = computeDis(dis11,dis22);
+		console.log('dis33:'+dis33);
 
-		let notPhase = projectTemp[formu]['p'] *1 + bIndex[z] + 1;
-		let notSn = projectTemp[formu]['sn'];
+		let add = computeadd(dis11,dis33);
+		console.log('add:'+add);
 
-		let notCodeArra = getCodeByPhase(notPhase);
-		let notCode = notCodeArra.split(',')[notSn*1 -1];
+		let addno =  computeadd(dis1,add);
+		console.log('addno:'+addno);
 
-		console.log('kill:'+notCode);
-
- 
+		let removecode = computeadd(b1,addno);
+		 
 
 
-		let bet_code = project999_limit(notCode);
+		let bet_code = project999_limit(removecode);
 		console.log(bet_code);
 		if(bet_code == null){
 			projectBet[(formu*1)][(formu*1)] = true;
