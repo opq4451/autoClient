@@ -450,7 +450,7 @@ public class Controller {
 
                     //System.out.println(sn);
 
-                    if (Integer.parseInt(c) < 3) { //下注0的不用顯示在log
+                    if (Integer.parseInt(c) < 1) { //下注0的不用顯示在log
                         continue;
                     }
                     String index = "";
