@@ -15,6 +15,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -211,9 +212,18 @@ public class Controller {
                 JsonObject data = o.getAsJsonObject("data");
                 String todayWin = data.get("profit").getAsString();
                 String usable_credit = data.get("usable_credit").getAsString();
-
+                String stop_time =  data.get("stop_time").getAsString();
                 j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(todayWin))));
                 j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
+                try {
+                     
+                        j.addProperty("stop_time", stop_time.split(":")[1] + ":" + stop_time.split(":")[2]);
+ 
+                   
+                }catch(Exception e) {
+                    
+                }
+                
 
             } else if (boardType.equals("1")) { //華山
                 String ret = MoutainHttpClient.httpGet(mountain_token_sessid,
@@ -453,49 +463,46 @@ public class Controller {
                         continue;
                     }
                     String index = "";
-                    if (key_form.equals("6")) {
-                        index = "01";
-                    }
-                    ;
-                    if (key_form.equals("12")) {
-                        index = "07";
-                    }
-                    if (key_form.equals("5")) {
-                        index = "02";
-                    }
-                    ;
-                    if (key_form.equals("11")) {
-                        index = "08";
-                    }
-                    if (key_form.equals("4")) {
-                        index = "03";
-                    }
-                    ;
-                    if (key_form.equals("10")) {
-                        index = "09";
-                    }
-                    if (key_form.equals("3")) {
-                        index = "04";
-                    }
-                    ;
-                    if (key_form.equals("9")) {
+                    
+                    if (key_form.equals("1")) {
                         index = "10";
                     }
+                    ;
                     if (key_form.equals("2")) {
-                        index = "05";
+                        index = "09";
                     }
                     ;
-                    if (key_form.equals("8")) {
-                        index = "11";
+                    if (key_form.equals("3")) {
+                        index = "08";
                     }
-                    if (key_form.equals("1")) {
+                    ;
+                    if (key_form.equals("4")) {
+                        index = "07";
+                    }
+                    ;
+                    if (key_form.equals("5")) {
                         index = "06";
                     }
                     ;
-                    if (key_form.equals("7")) {
-                        index = "12";
+                    if (key_form.equals("6")) {
+                        index = "05";
                     }
-
+                    ;
+                    if (key_form.equals("7")) {
+                        index = "04";
+                    }
+                    if (key_form.equals("8")) {
+                        index = "03";
+                    }
+                    ;
+                    if (key_form.equals("9")) {
+                        index = "02";
+                    }
+                    ;
+                    if (key_form.equals("10")) {
+                        index = "01";
+                    }
+                    ;
                     String k = phase + "@" + index + "@" + sn + "@" + c + "@" + cc;
 
                     treemap.put(k, v);
@@ -554,61 +561,61 @@ public class Controller {
                         m.put(phase, phase);
                     }
 
-                    if (formu.equals("06")) {
+                    if (formu.equals("10")) {
                         logHtml.append("<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("05")) {
+                    if (formu.equals("09")) {
                         logHtml.append("<tr><td bgcolor=\"5599FF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("04")) {
+                    if (formu.equals("08")) {
                         logHtml.append("<tr><td bgcolor=\"666666\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("03")) {
+                    if (formu.equals("07")) {
                         logHtml.append("<tr><td bgcolor=\"FFAA33\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("02")) {
+                    if (formu.equals("06")) {
                         logHtml.append("<tr><td bgcolor=\"99FFFF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("01")) {
+                    if (formu.equals("05")) {
                         logHtml.append("<tr><td bgcolor=\"B94FFF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("12")) {
+                    if (formu.equals("04")) {
                         logHtml.append("<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("11")) {
+                    if (formu.equals("03")) {
                         logHtml.append("<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("10")) {
+                    if (formu.equals("02")) {
                         logHtml.append("<tr><td bgcolor=\"DEB887\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("09")) {
+                    if (formu.equals("01")) {
                         logHtml.append("<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("08")) {
-                        logHtml.append("<tr><td bgcolor=\"CCFF99\"  style=\"border: 1px solid black\">"
-                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
-                    }
-
-                    if (formu.equals("07")) {
-                        logHtml.append("<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">"
-                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
-                    }
+//                    if (formu.equals("08")) {
+//                        logHtml.append("<tr><td bgcolor=\"CCFF99\"  style=\"border: 1px solid black\">"
+//                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+//                    }
+//
+//                    if (formu.equals("07")) {
+//                        logHtml.append("<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">"
+//                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+//                    }
 
                 }
                 logHtml.append("</table>");
@@ -709,6 +716,66 @@ public class Controller {
 
     }
 
+    public static Map combindHistoryMap() {
+        Map m = new HashMap();
+        try {
+            Date dNow = new Date();   //当前时间
+
+            Date dBefore = new Date();
+
+            Calendar calendar = Calendar.getInstance(); //得到日历
+            calendar.setTime(dNow);//把当前时间赋给日历
+            calendar.add(Calendar.DAY_OF_MONTH, -1);  //设置为前一天
+            dBefore = calendar.getTime();   //得到前一天的时间
+
+            String byyymmdd = new SimpleDateFormat("yyyy-MM-dd").format(dBefore); 
+            
+            String yyymmdd = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+            
+            String url = "http://api.api68.com/pks/getPksHistoryList.do?date="+yyymmdd+"&lotCode=10001";
+            String ret = Utils.httpClientGet(url);
+            JsonParser parser = new JsonParser();
+            JsonObject o = parser.parse(ret).getAsJsonObject();
+            
+            
+            JsonObject result = o.get("result").getAsJsonObject();
+            JsonArray data = result.getAsJsonArray("data");
+            
+           
+            for (JsonElement pa : data) {
+                JsonObject paymentObj = pa.getAsJsonObject();
+                String     code     = paymentObj.get("preDrawCode").getAsString();
+                String     preDrawIssue = paymentObj.get("preDrawIssue").getAsString();
+                m.put(preDrawIssue, code);
+            }
+            
+            
+            url = "http://api.api68.com/pks/getPksHistoryList.do?date="+byyymmdd+"&lotCode=10001";
+            ret = Utils.httpClientGet(url);
+            parser = new JsonParser();
+            o = parser.parse(ret).getAsJsonObject();
+            
+            
+            result = o.get("result").getAsJsonObject();
+            data = result.getAsJsonArray("data");
+            
+           
+            for (JsonElement pa : data) {
+                JsonObject paymentObj = pa.getAsJsonObject();
+                String     code     = paymentObj.get("preDrawCode").getAsString();
+                String     preDrawIssue = paymentObj.get("preDrawIssue").getAsString();
+                m.put(preDrawIssue, code);
+            }
+            
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+       
+        
+        return m;
+    }
+    
     @RequestMapping("/getCode")
     public String getCode(@RequestParam("phase") String phase) {
         FileInputStream fileIn = null;
@@ -724,6 +791,51 @@ public class Controller {
             configProperty.load(fileIn);
             if (configProperty.getProperty(phase) != null)
                 return configProperty.getProperty(phase);
+            else {
+                //String p = 
+                //String url = "http://www.speedy-ball.com/speedy10-result.aspx?drawid=" + phase;
+//                String yyymmdd = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+//                
+//                String url = "http://api.api68.com/pks/getPksHistoryList.do?date="+yyymmdd+"&lotCode=10001";
+//                String ret = Utils.httpClientGet(url);
+//                JsonParser parser = new JsonParser();
+//                JsonObject o = parser.parse(ret).getAsJsonObject();
+//                
+//                
+//                JsonObject result = o.get("result").getAsJsonObject();
+//                JsonArray data = result.getAsJsonArray("data");
+                
+                Map m = combindHistoryMap();
+//                for (JsonElement pa : data) {
+//                    JsonObject paymentObj = pa.getAsJsonObject();
+//                    String     code     = paymentObj.get("preDrawCode").getAsString();
+//                    String     preDrawIssue = paymentObj.get("preDrawIssue").getAsString();
+//                    m.put(preDrawIssue, code);
+//                }
+                
+                if(m.get(phase) != null) {
+                    String[] c = m.get(phase).toString().split(",");
+                  String c1 = c[0].substring(0, 1).equals("0") ? c[0].substring(1, 2) : c[0] ;
+                  String c2 = c[1].substring(0, 1).equals("0") ? c[1].substring(1, 2) : c[1] ; 
+                  String c3 = c[2].substring(0, 1).equals("0") ? c[2].substring(1, 2) : c[2] ; 
+                  String c4 = c[3].substring(0, 1).equals("0") ? c[3].substring(1, 2) : c[3] ; 
+                  String c5 = c[4].substring(0, 1).equals("0") ? c[4].substring(1, 2) : c[4] ; 
+                  String c6 = c[5].substring(0, 1).equals("0") ? c[5].substring(1, 2) : c[5] ; 
+                  String c7 = c[6].substring(0, 1).equals("0") ? c[6].substring(1, 2) : c[6] ; 
+                  String c8 = c[7].substring(0, 1).equals("0") ? c[7].substring(1, 2) : c[7] ; 
+                  String c9 = c[8].substring(0, 1).equals("0") ? c[8].substring(1, 2) : c[8] ; 
+                  String c0 = c[9].substring(0, 1).equals("0") ? c[9].substring(1, 2) : c[9] ; 
+                  String code = c1 + "," + c2 + "," + c3+ "," + c4+ "," + c5
+                          + "," + c6+ "," + c7+ "," + c8+ "," + c9+ "," + c0 ;
+                  
+                  Utils.WritePropertiesFile("history", phase, code);
+                  return code; 
+                }
+                 
+
+            }
+            
+            
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -984,7 +1096,7 @@ public class Controller {
     Map overmp = new HashMap();
 
     @RequestMapping("/checkOver")
-    public String checkOver(@RequestParam("user") String user, @RequestParam("phase") String phase,
+    public synchronized String checkOver(@RequestParam("user") String user, @RequestParam("phase") String phase,
                             @RequestParam("code") String code, @RequestParam("betproject") String betproject) {
         FileInputStream fileIn = null;
         FileOutputStream fileOut = null;
@@ -1012,13 +1124,9 @@ public class Controller {
             if (c.length != 10)
                 return "null";
 
-            int s = 1;
-            if (betproject.equals("6")) {
-                s = 7;
-            }
-            int e = s + 6;
+           
 
-            for (int x = s; x < e; x++) { // x → 公式幾
+            for (int x = 1; x < 11; x++) { // x → 公式幾
                 for (int i = 0; i < 10; i++) {
 
                     int sn = i + 1;
@@ -1027,6 +1135,8 @@ public class Controller {
 
                         for (int overi = 1; overi < 11; overi++) {
                             String key = phase + "@" + sn + "@" + c[i] + "@" + x + "@" + overi;
+                            
+                            System.out.println(key);
                             if (configProperty.getProperty(key) != null) {
                                 if (overmp.get(user + key) == null) {
                                     overmp.put(user + key, "put");
@@ -1035,6 +1145,7 @@ public class Controller {
                                     // fillZero(Integer.toString(over_i)), "第"+phase +
                                     // "期，第" + sn + "名，號碼(" + code + ") 已過關!(第"+c+"關)");
                                     String t = new SimpleDateFormat("HH:mm:ss").format(new Date());
+                                    
                                     Utils.WritePropertiesFile(user + "overLOGDIS_log",
                                                               fillZero(Integer.toString(over_i)),
                                                               "第" + phase + "期"
@@ -1044,7 +1155,7 @@ public class Controller {
                                                                                                   + "關)" + "(公式" + x
                                                                                                   + ")");
 
-                                    j.addProperty(covertIntToLatter(overi) + (x > 6 ? x - 6 : x), "Y");
+                                    j.addProperty(covertIntToLatter(overi) + x , "Y");
                                 }
 
                             }
@@ -1089,17 +1200,17 @@ public class Controller {
             System.out.println(code);
             e.printStackTrace();
         } finally {
-            
+
             try {
                 fileIn.close();
                 fileOut.close();
             } catch (Exception ex) {
             }
-            removeOverLog(user,phase);
         }
 
         return "null";
     }
+
     
     public static void removeOverLog(String user,String checkPhase) {
         
@@ -1528,8 +1639,10 @@ public class Controller {
 
     // sn : 1~ 0 , code : 01~10
     // sn : 1~ 0 , code : 01~10
+    // sn : 1~ 0 , code : 01~10
+    // sn : 1~ 0 , code : 01~10
     @RequestMapping("/bet")
-    public String bet(@RequestParam("user") String user, @RequestParam("sn") String sn,
+    public synchronized String bet(@RequestParam("user") String user, @RequestParam("sn") String sn,
                       @RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
                       @RequestParam("c") String c, @RequestParam("codeList") String codeList,
                       @RequestParam("formu") String formu, @RequestParam("boardType") String boardType,
@@ -1540,201 +1653,22 @@ public class Controller {
         try {
             String code[] = codeList.split(",");
             bi++;
-            if (amount.equals("0") || (amount.equals("1") && boardType.equals("0"))) {
+            
                 for (String str : code) {
                     String overLog = betphase + "@" + sn + "@" + str + "@" + formu + "@" + displaysn;
                     saveOverLog(user, overLog, c);
                 }
                 
-                
+                String betlog = "第" + betphase + "期" + 
+                        "計劃" + displaysn +
+                        "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+                        + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
+                saveLog(user + "bet", betlog);
         
                 return "";
-            }
+           
 
-            if (boardType.equals("0")) {
-                String r = h.getoddsInfo();
-                // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
-
-                JsonParser pr = new JsonParser();
-                JsonObject po = pr.parse(r).getAsJsonObject();
-                JsonObject data = po.getAsJsonObject("data");
-                Map<Integer, String> normal = new TreeMap<Integer, String>();
-                Utils.producePl(normal, r); // 產生倍率 for single
-                p_id = data.get("p_id").getAsString();
-
-                // if (ret.indexOf(user) > -1) {
-
-                String ossid = "";
-                String pl = "";
-                String i_index = "";
-                String m = "";
-                int i = 0;
-                for (String str : code) {
-                    // String overLog = betphase + "@" + sn + "@" + str + "@" +
-                    // formu;
-                    // saveOverLog(user, overLog, c);
-                    //
-                    int index = computeIndex(sn, str);
-                    String id_pl = normal.get(index).toString(); // 15@1.963
-                    ossid += id_pl.split("@")[0] + ",";
-                    pl += id_pl.split("@")[1] + ",";
-                    i_index += i + ",";
-                    m += amount + ",";
-                    i++;
-                }
-
-                String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
-
-                JsonParser parser = new JsonParser();
-                JsonObject o = parser.parse(betRet).getAsJsonObject();
-                String resCode = o.get("success").getAsString();
-
-                if (resCode.equals("200")) {
-
-                    for (String str : code) {
-                        String overLog = betphase + "@" + sn + "@" + str + "@" + formu+ "@" + displaysn;
-                        saveOverLog(user, overLog, c);
-                    }
-
-                    String betlog = "第" + betphase + "期"  +
-                            "計劃" +   displaysn 
-                            + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
-                    saveLog(user + "bet", betlog);
-
-                } else {
-                    // System.out.println(o.toString());
-                    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(失敗)" + "(公式" + formu + ")";
-                    // saveLog(user + "bet", betlog);
-                    saveLog(user + "error", o.toString() + " bet error:" + betlog);
-                    return recoup(user, sn, amount, betphase, c, codeList, formu);
-                }
-
-            } else if (boardType.equals("1")) { //華山
-                JsonParser pr = new JsonParser();
-                String r = MoutainHttpClient.httpPostBet(mountain_url[mountain_index % 4] + "/?m=bet",
-                                                         mountain_token_sessid,
-                                                         betphase,
-                                                         amount,
-                                                         sn,
-                                                         code);
-                JsonObject po = pr.parse(r).getAsJsonObject();
-                String s = po.get("msg").getAsString();
-                if (s.equals("投注成功")) {
-                    for (String str : code) {
-                        String overLog = betphase + "@" + sn + "@" + str + "@" + formu+ "@" + displaysn;
-                        saveOverLog(user, overLog, c);
-                    }
-
-                    String betlog = "第" + betphase + "期"  +
-                            "計劃" +   displaysn 
-                            + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
-                    saveLog(user + "bet", betlog);
-                } else {
-                    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(失敗)" + "(公式" + formu + ")";
-                    // saveLog(user + "bet", betlog);
-                    saveLog(user + "error", s.toString() + " bet error:" + betlog);
-
-                    return mountaionRecoup(user, sn, amount, betphase, c, codeList, formu);
-                }
-            } else if (boardType.equals("2")) { //大立
-                JsonParser pr = new JsonParser();
-                JsonObject j = DaliHttpClient.getBetMD5_PL();
-                String MD5 = j.get("MD5").getAsString();
-
-                JsonArray a = j.getAsJsonArray("DATAODDS");
-
-                String betString = "";//40001,9.909,1|40018,9.909,1|40036,9.909,1
-                for (String str : code) {
-                    int index = DaliHttpClient.getPlIndex(sn, str);
-                    JsonObject bet = a.get(index).getAsJsonObject();
-                    String pl = bet.get("OddsValue1").getAsString();
-                    String betItemNo = bet.get("ItemNO").getAsString();
-                    betString += betItemNo + "," + pl + "," + amount + "|";
-                }
-                betString = betString.substring(0, betString.length() - 1);
-
-                String betid = DaliHttpClient.getBetID(betString);
-
-                JsonObject result = DaliHttpClient.dali_bet(betid, MD5);
-
-                if ((result.get("FaildReason").getAsString()).equals("0")) {
-                    for (String str : code) {
-                        String overLog = betphase + "@" + sn + "@" + str + "@" + formu+ "@" + displaysn;
-                        saveOverLog(user, overLog, c);
-                    }
-
-                    String betlog = "第" + betphase + "期"  +
-                            "計劃" +   displaysn 
-                            + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
-                    saveLog(user + "bet", betlog);
-                } else {
-                    /*recoup++;
-                    if (recoup == 3) {
-                        recoup = 0;
-                        return "error";
-                    }*/
-                    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(失敗)" + "(公式" + formu + ")";
-                    // saveLog(user + "bet", betlog);
-                    saveLog(user + "error", result.toString() + " bet error:" + betlog);
-                    return "error";
-                }
-
-            } else if (boardType.equals("3") || boardType.equals("4")) {
-                String url = boardType.equals("3")?(leein_url[leein_index % 4]): (futsai_url[futsai_index % 4]) ;
-                String cookie = boardType.equals("3")?(leein_php_cookid): (futsai_php_cookid) ;
-
-                JsonObject pl = LeeinHttpClient.getPl(url, cookie);
-
-                JsonArray a = new JsonArray();
-
-                for (String str : code) {
-                    String key = "B" + sn + "_" + str;
-                    BigDecimal p = pl.get(key).getAsBigDecimal();
-                    JsonObject d = new JsonObject();
-                    d.addProperty("game", "B" + sn);
-                    d.addProperty("contents", str);
-                    d.addProperty("amount", amount);
-                    d.addProperty("odds", p);
-                    a.add(d);
-                }
-
-                JsonObject bet = new JsonObject();
-                bet.addProperty("lottery", "BJPK10");
-                bet.addProperty("drawNumber", betphase);
-                bet.add("bets", a);
-                bet.addProperty("ignore", "false");
-
-                String betS = bet.toString();
-
-                JsonObject result = LeeinHttpClient.httpPostBet(url, cookie, betS);
-
-                if (result.get("status").getAsString().equals("0")) {
-                    for (String str : code) {
-                        String overLog = betphase + "@" + sn + "@" + str + "@" + formu+ "@" + displaysn;
-                        saveOverLog(user, overLog, c);
-                    }
-
-                    String betlog = "第" + betphase + "期"  +
-                            "計劃" +   displaysn 
-                            + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
-                    saveLog(user + "bet", betlog);
-                } else {
-                     
-                    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(失敗)" + "(公式" + formu + ")";
-                    // saveLog(user + "bet", betlog);
-                    saveLog(user + "error", result.toString() + " bet error:" + betlog);
-                    return "error";
-                }
-
-            }
+            
 
         } catch (Exception e) {
             saveLog(user + "error",
@@ -1746,8 +1680,7 @@ public class Controller {
         } finally {
 
         }
-
-        return "";
+ 
     }
 
     public String recoup(@RequestParam("user") String user, @RequestParam("sn") String sn,

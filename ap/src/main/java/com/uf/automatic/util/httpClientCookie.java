@@ -88,12 +88,12 @@ public class httpClientCookie {
         return instance;
          
     }
-    static String uraal[] = {"http://mem1.ytrqeb712.zongxiart.com:88/",
-                    "http://mem5.ytrqeb712.syyanshou.com/",
-                    "http://mem2.ytrqeb712.syyanshou.com/",
-                    "http://mem3.ytrqeb712.zongxiart.com:88/",
-                    "http://mem4.ytrqeb712.syyanshou.com/"
-                    }; 
+    static String uraal[] = {"http://mem1.amctqk418.cdbybj.com:88/",
+                             "http://mem5.amctqk418.besrubber.com/",
+                             "http://mem2.amctqk418.besrubber.com:88/",
+                             "http://mem3.amctqk418.cdbybj.com:88/",
+                             "http://mem4.amctqk418.besrubber.com/"
+                             }; 
     //sd8885 //Aa258369
     static int urli = 0 ;
     private String setInitCookie(String url) {
