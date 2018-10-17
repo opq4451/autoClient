@@ -571,7 +571,7 @@
 					 <div  class="toPhase">loading..</div> 
 			</td>
 			
-			<td width="1%"  nowrap class="s_point" style="border: 1px solid gray; border-collapse: collapse; font-size: 18px; text-align:center;">測試點數</td>
+			<td width="1%"  nowrap class="s_point" style="border: 1px solid gray; border-collapse: collapse; font-size: 18px; text-align:center;">目前測試點數</td>
 		    <td class="tdClass" width="1%" > <input  style=" font-size: 15px; text-align: center;" class="stoppoint" type ="text" size=5/> </td> 
 					
 			
@@ -1036,17 +1036,7 @@
 						  }catch(err){
 														saveLog('error_bet','extendtime:' + stop);
 						   }
-		    	 	if($( ".stoppoint" ).val()!= ''){
-		    	 		let stoppoint = $( ".stoppoint" ).val();
-		    	 		let max = $( "div.maxcredit" ).text();
-		    	 		if(max * 1 < stoppoint*1){
-		    	 			 $('.s_point').css('background', 'yellow'); 
-		    	 		}else {
-		    	 			 $('.s_point').css('background', 'powderblue'); 
-		    	 		}
-		    	 	}else {
-		    	 		 $('.s_point').css('background', 'powderblue'); 
-		    	 	}
+		    	  
 		    	 	 
 		    	 	 
 		    	 	document.getElementById("s_h").value = json.s_h;
@@ -1823,7 +1813,7 @@
 	}
  	function checkWin(){
  		
- 		
+ 		return true;
  		
  		var sl= $( ".stoplose" ).val();
  		var sw= $( ".stopwin" ).val();
@@ -1891,7 +1881,7 @@
  		return true;
  	}
  	function setLow(v){
- 		let u = 'http://localhost:9999';
+ 		let u = 'http://www.sd8888.net:9999';
 	     $.ajax({ url:  u + "/setLow?filename=&start="+v, 
         async: false,
         success: function(data) {
@@ -2077,6 +2067,18 @@
     			    //} 
     			    getlogHtml();
     			}
+    			
+    			
+    			
+	    	 	if($( ".stoppoint" ).val()!= ''){
+	    	 		let stoppoint = $( ".stoppoint" ).val();
+	    	 		 
+	    	 		if(stoppoint*1 <= -5){
+	    	 			setLow(0);//low 
+	    	 		} 
+	    	 	} 
+
+	    	 		
 	    		
 			    //overTimeout();
 	    }, 5000);
@@ -2296,6 +2298,7 @@
 					photo[phase_now] = phase_now;
 					photo['point'] = photo['point'] *1 + point ;//set test point
 					photo[phase_now+'_point'] = photo['point'] *1 ;
+					$( ".stoppoint" ).val(photo['point'] *1) ;
 					console.log(photo);
 	        		 
 	        	 }
