@@ -540,7 +540,7 @@
 			</td>
 			<td nowrap class="s_lose" style="padding-left: 0.2cm; padding-right: 0.2cm;"><button type="button" id="loadHistory" class="button" style="border:3px outset;font-size: 18px;width:100px;">讀取開獎</button></td>
 					<td class="tdClass" width="1%" > <input  style=" font-size: 15px; text-align: center;" class="stoplose" type ="text" size=5/> </td> 
-		    <td width="1%"   nowrap class="s_win"  style="padding-left: 0.2cm; padding-right: 0.2cm;">止盈點數</td>
+		    <td width="1%"   nowrap class="s_win"  style="padding-left: 0.2cm; padding-right: 0.2cm;">熱碼順序</td>
 					<td  class="tdClass" width="1%" > <input style=" font-size: 15px; text-align: center;" class="stopwin" type ="text" size=5/>
 					</td>
 			<td nowrap style="display:none">
@@ -1123,6 +1123,7 @@
     
     
     function virtualtest(start,end){
+    	checkOk = {};
     	overcount = 0 ;
     	projectTemp = {
             	'1' : '' ,
@@ -1155,6 +1156,7 @@
     		//console.log(photo);
     	    var res = JSON.stringify(photo);;
     	    var p = encodeURI(res);
+    	    console.log('http://www.sd8888.net/chart.html?json='+p);
     	    alert(overcount);
     	    window.open('http://www.sd8888.net/chart.html?json='+p, '_blank');
 
@@ -2525,7 +2527,7 @@ function reallyBet(sn,amount,betphase,c,codeList,originformu,BETFLAG){
 
 					console.log('兌獎:'+phase_now);
 					console.log('點數:'+point);
-					photo[phase_now] = phase_now;
+					//photo[phase_now] = phase_now;
 					photo['point'] = photo['point'] *1 + point ;
 					photo[phase_now+'_point'] = photo['point'] *1 ;
 					console.log(photo);
@@ -2859,40 +2861,101 @@ function project999_limit(removeCode){
 		} 
 	}
 
-	function getPhasefromCode(phase,sn){
-		//let snIndex = sn*1 -1 ;
-		//let pro= {};
-
+	 
+	 
+	function getPhasefromCode(phase,sn,orderarray){
 		let snIndex = sn*1 - 1;
-		let tenArray = [];
-		 for(var i=0;i<=phase;i++){
-			  
-			 let p =  phase*1 - i ;
-			 //  if(p.toString().substring(8,11) == '000'){
-			 // 	return null;
-			 // }
-			 let nCodeArra = getCodeByPhase(p);
+	    let tenArray = [];
+	    
+	    let betArray = [];
+		
+	
+			 
 			
-			 let c = nCodeArra.split(',')[snIndex];
+				 for(var i=0;i<=phase;i++){
+					  
+					 let p =  phase*1 - i ;
+					 //  if(p.toString().substring(8,11) == '000'){
+					 // 	return null;
+					 // }
+					 let nCodeArra = getCodeByPhase(p);
+					
+					 let c = nCodeArra.split(',')[snIndex];
 
-			 if(tenArray.indexOf(c) ==-1 ){
-			 	tenArray.push(c);
-			 }
+					 if(tenArray.indexOf(c) ==-1 ){
+					 	tenArray.push(c);
+					 }
 
-			 if(tenArray.length == 4){
-			 	return  tenArray.sort(sortNumber); 
-			 }
+					 if(tenArray.length == 10){
+						 break;
+					 	//return  //tenArray.sort(sortNumber); 
+					 }
 
-			 
-			  
-			  
-			 
-		 }  
+					 
+					  
+					  
+					 
+				 } 
+				 
+					for(var zzz=0 ; zzz<orderarray.length; zzz++){
+						 let bi = orderarray[zzz]*1 -1;
+						 
+						 betArray.push(tenArray[bi]);
+						 
+				 
+			
+					}
+					return  betArray.sort(sortNumber); 
+		 
 	}
 
 	 
-
 	function compareByType_from_member999(phase_before,phase_now,phase_before4 , bIndex, bArray,formu,betSn){
+		
+
+		var z = formu ;  
+		var sn = betSn;
+		let bet_code = '';
+		if($( ".stopwin" ).val()){
+			let order = $( ".stopwin" ).val();
+			let orderarray = order.split(',');
+			bet_code = getPhasefromCode(phase_now,sn,orderarray);
+		}
+	
+		
+		 
+		console.log(bet_code);
+		if(bet_code == null){
+			projectBet[(formu*1)][(formu*1)] = false;
+			return;
+		}
+		
+		
+		let bet_n = betSn;
+		
+		 
+		
+		
+		
+		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+	    var amount = bArray[bIndex[z]%bArray.length] ;
+		    
+
+	    
+   		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,z);
+   		if(rbf){
+			bIndex[z]++;
+			projectBet[(formu*1)][(formu*1)] = true;
+		} 
+		 
+			
+			 
+				
+			 
+		 
+		//console.log(JSON.stringify(betIndex)); 
+	}
+	/* function compareByType_from_member999(phase_before,phase_now,phase_before4 , bIndex, bArray,formu,betSn){
 		
 
 		var z = formu ;  
@@ -2978,7 +3041,7 @@ function project999_limit(removeCode){
 			 
 		 
 		//console.log(JSON.stringify(betIndex)); 
-	}
+	} */
 
     function compareByType_from_member(phase_before,phase_now,phase_before4 , bIndex, bArray,originformu){
 		 
