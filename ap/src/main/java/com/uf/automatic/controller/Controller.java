@@ -597,15 +597,15 @@ public class Controller {
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("09")) {
+                    if (formu.equals("01")) {
                         logHtml.append("<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("01")) {
-                        logHtml.append("<tr><td bgcolor=\"CCFF99\"  style=\"border: 1px solid black\">"
-                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
-                    }
+//                    if (formu.equals("01")) {
+//                        logHtml.append("<tr><td bgcolor=\"CCFF99\"  style=\"border: 1px solid black\">"
+//                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+//                    }
 
 //                    if (formu.equals("07")) {
 //                        logHtml.append("<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">"

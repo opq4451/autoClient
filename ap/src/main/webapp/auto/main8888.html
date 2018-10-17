@@ -1,6 +1,11 @@
 
 
 
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1044,7 +1049,7 @@
 	    	        	  
 	    		    	 	$( "div.historyHtml" ).html(json.logHtml);
 	    		    	 	 document.getElementById("test_startPhase").value = json.start; 
-	    		    	 	 document.getElementById("test_endPhase").value = json.end; 
+	    		    	 	 document.getElementById("test_endPhase").value = json.end*1 +1; 
 
     	         	 } 
 	    	         	 
@@ -1118,6 +1123,7 @@
     
     
     function virtualtest(start,end){
+    	overcount = 0 ;
     	projectTemp = {
             	'1' : '' ,
             	'2' : '' ,
@@ -1133,54 +1139,28 @@
     		let s = start*1;
     		console.log("start:"+s)
     		console.log("end:"+end)
-    		for(var i = s ; i < end ; i ++  ){
+    		for(var i = (s*1-1) ; i < end ; i ++  ){
     			let nextphase = i*1 + 1 ;
     			console.log('目前測試期數:'+ nextphase);
-    			checkOver(nextphase);
+    			//checkOver(nextphase);
     			console.log('下注期數:'+ nextphase);
     			selectTypeToBet(nextphase);
     			getlogHtml();
     			clearProjectBetFlag();
+    			checkOver(nextphase*1 +1);
     		}
-    	
+    		console.log(end*1 +1);
+    		//checkOver(end*1 +1);
+    		getlogHtml();
+    		//console.log(photo);
+    	    var res = JSON.stringify(photo);;
+    	    var p = encodeURI(res);
+    	    alert(overcount);
+    	    window.open('http://www.sd8888.net/chart.html?json='+p, '_blank');
+
+    		
     }
-    function getPhasefromCode(phase,code,code2){
-		//let snIndex = sn*1 -1 ;
-		let pro= {};
-		let tenArray = [];
-		 for(var i=0;i<=phase;i++){
-			  
-			 let p =  phase*1 - i ;
-			 //  if(p.toString().substring(8,11) == '000'){
-			 // 	return null;
-			 // }
-			 let nCodeArra = getCodeByPhase(p);
-			
-			 let array = nCodeArra.split(',');
- 			 for(let ai=0;ai<array.length;ai++){
- 			 	let c = array[ai];
- 			 	if(c == code){ 
-				 	 nCodeArra = getCodeByPhase(p*1 -1);
-					 let c2 = nCodeArra.split(',')[ai];
-					 if(c2 == code2){
-					 	pro['p'] = p;
-					 	pro['sn'] = (ai+1);
-					 	 
-					 	return pro;
-					 	
-					 }
-				 }
-
- 			 }
-
-			 
-			  
-			 if(i == 50){
-			 	return null;
-			 }	
-			 
-		 }  
-	}
+     
     function project999_limit(removeCode){ 
  		let betArray  = ['1','2','3','4','5','6','7','8','9','10'];
  		let remmIndex = betArray.indexOf(removeCode+'');
@@ -1209,22 +1189,7 @@
     	 $.ajax({ url:  url, 
 	         async: false,
 	         success: function(data) {
-	        	 if(data == 'null'){
-	        		  flag = false;
-	                  if(data == 'null'){
-                	  	  $(".check_status" ).html('系統異常');
-             		    $('.check_status').css('background', 'red'); 
-             		    /*if(checkTimeflag(9007)){
-             		    	 systemReloginIndex++;
-                  		     if(systemReloginIndex >6) {
-                  		    	 	 clearIndex(); 
-                 		    	 } 
-             		    }*/
-             		   
-	                  }
-
-	        		  return false;
-	        	 }
+	        
 	        //	 systemReloginIndex = 0 ;
 	        	 $(".check_status" ).html('系統正常');
      		 $('.check_status').css('background', 'green'); 
@@ -2470,10 +2435,18 @@ function reallyBet(sn,amount,betphase,c,codeList,originformu,BETFLAG){
 	
 	
 	 
+    let photo = {point:0};
     
-    
-	//檢查過關
+	let checkOk = {};
+    //檢查過關
+    let overcount = 0;
     function checkOver(nextPhase){
+
+    	if(!checkOk[nextPhase]){
+    		checkOk[nextPhase] = nextPhase;
+    	}else{
+    		return;
+    	}
     	let phase_now = nextPhase*1 - 1 
     	let code_n = getCodeByPhase(phase_now);
     	let array  = code_n.split(',');
@@ -2489,7 +2462,18 @@ function reallyBet(sn,amount,betphase,c,codeList,originformu,BETFLAG){
 	         success: function(data) { 
 	        	  
 	        	 const json = JSON.parse(data);
-
+				let formuOver = {
+								'1':false,
+								'2':false,
+								'3':false,
+								'4':false,
+								'5':false,
+								'6':false,
+								'7':false,
+								'8':false,
+								'9':false,
+								'10':false,
+								 };
 	        	 for(var formu = 1 ; formu<13 ; formu++){
 	        		 for(var sn=1 ; sn<13 ; sn++){
 	        			  let letter = '';
@@ -2508,6 +2492,7 @@ function reallyBet(sn,amount,betphase,c,codeList,originformu,BETFLAG){
 					  
 	        			     let flag = json[letter+''+formu] ;
 	        			     if(flag){
+        			     		  formuOver[formu] = true;
 	        			     	  projectTemp[formu] = '';
 	        			    	 	  //if(formu==1){betIndex[1] = 0 ;}
 	        			    	 	  if(formu==1){betIndex[1] = 0 ;}
@@ -2528,7 +2513,22 @@ function reallyBet(sn,amount,betphase,c,codeList,originformu,BETFLAG){
 	        		 }
 	        		 
 	        	 }
-	        	  
+	        	    
+	        	   let point =-4;
+	        	   for(var formu in formuOver){
+						if(formuOver[formu]){
+							point++;		 
+							overcount++; 
+		        			        
+						} 
+					}
+
+					console.log('兌獎:'+phase_now);
+					console.log('點數:'+point);
+					photo[phase_now] = phase_now;
+					photo['point'] = photo['point'] *1 + point ;
+					photo[phase_now+'_point'] = photo['point'] *1 ;
+					console.log(photo);
 	        	 if(json.checkFlag=='Y'){
 	        		 check = true;
 	        	 }
@@ -2591,7 +2591,7 @@ function reallyBet(sn,amount,betphase,c,codeList,originformu,BETFLAG){
 					  } 
 			    }
 			    if(document.getElementById('c2').checked  && !(projectBet[2][2]) ) {
-			  		  console.log('project3'+'-betPhase:'+nextPhase);
+			  		  console.log('project2'+'-betPhase:'+nextPhase);
 			  		  obj.b = nextPhase - 5 ;
 					  obj.fourTh = nextPhase - 4 ;
 					  const b = obj.b ;
@@ -2859,51 +2859,98 @@ function project999_limit(removeCode){
 		} 
 	}
 
+	function getPhasefromCode(phase,sn){
+		//let snIndex = sn*1 -1 ;
+		//let pro= {};
+
+		let snIndex = sn*1 - 1;
+		let tenArray = [];
+		 for(var i=0;i<=phase;i++){
+			  
+			 let p =  phase*1 - i ;
+			 //  if(p.toString().substring(8,11) == '000'){
+			 // 	return null;
+			 // }
+			 let nCodeArra = getCodeByPhase(p);
+			
+			 let c = nCodeArra.split(',')[snIndex];
+
+			 if(tenArray.indexOf(c) ==-1 ){
+			 	tenArray.push(c);
+			 }
+
+			 if(tenArray.length == 4){
+			 	return  tenArray.sort(sortNumber); 
+			 }
+
+			 
+			  
+			  
+			 
+		 }  
+	}
+
+	 
+
 	function compareByType_from_member999(phase_before,phase_now,phase_before4 , bIndex, bArray,formu,betSn){
 		
 
 		var z = formu ;  
 		var sn = betSn;
-		//step1
-		let nCodeArra = getCodeByPhase(phase_now);
- 		let b1 = nCodeArra.split(',')[z*1 -1];
- 		nCodeArra = getCodeByPhase(phase_now*1 -1);
-		let b2 = nCodeArra.split(',')[z*1 -1];
-		nCodeArra = getCodeByPhase(phase_now*1 -2);
-		let b3 = nCodeArra.split(',')[z*1 -1];
-		nCodeArra = getCodeByPhase(phase_now*1 -3);
-		let b4 = nCodeArra.split(',')[z*1 -1];
-
-		let dis1 = computeDis(b1,b2);
-		let dis2 = computeDis(b2,b3);
-		let dis3 = computeDis(b3,b4);
-		console.log('第幾名:'+z);
-		console.log('dis1:'+dis1);
-		console.log('dis2:'+dis2);
-		console.log('dis2:'+dis3);
-
-		let dis11 = computeDis(dis1,dis2);
-		let dis22 = computeDis(dis2,dis3);
-		console.log('dis11:'+dis11);
-		console.log('dis22:'+dis22);
-
-		let dis33 = computeDis(dis11,dis22);
-		console.log('dis33:'+dis33);
-
-		let add = computeadd(dis11,dis33);
-		console.log('add:'+add);
-
-		let addno =  computeadd(dis1,add);
-		console.log('addno:'+addno);
-
-		let removecode = computeadd(b1,addno);
 		 
+	    let nCodeArra = getCodeByPhase(phase_now);
+	    let b1 =  nCodeArra.split(',')[sn*1 - 1];
+	    let b2nCodeArra = getCodeByPhase(phase_now*1 -1);
+	    let b2ar = b2nCodeArra.split(',');
+
+        let beta = [];
+
+	    let consn ='';
+	    for(var ai=0;ai<b2ar.length;ai++){
+	    	let bc = b2ar[ai];
+	    	if(bc == b1){
+	    		consn = ai*1 + 1;
+	    		break;
+	    	}
+
+	    }
+
+	    if(consn == '1' ||consn == '4'||consn == '7'||consn == '10' ){
+	    	let r1 = nCodeArra.split(',')[0];
+			let r2 = nCodeArra.split(',')[3];
+			let r3 = nCodeArra.split(',')[6];
+			let r4 = nCodeArra.split(',')[9];
+			beta.push(r1);
+			beta.push(r2);
+			beta.push(r3);
+			beta.push(r4);
+	    }else if(consn == '3' ||consn == '6'||consn == '9' ){
+	    	let r1 = nCodeArra.split(',')[2];
+			let r2 = nCodeArra.split(',')[5];
+			let r3 = nCodeArra.split(',')[8];
+			let r4 = nCodeArra.split(',')[9];
+			beta.push(r1);
+			beta.push(r2);
+			beta.push(r3);
+			beta.push(r4);
+	    }else {
+			let r1 = nCodeArra.split(',')[1];
+			let r2 = nCodeArra.split(',')[4];
+			let r3 = nCodeArra.split(',')[7];
+			let r4 = nCodeArra.split(',')[9];
+			beta.push(r1);
+			beta.push(r2);
+			beta.push(r3);
+			beta.push(r4);
+
+	    }
 
 
-		let bet_code = project999_limit(removecode);
+
+		let bet_code = beta.sort(sortNumber).toString(); 
 		console.log(bet_code);
 		if(bet_code == null){
-			projectBet[(formu*1)][(formu*1)] = true;
+			projectBet[(formu*1)][(formu*1)] = false;
 			return;
 		}
 		
@@ -2932,6 +2979,7 @@ function project999_limit(removeCode){
 		 
 		//console.log(JSON.stringify(betIndex)); 
 	}
+
     function compareByType_from_member(phase_before,phase_now,phase_before4 , bIndex, bArray,originformu){
 		 
 		//const code_b = getCodeByPhase(phase_before); 
