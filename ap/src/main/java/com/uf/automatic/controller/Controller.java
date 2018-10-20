@@ -466,22 +466,27 @@ public class Controller {
                     String index = "";
                     
                     if (key_form.equals("12")) { //計劃11
+                        index = "01";
+                    }
+                    
+                    if (key_form.equals("11")) {//計劃10
+                        index = "07";
+                    }
+                    
+                    if (key_form.equals("10")) {//計劃10
                         index = "02";
                     }
-                    if (key_form.equals("10")) {//計劃10
+                    if (key_form.equals("9")) {//計劃9
                         index = "03";
                     }
-                    if (key_form.equals("9")) {//計劃9
+                    if (key_form.equals("8")) {//計劃8
                         index = "04";
                     }
-                    if (key_form.equals("8")) {//計劃8
+                    if (key_form.equals("7")) {//計劃7
                         index = "05";
                     }
-                    if (key_form.equals("7")) {//計劃7
-                        index = "06";
-                    }
                     if (key_form.equals("6")) {//計劃6
-                        index = "07";
+                        index = "06";
                     }
                     ;
                     if (key_form.equals("5")) {//計劃5
@@ -573,58 +578,58 @@ public class Controller {
                         m.put(phase, phase);
                     }
 
-//                    if (formu.equals("12")) {
-//                        logHtml.append("<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">"
-//                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
-//                    }
-                    if (formu.equals("12")) {//計劃一
+                    if (formu.equals("12")) {
+                        logHtml.append("<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">"
+                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+                    }
+                    if (formu.equals("11")) {//計劃一
                         logHtml.append("<tr><td bgcolor=\"5599FF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("11")) {//計劃二
+                    if (formu.equals("10")) {//計劃二
                         logHtml.append("<tr><td bgcolor=\"666666\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("10")) {//計劃三
+                    if (formu.equals("09")) {//計劃三
                         logHtml.append("<tr><td bgcolor=\"FFAA33\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("09")) {// 計劃四
+                    if (formu.equals("08")) {// 計劃四
                         logHtml.append("<tr><td bgcolor=\"99FFFF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("08")) {//計劃五
+                    if (formu.equals("07")) {//計劃五
                         logHtml.append("<tr><td bgcolor=\"B94FFF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("07")) {//計劃六
+                    if (formu.equals("06")) {//計劃六
                         logHtml.append("<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">"
                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("06")) {//計劃七
+                    if (formu.equals("05")) {//計劃七
                         logHtml.append("<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("05")) {//計劃八
+                    if (formu.equals("04")) {//計劃八
                         logHtml.append("<tr><td bgcolor=\"DEB887\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("04")) {//計劃九
+                    if (formu.equals("03")) {//計劃九
                         logHtml.append("<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("03")) {//計劃十
+                    if (formu.equals("02")) {//計劃十
                         logHtml.append("<tr><td bgcolor=\"CCFF99\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("02")) {//計劃1 1
+                    if (formu.equals("01")) {//計劃1 1
                         logHtml.append("<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
@@ -1086,7 +1091,7 @@ public class Controller {
                                                                                                   + "關)" + "(公式" + x
                                                                                                   + ")");
 
-                                    j.addProperty(covertIntToLatter(overi) + x , "Y");
+                                    j.addProperty(covertIntToLatter(sn) + x , "Y");
                                 }
 
                             }
