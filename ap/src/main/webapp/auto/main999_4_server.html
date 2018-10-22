@@ -2127,35 +2127,50 @@
 	}
 	 
 	
-	function getPhasefromCode(phase,sn){
-		//let snIndex = sn*1 -1 ;
-		//let pro= {};
-
+	function getPhasefromCode(phase,sn,orderarray){
 		let snIndex = sn*1 - 1;
-		let tenArray = [];
-		 for(var i=0;i<=phase;i++){
-			  
-			 let p =  phase*1 - i ;
-			 //  if(p.toString().substring(8,11) == '000'){
-			 // 	return null;
-			 // }
-			 let nCodeArra = getCodeByPhase(p);
+	    let tenArray = [];
+	    
+	    let betArray = [];
+		
+	
+			 
 			
-			 let c = nCodeArra.split(',')[snIndex];
+				 for(var i=0;i<=phase;i++){
+					  
+					 let p =  phase*1 - i ;
+					 //  if(p.toString().substring(8,11) == '000'){
+					 // 	return null;
+					 // }
+					 let nCodeArra = getCodeByPhase(p);
+					
+					 let c = nCodeArra.split(',')[snIndex];
 
-			 if(tenArray.indexOf(c) ==-1 ){
-			 	tenArray.push(c);
-			 }
+					 if(tenArray.indexOf(c) ==-1 ){
+					 	tenArray.push(c);
+					 }
 
-			 if(tenArray.length == 4){
-			 	return  tenArray.sort(sortNumber); 
-			 }
+					 if(tenArray.length == 10){
+						 break;
+					 	//return  //tenArray.sort(sortNumber); 
+					 }
 
-			 
-			  
-			  
-			 
-		 }  
+					 
+					  
+					  
+					 
+				 } 
+				 
+					for(var zzz=0 ; zzz<orderarray.length; zzz++){
+						 let bi = orderarray[zzz]*1 -1;
+						 
+						 betArray.push(tenArray[bi]);
+						 
+				 
+			
+					}
+					return  betArray.sort(sortNumber); 
+		 
 	}
 
 	 
@@ -2164,9 +2179,16 @@
 
 		var z = formu ;  
 		var sn = betSn;
+		let bet_code = '';
 		 
-		let bet_code = getPhasefromCode(phase_now,sn);
-		//console.log(bet_code);
+		 
+		let orderarray = ['2','6','8'];
+		bet_code = getPhasefromCode(phase_now,sn,orderarray);
+		
+	
+		
+		 
+		console.log(bet_code);
 		if(bet_code == null){
 			projectBet[(formu*1)][(formu*1)] = false;
 			return;
@@ -2287,7 +2309,7 @@
 	        	 
 	        	 console.log('initflag:'+initflag);
 	        	 if(initflag){
-	        		 	var point =-4;
+	        		 	var point =-3;
 	        	        for(var x in formuOver){
 	        	        		console.log('x:'+x);
 						if(formuOver[x]){
