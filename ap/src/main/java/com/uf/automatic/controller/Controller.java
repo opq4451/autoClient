@@ -202,15 +202,9 @@ public class Controller {
             DecimalFormat df = new DecimalFormat("##.00");
 
             if (boardType.equals("0")) {
-                if (h == null) {
-                    h = httpClientCookie.getInstance(user, pwd);
-                }
-                String ret = h.getoddsInfo();
-                JsonObject o = parser.parse(ret).getAsJsonObject();
-
-                JsonObject data = o.getAsJsonObject("data");
-                String todayWin = data.get("profit").getAsString();
-                String usable_credit = data.get("usable_credit").getAsString();
+                 
+                String todayWin = "0";
+                String usable_credit = "0";
 
                 j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(todayWin))));
                 j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
@@ -448,63 +442,75 @@ public class Controller {
                                                                                   + v.substring(start_cc + 1, end_cc)
                                                                                 : v.substring(start_cc + 1, end_cc); //第幾關
 
-                    //System.out.println(sn);
+                    System.out.println(v);
 
                     if (Integer.parseInt(c) < 1) { //下注0的不用顯示在log
                         continue;
                     }
-                    String index = "";
-                   
-                   
-                   
+ String index = "";
                     
-                    if (key_form.equals("10")) {
+                    if (key_form.equals("12")) { //計劃11
                         index = "01";
                     }
-                   
-                    if (key_form.equals("9")) {
-                        index = "02";
+                    
+                    if (key_form.equals("11")) {//計劃10
+                        index = "07";
                     }
                     
-                    if (key_form.equals("8")) {
+                    if (key_form.equals("10")) {//計劃10
+                        index = "02";
+                    }
+                    if (key_form.equals("9")) {//計劃9
                         index = "03";
                     }
-                    if (key_form.equals("7")) {
+                    if (key_form.equals("8")) {//計劃8
                         index = "04";
                     }
-                    if (key_form.equals("6")) {
+                    if (key_form.equals("7")) {//計劃7
                         index = "05";
                     }
-                    ;
-                    if (key_form.equals("5")) {
+                    if (key_form.equals("6")) {//計劃6
                         index = "06";
                     }
                     ;
-                    if (key_form.equals("4")) {
-                        index = "07";
-                    }
-                    ;
-                    if (key_form.equals("3")) {
+                    if (key_form.equals("5")) {//計劃5
                         index = "08";
                     }
                     ;
-                    if (key_form.equals("2")) {
+                    if (key_form.equals("4")) {//計劃4
                         index = "09";
                     }
                     ;
-                   
-                    if (key_form.equals("1")) {
+                    if (key_form.equals("3")) {// 計劃3
                         index = "10";
                     }
                     ;
+                    if (key_form.equals("2")) {//計劃2
+                        index = "11";
+                    }
+                    ;
                    
+                    if (key_form.equals("1")) {//計劃1
+                        index = "12";
+                    }
+                    ;
+                    
+//                    if (key_form.equals("11")) {
+//                        index = "02";
+//                    }
+                    
+                    
+                   
+                    
+                    
+
                     String k = phase + "@" + index + "@" + sn + "@" + c + "@" + cc;
 
                     treemap.put(k, v);
 
-                    //					{
-                    //					    if(m.get(phase) == null) {
-                    //					        i++;
+                    //                  {
+                    //                      if(m.get(phase) == null) {
+                    //                          i++;
                     //                            if(i % 2 == 1) {
                     //                                logHtml.insert(0,"<table  style=\"width:100%;border: 2px solid black;border-collapse: collapse;\">" );
                     //                            }else {
@@ -512,21 +518,21 @@ public class Controller {
                     //                            }  
                     //                            logHtml.insert(0,"</table>" ); 
                     //
-                    //					        
-                    //	                        m.put(phase, phase);
+                    //                          
+                    //                          m.put(phase, phase);
                     //
-                    //	                     
-                    //	                     
-                    //	                     } 
-                    //	                    
-                    //					}
-                    //					
-                    //					
+                    //                       
+                    //                       
+                    //                       } 
+                    //                      
+                    //                  }
+                    //                  
+                    //                  
 
                 }
 
-                //				 if(i % 2 == 1) {
-                //				     j.addProperty("logHtml", "<table style=\"width:100%;border: 1px solid black;border-collapse: collapse;\">" + 
+                //               if(i % 2 == 1) {
+                //                   j.addProperty("logHtml", "<table style=\"width:100%;border: 1px solid black;border-collapse: collapse;\">" + 
                 //                             logHtml.toString()  );
                 //                   }else {
                 //                         j.addProperty("logHtml", "<table style=\"width:100%;border: 2px solid black;border-collapse: collapse;\">" + 
@@ -556,61 +562,61 @@ public class Controller {
                         m.put(phase, phase);
                     }
 
-                    if (formu.equals("10")) {
+                    if (formu.equals("12")) {
                         logHtml.append("<tr><td bgcolor=\"FFFF77\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("09")) {
+                    if (formu.equals("11")) {//計劃一
                         logHtml.append("<tr><td bgcolor=\"5599FF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("08")) {
+                    if (formu.equals("10")) {//計劃二
                         logHtml.append("<tr><td bgcolor=\"666666\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("07")) {
+                    if (formu.equals("09")) {//計劃三
                         logHtml.append("<tr><td bgcolor=\"FFAA33\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
-                    if (formu.equals("06")) {
+                    if (formu.equals("08")) {// 計劃四
                         logHtml.append("<tr><td bgcolor=\"99FFFF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("05")) {
+                    if (formu.equals("07")) {//計劃五
                         logHtml.append("<tr><td bgcolor=\"B94FFF\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("04")) {
+                    if (formu.equals("06")) {//計劃六
                         logHtml.append("<tr><td bgcolor=\"DDDDDD\"  style=\"border: 1px solid black\">"
-                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+                                      + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("03")) {
+                    if (formu.equals("05")) {//計劃七
                         logHtml.append("<tr><td bgcolor=\"FF8888\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("02")) {
+                    if (formu.equals("04")) {//計劃八
                         logHtml.append("<tr><td bgcolor=\"DEB887\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-                    if (formu.equals("01")) {
+                    if (formu.equals("03")) {//計劃九
                         logHtml.append("<tr><td bgcolor=\"66FF66\"  style=\"border: 1px solid black\">"
                                        + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
                     }
 
-//                    if (formu.equals("01")) {
-//                        logHtml.append("<tr><td bgcolor=\"CCFF99\"  style=\"border: 1px solid black\">"
-//                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
-//                    }
+                    if (formu.equals("02")) {//計劃十
+                        logHtml.append("<tr><td bgcolor=\"CCFF99\"  style=\"border: 1px solid black\">"
+                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+                    }
 
-//                    if (formu.equals("07")) {
-//                        logHtml.append("<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">"
-//                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
-//                    }
+                    if (formu.equals("01")) {//計劃1 1
+                        logHtml.append("<tr><td bgcolor=\"FFB3FF\"  style=\"border: 1px solid black\">"
+                                       + v.substring(0, v.lastIndexOf("(")) + "</td></tr>");
+                    }
 
                 }
                 logHtml.append("</table>");
@@ -993,7 +999,7 @@ public class Controller {
     Map overmp = new HashMap();
 
     @RequestMapping("/checkOver")
-    public synchronized String checkOver(@RequestParam("user") String user, @RequestParam("phase") String phase,
+    public String checkOver(@RequestParam("user") String user, @RequestParam("phase") String phase,
                             @RequestParam("code") String code, @RequestParam("betproject") String betproject) {
         FileInputStream fileIn = null;
         FileOutputStream fileOut = null;
@@ -1021,19 +1027,19 @@ public class Controller {
             if (c.length != 10)
                 return "null";
 
-           
+            
 
-            for (int x = 1; x < 11; x++) { // x → 公式幾
+            for (int x = 1; x < 13; x++) { // x → 公式幾
                 for (int i = 0; i < 10; i++) {
 
                     int sn = i + 1;
 
-                    //if (  x == 6  || x == 12) {
+                    
 
-                        for (int overi = 1; overi < 11; overi++) {
-                            String key = phase + "@" + sn + "@" + c[i] + "@" + x + "@" + overi;
+                        for (int overi = 1; overi < 13; overi++) {
+                            String key = phase + "@" + sn + "@" + c[i] + "@" + x + "@" + overi; 
                             
-                            System.out.println(key);
+                            
                             if (configProperty.getProperty(key) != null) {
                                 if (overmp.get(user + key) == null) {
                                     overmp.put(user + key, "put");
@@ -1042,44 +1048,20 @@ public class Controller {
                                     // fillZero(Integer.toString(over_i)), "第"+phase +
                                     // "期，第" + sn + "名，號碼(" + code + ") 已過關!(第"+c+"關)");
                                     String t = new SimpleDateFormat("HH:mm:ss").format(new Date());
-                                    
                                     Utils.WritePropertiesFile(user + "overLOGDIS_log",
                                                               fillZero(Integer.toString(over_i)),
-                                                              "第" + phase + "期"
-                                                                      + "計劃" + overi
-                                                                      + "，第" + sn + "名，號碼(" + c[i] + ")已過關!(第"
+                                                              "第" + phase + "期，第" + sn + "名，號碼(" + c[i] + ")已過關!(第"
                                                                                                   + configProperty.getProperty(key)
                                                                                                   + "關)" + "(公式" + x
                                                                                                   + ")");
 
-                                    j.addProperty(covertIntToLatter(overi) + x , "Y");
+                                    j.addProperty(covertIntToLatter(sn) + x , "Y");
                                 }
 
                             }
                         }
 
-                  //  } 
-//                    else {
-//                        String key = phase + "@" + sn + "@" + c[i] + "@" + x;
-//                        if (configProperty.getProperty(key) != null) {
-//                            if (overmp.get(user + key) == null) {
-//                                overmp.put(user + key, "put");
-//                                over_i++;
-//                                // Utils.WritePropertiesFile(user+"overLOGDIS_log",
-//                                // fillZero(Integer.toString(over_i)), "第"+phase +
-//                                // "期，第" + sn + "名，號碼(" + code + ") 已過關!(第"+c+"關)");
-//                                String t = new SimpleDateFormat("HH:mm:ss").format(new Date());
-//                                Utils.WritePropertiesFile(user + "overLOGDIS_log",
-//                                                          fillZero(Integer.toString(over_i)),
-//                                                          "第" + phase + "期，第" + sn + "名，已過關!(第"
-//                                                                                              + configProperty.getProperty(key)
-//                                                                                              + "關)" + "(公式" + x + ")");
-//
-//                                j.addProperty(covertIntToLatter(sn) + (x > 6 ? x - 6 : x), "Y");
-//                            }
-//
-//                        }
-//                    }
+                   
 
                 }
 
@@ -1103,6 +1085,7 @@ public class Controller {
                 fileOut.close();
             } catch (Exception ex) {
             }
+
         }
 
         return "null";
