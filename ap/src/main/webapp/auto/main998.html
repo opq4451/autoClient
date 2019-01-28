@@ -1,0 +1,3391 @@
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+ 
+ 
+
+<title>Login</title>
+
+  
+<style>
+
+		
+		 .tdClass {
+			border: 1px solid gray; border-collapse: collapse; font-size: 18px; text-align:center;
+			padding-left: 0.2cm;
+			padding-right: 0.2cm;
+		}
+		
+		html, body {
+		    max-width: 100%;
+		    overflow-x: hidden;
+    		    overflow-y: hidden;
+		    
+		}
+		
+		@media (min-height: 200px) and (max-height: 769px) {
+		    .title_column{
+			    	position: absolute;
+			    	top: 1%;
+			    	left:1%;
+			    	width: 98%;
+			    	height: 25%;
+		    }
+		    
+		    .center_tablebar{
+			    	position: absolute;
+			    	top: 32%;
+			    	left:1%;
+			    	width: 100%;
+			    	height: 10%;
+		    }
+		    
+		      .left_column{
+			    border: 1px solid gray;
+			    	position: absolute;
+			    	top: 41%;
+			    	left: 1%;
+			    	width: 34%;
+			    	overflow-y:scroll; 
+			    	height:59%;
+			    }
+			    
+			     .center_column{
+	       		 border: 1px solid gray;
+			    	position: absolute;
+			    	top: 41%;
+			    	left: 35%;
+			    	width: 35%;
+			    	overflow-y:scroll; 
+			    	height:59%;
+			    }
+			    
+			    
+			   
+			    
+			    
+			    .right_column{
+			     border: 1px solid gray;
+			    	position: absolute;
+			    	top: 41%;
+			    	left: 70%;
+			    	width: 29%;
+			    	overflow-y:scroll; 
+			    	 height:59%;
+			    }
+		    
+		    
+		}
+		
+		@media (min-height: 770px) and (max-height: 800px) {
+		    .title_column{
+			    	position: absolute;
+			    	top: 1%;
+			    	left:1%;
+			    	width: 98%;
+			    	height: 25%;
+		    }
+		    
+		    .center_tablebar{
+			    	position: absolute;
+			    	top: 27%;
+			    	left:1%;
+			    	width: 100%;
+			    	height: 10%;
+		    }
+		    
+		      .left_column{
+			    border: 1px solid gray;
+			    	position: absolute;
+			    	top: 36%;
+			    	left: 1%;
+			    	width: 34%;
+			    	overflow-y:scroll; 
+			    	height:64%;
+			    }
+			    
+			     .center_column{
+	       		 border: 1px solid gray;
+			    	position: absolute;
+			    	top: 36%;
+			    	left: 35%;
+			    	width: 35%;
+			    	overflow-y:scroll; 
+			    	height:64%;
+			    }
+			    
+			    
+			   
+			    
+			    
+			    .right_column{
+			     border: 1px solid gray;
+			    	position: absolute;
+			    	top: 36%;
+			    	left: 70%;
+			    	width: 29%;
+			    	overflow-y:scroll; 
+			    	 height:64%;
+			    }
+		    
+		    
+		} 
+		
+		
+		@media (min-height: 800px) and (max-height: 850px) {
+		    .title_column{
+			    	position: absolute;
+			    	top: 1%;
+			    	left:1%;
+			    	width: 98%;
+			    	height: 25%;
+		    }
+		    
+		    .center_tablebar{
+			    	position: absolute;
+			    	top: 25%;
+			    	left:1%;
+			    	width: 100%;
+			    	height: 20%;
+		    }
+		    
+		      .left_column{
+			    border: 1px solid gray;
+			    	position: absolute;
+			    	top: 40%;
+			    	left: 1%;
+			    	width: 34%;
+			    	overflow-y:scroll; 
+			    	height:60%;
+			    }
+			    
+			     .center_column{
+	       		 border: 1px solid gray;
+			    	position: absolute;
+			    	top: 40%;
+			    	left: 35%;
+			    	width: 35%;
+			    	overflow-y:scroll; 
+			    	height:60%;
+			    }
+			    
+			    
+			   
+			    
+			    
+			    .right_column{
+			     border: 1px solid gray;
+			    	position: absolute;
+			    	top: 40%;
+			    	left: 70%;
+			    	width: 29%;
+			    	overflow-y:scroll; 
+			    	 height:60%;
+			    }
+		    
+		    
+		} 
+		 
+		@media (min-height: 850px) and (max-height: 1180px) {
+		    .title_column{
+			    	position: absolute;
+			    top: 1%;
+			    	left:1%;
+			    	width: 98%;
+			    	height: 25%;
+		    }
+		    
+		    .center_tablebar{
+			    	position: absolute;
+			    	top: 29%;
+			    	left:1%;
+			    	width: 100%;
+			    	height: 1%;
+		    }
+		    
+		      .left_column{
+			    border: 1px solid gray;
+			    	position: absolute;
+			    	top: 33%;
+			    	left: 1%;
+			    	width: 34%;
+			    	overflow-y:scroll; 
+			    	height:67%;
+			    }
+			    
+			     .center_column{
+	       		 border: 1px solid gray;
+			    	position: absolute;
+			    	top: 33%;
+			    	left: 35%;
+			    	width: 35%;
+			    	overflow-y:scroll; 
+			    	height:67%;
+			    }
+			    
+			    
+			   
+			    
+			    
+			    .right_column{
+			     border: 1px solid gray;
+			    	position: absolute;
+			    	top: 33%;
+			    	left: 70%;
+			    	width: 29%;
+			    	overflow-y:scroll; 
+			    	 height:67%;
+			    }
+		    
+		    
+		} 
+	
+	    
+	    
+	    .console_column{
+	    	position: absolute;
+	    	top: 0px;
+	    	right:0%;
+	    	width: 20%;
+	    	height: 25%;
+    	  	background-color:black;
+        overflow-y:scroll; 
+	    }
+	    
+	    .console_str{
+	    color:#00FF00; 
+	    	vertical-align: top; 
+	    
+	    	}
+	    
+	    
+	    #his_str{
+	    	position: absolute;
+	    	top: 27%;
+	    	left: 0%;
+    	    font-size: 20px;
+	    }
+	    
+	   
+	    
+	    
+	    
+	     #bet_str{
+	    	position: absolute;
+	    	top: 27%;
+	    	left: 35%;
+	        font-size: 20px;
+	    }
+	    #target{
+	    
+	    	 
+	    	font-size: 20px;
+	    
+	    }
+	   
+	    
+	    #over_str{
+	    	position: absolute;
+	    	top: 26%;
+	    	left: 70%;
+	        font-size: 20px;
+	    }
+	    
+	    #target2{
+	    
+	   	   
+	    	font-size: 20px;
+	    }
+	    
+		
+		
+		#center_bar{
+			position: absolute; 
+			width: 100%;
+			top:25%;
+		}
+	    
+	    
+	    
+	    #connectURL:hover {
+	       background-color:yellow;
+	    }
+	    
+	    .red { 
+	      color: red;  
+  		}
+	    
+		 
+		  
+		 .button {
+		    font-size: 18px;width:100px;
+		    
+		 }
+		 .button:hover {
+		    background-color: #4CAF50; /* Green */
+		    color: white;
+	    	 }
+	    	 
+		 input {
+		    line-height: 1.0em; // 2em is (2 * default line height)
+		 }
+		 
+		@-webkit-keyframes blinker {
+		  from {opacity: 1.0;}
+		  to {opacity: 0.0;}
+		}
+		.blink{
+			text-decoration: blink;
+			-webkit-animation-name: blinker;
+			-webkit-animation-duration: 0.6s;
+			-webkit-animation-iteration-count:infinite;
+			-webkit-animation-timing-function:ease-in-out;
+			-webkit-animation-direction: alternate;
+		}
+		
+		.container {
+		  white-space:nowrap;
+		  overflow:hidden;
+		  
+		}
+		
+		
+	    	.time span{
+					font-weight:bold;
+					font-family:Verdana,"宋体",Arial,Sans;
+				}
+				 
+				    .time span{
+						
+					          display: inline-block;
+							    width: 25px;
+							    height: 34px;
+							    height: 5px;
+							    us: ;
+							    height: 21px;
+							    ebkit-border-radius: 3px;
+							    border-radius: 4px;
+							    margin: 0px 1px 0px;
+							    line-height: 19px;
+							    text-align: center;
+							    font-size: 18px;
+							    font-family: Verdana,"宋体",Arial,Sans;
+							    -webkit-border-radius: 4px;
+							    -moz-border-radius: 4px;
+							    -webkit-box-shadow: rgba(0,0,0,0.8) 0px 0 10px;
+							    -moz-box-shadow: rgba(0,0,0,0.8) 0 0 10px;
+							    box-shadow: rgba(0,0,0,0.8) 0px -1px 10px;
+							    color: red;
+					}
+					
+					input[type=checkbox] {
+					  -ms-transform: scale(1.5); /* IE */
+					  -moz-transform: scale(1.5); /* FireFox */
+					  -webkit-transform: scale(1.5); /* Safari and Chrome */
+					  -o-transform: scale(1.5); /* Opera */
+					}
+					
+					
+					.spinner {
+					   
+					  width: 70px;
+					  text-align: left;
+					}
+					
+					.spinner > div {
+					  width: 3px;
+					  height: 3px;
+					  background-color: #333;
+					
+					  border-radius: 100%;
+					  display: inline-block;
+					  -webkit-animation: sk-bouncedelay 2s infinite ease-in-out both;
+					  animation: sk-bouncedelay 2s infinite ease-in-out both;
+					}
+					
+					.spinner .bounce1 {
+					  -webkit-animation-delay: -0.80s;
+					  animation-delay: -0.80s;
+					}
+					
+					.spinner .bounce2 {
+					  -webkit-animation-delay: -0.60s;
+					  animation-delay: -0.60s;
+					}
+					
+					.spinner .bounce3 {
+					  -webkit-animation-delay: -0.40s;
+					  animation-delay: -0.40s;
+					}
+					
+					
+					.spinner .bounce4 {
+					  -webkit-animation-delay: -0.20s;
+					  animation-delay: -0.20s;
+					}
+					
+					
+					@-webkit-keyframes sk-bouncedelay {
+					  0%, 80%, 100% { -webkit-transform: scale(0) }
+					  40% { -webkit-transform: scale(1.0) }
+					}
+					
+					@keyframes sk-bouncedelay {
+					  0%, 80%, 100% { 
+					    -webkit-transform: scale(0);
+					    transform: scale(0);
+					  } 40% { 
+					    -webkit-transform: scale(1.0);
+					    transform: scale(1.0);
+					  }
+					}
+</style>
+<link rel="stylesheet" type="text/css" href="img/pk10.css"> 
+
+
+
+
+</head>
+
+
+<body  style="background-color:powderblue;">
+
+
+<form  >
+<div class="console_column" style="display:none"><table >
+		<tr>
+			<td nowrap width="1%" valign="top">
+					<div class="console_str">資料分析中…</div>
+			</td></tr></table></div>
+<div class="title_column">
+	 <table style="height:100%;border: 1px solid gray; border-collapse: collapse; font-size: 18px; text-align:center;">
+		<tr>
+			<td nowrap width="1%" height="1%" class="tdClass"> 今日點數
+			</td>
+			<td width="100px;" class="tdClass"> <div  class="toDayWin" style="	font-size:24px;" class="tdClass">loading...</div> </td>
+			<td nowrap  class="tdClass">遊戲帳號</td>
+			<td style="text-align:left" class="tdClass"> <input style=" font-size: 15px;text-align: center;" type="text" id="user" readonly size="6"/></td>
+			<td colspan=2 align=center class="tdClass"><button type="button" id="logoutDiv" class="button" style="border:3px outset;font-size: 18px;width:100px;">登出</button></td>
+    	        
+      	    
+      	    
+    	        
+    	        <td nowrap rowspan="6" class="tdClass" style="display:none;text-align: center; ">
+    	        <div style="font-weight:bold;font-size: 18px;">  <input type="checkbox" name="c1" id="betproject5" value="1" ></div>
+    	        <br><div style="font-weight:bold;font-size: 18px;">五</div><br>
+    	        <div style="font-weight:bold;font-size: 18px;">碼</div><br>
+    	        <div style="font-weight:bold;font-size: 18px;">計</div><br>
+    	        <div style="font-weight:bold;font-size: 18px;">劃</div></td>
+	        <td class="tdClass"  bgcolor="FFFF77" width="1%" nowrap colspan=2>&nbsp;<input type="checkbox" name="c1" id="c1" value="1" style="display:none;" >&nbsp;&nbsp;六碼計劃&nbsp;</td> 
+		    
+		    <td class="tdClass" style="display:none;text-align:left"> <input class="betlist" type ="text" style="width:98%"/></td>
+	        
+	        
+	        <td nowrap rowspan="6" class="tdClass" style="display:none;text-align: center; ">
+	         <div style="font-weight:bold;font-size: 18px;">   <input type="checkbox" name="c1" id="betproject6" value="1" ></div>
+	        <br><div style="font-weight:bold;font-size: 18px;">六</div><br>
+    	        <div style="font-weight:bold;font-size: 18px;">碼</div><br>
+    	        <div style="font-weight:bold;font-size: 18px;">計</div><br>
+    	        <div style="font-weight:bold;font-size: 18px;">劃</div></td>
+		    <td class="tdClass"  bgcolor="DDDDDD" width="1%" nowrap >&nbsp;<input type="checkbox" name="c7" id="c7" value="1"  >&nbsp;&nbsp;計劃六&nbsp;</td>  
+		    <td class="tdClass" style="text-align:left"> <input class="betlist7" type ="text" style="width:98%"/></td>
+		    <td nowrap class="tdClass" width="1%;"><button type="button" onclick="save_param()" class="button" style="border:3px outset;width:60px">儲存</button></td> 
+      	    
+    	        
+      	    <td style=" border: none; " rowspan=6 nowrap width="200px;" align=center> 
+      	    
+      	     		<div style="font-weight:bold;font-size: 18px;">環球自動投注系統</div> <div style="line-height:10%;"><br></div>
+   					 <div style="font-size: 15px;">關卡歸零說明:</div> <div style="line-height:10%;"><br></div>
+   					 
+   					 <div style="display: table; margin-right: auto; margin-left: auto;">
+	   					 <div style="text-align:left;font-size: 15px;">　1.程式登出後再登入。</div>
+	   					 		<div style="line-height:10%;"><br></div>
+	   					 <div style="text-align:left;font-size: 15px;">　2.該項計劃打勾取消。</div>
+	   					 		<div style="line-height:10%;"><br></div>
+	   					 <div style="text-align:left;font-size: 15px;">　3.止損或止盈亮燈號。</div>
+	   					 		<div style="line-height:10%;"><br></div>
+	   					 <div style="text-align:left;font-size: 15px;">　4.投注中跳至已停止。</div>
+	   					 		<div style="line-height:10%;"><br></div>
+	   					 <div style="text-align:left;font-size: 15px;">　5.網站或是網路斷線。</div>
+	   					 		<div style="line-height:10%;"><br></div>
+	   					 <div style="text-align:left;font-size: 15px;">　6.系統異常時間過久。</div>
+	   					 		<div style="line-height:10%;"><br></div> 		
+	   					 <div style="text-align:left;font-size: 15px;">　7.開獎源故障或斷線。</div>
+	   					 		<div style="line-height:10%;"><br></div>										
+	   					 <div style="text-align:left;font-size: 15px;">　8.官方網站停止開獎。</div>
+						 		<div style="line-height:10%;"><br></div>
+	   					 <div style="text-align:left;font-size: 15px;">　9.不明原因無開獎號。</div>
+	   					 		<div style="line-height:10%;"><br></div>
+	   					 <div style="text-align:left;font-size: 15px;"> &nbsp;&nbsp;10.五碼六碼計劃切換。</div>
+   					 </div>
+   					 </td>
+        </tr>
+	 
+		<tr>
+		    <td class="tdClass" width="1%">
+					可用點數
+			</td>
+			<td class="tdClass" width="1%" >
+					 <div  class="maxcredit">loading...</div>
+			</td>
+			<td nowrap class="s_lose" style="padding-left: 0.2cm; padding-right: 0.2cm;">止損點數</td>
+					<td class="tdClass" width="1%" > <input  style=" font-size: 15px; text-align: center;" class="stoplose" type ="text" size=5/> </td> 
+		    <td width="1%"   nowrap class="s_win"  style="padding-left: 0.2cm; padding-right: 0.2cm;">止盈點數</td>
+					<td  class="tdClass" width="1%" > <input style=" font-size: 15px; text-align: center;" class="stopwin" type ="text" size=5/>
+					</td>
+			<td nowrap style="display:none">
+					已用點數
+			</td>
+			<td  style="display:none">
+					 <div  class="useBet">loading...</div>
+			</td>
+			<td  style="display:none">
+					浮動點數
+			</td>
+			<td  style="display:none">
+					 <div  class="cash">loading...</div>
+			</td>
+			        <td class="tdClass" bgcolor="5599FF" width="1%"> &nbsp;<input type="checkbox" name="c2" id="c2" value="2"  >&nbsp;&nbsp;計劃一&nbsp;</td> 
+					<td style="text-align:left" class="tdClass"> <input class="betlist2" type ="text" style="width:98%"/></td>
+					
+				    <td class="tdClass" bgcolor="FF8888" nowrap width="1%"> &nbsp;<input   type="checkbox" name="c8" id="c8" value="8"  >&nbsp;&nbsp;計劃七&nbsp;</td> 
+			     
+					<td style="text-align:left" class="tdClass"> <input class="betlist8" type ="text" style="width:98%"/></td>
+					
+					<td class="tdClass"><button type="button" onclick="save_param()" class="button" style="border:3px outset;width:60px">儲存</button></td> 
+		</tr>
+		
+		<tr  >
+			<td width="1%" nowrap class="tdClass">
+					盤口目前期別 
+			</td>
+			<td colspan=1 class="tdClass">
+					 <div  class="toPhase">loading..</div> 
+			</td>
+			
+			<td width="1%"  nowrap class="s_point" style="border: 1px solid gray; border-collapse: collapse; font-size: 18px; text-align:center;">點數不足</td>
+		    <td class="tdClass" width="1%" > <input  style=" font-size: 15px; text-align: center;" class="stoppoint" type ="text" size=5/> </td> 
+					
+			
+			<td colspan=2 class="tdClass" nowrap>  
+			 <input type="checkbox" name="autoStart" id="autoStart" value="2"     style="vertical-align:middle;">
+			 自動啟動 
+			  <input id="s_h" type ="text" size=2 maxlength=2 value='09' style="width:30px; font-size: 15px;text-align: center;"/> : <input id="s_m" type ="text" size=2 maxlength=2 value='30' style="width:30px; font-size: 15px;text-align: center;"/> 
+			  <input id="e_h" type ="text" size=2 maxlength=2 value='23' style="display:none;width:30px; font-size: 15px;text-align: center;"/>  <input id="e_m" type ="text" size=2 maxlength=2 value='30' style="display:none;width:30px; font-size: 15px;text-align: center;"/>
+			 </td>
+			 
+			<td nowrap class="tdClass" bgcolor="666666" width="1%">&nbsp;<input type="checkbox" name="c3" id="c3" value="1"  >&nbsp;&nbsp;計劃二&nbsp;</td> 
+			<td style="text-align:left" class="tdClass"><input class="betlist3" type ="text" style="width:98%"/></td>
+			
+			<td nowrap class="tdClass" bgcolor="DEB887" width="1%">&nbsp;<input type="checkbox" name="c9" id="c9" value="1"  >&nbsp;&nbsp;計劃八&nbsp;</td>  
+			<td style="text-align:left" class="tdClass"> <input class="betlist9" type ="text" style="width:98%"/></td>
+			
+			
+			<td class="tdClass"><button type="button" onclick="save_param()" class="button" style="border:3px outset;width:60px" >儲存</button></td> 
+		</tr>
+		<tr  >
+			<td width="1%" nowrap class="tdClass">
+					盤口開獎期別
+			</td>
+			<td  class="tdClass" width="1%" >
+				  <div  class="toNowPhase">loading...</div> 
+			</td>
+			<td nowrap class="tdClass" width="1%" >距離封盤
+			</td>
+			<td colspan=3 class="tdClass">
+		 
+		 
+			<label style="display:none" data-time="4" id="closedTime" class="time"><span id="time_m1">0</span><span id="time_m2">0</span>分
+			<span id="time_s1">1</span><span id="time_s2">2</span>秒</label>
+			 
+			 
+					<div   class="extendtime"><font color="red">loading...</font></div>
+			</td>
+			
+			
+			 <td nowrap class="tdClass" bgcolor="FFAA33" width="1%">&nbsp;<input type="checkbox" name="c4" id="c4" value="4"  >&nbsp;&nbsp;計劃三&nbsp;</td> 
+			 <td style="text-align:left" class="tdClass"><input class="betlist4" type ="text" style="width:98%"/></td>
+			 
+			 <td nowrap class="tdClass" bgcolor="66FF66" width="1%">&nbsp;<input type="checkbox" name="c10" id="c10" value="4"   >&nbsp;&nbsp;計劃九&nbsp;</td> 
+			 <td style="text-align:left" class="tdClass"> <input class="betlist10" type ="text" style="width:98%"/></td>
+			 
+			 <td class="tdClass"><button type="button" onclick="save_param()" class="button" style="border:3px outset;width:60px">儲存</button></td> 
+		</tr>
+		
+		<tr  >
+			<td width="1%" class="tdClass">開獎號碼</td>
+			<td colspan=5 class="tdClass" style="padding-left: 1.6cm;">
+					  <div id="openCode" style="display:none;text-align: center;"  class="lot-table">loading...</div>
+					  <div class="container">
+						  <div class="openload" style=" display: inline-block;" >開獎中</div>
+						  <div id="blinkStr" class="blink"  style=" display: inline-block;">
+						 	    <div class="spinner">
+								  <div class="bounce1"></div>
+								  <div class="bounce2"></div>
+								  <div class="bounce3"></div>
+								    <div class="bounce4"></div>
+								    <div class="bounce5"></div>
+								  
+								</div> 
+						 </div>
+					  </div>
+			</td>
+			  
+			
+			 		<td nowrap class="tdClass" bgcolor="99FFFF" width="1%">&nbsp;<input type="checkbox" name="c5" id="c5" value="5"  >&nbsp;&nbsp;計劃四&nbsp;</td> 
+					<td  class="tdClass" style="text-align:left"> <input class="betlist5" type ="text" style="width:98%"/></td>
+					
+					<td nowrap class="tdClass" bgcolor="CCFF99" width="1%">&nbsp;<input type="checkbox" name="c11" id="c11" value="5"  >&nbsp;&nbsp;計劃十&nbsp;</td> 
+					<td  class="tdClass" style="text-align:left"> <input class="betlist11" type ="text" style="width:98%"/></td>
+					
+					<td class="tdClass"><button type="button" onclick="save_param()" class="button" style="border:3px outset;width:60px">儲存</button></td> 
+		</tr>
+		
+		
+		
+		
+			<tr>
+			<td width="1%" class="tdClass">程式啟動</td>
+			<td  class="tdstartstatus"   style="text-align:left">
+					    <div style="border:3px outset">
+							    <select class="startstatus"   style="text-align-last:center;font-size: 18px;width:120px;border:0px;outline:0px;">
+								  <option value="0" class="red">已停止 </option>
+								  <option value="1" >投注中 </option> 
+								</select> 
+						</div>
+			</td>
+			<td  nowrap class="tdClass">
+				使用期限  
+			</td>
+			<td nowrap width="100px;" colspan=2 class="tdClass">
+				<div class="limittime">loading.</div>  
+			</td>
+			 <td width="1%" nowrap > 
+			  			<div  class="check_status" style="width:95%;background-color:green;border:3px outset">系統正常</div></td>
+			<td colspan=2 style="display:none">
+				<div id="connectURL">連結尚銀</div>	  
+			</td>
+			
+			  
+			 
+			 <td class="tdClass" nowrap bgcolor="B94FFF" width="1%"> &nbsp;<input type="checkbox" name="c6" id="c6" value="5"  >&nbsp;&nbsp;計劃五&nbsp;</td>  
+			 <td style="text-align:left" class="tdClass"> <input class="betlist6" type ="text" style="width:98%" /></td>
+			 
+			 <td class="tdClass" nowrap bgcolor="FFB3FF" width="1%"> &nbsp;<input  type="checkbox" name="c12" id="c12" value="5"  >&nbsp;&nbsp;計劃1&nbsp;1&nbsp;</td>  
+			 <td style="text-align:left" class="tdClass"> <input class="betlist12" type ="text" style="width:98%" /></td>
+			 
+			 <td class="tdClass"  ><button type="button" onclick="save_param()" class="button"  style="border:3px outset;width:60px">儲存</button></td> 
+			 
+		</tr>
+	 </table> 
+	   </div>
+	  
+	 
+	
+	 
+ 
+	     
+      
+	<input type="hidden" id="uid" />
+	
+	<input type="hidden" id="mid" />
+	<input type="hidden" id="pwd" />
+	<input type="hidden" id="boardType" />
+	
+	
+	<div class="center_tablebar">
+		<table  style="height:100%;width:100%;  ">
+		<tr>
+		<td style="width:35%;font-size: 20px;vertical-align:middle;" align=left>歷史記錄</td >
+		<td style="width:35%;vertical-align:middle;" align=left  ><button type="button" id="target" class="button" style="border:3px outset;font-size: 18px;width:130px;">清空投注記錄</button></td>
+		<td style="width:30%;vertical-align:middle;" align=left ><button type="button" id="target2" class="button" style="border:3px outset;font-size: 18px;width:130px;">清空過關記錄</button></td>
+		</tr>
+		</table></div>
+	 
+	
+	
+	<div class="left_column">
+		
+		<div class="historyHtml" style="width:100%;"></div>
+	</div>
+	
+	<div class="center_column"> 	
+		<div class="logHtml" style="width:100%;">loading...</div>
+	</div>	
+			
+			
+	<div class="right_column"> 
+		<div class="logOverHtml" style="width:100%;">loading...</div>
+	</div>			
+				 
+		 
+ </form>
+</body>
+</html>
+
+<script>
+
+	function setColor()
+	{
+	   let v =  $('select.startstatus').find('option:selected').attr('value');
+	   let color="";
+	   if(v==1){
+		   $('select.startstatus').css('background', 'green'); 
+		   //$('.tdstartstatus').css('background', 'green'); 
+
+	   }else{
+		   $('select.startstatus').css('background', 'red');
+		  // $('.tdstartstatus').css('background', 'red'); 
+		   betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+		   betIndex2 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+		   betIndex3 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+		   betIndex4 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+		   betIndex5 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+		   betIndex6 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+		   //document.getElementById("autoStart").checked = false;
+
+	   }
+		 
+	    
+		  
+	}
+	
+  function chk(input){
+
+	if(input.checked) {
+		input.checked = false;
+	}else {
+		input.checked = true;
+	}
+	  
+	
+    saveParam();
+    
+    //clear
+    betIndex = {
+ 			'1' : 0,
+ 			'2' : 0,
+ 			'3' : 0,
+ 			'4' : 0,
+ 			'5' : 0,
+ 			'6' : 0,
+ 			'7' : 0,
+ 			'8' : 0,
+ 			'9' : 0,
+ 			'10' : 0,
+
+ 	};
+    betIndex2 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+	betIndex3 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+    betIndex4 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+    betIndex5 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+    betIndex6 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+
+    return true;
+  }
+  
+  function getType(){
+	  let type = '';
+	  for(var i=1;i<13;i++){
+		  let id = 'c' + i;
+		  if(document.getElementById(id).checked) { type+= (i + '@'); }
+	  }
+	  
+	  /*if(document.getElementById('c2').checked) { type+='2@'; }
+	  if(document.getElementById('c3').checked) { type+='3@'; }
+	  if(document.getElementById('c4').checked) { type+='4@'; }
+	  if(document.getElementById('c5').checked) { type+='5@'; }
+	  if(document.getElementById('c6').checked) { type+='6@'; }*/
+	  return type.substring(0,type.length-1);
+
+  }
+  
+  function setbetType(t){
+	  let typearray = t.split('@');
+	  for(var i in typearray){
+		  let id = 'c'+ typearray[i] ;
+		  document.getElementById(id).checked = true;
+	  } 
+
+  }
+  </script>
+   
+<script src="jquery.js" > </script> 
+<script src="utils.js"> </script>
+<script src="pro.js"> </script> 
+<script src="worker-timer.js"> </script> 
+<script src="timer-worker.js"> </script> 
+
+<script>
+	 
+	//const checkMinute = [4,5,6,9,10,11,14,15,16,19,20,21,24,25,26,29,30,31,34,35,36,39,40,41,44,45,46,49,50,51,54,55,56,59,0,1];
+
+
+ 	//bet min
+ 	//const falseMinute = [2,7,12,17,22,27,32,37,42,47,52,57];
+
+
+ 	var u = getUrl();
+    var stoplose = "";
+    var stopwin = "";
+    var todayWin = "";
+    var cash = ""; 
+    var useBet = ""; 
+    var maxcredit = "";  
+    var betarray = [];
+    var betarray2 = [];
+    var betarray3 = [];
+    var betarray4 = [];
+    var betarray5 = [];
+    var betarray6 = [];
+    var betarray7 = [];
+    var betarray8 = [];
+    var betarray9 = [];
+    var betarray10 = [];
+    
+    var betarray12 = [];
+
+    var dynamic_phase="";
+    var betIndex   = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+    var betIndex2  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+    var betIndex3  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+    var betIndex4  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+    var betIndex5  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+    var betIndex6  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+    var betIndex7  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+    var betIndex8  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+    var betIndex9  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+    var betIndex10  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+    var betIndex11  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+    var betIndex12  = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, '12' : 0, };
+
+    var projectIndex = {
+    	'1' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+    	'2' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+    	'3' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+    	'4' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+    	'5' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+    	'6' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+    	'7' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+    	'8' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+    	'9' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+    	'10' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+
+    }
+
+    var projectTemp = {
+    	'1' : '' ,
+    	'2' : '' ,
+    	'3' : '' ,
+    	'4' : '' ,
+    	'5' : '' ,
+    	'6' : '' ,
+    	'7' : '' ,
+    	'8' : '' ,
+    	'9' : '' ,
+    	'10' : '' ,
+    }
+
+
+    const rangeExist = {
+ 			'1' : ['1','2','3','4','9','10'] ,
+ 			'2' : ['1','2','3','4','5','10'] ,
+ 			'3' : ['2','3','4','6','7','8'] ,
+ 			'4' : ['2','3','4','5','6','7'] ,
+ 			'5' : ['3','4','5','6','7','8'] ,
+ 			'6' : ['4','5','6','7','8','9'] ,
+ 			'7' : ['5','6','7','8','9','10'] ,
+ 			'8' : ['1','4','5','8','9','10'] ,
+ 			'9' : ['1','2','7','8','9','10'] ,
+ 			'10' :['1','2','3','8','9','10'] ,
+ 	};
+
+ 	
+    const rangeExist_pro  = {
+ 			'1' : ['2','3','4','5','7','8'] ,
+ 			'2' : ['3','4','5','6','8','9'] ,
+ 			'3' : ['4','5','6','7','9','10'] ,
+ 			'4' : ['1','5','6','7','8','10'] ,
+ 			'5' : ['1','2','6','7','8','9'] ,
+ 			'6' : ['2','3','7','8','9','10'] ,
+ 			'7' : ['1','3','4','8','9','10'] ,
+ 			'8' : ['1','2','4','5','9','10'] ,
+ 			'9' : ['1','2','3','5','6','10'] ,
+ 			'10' : ['1','2','3','4','6','7'] ,
+ 	};
+ 	
+    const rangeExist_pro3  = {
+ 			'1' : ['4','5','6','7','8','10'] ,
+ 			'2' : ['1','5','6','7','8','9'] ,
+ 			'3' : ['2','6','7','8','9','10'] ,
+ 			'4' : ['1','3','7','8','9','10'] ,
+ 			'5' : ['1','2','4','8','9','10'] ,
+ 			'6' : ['1','2','3','5','9','10'] ,
+ 			'7' : ['1','2','3','4','6','10'] ,
+ 			'8' : ['1','2','3','4','5','7'] ,
+ 			'9' : ['2','3','4','5','6','8'] ,
+ 			'10' : ['3','4','5','6','7','9'] ,
+ 	};
+    
+   const rangeExist_pro4 = {
+ 			'1' : ['1','5','7','8','9','10'] ,
+ 			'2' : ['1','2','6','8','9','10'] ,
+ 			'3' : ['1','2','3','7','9','10'] ,
+ 			'4' : ['1','2','3','4','8','10'] ,
+ 			'5' : ['1','2','3','4','5','9'] ,
+ 			'6' : ['2','3','4','5','6','10'] ,
+ 			'7' : ['1','3','4','5','6','7'] ,
+ 			'8' : ['2','4','5','6','7','8'] ,
+ 			'9' : ['3','5','6','7','8','9'] ,
+ 			'10' : ['4','6','7','8','9','10'] ,
+
+ 	};
+ 	
+ 	
+ 	const rangeExist_pro5  = {  
+ 			'1' : ['1','2','3','7','9','10'] ,
+ 			'2' : ['1','2','3','4','8','10'] ,
+ 			'3' : ['1','2','3','4','5','9'] ,
+ 			'4' : ['2','3','4','5','6','10'] ,
+ 			'5' : ['1','3','4','5','6','7'] ,
+ 			'6' : ['2','4','5','6','7','8'] ,
+ 			'7' : ['3','5','6','7','8','9'] ,
+ 			'8' : ['4','6','7','8','9','10'] ,
+ 			'9' : ['1','5','7','8','9','10'] ,
+ 			'10' : ['1','2','6','8','9','10'] ,
+
+ 	};
+ 	
+ 	const rangeExist_pro6  = {  
+ 			'1' : ['6','7','8','9'] ,
+ 			'2' : ['7','8','9','10'] ,
+ 			'3' : ['1','8','9','10'] ,
+ 			'4' : ['1','2','9','10'] ,
+ 			'5' : ['1','2','3','10'] ,
+ 			'6' : ['1','2','3','4'] ,
+ 			'7' : ['2','3','4','5'] ,
+ 			'8' : ['3','4','5','6'] ,
+ 			'9' : ['4','5','6','7'] ,
+ 			'10' : ['5','6','7','8'] ,
+
+ 	};
+
+ 	
+ 	const rangeExist_dyn  = { //index for 動態
+ 			'1' : ['0','3','4','6','7'] ,
+ 			'2' : ['1','4','5','7','8'] ,
+ 			'3' : ['2','5','6','8','9'] ,
+ 			'4' : ['0','3','6','7','9'] ,
+ 			'5' : ['0','1','4','7','8'] ,
+ 			'6' : ['1','2','5','8','9'] ,
+ 			'7' : ['0','2','3','6','9'] ,
+ 			'8' : ['0','1','3','4','7'] ,
+ 			'9' : ['1','2','4','5','8'] ,
+ 			'10' : ['2','3','5','6','9'] ,
+
+ 	};
+	
+ 	const rangeExist_dyn_4  = { //index for 動態
+ 			'1' : ['1','2','5','8','9'] ,
+ 			'2' : ['0','2','3','6','9'] ,
+ 			'3' : ['0','1','3','4','7'] ,
+ 			'4' : ['1','2','4','5','8'] ,
+ 			'5' : ['2','3','5','6','9'] ,
+ 			'6' : ['0','3','4','6','7'] ,
+ 			'7' : ['1','4','5','7','8'] ,
+ 			'8' : ['2','5','6','8','9'] ,
+ 			'9' : ['0','3','6','7','9'] ,
+ 			'10' : ['0','1','4','7','8'] ,
+
+ 	};
+ 	
+ 	let projectBet = { //bet flag
+ 		'1' :  [false,false,false,false,false,false,false,false,false,false], 
+ 		'2' :  [false,false,false,false,false,false,false,false,false,false], 
+ 		'3' :  [false,false,false,false,false,false,false,false,false,false], 
+ 		'4' :  [false,false,false,false,false,false,false,false,false,false], 
+ 		'5' :  [false,false,false,false,false,false,false,false,false,false], 
+ 		'6' :  [false,false,false,false,false,false,false,false,false,false], 
+ 		'7' :  [false,false,false,false,false,false,false,false,false,false], 
+ 		'8' :  [false,false,false,false,false,false,false,false,false,false], 
+ 		'9' :  [false,false,false,false,false,false,false,false,false,false], 
+ 		'10' :  [false,false,false,false,false,false,false,false,false,false], 
+ 		'11' :  [false,false,false,false,false,false,false,false,false,false], 
+ 		'12' :  [false,false,false,false,false,false,false,false,false,false,false,false,false], 
+
+ 	}
+ 	
+    $(document).ready(function(){
+   
+    		$('#betproject5').change(function(){
+    		    if(document.getElementById("betproject5").checked ){
+    		    		document.getElementById("betproject6").checked = false;
+    		    }
+    		});
+    		$('#betproject6').change(function(){
+    		    if(document.getElementById("betproject6").checked ){
+    		    		document.getElementById("betproject5").checked = false;
+    		    }
+    		});
+    		
+ 
+    		clearAll();
+    		
+        $('select.startstatus').change(function(){
+             setColor();       
+        });
+        $( ".startstatus" ).val(0);
+       	setExtendTimeTimeout();
+       
+	 	let url = u + '/getHistory';
+		  
+      	 $.ajax({ url:  url, 
+   	         async: true,
+   	         success: function(data){
+   	        	  
+   	        	    const json = JSON.parse(data);
+   	        	  
+   		    	 	$( "div.historyHtml" ).html(json.logHtml);
+   		    	 	 
+    
+   	         	 } 
+   	         	 
+         });
+      	 
+		  
+		 $( "#target" ).click(function() {
+			 clearLog();
+		 });
+		 $( "#target2" ).click(function() {
+			 clearOverLog();
+		 });
+		 
+		 $( "#logoutDiv" ).click(function() {
+             window.location.href='/index998.html' ;
+
+		 });
+		 
+		 $( "#connectURL" ).click(function() {
+			 connectURL();
+		 });
+		 
+		 
+		 var query = window.location.search.substring(1);
+		 var parsed_qs = parse_query_string(query);
+		 var autocheckbox = (parsed_qs.auto) ;
+		 if(autocheckbox == "Y"){
+			 document.getElementById("autoStart").checked = true;
+		 }
+		 var uid = (parsed_qs.uid) ;
+		 var pwd = (parsed_qs.pwd) ;
+		 var user= (parsed_qs.user);
+		 var mid = (parsed_qs.mid) ;
+		 var date = parsed_qs.end_date;
+	     let convrt_date = date.substring(0,4) + '/' + date.substring(4,6)+ '/' + date.substring(6,8)
+	     $( "div.limittime" ).html(convrt_date);
+		 
+		 document.getElementById("uid").value = uid;
+		 document.getElementById("user").value = user;
+		 document.getElementById("mid").value = mid;
+		 document.getElementById("pwd").value = pwd;
+		 document.getElementById("boardType").value = parsed_qs.boardType;
+
+		 
+		 $( ".stoplose" ).change(function() {
+			 checkWin(); 
+		 });
+		 $( ".stopwin" ).change(function() {
+			 checkWin();
+		 });
+		 
+		 getWinFun(true);
+		 checkWin();
+		 getlogHtml();
+		 setColor();
+	    
+		  
+		 getPhase();
+		 timeout();//下注timeout
+		 overTimeout();//檢查過關
+		 getHistoryTimeout();//取得歷史記錄
+	});
+	
+    function pad2(n) { return n < 10 ? '0' + n : n }
+    function getYYYYMMDDSS(){
+   	 var date = new Date();
+	
+	 return ( pad2( date.getHours() )+ ':'  + pad2( date.getMinutes() )+ ':'  + pad2( date.getSeconds() ) );
+
+    	
+    }
+    
+    
+    
+    var systemReloginIndex = 0 ;
+    let checkChangeBetProject = 0;
+    let firstSet = false;
+    function getWinFun(init_flag){
+    	 var url =  u + '/getTodayWin?user='+document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value
+    	 +'&boardType='+document.getElementById("boardType").value;
+		 var flag = true;  
+    	 $.ajax({ url:  url, 
+	         async: false,
+	         success: function(data) {
+	        	 if(data == 'null'){
+	        		  flag = false;
+	                  if(data == 'null'){
+                	  	  $(".check_status" ).html('系統異常');
+             		    $('.check_status').css('background', 'red'); 
+             		    /*if(checkTimeflag(9007)){
+             		    	 systemReloginIndex++;
+                  		     if(systemReloginIndex >6) {
+                  		    	 	 clearIndex(); 
+                 		    	 } 
+             		    }*/
+             		   
+	                  }
+
+	        		  return false;
+	        	 }
+	        //	 systemReloginIndex = 0 ;
+	        	 $(".check_status" ).html('系統正常');
+     		 $('.check_status').css('background', 'green'); 
+
+	        	 
+	        	 const json = JSON.parse(data);
+	        	  
+		    	 	$( "div.toDayWin" ).text(json.todayWin);
+		    	 	$( "div.cash" ).text(json.cash);
+		    	 	$( "div.useBet" ).text(json.useBet);
+		    	 	$( "div.maxcredit" ).text(json.usable_credit);
+		    	 	$( ".stoppoint" ).val(json.stoppoint) ;
+		    	 	 try{
+		    	 	$( "div.extendtime" ).text(json.stop_time);
+				  }catch(err){
+												saveLog('error_bet','extendtime:' + stop);
+				   }
+
+		    	 	
+		    	 	if($( ".stoppoint" ).val()!= ''){
+		    	 		let stoppoint = $( ".stoppoint" ).val();
+		    	 		let max = $( "div.maxcredit" ).text();
+		    	 		if(max * 1 < stoppoint*1){
+		    	 			 $('.s_point').css('background', 'yellow'); 
+		    	 		}else {
+		    	 			 $('.s_point').css('background', 'powderblue'); 
+		    	 		}
+		    	 	}else {
+		    	 		 $('.s_point').css('background', 'powderblue'); 
+		    	 	}
+		    	 	
+		    	 	 
+		    	 	
+		    	 	//document.getElementById("e_h").value = json.e_h;
+		    	 	//document.getElementById("e_m").value = json.e_m;
+
+		    	 	let betType = json.type;
+		    	  
+		    	 			    	 	
+		    	 	if(!firstSet){
+setbetType(betType);
+		    	 		document.getElementById("s_h").value = json.s_h;
+			    	 	document.getElementById("s_m").value = json.s_m;
+		    	 		$( ".betlist" ).val(json.betlist) ;
+			    	 	$( ".betlist2" ).val(json.betlist2) ;
+			    	 	$( ".betlist3" ).val(json.betlist3) ;
+			    	 	$( ".betlist4" ).val(json.betlist4) ;
+			    	 	$( ".betlist5" ).val(json.betlist5) ;
+			    	 	$( ".betlist6" ).val(json.betlist6) ;
+			    	 	$( ".betlist7" ).val(json.betlist7) ;
+			    	 	$( ".betlist8" ).val(json.betlist8) ;
+			    	 	$( ".betlist9" ).val(json.betlist9) ;
+			    	 	$( ".betlist10" ).val(json.betlist10) ;
+			    	 	$( ".betlist11" ).val(json.betlist11) ;
+			    	 	$( ".betlist12" ).val(json.betlist12) ;
+			    	 	
+			    	 	document.getElementById("betproject5").checked = (json.betproject5=='1'?true:false);
+			    	 	document.getElementById("betproject6").checked = (json.betproject6=='1'?true:false);
+			    	 	 
+
+			    	 	
+			    		$( ".stoplose" ).val(json.stoplose) ;
+			    	 	$( ".stopwin" ).val(json.stopwin);
+			    	 	firstSet = true;
+			    	 	
+		    	 	}
+		    	 	
+
+		    	 
+
+		    	  
+		    	 	stoplose = json.stoplose;
+		    	 	stopwin = json.stopwin;
+		    	 	todayWin = json.todayWin;
+		    	 	cash = json.cash;
+		    	 	//betarray =   json.betlist.split(',') ;
+		    	 	betarray =   json.betlist2.split(',') ;
+		    	 	betarray2 =   json.betlist3.split(',') ;
+		    	 	betarray3 =   json.betlist4.split(',') ;
+		    	 	betarray4 =   json.betlist5.split(',') ;
+		    	 	betarray5 =   json.betlist6.split(',') ;
+		    	 	betarray6 =   json.betlist7.split(',') ;
+		    	 	betarray7 =   json.betlist8.split(',') ;
+		    	 	betarray8 =   json.betlist9.split(',') ;
+		    	 	betarray9 =   json.betlist10.split(',') ;
+		    	 	betarray10 =   json.betlist11.split(',') ;
+		    	 	betarray12 =   json.betlist12.split(',') ;
+		    	 	//betarray12.splice(0, 0, '0');
+		    	 	/*betarray.splice(0, 0, '0');
+		    	 	betarray2.splice(0, 0, '0');
+		    	 	betarray3.splice(0, 0, '0');
+		    	 	betarray4.splice(0, 0, '0');
+		    	 	betarray5.splice(0, 0, '0');
+		    	 	betarray6.splice(0, 0, '0');*/
+		    	 	 
+		    	 	 
+	         	 } 
+	         	 
+	        });
+    	 return flag;
+	     
+    	
+    }
+    
+    String.prototype.replaceAll = function(searchStr, replaceStr) {
+        var str = this;
+        
+        // escape regexp special characters in search string
+        searchStr = searchStr.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        
+        return str.replace(new RegExp(searchStr, 'gi'), replaceStr);
+    };
+    
+    function getlogHtml(){
+   	 var url =  u + '/getPredictLog?user='+document.getElementById("user").value+"bet";
+		   
+   	 $.ajax({ url:  url, 
+	         async: true,
+	         success: function(data) {
+	        	  
+	        	 const json = JSON.parse(data);
+	        	    var r = json.logHtml.replaceAll('下注金額','投注點數');
+		    	 	$( "div.logHtml" ).html(r);
+		    	 	 
+ 
+	         	 } 
+	         	 
+      });
+   	 
+   	 
+     url =  u + '/getPredictLog?user='+document.getElementById("user").value+"overLOGDIS";
+	   
+  	 $.ajax({ url:  url, 
+	         async: true,
+	         success: function(data) {
+	        	  
+	        	 const json = JSON.parse(data);
+	        	  
+		    	 	$( "div.logOverHtml" ).html(json.logHtml);
+		    	 	 
+		    	 	let phase_now = $( "div.toPhase" ).text()*1 - 1 ;   
+	      	    	/*$('div.logOverHtml tr').each(function() {
+	      	    		var $tds = $(this).find('td');
+	      	    		if($tds != null) {
+		      	    		var $outerHTML = $tds[0].outerHTML;
+		      	    		var $outerText = $tds[0].outerText;
+		      	    		var start = $outerText.indexOf("第", 8);
+		                var end = $outerText.indexOf("名", 8); 
+		                var sn =  $outerText.substring(start+1,end); //第幾名
+		                var formu = getFormu($outerHTML);
+		                var htmllatestPhase = $outerText.substring(1,7);
+		                if(phase_now == htmllatestPhase){
+		                		 if(formu==1){betIndex[sn]=0;}
+		                		 if(formu==2){betIndex2[sn]=0;}
+		                		 if(formu==3){betIndex3[sn]=0;}
+		                		 if(formu==4){betIndex4[sn]=0;}
+		                		 if(formu==5){betIndex5[sn]=0;}
+		                		 if(formu==6){betIndex6[sn]=0;} 
+		                } 
+	      	    		}
+      	    		});*/
+         	 } 
+	         	 
+     });
+   	 
+	     
+   	
+   } 
+    
+    function getFormu(str){
+		if(str.indexOf('FFFF77')>-1){ return '1'; }
+		if(str.indexOf('66FF66')>-1){ return '2'; }
+		if(str.indexOf('FF8888')>-1){ return '3'; }
+		if(str.indexOf('5599FF')>-1){ return '4'; }
+		if(str.indexOf('DDDDDD')>-1){ return '5'; }
+		if(str.indexOf('FFB3FF')>-1){ return '6'; }
+
+	}
+    
+    function logAppend(log){
+	 	$( "div.console_str" ).prepend("<tr><td  >"+log+"</td></tr>") ;
+
+    	
+    }
+    var betTemp1   = { '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : '', '10' : '', };
+    var betTemp2   = { '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : '', '10' : '', };
+    var betTemp3   = { '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : '', '10' : '', };
+    var betTemp4   = { '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : '', '10' : '', };
+    var betTemp5   = { '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : '', '10' : '', };
+    var betTemp6   = { '1' : '', '2' : '', '3' : '', '4' : '', '5' : '', '6' : '', '7' : '', '8' : '', '9' : '', '10' : '', };
+	
+
+
+	function accumulate(formu){
+ 		for(var i = 1;i<11;i++){
+ 			projectIndex[formu][i] ++ ;
+ 		}
+ 	}
+ 	function getcumulate(formu){
+ 		let tenArray = [];
+
+ 	 
+ 		for(var i = 1;i<11;i++){
+ 			if(projectIndex[formu][i] >=13){ tenArray.push(i);};
+ 		}
+
+ 		 
+		if(tenArray.length >=4){
+			// for(var i = 1;i<11;i++){
+	 	// 		projectIndex[formu][i] = 0 ; 
+	 	// 	}
+
+			return tenArray;
+		}
+
+		return null;
+
+ 	}
+
+	function project6_limit(snIndex,phase,length){
+		 let tenArray = [];
+		 let formu = snIndex + 1;
+		  //clearIndex();
+		 //for(var i=0;i<=phase;i++){
+			  
+			 let p =  phase*1 - 0  ;
+			 //  if(p.toString().substring(8,11) == '000'){
+			 // 	return null;
+			 // }
+			 
+			 let nCodeArra = getCodeByPhase(p);
+			 if(nCodeArra=='null'){
+				 return null;
+			 }
+			 let c = nCodeArra.split(',')[snIndex];
+			 //accumulate(formu);
+			 projectIndex[formu][c] = 0 ;
+			 tenArray=getcumulate(formu);
+ 			 
+ 			 if(tenArray)
+ 			 	return tenArray.sort(sortNumber);
+	 
+ 
+		 
+
+	    
+ 		 return 'ok';
+		 //return tenArray.sort(sortNumber);
+			 
+		
+	}
+	function compareByType_from_member(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
+		
+
+		var z = formu ;  
+		var sn = z-1;
+		console.log('project:'+ formu);
+	    let nCodeArra = getCodeByPhase(phase_now);
+
+		let c = nCodeArra.split(',')[sn];
+		if(projectTemp[formu]){
+			 
+			 
+			 projectIndex[formu][c] = 0 ;
+		}else {
+			let status = project6_limit(sn,phase_now,7);
+			if(status =='ok'){
+				accumulate(formu);
+				projectIndex[formu][c] = 0 ;
+				projectBet[(formu*1)][(formu*1)] = true;
+				return;
+			}else if(status == null){
+				projectBet[(formu*1)][(formu*1)] = false;
+				return;
+			}
+			projectTemp[formu] = status ;
+
+		}
+		 
+		 
+		let bet_code = projectTemp[formu];
+
+		
+		let bet_n = formu;
+		
+		 
+		
+		
+		
+		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+	    var amount = bArray[bIndex[z]%bArray.length] ;
+		    
+
+	    
+   		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,z);
+   		if(rbf){
+   			accumulate(formu);
+   			projectIndex[formu][c] = 0 ;
+			bIndex[z]++;
+			projectBet[(formu*1)][(formu*1)] = true;
+		} 
+		 
+			
+			 
+				
+			 
+		 
+		//console.log(JSON.stringify(betIndex)); 
+	}
+	
+	function compareByType_from_member_project5(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
+		 
+		//const code_b = getCodeByPhase(phase_before); 
+		const code_n = getCodeByPhase(phase_now);
+		const code_n2 = getCodeByPhase(phase_now*1 -1);
+		const code_n3 = getCodeByPhase(phase_now*1 -2);
+		
+		 
+		const array_n =  code_n.split(',');
+		const array_n2 = code_n2.split(',');
+		const array_n3 = code_n3.split(',');
+
+		if( array_n.length==0  ){
+			return;
+		} 
+		  
+		var z = formu ;  
+		
+		
+		let total = array_n[0] * 1 + array_n2[5] * 1 + array_n3[6] * 1 ;
+		 
+		
+		let bet_code = ((total%10)==0?10:(total%10)) + '' ;
+		
+		
+		
+		
+		
+		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+	    var amount = bArray[bIndex[z]%bArray.length] ;
+		    
+	  
+	      
+	    let bet_sn = '1,2,3,4,5,6';
+		let dynamicSn = '';
+		 
+		let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
+   		if(rbf){
+			bIndex[z]++;
+			projectBet[(formu*1)][(formu*1)] = true;
+		} 
+			
+			 
+				
+			 
+		 
+		//console.log(JSON.stringify(betIndex)); 
+	}
+	
+	function compareByType_from_member_project6(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
+		 
+		//const code_b = getCodeByPhase(phase_before); 
+		const code_n = getCodeByPhase(phase_now);
+		const code_n2 = getCodeByPhase(phase_now*1 -1);
+		const code_n3 = getCodeByPhase(phase_now*1 -2);
+		
+		 
+		const array_n =  code_n.split(',');
+		const array_n2 = code_n2.split(',');
+		const array_n3 = code_n3.split(',');
+
+		if( array_n.length==0  ){
+			return;
+		} 
+		  
+		var z = formu ;  
+		
+		
+		let total = array_n[1] * 1 + array_n2[3] * 1 + array_n3[8] * 1 ;
+		 
+		
+		let bet_code = ((total%10)==0?10:(total%10)) + '' ;
+		
+		
+		
+		
+		
+		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+	    var amount = bArray[bIndex[z]%bArray.length] ;
+		    
+	  
+	      
+	    let bet_sn = '5,6,7,8,9,10';
+		let dynamicSn = '';
+		 
+		let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
+   		if(rbf){
+			bIndex[z]++;
+			projectBet[(formu*1)][(formu*1)] = true;
+		} 
+			
+			 
+				
+			 
+		 
+		//console.log(JSON.stringify(betIndex)); 
+	}
+	
+	
+	function compareByType_from_member_project7(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
+		 
+		//const code_b = getCodeByPhase(phase_before); 
+		const code_n = getCodeByPhase(phase_now);
+		//const code_n2 = getCodeByPhase(phase_now*1 -1);
+		//const code_n3 = getCodeByPhase(phase_now*1 -2);
+		
+		 
+		const array_n =  code_n.split(',');
+		//const array_n2 = code_n2.split(',');
+		//const array_n3 = code_n3.split(',');
+
+		if( array_n.length==0  ){
+			return;
+		} 
+		  
+		var z = formu ;  
+		
+		
+		let total = array_n[0] * 1 + array_n[5] * 1 + array_n[6] * 1 ;
+		 
+		
+		let bet_code = ((total%10)==0?10:(total%10)) + '' ;
+		
+		
+		
+		
+		
+		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+	    var amount = bArray[bIndex[z]%bArray.length] ;
+		    
+	  
+	      
+	    let bet_sn = '1,2,3,4,5,6';
+		let dynamicSn = '';
+		 
+		let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
+   		if(rbf){
+			bIndex[z]++;
+			projectBet[(formu*1)][(formu*1)] = true;
+		} 
+			
+			 
+				
+			 
+		 
+		//console.log(JSON.stringify(betIndex)); 
+	}
+	
+	function compareByType_from_member_project8(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
+		 
+		//const code_b = getCodeByPhase(phase_before); 
+		const code_n = getCodeByPhase(phase_now);
+		//const code_n2 = getCodeByPhase(phase_now*1 -1);
+		//const code_n3 = getCodeByPhase(phase_now*1 -2);
+		
+		 
+		const array_n =  code_n.split(',');
+		//const array_n2 = code_n2.split(',');
+		//const array_n3 = code_n3.split(',');
+
+		if( array_n.length==0  ){
+			return;
+		} 
+		  
+		var z = formu ;  
+		
+		
+		let total = array_n[1] * 1 + array_n[3] * 1 + array_n[8] * 1 ;
+		 
+		
+		let bet_code = ((total%10)==0?10:(total%10)) + '' ;
+		
+		
+		
+		
+		
+		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+	    var amount = bArray[bIndex[z]%bArray.length] ;
+		    
+	  
+	      
+	    let bet_sn = '5,6,7,8,9,10';
+		let dynamicSn = '';
+		 
+		let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
+   		if(rbf){
+			bIndex[z]++;
+			projectBet[(formu*1)][(formu*1)] = true;
+		} 
+			
+			 
+				
+			 
+		 
+		//console.log(JSON.stringify(betIndex)); 
+	}
+	
+	
+	function compareByType_from_member_x(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
+		const code_n = getCodeByPhase(phase_now); 
+		const array_n = code_n.split(',');
+		 
+		if( array_n.length==0  ){
+			return;
+		} 
+		  
+		var z = formu ;  
+		
+		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+	    var amount = bArray[bIndex[z]%bArray.length] ;
+		    
+	    let bet_sn =  '';
+	    let bet_code = '';
+	    if(formu == '7'){
+	   	 	bet_code = '3,4,5,6,7';
+	    		bet_sn =  array_n[6];
+	    }else {
+	    		bet_code = '4,5,6,7,8';
+	    		bet_sn =  array_n[7];
+	    }
+	   
+			
+		  
+		let dynamicSn = '';
+		 
+
+		 
+
+		let rbf = reallyBet(betsn, amount, (phase_now+1) , betc , bet_code ,formu,bet_sn);
+   		if(rbf){
+			bIndex[z]++;
+			projectBet[(formu*1)][(formu*1)] = true;
+		} 
+		 
+		
+	  
+			
+			 
+				
+			  
+	}
+	function compareByType_from_member_v(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
+		const code_n = getCodeByPhase(phase_now); 
+		const array_n = code_n.split(',');
+		 
+		if( array_n.length==0  ){
+			return;
+		} 
+		  
+		var z = formu ;  
+		
+		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+	    var amount = bArray[bIndex[z]%bArray.length] ;
+		    
+	    let bet_n =  '';
+	    
+	    if(formu == '9'){
+	    		betsn = '3,4,5,6,7';
+	    		bet_n =  array_n[6];
+	    }else {
+	    		betsn = '4,5,6,7,8';
+	    		bet_n =  array_n[7];
+	    }
+	   
+			
+		let bet_code = bet_n;
+	    let bet_sn = betsn;
+		let dynamicSn = '';
+		console.log('公式:'+formu+'號碼' + bet_n);
+		console.log('名次:'+ bet_sn);
+
+		let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
+   		if(rbf){
+			bIndex[z]++;
+			projectBet[(formu*1)][(formu*1)] = true;
+		} 
+			
+			 
+				
+			  
+	}
+	
+	
+	
+	function compareByType1(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
+		 
+		const code_b = getCodeByPhase(phase_before); 
+		const code_n = getCodeByPhase(phase_now);
+		const code_n2 = getCodeByPhase(phase_now*1 -1);
+		const code_before4 = getCodeByPhase(phase_before4);
+		
+		const array_b = code_b.split(',');
+		const array_n = code_n.split(',');
+		const array_n2 = code_n2.split(',');
+		const array_before4 = code_before4.split(',');
+		if(array_b.length==0 || array_n.length==0 || array_before4.length==0  ){
+			return;
+		}
+		for(var i=0;i<10;i++){
+			const bet_b = array_b[i];
+			const bet_n = array_n[i];
+			const bet_n2 = array_n2[i];
+			const bet_before4 = array_before4[i]; 
+			var z = getZ(bIndex)>0 ? getZ(bIndex) :  i+1;  
+			
+			
+			var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+  		    var amount = bArray[bIndex[z]%bArray.length] ;
+  		    
+  		    if(formu == '1' || formu == '6' ){
+  		    	    if(bet_n2 == formu){
+  					betsn = '1,2,3,4,5,6';
+  					
+  					let bet_code = bet_n;
+  				    let bet_sn = betsn;
+  					let dynamicSn = '';
+  					console.log('公式:'+formu+'號碼' + bet_n);
+  					console.log('名次:'+ bet_sn);
+
+  					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
+  			   		if(rbf){
+  						bIndex[z]++;
+  						projectBet[(formu*1)][i] = true;
+  					} 
+  			   		
+  				}else {
+  					projectBet[(formu*1)][i] = true;
+  				}
+  		    	
+  		    }else if(formu == '2'|| formu == '7'){
+		    	    if(bet_n2 == formu){
+	  					betsn = '2,3,4,5,6,7';
+	  					
+	  					let bet_code = bet_n;
+	  				    let bet_sn = betsn;
+	  					let dynamicSn = '';
+	  					 
+
+	  					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
+	  			   		if(rbf){
+	  						bIndex[z]++;
+	  						projectBet[(formu*1)][i] = true;
+	  					} 
+	  			   		
+	  				}else {
+	  					projectBet[(formu*1)][i] = true;
+	  				}
+	  		    	
+  		    }else if(formu == '3'|| formu == '8'){
+	    	    if(bet_n2 == formu){
+  					betsn = '3,4,5,6,7,8';
+  					
+  					let bet_code = bet_n;
+  				    let bet_sn = betsn;
+  					let dynamicSn = '';
+  					 
+
+  					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
+  			   		if(rbf){
+  						bIndex[z]++;
+  						projectBet[(formu*1)][i] = true;
+  					} 
+  			   		
+  				}else {
+  					projectBet[(formu*1)][i] = true;
+  				}
+  		    	
+		    }else if(formu == '4'|| formu == '9'){
+	    	    if(bet_n2 == formu){
+  					betsn = '4,5,6,7,8,9';
+  					
+  					let bet_code = bet_n;
+  				    let bet_sn = betsn;
+  					let dynamicSn = '';
+  					 
+
+  					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
+  			   		if(rbf){
+  						bIndex[z]++;
+  						projectBet[(formu*1)][i] = true;
+  					} 
+  			   		
+  				}else {
+  					projectBet[(formu*1)][i] = true;
+  				}
+  		    	
+		    }else if(formu == '5'|| formu == '10'){
+	    	    if(bet_n2 == formu){
+  					betsn = '5,6,7,8,9,10';
+  					
+  					let bet_code = bet_n;
+  				    let bet_sn = betsn;
+  					let dynamicSn = '';
+  					 
+
+  					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
+  			   		if(rbf){
+  						bIndex[z]++;
+  						projectBet[(formu*1)][i] = true;
+  					} 
+  			   		
+  				}else {
+  					projectBet[(formu*1)][i] = true;
+  				}
+  		    	
+		    } 
+  		    
+  		    
+  		    
+  		    
+  		   
+			
+			 
+				
+			 
+			
+			 
+		}
+		//console.log(JSON.stringify(betIndex)); 
+	}
+	
+	function getZ(obj){
+		for(var i in obj){
+			if(obj[i]>0){
+				return i;
+			}
+		}
+		
+		return 0 ;
+	}
+	 
+	function compareByType1_pro11(phase_before,phase_now,phase_before4 , bIndex, bArray){
+
+		const code_b = getCodeByPhase(phase_before); 
+		const code_n = getCodeByPhase(phase_now);
+		const code_n2 = getCodeByPhase(phase_now*1 -1);
+		const code_before4 = getCodeByPhase(phase_before4);
+		
+		const array_b = code_b.split(',');
+		const array_n = code_n.split(',');
+		const array_n2 = code_n2.split(',');
+		const array_before4 = code_before4.split(',');
+		if(array_b.length==0 || array_n.length==0 || array_before4.length==0  ){
+			return;
+		}
+		for(var i=0;i<10;i++){
+			const bet_b = array_b[i];
+			const bet_n = array_n[i];
+			const bet_n2 = array_n2[i];
+			const bet_before4 = array_before4[i];
+ 
+		 	//var d = getYYYYMMDDSS();
+			var z =  i+1; 
+		 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+		 	//var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
+		 	//logAppend(cLog) ;
+		    var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+ 			//var betList =  rangeExist_pro5[bet_before4].toString().split(',');
+		    var writeFlag = false;
+	    	//var betStr="";
+			var amount = bArray[bIndex[z]%bArray.length] ;
+			
+			if(z == 8){
+				if(bet_n2 == '1' || bet_n2 == '6'){
+					betsn = '1,2,3,4,5,6';
+				}else if(bet_n2 == '2' || bet_n2 == '7'){
+					betsn = '2,3,4,5,6,7';
+				}else if(bet_n2 == '3' || bet_n2 == '8'){
+					betsn = '3,4,5,6,7,8';
+				}else if(bet_n2 == '4' || bet_n2 == '9'){
+					betsn = '4,5,6,7,8,9';
+				}else if(bet_n2 == '5' || bet_n2 == '10'){
+					betsn = '5,6,7,8,9,10';
+				}
+				
+				
+				let bet_code = bet_n;
+			    let bet_sn = betsn;
+				let dynamicSn = '';
+				
+				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, '11', bet_sn,dynamicSn);
+		   		if(rbf){
+					bIndex[z]++;
+					projectBet[11][i] = true;
+				}
+				 
+			}else {
+				projectBet[11][i] = true;
+			}
+			
+			 
+			 
+			 
+		}
+		
+	}
+	
+	function compareByType1_pro12(phase_before,phase_now,phase_before4 , bIndex, bArray){
+
+		const code_b = getCodeByPhase(phase_before); 
+		const code_n = getCodeByPhase(phase_now);
+		const code_n2 = getCodeByPhase(phase_now*1 -1);
+
+		const code_before4 = getCodeByPhase(phase_before4);
+		
+		const array_b = code_b.split(',');
+		const array_n = code_n.split(',');
+		const array_n2 = code_n2.split(',');
+
+		const array_before4 = code_before4.split(',');
+		if(array_b.length==0 || array_n.length==0 || array_before4.length==0  ){
+			return;
+		}
+		for(var i=0;i<10;i++){
+			const bet_b = array_b[i];
+			const bet_n = array_n[i];
+			const bet_n2 = array_n2[i];
+
+			const bet_before4 = array_before4[i]; 
+			var z = i+1; 
+		    var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+ 			 
+			var amount = bArray[bIndex[z]%bArray.length] ; 
+			
+			let betsn='';
+			if(! (z==3 || z==8) ){
+				projectBet[12][i] = true;
+			}else if((z==3 || z==8)){ 
+				betsn = '1,3,5,6,8,10';
+			} 
+			
+			
+			//if(bIndex[z] == 0)
+	 	   	//	 betTemp6[z] = rangeExist_pro6[bet_before4].toString();
+			    
+		  
+		 	if(!projectBet[12][i]){ 
+		 		    let bet_code = bet_n;
+				    let bet_sn = betsn;
+					let dynamicSn = '';
+
+					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, '12', bet_sn,dynamicSn);
+			   		if(rbf){
+						bIndex[z]++;
+					}  
+		   		
+		 	}
+		}
+		
+	}
+	function combind(arra,origin){
+  	  
+	       var arr = new Array(7)
+	       arr[0] =  arra.split(',')[0];
+	       arr[1] =  arra.split(',')[1];
+	       arr[2] =  arra.split(',')[2];
+	       arr[3] =  arra.split(',')[3];
+	       arr[4] =  arra.split(',')[4];
+	       arr[5] =  arra.split(',')[5];
+	   	   arr[6] =  origin;
+	  
+	       return arr.sort(sortNumber);  
+    }
+	
+	function sortNumber(a,b)
+	{
+	return a - b
+	}
+
+	function compareByType1_pro4(phase_before,phase_now,phase_before4 , bIndex, bArray){
+		let formu = document.getElementById('betproject6').checked ? '10' : '4';
+		const code_b = getCodeByPhase(phase_before); 
+		const code_n = getCodeByPhase(phase_now);
+		const code_n2 = getCodeByPhase(phase_now*1 -1);
+		const code_before4 = getCodeByPhase(phase_before4);
+		
+		const array_b = code_b.split(',');
+		const array_n = code_n.split(',');
+		const array_n2 = code_n2.split(',');
+		const array_before4 = code_before4.split(',');
+		if(array_b.length==0 || array_n.length==0 || array_before4.length==0  ){
+			return;
+		}
+		for(var i=0;i<10;i++){
+			const bet_b = array_b[i];
+			const bet_n = array_n[i];
+			const bet_n2 = array_n2[i];
+			const bet_before4 = array_before4[i];
+ 
+		 	//var d = getYYYYMMDDSS();
+			var z = getZ(bIndex)>0 ? getZ(bIndex) :  i+1; 
+		 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+		 	//var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
+		 	//logAppend(cLog) ;
+		    var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+ 			//var betList =  rangeExist_pro4[bet_before4].toString().split(',');
+		    var writeFlag = false;
+		    var amount = bArray[bIndex[z]%bArray.length] ;
+		    
+		    if(bet_n2 == '10'){
+				betsn = '5,6,7,8,9,10';
+				
+				let bet_code = bet_n;
+			    let bet_sn = betsn;
+				let dynamicSn = '';
+				console.log('公式4:'+'號碼' + bet_n);
+				console.log('名次:'+ bet_sn);
+				let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
+		   		if(rbf){
+		   			projectBet[4][i] = true;
+					bIndex[z]++;
+				} 
+			}else {
+				projectBet[4][i] = true;
+			}
+		    
+		    
+	 			
+		 
+
+		}
+		
+	}
+
+ 
+	
+	function compareByType1_pro5(phase_before,phase_now,phase_before4 , bIndex, bArray, formu){
+		//let formu = document.getElementById('betproject6').checked ? '11' : '5';
+		const code_b = getCodeByPhase(phase_before); 
+		const code_n = getCodeByPhase(phase_now);
+		const code_n2 = getCodeByPhase(phase_now*1 -1);
+		const code_before4 = getCodeByPhase(phase_before4);
+		
+		const array_b = code_b.split(',');
+		const array_n = code_n.split(',');
+		const array_n2 = code_n2.split(',');
+		const array_before4 = code_before4.split(',');
+		if(array_b.length==0 || array_n.length==0 || array_before4.length==0  ){
+			return;
+		}
+		
+
+		let i = formu*1  - 1 ;
+		///const bet_b = array_b[i];
+		const bet_n = array_n[i];
+		const bet_n2 = array_n2[i];
+		//const bet_before4 = array_before4[i];
+		var z =  i+1; 
+	 	//var c = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+	 	//var cLog = "第"+z+"名，關數:"+ c + ", 準備預測" ;
+	 	//logAppend(cLog) ;
+	    var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+			//var betList =  rangeExist_pro5[bet_before4].toString().split(',');
+	    var writeFlag = false;
+    	//var betStr="";
+		var amount = bArray[bIndex[z]%bArray.length] ;
+		
+		
+		let bet_sn = '';
+		let betCode = '';
+		if(bIndex[z] == 0) {
+			if(i =='0' || i =='1'|| i =='2'
+				|| i =='3'|| i =='5'){
+				betCode =  '1,2,3,4,5,6'; 
+			}else {
+				betCode =  '5,6,7,8,9,10'; 
+			}
+			bet_sn = formu ;
+			betTemp5[z] = bet_n ;
+			 
+		}else {
+			for(var x = 0 ; x < array_n.length ; x++){
+				if(array_n[x] == betTemp5[z]){
+					bet_sn = x + 1;
+					let run_code = betTemp6[z];
+					if(run_code =='1' || run_code =='2'|| run_code =='3'
+						|| run_code =='4'|| run_code =='6'){
+						betCode =  '1,2,3,4,5,6'; 
+					}else {
+						betCode =  '5,6,7,8,9,10'; 
+					}
+					
+					break;
+				}
+			}
+		}
+		
+		
+		 
+		
+		if(!projectBet[5][i]){
+		 
+
+ 			let rbf = reallyBet(z, amount, (phase_now+1) , betc , betCode ,formu,bet_sn);
+	   		if(rbf){
+				bIndex[z]++;
+			} 
+		}
+   		 
+		
+	}
+	
+	function compareByType1_pro6(phase_before,phase_now,phase_before4 , bIndex, bArray){
+		let formu = document.getElementById('betproject6').checked ? '12' : '6';
+		const code_b = getCodeByPhase(phase_before); 
+		const code_n = getCodeByPhase(phase_now);
+		const code_n2 = getCodeByPhase(phase_now*1 -1);
+
+		const code_before4 = getCodeByPhase(phase_before4);
+		
+		const array_b = code_b.split(',');
+		const array_n = code_n.split(',');
+		const array_n2 = code_n2.split(',');
+
+		const array_before4 = code_before4.split(',');
+		if(array_b.length==0 || array_n.length==0 || array_before4.length==0  ){
+			return;
+		}
+		for(var i=0;i<10;i++){
+			const bet_b = array_b[i];
+			const bet_n = array_n[i];
+			const bet_n2 = array_n2[i];
+
+			const bet_before4 = array_before4[i]; 
+			var z = i+1; 
+		    var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+ 			 
+			var amount = bArray[bIndex[z]%bArray.length] ; 
+			
+			let betsn='';
+			if(! (z==4 ||z==7  ||z==3 || z==8) ){
+				projectBet[6][i] = true;
+			}else if((z==3 || z==8)){ 
+				betsn = '1,3,5,6,8,10';
+			}else if((z==4 || z==7)){ 
+				betsn = '1,2,4,7,9,10';
+			}
+			
+			
+			//if(bIndex[z] == 0)
+	 	   	//	 betTemp6[z] = rangeExist_pro6[bet_before4].toString();
+			    
+		  
+		 	if(!projectBet[6][i]){ 
+		 		    let bet_code = bet_n;
+				    let bet_sn = betsn;
+					let dynamicSn = '';
+
+					let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,dynamicSn);
+			   		if(rbf){
+						bIndex[z]++;
+					}  
+		   		
+		 	}
+		}
+		
+	}
+	
+	
+	
+ 
+	
+ 
+
+	 
+	
+	
+	function computeCase( f_barray , cc ){
+		 
+		var c = 0;
+		var c_temp = cc * 1 ;
+		for(var i=0;i<cc;i++){
+			
+			if(f_barray[i] ==0 ){
+				c_temp--;
+			}
+		}
+		
+		return c_temp + 1 ;
+	}
+
+	function specialreallyBet(sn,amount,betphase,c,betcode,originformu,betsn,dynamicSn){
+		let formu = originformu  ;
+	    var b = betsn;
+		 
+		 
+	  
+		//let snIndex = sn - 1;
+		$.ajax({ url:  u + "/specialbet?user="+document.getElementById("user").value+ 
+				"&sn="+sn+"&amount="+amount+
+				"&betphase="+betphase+"&c="+c+"&codeList="+betcode+"&formu="+originformu+
+				'&boardType='+document.getElementById("boardType").value+
+				'&betsn='+b,  
+         async: false,
+         success: function(data) {
+        		    
+        	        if(data == 'error'){
+        	        		
+        	        	    projectBet[formu][formu] = false;
+        	       	 	//betflag = true; 
+        	       	 	//console.log(betphase + " betResut:"+ betflag);
+        	        }else if (data ==''){
+        	       	 	projectBet[formu][formu] = true; 
+        	        }
+         	 }
+        });
+		 
+		return projectBet[formu][formu] ; 
+	}
+	
+	function combindsort(arra){
+	  	   let l = arra.split(',');
+	       var arr = new Array(l.length)
+	       
+	       for(var i =0 ; i <arr.length;i++){
+	    	  	 arr[i] = l[i];
+	       }
+	       
+	     /*  arr[0] =  arra.split(',')[0];
+	       arr[1] =  arra.split(',')[1];
+	       arr[2] =  arra.split(',')[2];
+	       arr[3] =  arra.split(',')[3];
+	       arr[4] =  arra.split(',')[4];
+	   	   arr[5] =  arra.split(',')[5];*/
+	  
+	       return arr.sort(sortNumber);  
+ 	}
+	
+	function getBETsnBycode(nCodeArra,code){
+	 
+		 for(var s =0 ; s< nCodeArra.length ; s++){
+			 if(nCodeArra[s] == code){
+				 let betsn = s + 1;
+				 return betsn;
+			 }
+		 }
+	}
+	
+	function reallyBet(sn,amount,betphase,c,codeList,originformu,BETFLAG){
+	    
+		let formu = originformu ;
+		var b = combindsort(codeList); 
+		 
+		//let snIndex = sn - 1;
+		$.ajax({ url:  u + "/bet?user="+document.getElementById("user").value+
+				"&displaysn="+BETFLAG+
+				"&sn="+sn+"&amount="+amount+"&betphase="+betphase+"&c="+c+"&codeList="+b+"&formu="+originformu+'&boardType='+document.getElementById("boardType").value,  
+         async: false,
+         success: function(data) {
+        		    
+        	        if(data == 'error'){
+        	        		
+        	        	    projectBet[formu][formu] = false;
+        	       	 	//betflag = true; 
+        	       	 	//console.log(betphase + " betResut:"+ betflag);
+        	        }else if (data ==''){
+        	       	 	projectBet[formu][formu] = true; 
+        	        }
+         	 }
+        });
+		 
+		return projectBet[formu][formu] ; 
+	}
+	
+	function clearProjectBetFlag(){
+		 for(var i in projectBet[1]){projectBet[1][i] = false;}
+		 for(var i in projectBet[2]){projectBet[2][i] = false;}
+		 for(var i in projectBet[3]){projectBet[3][i] = false;}
+		 for(var i in projectBet[4]){projectBet[4][i] = false;}
+		 for(var i in projectBet[5]){projectBet[5][i] = false;}
+		 for(var i in projectBet[6]){projectBet[6][i] = false;}
+		 for(var i in projectBet[7]){projectBet[7][i] = false;}
+		 for(var i in projectBet[8]){projectBet[8][i] = false;}
+		 for(var i in projectBet[9]){projectBet[9][i] = false;}
+		 for(var i in projectBet[10]){projectBet[10][i] = false;}
+		 for(var i in projectBet[11]){projectBet[11][i] = false;}
+		 for(var i in projectBet[12]){projectBet[12][i] = false;}
+
+	}
+	
+	function checkProjectBetflag(){
+	 	  if(    (
+	 		 
+	 		  (document.getElementById('c2').checked && !(projectBet[1][1])) ||
+	 		  (document.getElementById('c3').checked && !(projectBet[2][2])) ||
+	 		  (document.getElementById('c4').checked && !(projectBet[3][3])) ||
+	 		  (document.getElementById('c5').checked && !(projectBet[4][4]))||
+	 		  (document.getElementById('c6').checked && !(projectBet[5][5]))||
+	 		  (document.getElementById('c7').checked && !(projectBet[6][6]))||
+	 		  (document.getElementById('c8').checked && !(projectBet[7][7]))||
+	 		  (document.getElementById('c9').checked && !(projectBet[8][8]))||
+	 		  (document.getElementById('c10').checked && !(projectBet[9][9]))||
+	 		  (document.getElementById('c11').checked && !(projectBet[10][10]))||
+	 		  (document.getElementById('c12').checked && !(projectBet[12][12]))
+					 )
+	 	  ) {
+	 		 return false;
+	 	  } else {
+	 		  return true;
+	 	  }
+	 
+	}
+	
+	function checkProjectBetFlagIndex(array){
+		for(var i in array){
+			if(!array[i]){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	function saveLog(user,log){
+		 $.ajax({ url:  u + "/saveLog?user="+user +"&log="+log, 
+	         async: false,
+	         success: function(data) {
+	        	 
+	         	 }
+	        });
+		
+	}
+	function saveOverLog(user,log,c){
+		 $.ajax({ url:  u + "/saveOverLog?user="+user +"&log="+log+"&c="+c, 
+	         async: false,
+	         success: function(data) {
+	        	 
+	         	 }
+	        });
+		
+	}
+	
+	function getCodeByPhase(phase){ //取得號碼
+		 let code=""; 
+		 $.ajax({ url:  u + "/getCode?phase="+phase, 
+	         async: false,
+	         success: function(data) {
+	        	 code = data;
+	         	 }
+	        });
+		 return code ;
+	}
+	
+	
+	function getPhase(){ //取得期數
+		 let period=""; 
+		 $.ajax({ url:  u + '/getPhase?user='+document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value+'&boardType='+document.getElementById("boardType").value,
+	         async: false,
+	         success: function(data) {
+			        	 if(data == 'null'){
+			        		 period = 0 ;  
+			        		 
+			        	 }else {
+			        		   period = data;
+			           	   $( "div.toPhase" ).text(data);
+			           	   let nphase = data - 1;
+			           	   $( "div.toNowPhase" ).text(nphase);
+			           	   
+			               let c = getCodeByPhase(nphase);
+			               console.log("blinkPhase"+blinkPhase);
+			               if(c=='null'){//開獎中
+			            	   	  //$('.openload').show();
+			            	      //$('.blink').show();
+			            	   	  //$('#openCode').hide(); 
+			               }else if(blinkPhase=='' ||  (nphase* 1 - blinkPhase*1 ) > 0){ //已開獎
+			            	      blinkPhase = nphase ;
+			            	      //checkOver(data);
+			            	      $('.openload').hide(); 
+			            	      $('.blink').hide();
+			            	   	  $('#openCode').show(); 
+			            	   	  //set code
+			            	   	  let codearr = c.split(',');
+			            	   	  let temp= "<div  align=\"center\" class=\"nums\"  style=\"padding-top: 0.1cm; padding-bottom: 0.1cm;\">";
+			            	   
+			            	   	  for(var i=0;i<codearr.length;i++){
+			            	   		  
+			            	   			if (codearr[i] == 1)
+			                             temp += "<i class=\"pk-no" +  codearr[i] + "\"></i>";
+			                         if (codearr[i] == 2)
+			                             temp += "<i class=\"pk-no" +  codearr[i] + "\"></i>";
+			                         if (codearr[i] == 3)
+			                             temp += "<i class=\"pk-no" +  codearr[i] + "\"></i>";
+			                         if (codearr[i] == 4)
+			                             temp += "<i class=\"pk-no" +  codearr[i] + "\"></i>";
+			                         if (codearr[i] == 5)
+			                             temp += "<i class=\"pk-no" +  codearr[i] + "\"></i>";
+			                         if (codearr[i] == 6)
+			                             temp += "<i class=\"pk-no" +  codearr[i] + "\"></i>";
+			                         if (codearr[i] == 7)
+			                             temp += "<i class=\"pk-no" +  codearr[i] + "\"></i>";
+			                         if (codearr[i] == 8)
+			                             temp += "<i class=\"pk-no" +  codearr[i] + "\"></i>";
+			                         if (codearr[i] == 9)
+			                             temp += "<i class=\"pk-no" +  codearr[i] + "\"></i>";
+			                         if (codearr[i] == 10)
+			                             temp += "<i class=\"pk-no" +  codearr[i] + "\"></i>";
+			            	   	  }
+			            	      temp += "</div>" ;
+			            	      $( "div.lot-table" ).html(temp);
+			            	      
+			            	 	  //$( "div.nowCode" ).text(c);
+		    	 				  	 	let url = u + '/getHistory';
+
+			  				   
+			    		       	  $.ajax({ url:  url, 
+			    		    	         async: false,
+			    		    	         success: function(data) {
+			    		    	        	  
+			    		    	        	    const json = JSON.parse(data);
+			    		    	        	  
+			    		    		    	 	$( "div.historyHtml" ).html(json.logHtml);
+			    		    		    	 	 
+			    		     
+			    		    	         	 } 
+			    		    	         	 
+			    		          });
+			               }
+			              
+			               
+			        	 }
+	              
+	         	 }
+	        });
+		 return period*1  ;
+	}
+	
+	function checkRegular(v){
+		var str = v.replaceAll(',','');
+		 
+	    var regExp = /\D/;
+	    if (regExp.test(str))
+	        return true;
+	    else
+	        return false;  
+	}
+ 	function saveParam(){
+ 		
+ 		
+ 		let check_v = '';
+ 		for(var i= 1 ; i<13 ;i++){
+ 			let id = ".betlist" + (i==1?'':i) ;
+ 			if( $( id ).val().indexOf(' ')>-1 || $( id ).val().indexOf(',,')>-1 ) {
+ 				alert('輸入符號有誤');
+ 				return;
+ 			}
+ 			
+ 			
+ 			let arr =  $( id ).val().toString().split(',');
+ 			for(var s in arr){
+ 				if(arr[s].length >1){
+ 					if(arr[s].substring(0,1) == '0'){
+ 						alert('輸入符號有誤');
+ 		 				return;
+ 					}
+ 				} 
+ 			}
+ 			
+ 			check_v +=  $( id ).val();
+ 		}
+ 		
+ 		 
+ 		var regulargFlag = checkRegular(check_v);
+ 		
+ 		if(regulargFlag){
+ 			alert('輸入符號有誤');
+ 			return ;
+ 		}
+ 		
+ 		let type = getType();
+ 		let betParam = getBetListParam(); 
+ 		
+ 		if($( ".stoplose" ).val() && $( ".stopwin" ).val() && $( ".startstatus" ).val() ){
+ 			const url =  u + "/saveParam?" + "user="+document.getElementById("user").value+"&type="+ type+
+ 			betParam
+ 			+"&stoplose="+$( ".stoplose" ).val()
+ 			+"&stopwin="+$( ".stopwin" ).val()
+ 			+"&startstatus="
+ 			+$( ".startstatus" ).val() 
+ 			+"&s_h="+document.getElementById("s_h").value+"&s_m="+document.getElementById("s_m").value
+ 			+"&e_h="+document.getElementById("e_h").value+"&e_m="+document.getElementById("e_m").value
+ 			+"&stoppoint="+$( ".stoppoint" ).val()
+ 			+"&betproject5="+ ( document.getElementById("betproject5").checked?'1':'0' )
+ 			+"&betproject6="+ ( document.getElementById("betproject6").checked?'1':'0' )
+
+ 			;
+ 			 
+ 			
+ 			$.ajax({ url:url, 
+		         async: false,
+		         success: function(data) {
+		        	 alert("設定完成!")
+	         	 }
+	        }); 
+ 		}else {
+ 			alert("請輸入止損金盈、止盈金額!")
+ 		}
+ 		
+ 	}
+ 	function getBetListParam(){
+ 		let p = "";
+ 		for(var i = 1 ; i<13;i++){
+ 			let id = ".betlist" + (i==1?'':i) ;
+ 			let pid = "betlist" + (i==1?'':i) ;
+ 			if($( id ).val()){
+ 				p+= "&"+pid+"="+$( id ).val() ; } else {p+= "&"+pid+"=0" ;
+ 			}
+ 			
+ 		} 
+ 		return p;
+ 	}
+ 	
+ 	function checkWin(){
+ 		var sl= $( ".stoplose" ).val();
+ 		var sw= $( ".stopwin" ).val();
+ 		
+ 		if(sl*-1> todayWin*1){ //停損
+ 			$('td.s_lose').css('background-color', '#FF0000');
+ 		}else{
+ 			$('td.s_lose').css('background-color', 'powderblue');
+
+ 		}
+ 		
+		if(sw*1 < todayWin*1){ //停利
+			$('td.s_win').css('background-color', '#0066FF');
+ 		}else{
+ 			$('td.s_win').css('background-color', 'powderblue');
+
+ 		}
+		
+ 		if((sl*-1 < todayWin*1) && (todayWin*1 < sw*1) && ( $( ".startstatus" ).val() == '1')){
+ 			return true;
+ 			
+ 		}
+ 			
+ 		
+ 		if(!(sl*-1 < todayWin*1) || !(todayWin*1 < sw*1)){
+ 			$( ".startstatus" ).val(0) ;
+ 			$('select.startstatus').css('background', 'red');
+ 			clearIndex();
+ 		    //$('.tdstartstatus').css('background', 'red'); 
+ 		}
+ 		
+ 		
+ 		
+ 		
+ 		return false;
+ 	}
+ 	
+ 	function checkTime(h){
+ 		
+ 		var flag = false;
+ 		if(h*1 > 8 && h*1 < 24) {
+ 			flag = true;
+ 		}else {
+ 			betIndex = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+ 			betIndex2 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+ 			betIndex3 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+ 			betIndex4 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+ 			betIndex5 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+ 			betIndex6 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+
+ 		}
+ 		return flag;
+ 	    
+ 	}
+ 	
+ 	
+ 	function checkMemberStatus(){
+ 		var flag = false;
+ 		 
+ 		var proxy="";
+ 		var force='1';
+ 		$.ajax({ url:  'http://www.sd8888.net:9999/loadID?id='+document.getElementById("user").value, 
+  	         async: false,
+  	         success: function(data) {
+ 	        	 	  proxy = (data).split(',')[7] ; //0:gun ; 1:fa
+  	        	 	
+  	        	 } 
+  	         	 
+        });
+ 		
+ 		if(proxy=='0'){//gun
+ 			$.ajax({ url:  "http://www.sd8888.net:9999/getForce?filename=gun", 
+ 	  	         async: false,
+ 	  	         success: function(data) {
+ 	  	         	force =  data;
+ 	  	        	 	
+ 	  	        	 } 
+ 	  	         	 
+ 	        });
+ 		} else if(proxy=='1') {
+ 			$.ajax({ url:  "http://www.sd8888.net:9999/getForce?filename=fa", 
+	  	         async: false,
+	  	         success: function(data) {
+	  	         	force =  data;
+	  	        	 	
+	  	        	 } 
+	  	         	 
+	        });
+ 		}
+ 		
+ 		
+ 		return force=='0' ? true :false;
+ 	}
+ 	
+ 	function checkForce(){
+ 		 
+
+		 var bet = '1';  
+      	 $.ajax({ url:  'http://www.sd8888.net:9999/getForce?filename=', 
+   	         async: false,
+   	         success: function(data) {
+   	        	   	bet = (data) ;
+   	        	 } 
+   	         	 
+         });
+ 		
+ 		return bet ;
+ 	}
+ 	
+ 	
+ 	var betflag=false;
+ 	
+ 	var checkSub1= "";
+    function timeout() {
+    	
+  
+	
+    	workerTimer_timeout.setInterval(function () {
+		    	  	//var checkFlag = checkForce();	
+		    		//if(checkFlag == '1'){ //全部停止走關
+		    		//	clearIndex();
+		    		//}
+		    		
+		    		
+		    		//log_betIndex();
+		    		 
+    		
+	    		    var d = new Date();
+			    //var n = d.getMinutes();
+			    var h = d.getHours();
+			    //let nextPhase =  getPhase();
+			    var min = getBetMin();
+			    var checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
+			    
+			    
+	   	 	if( (checkStartHM *1) == 8020 ){ //relogin
+	   	 		 var auto = "N" ; 
+	   	 		 if(document.getElementById("autoStart").checked){
+	   	 			 auto = "Y";
+	   	 		 }
+	             window.location.href="http://www.sd8888.net/index998.html?auto="+auto+"&user="+
+	             document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value;
+		    }
+			    
+		   	if(document.getElementById('autoStart').checked) { //時間不在起迄，不能運行
+		    	 	var sh = document.getElementById("s_h").value;
+		    	 	var sm = document.getElementById("s_m").value;
+		    	 	var eh = document.getElementById("e_h").value;
+		    	 	var em = document.getElementById("e_m").value;
+		    		if(sh!='' && sm!='' ){
+		    			var s = sh + '0' + sm ;
+		    			 
+		    			if( ( (s*1) == (checkStartHM *1) ) ){
+		    				$(".startstatus" ).val(1);
+		    				$('select.startstatus').css('background', 'green');  
+		    				clearIndex();
+		    				projectIndex = {
+						    	'1' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'2' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'3' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'4' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'5' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'6' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'7' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'8' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'9' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'10' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+
+						    }
+
+		    				//$('.tdstartstatus').css('background', 'red'); 
+		    				 //document.getElementById("autoStart").checked = false;*///不在區間內不能停用，會影響自動啟用(一直被取消)
+		    			} 
+		    		}
+		    		 
+		     }
+	   	 
+    	        var winFlag = getWinFun(); 
+    	        
+			    if(winFlag){
+		    	         let stop = 0;
+		    	         let cccheck = $( "div.extendtime" ).text().toString().split(':')[0];
+ 		    	         let cccheck_S = $( "div.extendtime" ).text().toString().split(':')[1];
+
+						// try{
+						// 	stop = $( "div.extendtime" ).text() * 1;
+		    // 	         }catch(err){
+	   	 //        	    		saveLog('error_bet','stoptime:' + stop);
+	   	 //        	    }
+		    	        
+				    console.log(stop + 'cccheck' + cccheck)
+				    if(cccheck*1 >3){
+				    //	betflag = false; 
+				    	clearProjectBetFlag();
+				    } 
+				    
+				    if( (checkStartHM *1) < 8030 &&  (checkStartHM *1) > 4030){
+				   	 	deleteHistory();
+				    }
+				    
+			        if( (checkStartHM *1) < 10000 ){
+				   	 	clearIndex();
+				    }
+				    
+				     
+			        if((cccheck<4 ) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
+			            var phase =  $( "div.toPhase" ).text();
+			            //console.log(phase);
+						if( phase ){  
+							if(true){
+								//console.log(JSON.stringify(betIndex)); 
+
+							   if(cccheck_S<10 && !checkProjectBetflag()){ //到了最後還下注不了，只好關數歸零
+									clearIndex(); //
+									var d = getYYYYMMDDSS();
+					        	    		var log =  d + "error!" ;
+									saveLog('error_bet','一直無法下注成功' + log);
+									checkSub1 = '';
+								  	clearProjectBetFlag();
+								}else if(checkSub1 == '' ||  (( phase * 1 ) - ( checkSub1 * 1 )) == 1 ){
+									checkOver(phase)
+									console.log('enter selectobet');
+									let o = selectTypeToBet(phase);  
+						       	 	
+								}  
+								
+								if(checkProjectBetflag()) 
+									checkSub1 = phase ;
+								 
+							}/*else { //兌不到獎
+								clearIndex();
+								var d = getYYYYMMDDSS();
+				        	    		var log =  d + "error!" ;
+								saveLog('error_bet',phase+' : checkover' + log);
+							}*/
+							 
+						} else { 
+							var d = getYYYYMMDDSS();
+				        	    var log =  d + "error!" ;
+							saveLog('error_bet',log);
+						}  
+					}
+			       
+				    
+			        
+			    	
+			    }
+			    
+			   
+		        
+	       // timeout();
+	    }, 3000);
+	}
+    
+    function overTimeout() { 
+    	workerTimer_timeout.setInterval(function () { 
+    			 
+    				dynamic_phase =  getPhase(); 
+    			    //if(dynamic_phase != 0){
+    			    	//	checkOver(dynamic_phase);
+    			    //} 
+    			    getlogHtml();
+    		 
+	    		
+			    //overTimeout();
+	    }, 1000);
+	}
+    
+    function checkTimeflag(t){
+    	   var d = new Date();
+		 	var h = d.getHours(); 
+		    var min = getBetMin();
+		    var checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ; 
+	   	 	if( (checkStartHM *1) > t ){ 
+	   	 		return true;
+	   	 	}
+		    
+		    return false;
+    }
+    
+	function getHistoryTimeout() {
+    	
+   		
+		
+		workerTimer_timeout.setInterval(function () {
+    	        
+		 	let url = u + '/getHistory';
+
+				   
+		       	 $.ajax({ url:  url, 
+		    	         async: true,
+		    	         success: function(data) {
+		    	        	  
+		    	        	    const json = JSON.parse(data);
+		    	        	  
+		    		    	 	$( "div.historyHtml" ).html(json.logHtml);
+		    		    	 	 
+		     
+		    	         	 } 
+		    	         	 
+		          });
+		        
+			    //getHistoryTimeout();
+	    }, 5000);
+	}
+	
+	function getSec(){
+		
+		var nowdate=new Date();    //now date
+		var m =   nowdate.getMinutes() ;
+		
+		var endM="";
+		var h = nowdate.getHours();
+		
+		if(m*1 >= 57){h=h+1; endM = 2}
+		else if(m*1 >= 52){ endM = 57}
+		else if(m*1 >= 47){ endM = 52}
+		else if(m*1 >= 42){ endM = 47}
+		else if(m*1 >= 37){ endM = 42}
+		else if(m*1 >= 32){ endM = 37}
+		else if(m*1 >= 27){ endM = 32}
+		else if(m*1 >= 22){ endM = 27}
+		else if(m*1 >= 17){ endM = 22}
+		else if(m*1 >= 12){ endM = 17}
+		else if(m*1 >= 7){ endM = 12}
+		else if(m*1 >= 2){ endM = 7}
+		else if(m*1 >= 0){ endM = 2}
+		
+	 	var year = nowdate.getFullYear();
+	 	var month = nowdate.getMonth() + 1;
+	 	var d = nowdate.getDate();
+	 	var sec = nowdate.getSeconds();
+	 	
+		var end = new Date(year+"-"+pad2(month)+"-"+pad2(d)+" "+pad2(h )+":"+pad2(endM)+":00" );
+		
+		var s3 = end.getTime() - nowdate.getTime();
+		//console.log(year+"-"+pad2(month)+"-"+pad2(d)+" "+pad2( h )+":"+pad2(endM)+":00")
+		if(sec>0 && sec<30)
+			setBlink(m);
+		return Math.floor(s3/1000);
+	}
+	
+	let blinkPhase = '';
+	 
+	function setBlink(m){
+		if( (m == 2 ||
+				m == 7 ||
+				m == 12 ||
+				m == 17 ||
+				m == 22 ||
+				m == 27 ||
+				m == 32 ||
+				m == 37 ||
+				m == 42 ||
+				m == 47 ||
+				m == 52 ||
+				m == 57 )    
+		){
+		  $('.openload').show();
+  	      $('.blink').show();
+  	   	  $('#openCode').hide();  
+		} 
+	}
+	function setExtendTimeTimeout() {
+    	
+   		
+		 
+		workerTimer_timeout.setInterval(function () {
+   			if(todayWin>0){ //贏的顏色
+   	   			$( "div.toDayWin" ).css('color', 'blue');  
+   	   		}else{
+   	   			$( "div.toDayWin" ).css('color', 'red');  
+   	   		}
+   			
+	    		//let url =  u + '/getBETTIME';
+	    		/*var data = getSec();
+	    		    let m = Math.floor(data /60);
+	        	    let s = data%60 ; 
+	       
+	        	
+
+	        	
+		    	 	//$( "div.extendtime" ).html("剩餘 "+ m +" 分 "+ s + "  秒");
+		    	    //$( "div.extendtime" ).css({ 'color': 'red'  });
+	 	   	        $("#time_m1").text(Math.floor(m/10));
+	 	   	        $("#time_m2").text(m%10);
+	 	   	        $("#time_s1").text(Math.floor(s/10));
+	 	   	        $("#time_s2").text(s%10);*/
+	 	   	        
+	      	 /*$.ajax({ url:  url, 
+	   	         async: true,
+	   	         success: function(data) {
+	   	        	    try{
+	   	        	        let m = Math.floor(data /60);
+		   	        	    let s = data%60 ; 
+		   	       
+		   	        	
+
+		   	        	
+		   		    	 	//$( "div.extendtime" ).html("剩餘 "+ m +" 分 "+ s + "  秒");
+		   		    	    //$( "div.extendtime" ).css({ 'color': 'red'  });
+			 	   	        $("#time_m1").text(Math.floor(m/10));
+			 	   	        $("#time_m2").text(m%10);
+			 	   	        $("#time_s1").text(Math.floor(s/10));
+			 	   	        $("#time_s2").text(s%10);
+	   	        	    }catch(err){
+	   	        	    	
+	   	        	    }
+	   	        	   
+
+	   		    	 
+	   	         	 } 
+	   	         	 
+	         });*/
+		        
+	      	//setExtendTimeTimeout();
+	    }, 1000); 
+	}
+	
+	
+	 
+    
+    
+    //檢查過關
+    function checkOver(nextPhase){
+    	let phase_now = nextPhase*1 - 1 
+    	let code_n = getCodeByPhase(phase_now);
+    	let array  = code_n.split(',');
+    	if(array.length==0){
+    		checkOver(nextPhase);
+			return;
+		} 
+    
+    		 let check = true; 
+	   	 $.ajax({ url:  u + "/checkOver?user="+document.getElementById("user").value+"&phase="+phase_now+"&code="+code_n
+	   		+"&betproject="+	 checkChangeBetProject, 
+	         async: false,
+	         success: function(data) { 
+	        	  
+	        	 const json = JSON.parse(data);
+
+	        	 for(var formu = 1 ; formu<13 ; formu++){
+	        		 for(var sn=1 ; sn<13 ; sn++){
+	        			  let letter = '';
+	        			  let indexstr = '';
+	        			     if(sn == 1){letter = 'a'};
+	        			     if(sn == 2){letter = 'b'};
+	        			     if(sn == 3){letter = 'c'};
+	        			     if(sn == 4){letter = 'd'};
+	        			     if(sn == 5){letter = 'e'};
+	        			     if(sn == 6){letter = 'f'};
+	        			     if(sn == 7){letter = 'g'};
+	        			     if(sn == 8){letter = 'h'};
+	        			     if(sn == 9){letter = 'i'};
+	        			     if(sn == 10){letter = 'j'};
+	        			     if(sn == 12){letter = 'z'};
+					  
+	        			     let flag = json[letter+''+formu] ;
+	        			     if(flag){
+        			     			  projectTemp[formu] = '';
+	        			    	 	  //if(formu==1){betIndex[1] = 0 ;}
+	        			    	 	  if(formu==1){betIndex[1] = 0 ;}
+	        			    	 	  if(formu==2){betIndex2[2] = 0 ;}
+	        			    	 	  if(formu==3){betIndex3[3] = 0 ;}
+	        			    	 	  if(formu==4){betIndex4[4] = 0 ;}
+	        			    	 	  if(formu==5){betIndex5[5] = 0 ;}
+	        			    	 	  if(formu==6){betIndex6[6] = 0 ;}
+	        			    	 	  if(formu==7){betIndex7[7] = 0 ;}
+	        			    	 	  if(formu==8){betIndex8[8] = 0 ;}
+	        			    	 	  if(formu==9){betIndex9[9] = 0 ;}
+	        			    	 	  if(formu==10){betIndex10[10] = 0 ;}
+	        			    	 	  if(formu==11){betIndex11[sn] = 0 ;}
+	        			    	 	  if(formu==12){betIndex12[12] = 0 ;}
+
+	        			     }
+	        			    	  
+	        		 }
+	        		 
+	        	 }
+	        	  
+	        	 if(json.checkFlag=='Y'){
+	        		 check = true;
+	        	 }
+
+         	 }
+	        });
+    	
+    			return check;
+    }
+    
+    function clearIndex(){
+   	 	systemReloginIndex = 0;
+    		betIndex = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+			betIndex2 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+			betIndex3 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+			betIndex4 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+			betIndex5 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+			betIndex6 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+			betIndex7 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+			betIndex8 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+			betIndex9 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+			betIndex10 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+			betIndex12 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0,'12' : 0, };
+
+
+
+			projectTemp = {
+		    	'1' : '' ,
+		    	'2' : '' ,
+		    	'3' : '' ,
+		    	'4' : '' ,
+		    	'5' : '' ,
+		    	'6' : '' ,
+		    	'7' : '' ,
+		    	'8' : '' ,
+		    	'9' : '' ,
+		    	'10' : '' ,
+		    }	
+
+
+    }
+    function selectTypeToBet(nextPhase){
+    	  const n = nextPhase*1 - 1 ;
+    	  
+    	  let obj = {} ; 
+    	  
+			 
+			    
+			    if(document.getElementById('c2').checked  && !(projectBet[1][1]) ) {
+					  console.log('project2'+'-betPhase:'+nextPhase);
+					  obj.b = nextPhase - 5 ;
+					  obj.fourTh = nextPhase - 4 ; 
+					  const b = obj.b ;
+					  const fourTh = obj.fourTh ;
+					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+						  compareByType_from_member(b,n,fourTh,betIndex,betarray,'1');
+					  } 
+			    }
+			    if(document.getElementById('c3').checked  && !(projectBet[2][2]) ) {
+			  		  console.log('project3'+'-betPhase:'+nextPhase);
+			  		  obj.b = nextPhase - 5 ;
+					  obj.fourTh = nextPhase - 4 ;
+					  const b = obj.b ;
+					  const fourTh = obj.fourTh ;
+					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+						  compareByType_from_member(b,n,fourTh,betIndex2,betarray2,'2');		  
+				 	  }  
+		      	  }
+			    if(document.getElementById('c4').checked  && !(projectBet[3][3]) ) {
+		   	          console.log('project4'+'-betPhase:'+nextPhase);
+		   	       	  obj.b = nextPhase - 5 ;
+					  obj.fourTh = nextPhase - 4 ;
+					  const b = obj.b ;
+					  const fourTh = obj.fourTh ;
+					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+						  compareByType_from_member(b,n,fourTh,betIndex3,betarray3,'3');
+					  }
+				    }
+			    
+			    if(document.getElementById('c5').checked  && !(projectBet[4][4]) ) {
+					  console.log('project5'+'-betPhase:'+nextPhase);
+					  obj.b = nextPhase - 5 ;
+					  obj.fourTh = nextPhase - 4 ;
+					  const b = obj.b ;
+					  const fourTh = obj.fourTh ;
+					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+						  compareByType_from_member(b,n,fourTh,betIndex4,betarray4,'4');
+					  }
+				   }
+			    //
+			    
+			    
+			    if(document.getElementById('c6').checked  && !(projectBet[5][5])  ) {
+					//  console.log('project6'+'-betPhase:'+nextPhase);
+					  obj.b = nextPhase - 5 ;
+					  obj.fourTh = nextPhase - 4 ; 
+					  const b = obj.b ;
+					  const fourTh = obj.fourTh ;
+					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+						  compareByType_from_member(b,n,fourTh,betIndex5,betarray5,'5');
+					  }
+				  }
+			    
+	  		  
+			    if(document.getElementById('c7').checked  && !(projectBet[6][6])  ) { 
+		    		//  console.log('project1'+'-betPhase:'+nextPhase);
+		    		  obj.b = nextPhase - 5 ;
+		    		  obj.fourTh = nextPhase - 4 ;
+		    		  const b = obj.b ;
+				  const fourTh = obj.fourTh ;
+				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+					  compareByType_from_member(b,n,fourTh,betIndex6,betarray6,'6');
+				  } 
+		    	    }
+			    //直七
+			    if(document.getElementById('c8').checked  && !(projectBet[7][7]) ) {
+					//  console.log('project2'+'-betPhase:'+nextPhase);
+					  obj.b = nextPhase - 5 ;
+					  obj.fourTh = nextPhase - 4 ; 
+					  const b = obj.b ;
+					  const fourTh = obj.fourTh ;
+					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+						  compareByType_from_member(b,n,fourTh,betIndex7,betarray7,'7');
+					  } 
+				    }
+			    if(document.getElementById('c9').checked  && !(projectBet[8][8]) ) {
+		  		 // console.log('project3'+'-betPhase:'+nextPhase);
+				  obj.b = nextPhase - 5 ;
+				  obj.fourTh = nextPhase - 4 ;
+				  const b = obj.b ;
+				  const fourTh = obj.fourTh ;
+				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+					  compareByType_from_member(b,n,fourTh,betIndex8,betarray8,'8');
+			 	  }  
+	      	  	}
+			    
+			    if(document.getElementById('c10').checked  && !(projectBet[9][9]) ) {
+			  		//  console.log('project3'+'-betPhase:'+nextPhase);
+					  obj.b = nextPhase - 5 ;
+					  obj.fourTh = nextPhase - 4 ;
+					  const b = obj.b ;
+					  const fourTh = obj.fourTh ;
+					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+						  compareByType_from_member(b,n,fourTh,betIndex9,betarray9,'9');
+				 	  }  
+		      	  	}
+			    
+			    if(document.getElementById('c11').checked  && !(projectBet[10][10]) ) {
+			  		 // console.log('project3'+'-betPhase:'+nextPhase);
+					  obj.b = nextPhase - 5 ;
+					  obj.fourTh = nextPhase - 4 ;
+					  const b = obj.b ;
+					  const fourTh = obj.fourTh ;
+					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+						  compareByType_from_member(b,n,fourTh,betIndex10,betarray10,'10');
+				 	  }  
+		      	  	}
+			    
+			    if(document.getElementById('c12').checked  && !(projectBet[12][12]) ) {
+			  		  console.log('project12'+'-betPhase:'+nextPhase);
+					  obj.b = nextPhase - 5 ;
+					  obj.fourTh = nextPhase - 4 ;
+					  const b = obj.b ;
+					  const fourTh = obj.fourTh ;
+					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+						  compareByType_from_member(b,n,fourTh,betIndex12,betarray12,'12');
+				 	  }  
+		      	  	}
+			    
+			    
+			    /*
+			    
+			   if(document.getElementById('c10').checked  && !(projectBet[9][9]) ) {
+	   	          console.log('project4'+'-betPhase:'+nextPhase);
+				  obj.b = nextPhase - 5 ;
+				  obj.fourTh = nextPhase - 4 ; 
+				  const b = obj.b ;
+				  const fourTh = obj.fourTh ;
+				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+					  compareByType_from_member_v(b,n,fourTh,betIndex9,betarray9,'9');
+				  }
+			    }
+			  
+			   
+			   if(document.getElementById('c11').checked  && !(projectBet[10][10]) ) {
+					  console.log('project5'+'-betPhase:'+nextPhase);
+					  obj.b = nextPhase - 5 ;
+					  obj.fourTh = nextPhase - 4 ; 
+					  const b = obj.b ;
+					  const fourTh = obj.fourTh ;
+					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+						  compareByType_from_member_v(b,n,fourTh,betIndex10,betarray10,'10');
+					  }
+				   }
+				   
+			   
+			   
+			   //
+			   if(document.getElementById('c12').checked  && !checkProjectBetFlagIndex(projectBet[12]) ) {
+				  console.log('project6'+'-betPhase:'+nextPhase);
+				  obj.b = nextPhase - 5 ;
+				  obj.fourTh = nextPhase - 4 ; 
+				  const b = obj.b ;
+				  const fourTh = obj.fourTh ;
+				  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+					  compareByType1_pro12(b,n,fourTh,betIndex12,betarray12);
+				  }
+			  }*/
+	  	  
+	  		  
+			 
+			  
+			  
+			
+			  
+			   
+			  
+	   
+	  	  
+   	     
+		  
+		  
+		  
+		  
+		  
+		  
+    	  
+	 
+	  
+		  
+	  	  return obj; 
+    }
+    function clearLog(){
+    	
+    	 $.ajax({ url:  u + "/clearLog?user="+document.getElementById("user").value+"bet", 
+	         async: false,
+	         success: function(data) {
+	        	 $( "div.logHtml" ).html('');
+	        	 alert("清空成功!");
+	         	 }
+	        });
+ 	 
+ 	}
+    
+    function clearOverLog(){
+    	
+   	 $.ajax({ url:  u + "/clearLog?user="+document.getElementById("user").value+"overLOGDIS", 
+	         async: false,
+	         success: function(data) {
+	        	 $( "div.logOverHtml" ).html('');
+	        	 alert("清空成功!");
+	         	 }
+	        });
+		
+	}
+    
+   
+	
+    function getLimitDate(){
+   
+    	$.ajax({ url:  u + "/getLimitDate?user="+document.getElementById("user").value,  
+    	 async: false,
+    	 success: function(data) {
+    		 let date = data.split(',')[0];
+    		 let convrt_date = date.substring(0,4) + '/' + date.substring(4,6)+ '/' + date.substring(6,8)
+    		 $( "div.limittime" ).html(convrt_date);
+    	 	 }
+    	});
+    }
+    
+    function save_param(){
+    	    
+    	  if(!document.getElementById('c2').checked) {betIndex = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+    	  if(!document.getElementById('c3').checked) {betIndex2 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+    	  if(!document.getElementById('c4').checked) {betIndex3 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+    	  if(!document.getElementById('c5').checked) {betIndex4 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+    	  if(!document.getElementById('c6').checked) {betIndex5 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+    	  if(!document.getElementById('c7').checked) {betIndex6 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+    	  if(!document.getElementById('c8').checked) {betIndex7 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+    	  if(!document.getElementById('c9').checked) {betIndex8 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+    	  if(!document.getElementById('c10').checked) {betIndex9 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+    	  if(!document.getElementById('c11').checked) {betIndex10 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+    	  if(!document.getElementById('c12').checked) {betIndex12 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+
+
+    			
+
+    	saveParam();
+    	
+    	
+    }
+    
+    function clearAll(){
+    	$.ajax({ url:  u + "/deleteAll?user="+document.getElementById("user").value, 
+	         async: false,
+	         success: function(data) {
+	        	     
+	        		 //$( "div.historyHtml" ).html('');
+	        		 $( "div.logHtml" ).html('');
+	        		 $( "div.logOverHtml" ).html('');
+	        		 //alert("清除成功!");
+	         	 }
+	        });
+    }
+    function deleteHistory(){
+    	$.ajax({ url:  u + "/deleteHistory?user="+document.getElementById("user").value, 
+	         async: false,
+	         success: function(data) {
+	        	     
+	        		 $( "div.historyHtml" ).html('');
+	        		  
+	         	 }
+	        });
+    }
+    
+    
+    function log_betIndex(){
+    	 /*	for(var i=1;i<11;i++){console.log('計劃1:  第'+i+'名:'+betIndex[i]);}
+    	 	for(var i=1;i<11;i++){console.log('計劃2:  第'+i+'名:'+betIndex2[i]);}
+    	 	for(var i=1;i<11;i++){console.log('計劃3:  第'+i+'名:'+betIndex3[i]);}
+    	 	for(var i=1;i<11;i++){console.log('計劃4:  第'+i+'名:'+betIndex4[i]);}
+    	 	for(var i=1;i<11;i++){console.log('計劃5:  第'+i+'名:'+betIndex5[i]);}
+    	 	for(var i=1;i<11;i++){console.log('計劃6:  第'+i+'名:'+betIndex6[i]);}
+    	 	for(var i=1;i<11;i++){console.log('計劃7:  第'+i+'名:'+betIndex7[i]);}
+    	 	for(var i=1;i<11;i++){console.log('計劃8:  第'+i+'名:'+betIndex8[i]);}
+    	 	for(var i=1;i<11;i++){console.log('計劃9:  第'+i+'名:'+betIndex9[i]);}
+    	 	for(var i=1;i<11;i++){console.log('計劃10:  第'+i+'名:'+betIndex10[i]);} 
+    	 	for(var i=1;i<11;i++){console.log('計劃11:  第'+i+'名:'+betIndex11[i]);} */
+    	 	//for(var i=1;i<13;i++){console.log('計劃12:  第'+i+'名:'+betIndex12[i]);} 
+
+
+    }
+</script>
+ 
