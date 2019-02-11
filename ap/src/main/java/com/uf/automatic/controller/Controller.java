@@ -206,7 +206,7 @@ public class Controller {
                 if (h == null) {
                     h = httpClientCookie.getInstance(user, pwd);
                 }
-                String ret = h.getoddsInfo();
+                String ret = h.getoddsInfo_boat();
                 JsonObject o = parser.parse(ret).getAsJsonObject();
 
                 JsonObject data = o.getAsJsonObject("data");
@@ -659,7 +659,7 @@ public class Controller {
                     h = httpClientCookie.getInstance(user, pwd);
                 }
               
-                String open = h.getOpenBall();
+                String open = h.getOpenBall_boat();
                 JsonParser parser = new JsonParser();
                 JsonObject o = parser.parse(open).getAsJsonObject();
                 JsonObject data = o.get("data").getAsJsonObject();
@@ -798,32 +798,32 @@ public class Controller {
 //                JsonObject result = o.get("result").getAsJsonObject();
 //                JsonArray data = result.getAsJsonArray("data");
                 
-                Map m = combindHistoryMap();
-//                for (JsonElement pa : data) {
-//                    JsonObject paymentObj = pa.getAsJsonObject();
-//                    String     code     = paymentObj.get("preDrawCode").getAsString();
-//                    String     preDrawIssue = paymentObj.get("preDrawIssue").getAsString();
-//                    m.put(preDrawIssue, code);
+//                Map m = combindHistoryMap();
+////                for (JsonElement pa : data) {
+////                    JsonObject paymentObj = pa.getAsJsonObject();
+////                    String     code     = paymentObj.get("preDrawCode").getAsString();
+////                    String     preDrawIssue = paymentObj.get("preDrawIssue").getAsString();
+////                    m.put(preDrawIssue, code);
+////                }
+//                
+//                if(m.get(phase) != null) {
+//                    String[] c = m.get(phase).toString().split(",");
+//                  String c1 = c[0].substring(0, 1).equals("0") ? c[0].substring(1, 2) : c[0] ;
+//                  String c2 = c[1].substring(0, 1).equals("0") ? c[1].substring(1, 2) : c[1] ; 
+//                  String c3 = c[2].substring(0, 1).equals("0") ? c[2].substring(1, 2) : c[2] ; 
+//                  String c4 = c[3].substring(0, 1).equals("0") ? c[3].substring(1, 2) : c[3] ; 
+//                  String c5 = c[4].substring(0, 1).equals("0") ? c[4].substring(1, 2) : c[4] ; 
+//                  String c6 = c[5].substring(0, 1).equals("0") ? c[5].substring(1, 2) : c[5] ; 
+//                  String c7 = c[6].substring(0, 1).equals("0") ? c[6].substring(1, 2) : c[6] ; 
+//                  String c8 = c[7].substring(0, 1).equals("0") ? c[7].substring(1, 2) : c[7] ; 
+//                  String c9 = c[8].substring(0, 1).equals("0") ? c[8].substring(1, 2) : c[8] ; 
+//                  String c0 = c[9].substring(0, 1).equals("0") ? c[9].substring(1, 2) : c[9] ; 
+//                  String code = c1 + "," + c2 + "," + c3+ "," + c4+ "," + c5
+//                          + "," + c6+ "," + c7+ "," + c8+ "," + c9+ "," + c0 ;
+//                  
+//                  Utils.WritePropertiesFile("history", phase, code);
+//                  return code; 
 //                }
-                
-                if(m.get(phase) != null) {
-                    String[] c = m.get(phase).toString().split(",");
-                  String c1 = c[0].substring(0, 1).equals("0") ? c[0].substring(1, 2) : c[0] ;
-                  String c2 = c[1].substring(0, 1).equals("0") ? c[1].substring(1, 2) : c[1] ; 
-                  String c3 = c[2].substring(0, 1).equals("0") ? c[2].substring(1, 2) : c[2] ; 
-                  String c4 = c[3].substring(0, 1).equals("0") ? c[3].substring(1, 2) : c[3] ; 
-                  String c5 = c[4].substring(0, 1).equals("0") ? c[4].substring(1, 2) : c[4] ; 
-                  String c6 = c[5].substring(0, 1).equals("0") ? c[5].substring(1, 2) : c[5] ; 
-                  String c7 = c[6].substring(0, 1).equals("0") ? c[6].substring(1, 2) : c[6] ; 
-                  String c8 = c[7].substring(0, 1).equals("0") ? c[7].substring(1, 2) : c[7] ; 
-                  String c9 = c[8].substring(0, 1).equals("0") ? c[8].substring(1, 2) : c[8] ; 
-                  String c0 = c[9].substring(0, 1).equals("0") ? c[9].substring(1, 2) : c[9] ; 
-                  String code = c1 + "," + c2 + "," + c3+ "," + c4+ "," + c5
-                          + "," + c6+ "," + c7+ "," + c8+ "," + c9+ "," + c0 ;
-                  
-                  Utils.WritePropertiesFile("history", phase, code);
-                  return code; 
-                }
                 
 //                int o_1 = ret.indexOf("resultnum3") + 10 ;
 //                int o_2 = ret.indexOf("resultnum3",o_1) + 10 ;
@@ -1358,7 +1358,8 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
 
         try {
             if (boardType.equals("0")) {
-                String r = h.getoddsInfo();
+               // String r = h.getoddsInfo();
+                String r = h.getoddsInfo_boat();
                 // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
 
                 JsonParser pr = new JsonParser();
@@ -1389,8 +1390,8 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                     i++;
                 }
 
-                String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "jscar_d1_10");
-
+               // String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "jscar_d1_10");
+                String betRet = h.normalBet_boat(p_id, ossid, pl, i_index, m, "xyft5_d1_10");
                 JsonParser parser = new JsonParser();
                 JsonObject o = parser.parse(betRet).getAsJsonObject();
                 String resCode = o.get("success").getAsString();
@@ -1596,7 +1597,8 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
             }
 
             if (boardType.equals("0")) {
-                String r = h.getoddsInfo();
+              
+                String r = h.getoddsInfo_boat();
                 // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
 
                 JsonParser pr = new JsonParser();
@@ -1627,8 +1629,7 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                     i++;
                 }
 
-                String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
-
+                String betRet = h.normalBet_boat(p_id, ossid, pl, i_index, m, "xyft5_d1_10");
                 JsonParser parser = new JsonParser();
                 JsonObject o = parser.parse(betRet).getAsJsonObject();
                 String resCode = o.get("success").getAsString();
