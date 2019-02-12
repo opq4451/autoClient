@@ -91,6 +91,52 @@ public class httpClientCookie {
                              "http://mem3.cdngjs418.cdbybj.com:88/",
                              "http://mem4.cdngjs418.besrubber.com/"
                              };
+    
+    public String getoddsInfo_boat() {
+        String query = uraal[urli%5] + "/L_XYFT5/Handler/Handler.ashx?action=get_oddsinfo&playid=1%2C5%2C9%2C13%2C17%2C21%2C24%2C27%2C30%2C33&playpage=xyft5_d1_10";
+        try {
+            return instance.httpClientUseCookie(query);
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+    
+    public String getOpenBall_boat() {
+        String query = uraal[urli%5] + "/L_XYFT5/Handler/Handler.ashx?action=get_openball&playpage=xyft5_d1_10";
+        try {
+            return instance.httpClientUseCookie(query);
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+    
+public synchronized String normalBet_boat(String phaseid,String ossid,  String pl , String i_index , String m ,String type) {
+        
+        
+        String query = uraal[urli%5] + "/L_XYFT5/Handler/Handler.ashx?action=put_money&";
+        try {
+           
+
+            query += "phaseid="+ phaseid+"&" +
+                     "oddsid="+ ossid.substring(0,ossid.length()-1) + "&" +
+                     "uPI_P="+ pl.substring(0,pl.length()-1) + "&" +
+                     "uPI_M="+ m.substring(0,m.length()-1) + "&" +
+                     "i_index="+ i_index.substring(0,i_index.length()-1) + "&playpage="+type+"" ;
+
+            //System.out.println(query);
+            String v = instance.httpClientUseCookie(query);
+            JsonParser parser = new JsonParser();
+            JsonObject o = parser.parse(v).getAsJsonObject();
+            JsonObject data = o.getAsJsonObject("data");
+            String t = data.get("JeuValidate").getAsString(); 
+            return instance.httpClientUseCookie(query+"&JeuValidate=" + t );
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 
     //sd8885 //Aa258369
     static int urli = 0 ;
