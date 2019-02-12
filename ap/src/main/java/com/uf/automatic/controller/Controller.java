@@ -439,11 +439,11 @@ public class Controller {
                     String v = configProperty.getProperty(e.nextElement().toString());
 
                     //String formuStr = v.substring(v.length() - 5, v.length()); // (公式1)
-                    String phase = v.substring(1, 7); //期別
+                    String phase = v.substring(v.indexOf("第")+1,v.indexOf("期") ); //期別
                     String key_form = v.substring(v.lastIndexOf("式") + 1, v.lastIndexOf(")")); //公式
 
-                    int start = v.indexOf("第", 8);
-                    int end = v.indexOf("名", 8);
+                    int start = v.indexOf("第", v.indexOf("期"));
+                    int end = v.indexOf("名", v.indexOf("期"));
                     String sn = v.substring(start + 1, end).length() == 1 ? "0" + v.substring(start + 1, end)
                                                                           : v.substring(start + 1, end); //第幾名
                     int start_c = v.lastIndexOf("第");
