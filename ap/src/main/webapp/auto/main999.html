@@ -2,6 +2,11 @@
 
 
 
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1355,7 +1360,7 @@ setbetType(betType);
 
  	 
  		for(var i = 1;i<11;i++){
- 			if(projectIndex[formu][i] >=16){ tenArray.push(i);};
+ 			if(projectIndex[formu][i] >=15){ tenArray.push(i);};
  		}
 
  		 
@@ -1387,7 +1392,7 @@ setbetType(betType);
 				 return null;
 			 }
 			 let c = nCodeArra.split(',')[snIndex];
-			 accumulate(formu);
+			 //accumulate(formu);
 			 projectIndex[formu][c] = 0 ;
 			 tenArray=getcumulate(formu);
  			 
@@ -1398,7 +1403,7 @@ setbetType(betType);
 		 
 
 	    
- 		 return null;
+ 		 return 'ok';
 		 //return tenArray.sort(sortNumber);
 			 
 		
@@ -1409,18 +1414,29 @@ setbetType(betType);
 		var z = formu ;  
 		var sn = z-1;
 		console.log('project:'+ formu);
+	    let nCodeArra = getCodeByPhase(phase_now);
 
+		let c = nCodeArra.split(',')[sn];
 		if(projectTemp[formu]){
-
+			 
+			 
+			 projectIndex[formu][c] = 0 ;
 		}else {
-			projectTemp[formu] =project6_limit(sn,phase_now,7);
+			let status = project6_limit(sn,phase_now,7);
+			if(status =='ok'){
+				accumulate(formu);
+				projectIndex[formu][c] = 0 ;
+				projectBet[(formu*1)][(formu*1)] = true;
+				return;
+			}else if(status == null){
+				projectBet[(formu*1)][(formu*1)] = false;
+				return;
+			}
+			projectTemp[formu] = status ;
 
 		}
 		 
-		if(projectTemp[formu] == null){
-			projectBet[(formu*1)][(formu*1)] = true;
-			return;
-		}
+		 
 		let bet_code = projectTemp[formu];
 
 		
@@ -1437,6 +1453,8 @@ setbetType(betType);
 	    
    		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,z);
    		if(rbf){
+   			accumulate(formu);
+   			projectIndex[formu][c] = 0 ;
 			bIndex[z]++;
 			projectBet[(formu*1)][(formu*1)] = true;
 		} 
@@ -2414,7 +2432,7 @@ setbetType(betType);
 			            	   	  //$('#openCode').hide(); 
 			               }else if(blinkPhase=='' ||  (nphase* 1 - blinkPhase*1 ) > 0){ //已開獎
 			            	      blinkPhase = nphase ;
-			            	      //checkOver(data);
+			            	      checkOver(data);
 			            	      $('.openload').hide(); 
 			            	      $('.blink').hide();
 			            	   	  $('#openCode').show(); 
@@ -2715,6 +2733,20 @@ setbetType(betType);
 		    				$(".startstatus" ).val(1);
 		    				$('select.startstatus').css('background', 'green');  
 		    				clearIndex();
+		    				projectIndex = {
+						    	'1' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'2' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'3' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'4' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'5' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'6' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'7' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'8' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'9' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'10' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+
+						    }
+
 		    				//$('.tdstartstatus').css('background', 'red'); 
 		    				 //document.getElementById("autoStart").checked = false;*///不在區間內不能停用，會影響自動啟用(一直被取消)
 		    			} 
@@ -2745,9 +2777,12 @@ setbetType(betType);
 				   	 	deleteHistory();
 				    }
 				    
+			        if( (checkStartHM *1) < 10000 ){
+				   	 	clearIndex();
+				    }
 				    
 				     
-			        if((cccheck<4 ) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
+			        if((cccheck<2 ) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
 			            var phase =  $( "div.toPhase" ).text();
 			            //console.log(phase);
 						if( phase ){  
@@ -3045,6 +3080,21 @@ setbetType(betType);
 			betIndex9 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
 			betIndex10 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
 			betIndex12 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0,'12' : 0, };
+
+
+
+			projectTemp = {
+		    	'1' : '' ,
+		    	'2' : '' ,
+		    	'3' : '' ,
+		    	'4' : '' ,
+		    	'5' : '' ,
+		    	'6' : '' ,
+		    	'7' : '' ,
+		    	'8' : '' ,
+		    	'9' : '' ,
+		    	'10' : '' ,
+		    }	
 
 
     }

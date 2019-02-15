@@ -7,8 +7,6 @@
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -488,7 +486,7 @@
     	        <div style="font-weight:bold;font-size: 18px;">碼</div><br>
     	        <div style="font-weight:bold;font-size: 18px;">計</div><br>
     	        <div style="font-weight:bold;font-size: 18px;">劃</div></td>
-	        <td class="tdClass"  bgcolor="FFFF77" width="1%" nowrap colspan=2>&nbsp;<input type="checkbox" name="c1" id="c1" value="1" style="display:none;" >&nbsp;&nbsp;四碼計劃&nbsp;</td> 
+	        <td class="tdClass"  bgcolor="FFFF77" width="1%" nowrap colspan=2>&nbsp;<input type="checkbox" name="c1" id="c1" value="1" style="display:none;" >&nbsp;&nbsp;六碼計劃&nbsp;</td> 
 		    
 		    <td class="tdClass" style="display:none;text-align:left"> <input class="betlist" type ="text" style="width:98%"/></td>
 	        
@@ -748,8 +746,13 @@
 	   }else{
 		   $('select.startstatus').css('background', 'red');
 		  // $('.tdstartstatus').css('background', 'red'); 
-		clearIndex();
-		   
+		   betIndex =  { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+		   betIndex2 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+		   betIndex3 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+		   betIndex4 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+		   betIndex5 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+		   betIndex6 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0, };
+		   //document.getElementById("autoStart").checked = false;
 
 	   }
 		 
@@ -1018,7 +1021,7 @@
  		'9' :  [false,false,false,false,false,false,false,false,false,false], 
  		'10' :  [false,false,false,false,false,false,false,false,false,false], 
  		'11' :  [false,false,false,false,false,false,false,false,false,false], 
- 		'12' :  [false,false,false,false,false,false,false,false,false,false], 
+ 		'12' :  [false,false,false,false,false,false,false,false,false,false,false,false,false], 
 
  	}
  	
@@ -1068,7 +1071,7 @@
 		 });
 		 
 		 $( "#logoutDiv" ).click(function() {
-             window.location.href='/index99999.html' ;
+             window.location.href='/index998.html' ;
 
 		 });
 		 
@@ -1347,11 +1350,8 @@ setbetType(betType);
 	
 
 
-	function accumulate(formu,c){
+	function accumulate(formu){
  		for(var i = 1;i<11;i++){
- 			console.log(i +":"+c);
- 			if(i==c)
- 				continue;
  			projectIndex[formu][i] ++ ;
  		}
  	}
@@ -1360,11 +1360,11 @@ setbetType(betType);
 
  	 
  		for(var i = 1;i<11;i++){
- 			if(projectIndex[formu][i] >=16){ tenArray.push(i);};
+ 			if(projectIndex[formu][i] >=15){ tenArray.push(i);};
  		}
 
- 		console.log('tenArray.length:'+tenArray.length);
-		if(tenArray.length >=4 && tenArray.length <=5){
+ 		 
+		if(tenArray.length >=4){
 			// for(var i = 1;i<11;i++){
 	 	// 		projectIndex[formu][i] = 0 ; 
 	 	// 	}
@@ -1387,13 +1387,13 @@ setbetType(betType);
 			 // 	return null;
 			 // }
 			 
-			 // let nCodeArra = getCodeByPhase(p);
-			 // if(nCodeArra=='null'){
-				//  return null;
-			 // }
-			 //let c = nCodeArra.split(',')[snIndex];
+			 let nCodeArra = getCodeByPhase(p);
+			 if(nCodeArra=='null'){
+				 return null;
+			 }
+			 let c = nCodeArra.split(',')[snIndex];
 			 //accumulate(formu);
-			 //projectIndex[formu][c] = 0 ;
+			 projectIndex[formu][c] = 0 ;
 			 tenArray=getcumulate(formu);
  			 
  			 if(tenArray)
@@ -1408,30 +1408,6 @@ setbetType(betType);
 			 
 		
 	}
-
-	// function getBetSnByCode(project,arr){
-	// 	for(let i =0; i<arr.length;i++){
-	// 		let code = arr[i];
-	// 		if(project == code){
-	// 			let betsn = i;
-	// 			return betsn;
-	// 		}
-
-	// 	}
-
-	// }
-
-
-	function getCodeByPostionArray(b1array,positionArray){
-
-		let betArray=[];
-		for(let i=0;i<positionArray.length;i++){
-			let index = positionArray[i] * 1 - 1;
-			betArray.push(b1array[index]);
-		}
-		return betArray.sort(sortNumber);
-
-	}
 	function compareByType_from_member(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
 		
 
@@ -1440,28 +1416,16 @@ setbetType(betType);
 		console.log('project:'+ formu);
 	    let nCodeArra = getCodeByPhase(phase_now);
 
-		//let c = nCodeArra.split(',')[sn];
-		console.log('formu:'+formu);
- 		let b1 = nCodeArra.split(',');
- 		let b1_code = formu;
-
-		console.log('b1_code:'+b1_code);
-
-
-		let c = getBetSnByCode(b1_code,b1);
-		console.log('getBetSnByCode:'+c);
-		projectIndex[formu][c] = 0 ;
-		accumulate(formu,c);
+		let c = nCodeArra.split(',')[sn];
 		if(projectTemp[formu]){
-			 	
 			 
 			 
+			 projectIndex[formu][c] = 0 ;
 		}else {
-			
 			let status = project6_limit(sn,phase_now,7);
 			if(status =='ok'){
-				
-				//projectIndex[formu][c] = 0 ;
+				accumulate(formu);
+				projectIndex[formu][c] = 0 ;
 				projectBet[(formu*1)][(formu*1)] = true;
 				return;
 			}else if(status == null){
@@ -1475,7 +1439,6 @@ setbetType(betType);
 		 
 		let bet_code = projectTemp[formu];
 
-		//let bet_code = getCodeByPostionArray (b1,bet_code_position.split(','));
 		
 		let bet_n = formu;
 		
@@ -1488,11 +1451,10 @@ setbetType(betType);
 		    
 
 	    
-   		//let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,z);
-   		let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , formu, formu,  bet_code.toString(),'');
+   		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,z);
    		if(rbf){
-   			//accumulate(formu);
-   			//projectIndex[formu][c] = 0 ;
+   			accumulate(formu);
+   			projectIndex[formu][c] = 0 ;
 			bIndex[z]++;
 			projectBet[(formu*1)][(formu*1)] = true;
 		} 
@@ -2333,11 +2295,9 @@ setbetType(betType);
 	       return arr.sort(sortNumber);  
  	}
 	
-
-	function getBetSnByCode(code,nCodeArra){
+	function getBETsnBycode(nCodeArra,code){
 	 
 		 for(var s =0 ; s< nCodeArra.length ; s++){
-		 	 console.log(nCodeArra[s] + "@" + code);
 			 if(nCodeArra[s] == code){
 				 let betsn = s + 1;
 				 return betsn;
@@ -2400,7 +2360,7 @@ setbetType(betType);
 	 		  (document.getElementById('c9').checked && !(projectBet[8][8]))||
 	 		  (document.getElementById('c10').checked && !(projectBet[9][9]))||
 	 		  (document.getElementById('c11').checked && !(projectBet[10][10]))||
-	 		  (document.getElementById('c12').checked && !checkProjectBetFlagIndex(projectBet[12]))
+	 		  (document.getElementById('c12').checked && !(projectBet[12][12]))
 					 )
 	 	  ) {
 	 		 return false;
@@ -2757,7 +2717,7 @@ setbetType(betType);
 	   	 		 if(document.getElementById("autoStart").checked){
 	   	 			 auto = "Y";
 	   	 		 }
-	             window.location.href="http://www.sd8888.net/index99999.html?auto="+auto+"&user="+
+	             window.location.href="http://www.sd8888.net/index998.html?auto="+auto+"&user="+
 	             document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value;
 		    }
 			    
@@ -2773,7 +2733,19 @@ setbetType(betType);
 		    				$(".startstatus" ).val(1);
 		    				$('select.startstatus').css('background', 'green');  
 		    				clearIndex();
+		    				projectIndex = {
+						    	'1' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'2' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'3' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'4' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'5' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'6' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'7' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'8' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'9' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+						    	'10' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
 
+						    }
 
 		    				//$('.tdstartstatus').css('background', 'red'); 
 		    				 //document.getElementById("autoStart").checked = false;*///不在區間內不能停用，會影響自動啟用(一直被取消)
@@ -2794,7 +2766,8 @@ setbetType(betType);
 		    // 	         }catch(err){
 	   	 //        	    		saveLog('error_bet','stoptime:' + stop);
 	   	 //        	    }
-		    	         
+		    	        
+				    console.log(stop + 'cccheck' + cccheck)
 				    if(cccheck*1 >3){
 				    //	betflag = false; 
 				    	clearProjectBetFlag();
@@ -2804,6 +2777,9 @@ setbetType(betType);
 				   	 	deleteHistory();
 				    }
 				    
+			        if( (checkStartHM *1) < 10000 ){
+				   	 	clearIndex();
+				    }
 				    
 				     
 			        if((cccheck<2 ) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
@@ -2813,7 +2789,7 @@ setbetType(betType);
 							if(true){
 								//console.log(JSON.stringify(betIndex)); 
 
-							   if((cccheck ==0 ) && cccheck_S<10 && !checkProjectBetflag()){ //到了最後還下注不了，只好關數歸零
+							   if(cccheck_S<10 && !checkProjectBetflag()){ //到了最後還下注不了，只好關數歸零
 									clearIndex(); //
 									var d = getYYYYMMDDSS();
 					        	    		var log =  d + "error!" ;
@@ -2866,7 +2842,7 @@ setbetType(betType);
     		 
 	    		
 			    //overTimeout();
-	    }, 20000);
+	    }, 1000);
 	}
     
     function checkTimeflag(t){
@@ -3073,7 +3049,7 @@ setbetType(betType);
 	        			    	 	  if(formu==9){betIndex9[9] = 0 ;}
 	        			    	 	  if(formu==10){betIndex10[10] = 0 ;}
 	        			    	 	  if(formu==11){betIndex11[sn] = 0 ;}
-	        			    	 	  if(formu==12){betIndex12[sn] = 0 ;}
+	        			    	 	  if(formu==12){betIndex12[12] = 0 ;}
 
 	        			     }
 	        			    	  
@@ -3106,19 +3082,6 @@ setbetType(betType);
 			betIndex12 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0,'12' : 0, };
 
 
-			projectIndex = {
-						    	'1' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
-						    	'2' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
-						    	'3' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
-						    	'4' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
-						    	'5' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
-						    	'6' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
-						    	'7' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
-						    	'8' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
-						    	'9' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
-						    	'10' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
-
-						    }
 
 			projectTemp = {
 		    	'1' : '' ,
@@ -3131,7 +3094,8 @@ setbetType(betType);
 		    	'8' : '' ,
 		    	'9' : '' ,
 		    	'10' : '' ,
-		    }		    
+		    }	
+
 
     }
     function selectTypeToBet(nextPhase){
@@ -3251,40 +3215,16 @@ setbetType(betType);
 				 	  }  
 		      	  	}
 			    
-			    // if(document.getElementById('c12').checked  && !(projectBet[12][12]) ) {
-			  		//   console.log('project12'+'-betPhase:'+nextPhase);
-					  // obj.b = nextPhase - 5 ;
-					  // obj.fourTh = nextPhase - 4 ;
-					  // const b = obj.b ;
-					  // const fourTh = obj.fourTh ;
-					  // if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-						 //  compareByType_from_member(b,n,fourTh,betIndex12,betarray12,'12');
-				 	 //  }  
-		     //  	  	}
-
-
-      	  	 	if(document.getElementById('c12').checked) {
-			    	console.log('projectBet[12].length:'+projectBet[12].length);
-			    	for(let i=0;i<10;i++){
-			    		
-						if(!projectBet[12][i]){
-							  let sn = i + 1;
-			    		console.log('計劃12');
-						console.log('第幾名:'+ sn);
-
-							  obj.b = nextPhase - 5 ;
-							  obj.fourTh = nextPhase - 4 ; 
-							  const b = obj.b ;
-							  const fourTh = obj.fourTh ;
-							  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-								  compareByType_from_project11(b,n,fourTh,betIndex12,betarray12,'12',sn);
-							  } 
-						}
-					}	   
-	      	  	}
-			    
-			     
-		  
+			    if(document.getElementById('c12').checked  && !(projectBet[12][12]) ) {
+			  		  console.log('project12'+'-betPhase:'+nextPhase);
+					  obj.b = nextPhase - 5 ;
+					  obj.fourTh = nextPhase - 4 ;
+					  const b = obj.b ;
+					  const fourTh = obj.fourTh ;
+					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+						  compareByType_from_member(b,n,fourTh,betIndex12,betarray12,'12');
+				 	  }  
+		      	  	}
 			    
 			    
 			    /*
@@ -3349,68 +3289,6 @@ setbetType(betType);
 		  
 	  	  return obj; 
     }
-
-
- //    function getBetSnByCode(project,arr){
-	// 	for(let i =0; i<arr.length;i++){
-	// 		let code = arr[i];
-	// 		if(project == code){
-	// 			let betsn = i+1;
-	// 			return betsn;
-	// 		}
-
-	// 	}
-
-	// }
-	function getBETsnBycode11(code,nCodeArra){
-	 
-		 for(var s =0 ; s< nCodeArra.length ; s++){
-			 if(nCodeArra[s] == code){
-				 let betsn = s + 1;
-				 return betsn;
-			 }
-		 }
-	}
-    function compareByType_from_project11(phase_before,phase_now,phase_before4 , bIndex, bArray,formu,betSn){
-		
-
-		var z = formu ;  
-		//var sn = betSn;
-		//step1
-		let nCodeArra = getCodeByPhase(phase_now*1);
- 		let b1 = nCodeArra.split(',');
- 		let getBetsn = getBETsnBycode11('10',b1);
- 		
-		if(bIndex[betSn] == 0 && getBetsn != (betSn*1)){
- 			projectBet[(formu*1)][(betSn*1)-1]  = true;
-			return;
- 		}
-
-
-		let bet_code = '3,6,9,10';
-
- 
-		console.log(bet_code);
-		if(bet_code == null){
-			projectBet[(formu*1)][(betSn*1)-1] = false;
-			return;
-		}
-		let bet_n = betSn;
-
-		
-		var betc = bArray[bIndex[betSn]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[betSn]%bArray.length );
-	    var amount = bArray[bIndex[betSn]%bArray.length] ;
-		    
-
-	    
-   		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,betSn);
-   		if(rbf){
-			bIndex[betSn]++;
-			projectBet[(formu*1)][(betSn*1)-1] = true;
-		} 
-
-	}
-
     function clearLog(){
     	
     	 $.ajax({ url:  u + "/clearLog?user="+document.getElementById("user").value+"bet", 
@@ -3451,16 +3329,16 @@ setbetType(betType);
     
     function save_param(){
     	    
-    	  if(!document.getElementById('c2').checked) {betIndex = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };projectTemp[1]='';}
-    	  if(!document.getElementById('c3').checked) {betIndex2 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };projectTemp[2]='';}
-    	  if(!document.getElementById('c4').checked) {betIndex3 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };projectTemp[3]='';}
-    	  if(!document.getElementById('c5').checked) {betIndex4 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };projectTemp[4]='';}
-    	  if(!document.getElementById('c6').checked) {betIndex5 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };projectTemp[5]='';}
-    	  if(!document.getElementById('c7').checked) {betIndex6 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };projectTemp[6]='';}
-    	  if(!document.getElementById('c8').checked) {betIndex7 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };projectTemp[7]='';}
-    	  if(!document.getElementById('c9').checked) {betIndex8 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };projectTemp[8]='';}
-    	  if(!document.getElementById('c10').checked) {betIndex9 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };projectTemp[9]='';}
-    	  if(!document.getElementById('c11').checked) {betIndex10 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };projectTemp[10]='';}
+    	  if(!document.getElementById('c2').checked) {betIndex = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+    	  if(!document.getElementById('c3').checked) {betIndex2 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+    	  if(!document.getElementById('c4').checked) {betIndex3 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+    	  if(!document.getElementById('c5').checked) {betIndex4 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+    	  if(!document.getElementById('c6').checked) {betIndex5 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+    	  if(!document.getElementById('c7').checked) {betIndex6 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+    	  if(!document.getElementById('c8').checked) {betIndex7 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+    	  if(!document.getElementById('c9').checked) {betIndex8 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+    	  if(!document.getElementById('c10').checked) {betIndex9 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+    	  if(!document.getElementById('c11').checked) {betIndex10 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
     	  if(!document.getElementById('c12').checked) {betIndex12 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
 
 

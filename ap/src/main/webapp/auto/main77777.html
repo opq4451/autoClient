@@ -9,6 +9,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1068,7 +1069,7 @@
 		 });
 		 
 		 $( "#logoutDiv" ).click(function() {
-             window.location.href='/index99999.html' ;
+             window.location.href='/index77777.html' ;
 
 		 });
 		 
@@ -1360,7 +1361,7 @@ setbetType(betType);
 
  	 
  		for(var i = 1;i<11;i++){
- 			if(projectIndex[formu][i] >=16){ tenArray.push(i);};
+ 			if(projectIndex[formu][i] >=15){ tenArray.push(i);};
  		}
 
  		console.log('tenArray.length:'+tenArray.length);
@@ -1421,42 +1422,58 @@ setbetType(betType);
 
 	// }
 
-
-	function getCodeByPostionArray(b1array,positionArray){
+	function getCodeByPostionArray(b1_code,positionArray){
 
 		let betArray=[];
 		for(let i=0;i<positionArray.length;i++){
-			let index = positionArray[i] * 1 - 1;
-			betArray.push(b1array[index]);
+			let add  = positionArray[i] ;
+			if(add*1 == 10){
+				betArray.push(b1_code);
+			}else if((b1_code*1 + add*1)>10){
+				betArray.push(((b1_code*1 + add*1) - 10));
+
+			}else  {
+				betArray.push( (b1_code*1 + add*1) );
+
+			} 
 		}
 		return betArray.sort(sortNumber);
 
 	}
+
+	function checkSubDistance(b1,b2){
+		if(b1 == b2){
+			return 10;
+		}else if (b1*1 > b2*1){
+			return b1*1 - b2*1 ;
+		}else if (b1*1 < b2*1){
+			return (b1*1+10) - b2*1 ;
+		}
+
+	}
+
 	function compareByType_from_member(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
 		
 
 		var z = formu ;  
 		var sn = z-1;
-		console.log('project:'+ formu);
-	    let nCodeArra = getCodeByPhase(phase_now);
-
-		//let c = nCodeArra.split(',')[sn];
-		console.log('formu:'+formu);
+		let nCodeArra = getCodeByPhase(phase_now*1 - 1);
  		let b1 = nCodeArra.split(',');
- 		let b1_code = formu;
+ 		let getBetsn = getBetSnByCode(formu,b1);
 
-		console.log('b1_code:'+b1_code);
+ 		nCodeArra = getCodeByPhase(phase_now*1 );
 
 
-		let c = getBetSnByCode(b1_code,b1);
-		console.log('getBetSnByCode:'+c);
+
+		let c = nCodeArra.split(',')[getBetsn*1 -1 ];
+		console.log('c:'+c);
 		projectIndex[formu][c] = 0 ;
 		accumulate(formu,c);
-		if(projectTemp[formu]){
+		 if(projectTemp[formu]){
 			 	
 			 
 			 
-		}else {
+		 }else {
 			
 			let status = project6_limit(sn,phase_now,7);
 			if(status =='ok'){
@@ -1470,14 +1487,13 @@ setbetType(betType);
 			}
 			projectTemp[formu] = status ;
 
-		}
+		  }
 		 
-		 
-		let bet_code = projectTemp[formu];
+		  
 
-		//let bet_code = getCodeByPostionArray (b1,bet_code_position.split(','));
+		let bet_code = projectTemp[formu].toString();
 		
-		let bet_n = formu;
+		let bet_n = nCodeArra.split(',').indexOf(formu) + 1;
 		
 		 
 		
@@ -1488,8 +1504,8 @@ setbetType(betType);
 		    
 
 	    
-   		//let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,z);
-   		let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , formu, formu,  bet_code.toString(),'');
+   		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,z);
+   		//let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , formu, formu,  bet_code.toString(),'');
    		if(rbf){
    			//accumulate(formu);
    			//projectIndex[formu][c] = 0 ;
@@ -1497,6 +1513,12 @@ setbetType(betType);
 			projectBet[(formu*1)][(formu*1)] = true;
 		} 
 		 
+			
+			 
+				
+			 
+		 
+		//console.log(JSON.stringify(betIndex)); 
 			
 			 
 				
@@ -2334,15 +2356,17 @@ setbetType(betType);
  	}
 	
 
-	function getBetSnByCode(code,nCodeArra){
 	 
-		 for(var s =0 ; s< nCodeArra.length ; s++){
-		 	 console.log(nCodeArra[s] + "@" + code);
-			 if(nCodeArra[s] == code){
-				 let betsn = s + 1;
-				 return betsn;
-			 }
-		 }
+	function getBetSnByCode(project,arr){
+		for(let i =0; i<arr.length;i++){
+			let code = arr[i];
+			if(project == code){
+				let betsn = i+1;
+				return betsn;
+			}
+
+		}
+
 	}
 	
 	function reallyBet(sn,amount,betphase,c,codeList,originformu,BETFLAG){
@@ -2757,7 +2781,7 @@ setbetType(betType);
 	   	 		 if(document.getElementById("autoStart").checked){
 	   	 			 auto = "Y";
 	   	 		 }
-	             window.location.href="http://www.sd8888.net/index99999.html?auto="+auto+"&user="+
+	             window.location.href="http://www.sd8888.net/index77777.html?auto="+auto+"&user="+
 	             document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value;
 		    }
 			    
@@ -3119,7 +3143,6 @@ setbetType(betType);
 						    	'10' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
 
 						    }
-
 			projectTemp = {
 		    	'1' : '' ,
 		    	'2' : '' ,
@@ -3131,7 +3154,8 @@ setbetType(betType);
 		    	'8' : '' ,
 		    	'9' : '' ,
 		    	'10' : '' ,
-		    }		    
+		    }	
+
 
     }
     function selectTypeToBet(nextPhase){

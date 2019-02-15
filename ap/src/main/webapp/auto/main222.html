@@ -18,6 +18,12 @@
 
 
 
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -497,7 +503,7 @@
     	        <div style="font-weight:bold;font-size: 18px;">碼</div><br>
     	        <div style="font-weight:bold;font-size: 18px;">計</div><br>
     	        <div style="font-weight:bold;font-size: 18px;">劃</div></td>
-	        <td class="tdClass"  bgcolor="FFFF77" width="1%" nowrap colspan=2>&nbsp;<input type="checkbox" name="c1" id="c1" value="1" style="display:none;" >&nbsp;&nbsp;六碼計劃&nbsp;</td> 
+	        <td class="tdClass"  bgcolor="FFFF77" width="1%" nowrap colspan=2>&nbsp;<input type="checkbox" name="c1" id="c1" value="1" style="display:none;" >&nbsp;&nbsp;三碼計劃&nbsp;</td> 
 		    
 		    <td class="tdClass" style="display:none;text-align:left"> <input class="betlist" type ="text" style="width:98%"/></td>
 	        
@@ -537,7 +543,7 @@
 						 		<div style="line-height:10%;"><br></div>
 	   					 <div style="text-align:left;font-size: 15px;">　9.不明原因無開獎號。</div>
 	   					 		<div style="line-height:10%;"><br></div>
-	   					 <div style="text-align:left;font-size: 15px;"> &nbsp;&nbsp;10.五碼六碼計劃切換。</div>
+	   					  
    					 </div>
    					 </td>
         </tr>
@@ -692,8 +698,8 @@
 			 <td class="tdClass" nowrap bgcolor="B94FFF" width="1%"> &nbsp;<input type="checkbox" name="c6" id="c6" value="5"  >&nbsp;&nbsp;計劃五&nbsp;</td>  
 			 <td style="text-align:left" class="tdClass"> <input class="betlist6" type ="text" style="width:98%" /></td>
 			 
-			 <td class="tdClass" nowrap bgcolor="FFB3FF" width="1%"> &nbsp;<input  type="checkbox" name="c12" id="c12" value="5"  >&nbsp;&nbsp;計劃1&nbsp;1&nbsp;</td>  
-			 <td style="text-align:left" class="tdClass"> <input class="betlist12" type ="text" style="width:98%" /></td>
+			 <td class="tdClass" nowrap bgcolor="FFB3FF" width="1%" style="display:none;"> &nbsp;<input  type="checkbox" name="c12" id="c12" value="5"  style="display:none;">&nbsp;&nbsp;計劃1&nbsp;1&nbsp;</td>  
+			 <td style="text-align:left" class="tdClass" colspan=2> <input class="betlist12" type ="text" style="display:none;" /></td>
 			 
 			 <td class="tdClass"  ><button type="button" onclick="save_param()" class="button"  style="border:3px outset;width:60px">儲存</button></td> 
 			 
@@ -1004,7 +1010,7 @@
  		'9' :  [false,false,false,false,false,false,false,false,false,false], 
  		'10' :  [false,false,false,false,false,false,false,false,false,false], 
  		'11' :  [false,false,false,false,false,false,false,false,false,false], 
- 		'12' :  [false,false,false,false,false,false,false,false,false,false,false,false,false], 
+ 		'12' :  [false,false,false,false,false,false,false,false,false,false], 
 
  	}
  	
@@ -1879,313 +1885,70 @@
 	}
 	 
 
-	function project999_limit(removeCode){
-		//  let snIndex = sn*1  - 1 ;
-		//  let tenArray = [];
-		//  let positionArray = [];
-		  
-		//  for(var i=1;i<=phase;i++){
-			  
-		// 	 let p =  phase*1 - i ;
-		// 	 //  if(p.toString().substring(8,11) == '000'){
-		// 	 // 	return null;
-		// 	 // }
-		// 	 let nCodeArra = getCodeByPhase(p);
-		// 	 if(nCodeArra=='null'){
-		// 		 return null;
-		// 	 }
-		// 	 let c = nCodeArra.split(',')[snIndex];
- 
- 	// 		 if(tenArray.indexOf(c)==-1){ 
-			 	 
-		// 	 	tenArray.push(c);
-
-		// 	 }
-			 
-		// 	 if(tenArray.length ==10)
-		// 	 	break;
-			
-			 
-		//  } 
-		//  //step2 算出位置
-		//  let positionIndex = tenArray.indexOf(add+'');
-		// console.log('前二期後排第幾位置:'+positionIndex);
-
-		//  // step3 找出號碼
-		//  let tenArray_2 = [];
-		// for(var i=0;i<=phase;i++){
-			  
-		// 	 let p =  phase*1 - i ;
-		// 	 //  if(p.toString().substring(8,11) == '000'){
-		// 	 // 	return null;
-		// 	 // }
-		// 	 let nCodeArra = getCodeByPhase(p);
-		// 	 if(nCodeArra=='null'){
-		// 		 return null;
-		// 	 }
-		// 	 let c = nCodeArra.split(',')[snIndex];
- 
- 	// 		 if(tenArray_2.indexOf(c)==-1){ 
-			 	 
-		// 	 	tenArray_2.push(c);
-
-		// 	 }
-			 
-		// 	 if(tenArray_2.length ==10)
-		// 	 	break;
-			
-		// }
-
-		// let findCode = tenArray_2[positionIndex];
-		// console.log('前一期後排第幾位置的號碼:'+findCode);
-
-
- 	// 	let nCodeArra = getCodeByPhase(phase);
- 	// 	let now1 = nCodeArra.split(',')[snIndex];
-
-
- 	// 	let removeCode = '';
- 	// 	if( (now1*1 + findCode*1 ) > 10 ){
- 	// 		removeCode = (now1*1 + findCode*1 ) % 10;
-
- 	// 	}else {
- 	// 		removeCode = (now1*1 + findCode*1 ) ;
- 	// 	}
-
-
+	function project999_limit(removeCode){ 
  		let betArray  = ['1','2','3','4','5','6','7','8','9','10'];
  		let remmIndex = betArray.indexOf(removeCode+'');
 		betArray.splice(remmIndex, 1);
-		 return betArray.sort(sortNumber);
-
-		//  for(var i=0;i<=phase;i++){
-			  
-		// 	 let p =  phase*1 - i ;
-		// 	 //  if(p.toString().substring(8,11) == '000'){
-		// 	 // 	return null;
-		// 	 // }
-		// 	 let nCodeArra = getCodeByPhase(p);
-		// 	 if(nCodeArra=='null'){
-		// 		 return null;
-		// 	 }
-		// 	 let c = nCodeArra.split(',')[snIndex];
- 
-
-		// 	 if(tenArray.indexOf(c)==-1){  
-		// 	 	tenArray.push(c);
-
-		// 	 }
-			 
-		// 	 if(tenArray.length ==10)
-		// 	 	break;
-			
-			 
-		//  } 
-
-
-		// positionArray = positionArray.sort(sortNumber);
-
-
-
-		// console.log(positionArray.toString());
-		// let r1 = tenArray[positionArray[0]];
-		// let r2 = tenArray[positionArray[1]];
-		// let r3 = tenArray[positionArray[2]];
-		// let r4 = tenArray[positionArray[3]];
-		// let r5 = tenArray[positionArray[4]];
-		// let r6 = tenArray[positionArray[5]];
-		// let r7 = tenArray[positionArray[6]];
-		// // tenArray.splice(positionArray[2], 1);
-		// // tenArray.splice(positionArray[1], 1);
-		// // tenArray.splice(positionArray[0], 1);
-		// let finalarray = [];
- 	// 	finalarray.push(r1);
- 	// 	finalarray.push(r2);
- 	// 	finalarray.push(r3);
- 	// 	finalarray.push(r4);
- 	// 	finalarray.push(r5);
- 	// 	finalarray.push(r6);
- 	// 	finalarray.push(r7);
-
-
-	 	// return finalarray.sort(sortNumber); 
+		 return betArray.sort(sortNumber); 
 	}
 
-	function computeDis(b1,b2){
-		let add =0 ;
-		if(b1*1 < b2*1){
-			add = b1*1 + 10 - b2*1;
-		}else if (b1 == b2){
-			add = 10;
-		}else {
-			add = b1*1 - b2*1;
+	function subCode(b1,b2){
+		let sub ='';
+		if(b1*1 > b2*1){
+			sub = b1*1 - b2*1 ;
+		}else if(b1*1 == b2*1){
+			sub = 0 ;
+		}else if (b1*1 < b2*1){
+			sub = b2*1 - b1*1 ;
 		}
-		return add;
+		return sub;
+	}
+	let betCodeBySn = {
+		'1':'1,2,3',
+		'2':'2,5,7',
+		'3':'3,5,7',
+		'4':'2,3,4',
+		'5':'3,5,7',
+		'6':'4,6,8',
+		'7':'3,5,7',
+		'8':'8,9,10',
+		'9':'8,9,10',
+		'10':'8,9,10',
+
 	}
 
+	function getBetSnByCode(project,arr){
+		for(let i =0; i<arr.length;i++){
+			let code = arr[i];
+			if(project == code){
+				let betsn = i+1;
+				return betsn;
+			}
 
-	function computeadd(b1,b2){
-		let total = b1*1 + b2*1 ;
-		if(total > 10){
-			return (total % 10 == 0 ) ? '10' : (total % 10);
-		}else {
-			return total;
-		} 
+		}
+
 	}
-
-
-	function computePostion(phase,sn,code){
-		let snIndex = sn*1 -1 ;
-		let tenArray = [];
-		 for(var i=0;i<=phase;i++){
-			  
-			 let p =  phase*1 - i ;
-			 //  if(p.toString().substring(8,11) == '000'){
-			 // 	return null;
-			 // }
-			 let nCodeArra = getCodeByPhase(p);
-			 if(nCodeArra=='null'){
-				 return null;
-			 }
-			 let c = nCodeArra.split(',')[snIndex];
- 
-
-			 if(tenArray.indexOf(c)==-1){  
-			 	tenArray.push(c);
-
-			 }
-			 
-			 if(tenArray.length ==10)
-			 	break;
-			
-			 
-		 } 
-
-
-		 let ind = tenArray.indexOf(code);
-
-		 return  (ind*1 + 1 );
-	}
-
-	function getCodefromPostion(phase,sn,pp){
-		let snIndex = sn*1 -1 ;
-		let tenArray = [];
-		 for(var i=0;i<=phase;i++){
-			  
-			 let p =  phase*1 - i ;
-			 //  if(p.toString().substring(8,11) == '000'){
-			 // 	return null;
-			 // }
-			 let nCodeArra = getCodeByPhase(p);
-			 if(nCodeArra=='null'){
-				 return null;
-			 }
-			 let c = nCodeArra.split(',')[snIndex];
- 
-
-			 if(tenArray.indexOf(c)==-1){  
-			 	tenArray.push(c);
-
-			 }
-			 
-			 if(tenArray.length ==10)
-			 	break;
-			
-			 
-		 } 
-
-
-
-
-		 return tenArray[pp];
-	}
-
-	function getPhasefromCode(phase,code){
-		//let snIndex = sn*1 -1 ;
-		let pro= {};
-		let tenArray = [];
-		 for(var i=1;i<=phase;i++){
-			  
-			 let p =  phase*1 - i ;
-			 //  if(p.toString().substring(8,11) == '000'){
-			 // 	return null;
-			 // }
-			 let nCodeArra = getCodeByPhase(p);
-			
-			 let array = nCodeArra.split(',');
- 			 for(let ai=0;ai<array.length;ai++){
- 			 	let c = array[ai];
- 			 	if(c == code){ 
-
-				 	 nCodeArra = getCodeByPhase(p*1 + 1);
-					 let c2 = nCodeArra.split(',')[ai];
-					 if(tenArray.indexOf(c2) ==-1 ){
-					 	tenArray.push(c2);
-					 }
-
-					 if(tenArray.length ==10){
-					 	return  tenArray;//.sort(sortNumber); 
-					 }
-				 }
-
- 			 }
-
-			 
-			  
-			  
-			 
-		 }  
-	}
-
-	 
 	function compareByType_from_member999(phase_before,phase_now,phase_before4 , bIndex, bArray,formu,betSn){
 		
 
 		var z = formu ;  
-		var sn = betSn;
+		//var sn = betSn;
 		//step1
-		// if(!projectTemp[formu]){
-		// 	let nCodeArra = getCodeByPhase(phase_now*1 -1);
-	 // 		let b1 = nCodeArra.split(',')[z*1 -1];
-	 		 
-
-		//     projectTemp[formu] = getPhasefromCode(phase_now*1 ,b1);
-		// }else{
-		// 	let nCodeArra = getCodeByPhase(phase_now*1);
-	 // 		let b1 = nCodeArra.split(',')[z*1 -1];
-	 		 
-
-		//     projectTemp[formu] = getPhasefromCode(phase_now*1 ,b1);
-
-		// }
-		let nCodeArra = getCodeByPhase(phase_now*1-1);
-		let b1 = nCodeArra.split(',')[z*1 -1];
-	 		 
-
-		    //projectTemp[formu] = getPhasefromCode(phase_now*1 ,b1);
-	 
- 
+		let nCodeArra = getCodeByPhase(phase_now*1);
+ 		let b1 = nCodeArra.split(',');
+ 		let getBetsn = getBetSnByCode(formu,b1);
 
 
-		let bet_arr = getPhasefromCode(phase_now*1-1 ,b1);
 
-		let posi = bet_arr.indexOf(b1); 
-
-
-	    nCdeArra = getCodeByPhase(phase_now*1);
-	    b1 = nCodeArra.split(',')[z*1 -1];
-
-		let berF = getPhasefromCode(phase_now*1 ,b1);
-
-		let removeCode = berF[posi];
-		let bet_code = project999_limit(removeCode);
+		let bet_code = betCodeBySn[z];
+		console.log(bet_code);
 		if(bet_code == null){
-			projectBet[(formu*1)][(formu*1)] = false;
+			projectBet[(formu*1)][(formu*1)] = true;
 			return;
 		}
 		
 		
-		let bet_n = betSn;
+		let bet_n = getBetsn;
 		
 		 
 		
@@ -2594,6 +2357,34 @@
 		 
 		return projectBet[formu][formu] ; 
 	}
+
+
+	function reallyBet_11(sn,amount,betphase,c,codeList,originformu,BETFLAG){
+	    
+		let formu = originformu ;
+		var b = combindsort(codeList); 
+		 
+		//let snIndex = sn - 1;
+		$.ajax({ url:  u + "/bet?user="+document.getElementById("user").value+
+				"&displaysn="+BETFLAG+
+				"&sn="+sn+"&amount="+amount+"&betphase="+betphase+"&c="+c+"&codeList="+b+"&formu="+originformu+'&boardType='+document.getElementById("boardType").value,  
+         async: false,
+         success: function(data) {
+        		    
+        	        if(data == 'error'){
+        	        		
+        	        	    projectBet[formu][sn*1-1] = false;
+        	       	 	//betflag = true; 
+        	       	 	//console.log(betphase + " betResut:"+ betflag);
+        	        }else if (data ==''){
+        	       	 	projectBet[formu][sn*1-1] = true; 
+        	        }
+         	 }
+        });
+		 
+		return projectBet[formu][sn*1-1] ; 
+	}
+
 	
 	function clearProjectBetFlag(){
 		 for(var i in projectBet[1]){projectBet[1][i] = false;}
@@ -2623,8 +2414,7 @@
 	 		  (document.getElementById('c8').checked && !(projectBet[7][7]))||
 	 		  (document.getElementById('c9').checked && !(projectBet[8][8]))||
 	 		  (document.getElementById('c10').checked && !(projectBet[9][9]))||
-	 		  (document.getElementById('c11').checked && !(projectBet[10][10]))||
-	 		  (document.getElementById('c12').checked && !(projectBet[12][12]))
+	 		  (document.getElementById('c11').checked && !(projectBet[10][10]))
 					 )
 	 	  ) {
 	 		 return false;
@@ -2689,7 +2479,7 @@
 			           	   $( "div.toNowPhase" ).text(nphase);
 			           	   
 			               let c = getCodeByPhase(nphase);
-			               //console.log("blinkPhase"+blinkPhase);
+			               console.log("blinkPhase"+blinkPhase);
 			               if(c=='null'){//開獎中
 			            	   	  //$('.openload').show();
 			            	      //$('.blink').show();
@@ -3017,7 +2807,7 @@
 	   	 //        	    		saveLog('error_bet','stoptime:' + stop);
 	   	 //        	    }
 		    	        
-				    //console.log(stop + 'cccheck' + cccheck)
+				    console.log(stop + 'cccheck' + cccheck)
 				    if(cccheck*1 >3){
 				    //	betflag = false; 
 				    	clearProjectBetFlag();
@@ -3029,7 +2819,7 @@
 				    
 				    
 				     
-			        if((cccheck<3 ) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
+			        if((cccheck<2 ) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
 			            var phase =  $( "div.toPhase" ).text();
 			            //console.log(phase);
 						if( phase ){  
@@ -3283,8 +3073,12 @@
 					  
 	        			     let flag = json[letter+''+formu] ;
 	        			     if(flag){
-	        			     	  projectTemp[formu] = '';
+	        			     	  
 	        			    	 	  //if(formu==1){betIndex[1] = 0 ;}
+
+	        			    	 	  console.log('formu:'+formu);
+	        			    	 	  console.log('sn:'+sn);
+	        			    	 	  console.log(projectTemp);
 	        			    	 	  if(formu==1){betIndex[1] = 0 ;}
 	        			    	 	  if(formu==2){betIndex2[2] = 0 ;}
 	        			    	 	  if(formu==3){betIndex3[3] = 0 ;}
@@ -3296,7 +3090,7 @@
 	        			    	 	  if(formu==9){betIndex9[9] = 0 ;}
 	        			    	 	  if(formu==10){betIndex10[10] = 0 ;}
 	        			    	 	  if(formu==11){betIndex11[sn] = 0 ;}
-	        			    	 	  if(formu==12){betIndex12[12] = 0 ;}
+	        			    	 	  if(formu==12){betIndex12[sn] = 0 ;projectTemp[sn] = ''; }
 
 	        			     }
 	        			    	  
@@ -3447,16 +3241,36 @@
 				 	  }  
 		      	  	}
 			    
-			    if(document.getElementById('c12').checked  && !(projectBet[12][12]) ) {
-			  		  console.log('project12'+'-betPhase:'+nextPhase);
-					  obj.b = nextPhase - 5 ;
-					  obj.fourTh = nextPhase - 4 ;
-					  const b = obj.b ;
-					  const fourTh = obj.fourTh ;
-					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-						  compareByType_from_member(b,n,fourTh,betIndex12,betarray12,'12');
-				 	  }  
-		      	  	}
+			    // if(document.getElementById('c12').checked  && !(projectBet[12][12]) ) {
+			  		//   console.log('project12'+'-betPhase:'+nextPhase);
+					  // obj.b = nextPhase - 5 ;
+					  // obj.fourTh = nextPhase - 4 ;
+					  // const b = obj.b ;
+					  // const fourTh = obj.fourTh ;
+					  // if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+						 //  compareByType_from_member(b,n,fourTh,betIndex12,betarray12,'12');
+				 	 //  }  
+		     //  	  	}
+		    /*  	if(document.getElementById('c12').checked) {
+			    	for(var i=0;i<projectBet[12].length;i++){
+			    		let sn = i + 1;
+			    		console.log('計劃12');
+						console.log('第幾名:'+ sn);
+						if(!projectBet[12][i]){
+							  
+							  obj.b = nextPhase - 5 ;
+							  obj.fourTh = nextPhase - 4 ; 
+							  const b = obj.b ;
+							  const fourTh = obj.fourTh ;
+							  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+								  compareByType_project11(b,n,fourTh,betIndex12,betarray12,'12',sn);
+							  } 
+						}
+					}	   
+					  
+			    }*/
+
+
 			    
 			     
 		  
@@ -3468,6 +3282,56 @@
 		  
 	  	  return obj; 
     }
+
+    //1 2 4 9
+    function compareByType_project11(phase_before,phase_now,phase_before4 , bIndex, bArray,formu,betSn){
+		
+
+		var z = formu ;  
+		var sn = betSn;
+		 
+ 		let nCodeArra = getCodeByPhase(phase_now*1);
+ 		let b1 = nCodeArra.split(',')[sn*1-1];
+ 		if(b1=='7'|| projectTemp[betSn] ){
+			projectTemp[betSn] = '1'; //flag
+
+ 		} else{
+ 			projectBet[(formu*1)][(betSn*1)-1] = true;
+			return;
+ 		}
+ 		
+
+		 
+
+		let bet_code = '1,2,4,9';
+		 
+		console.log(bet_code);
+		if(bet_code == null){
+			projectBet[(formu*1)][(betSn*1)-1] = false;
+			return;
+		}
+		
+		
+		//let bet_n = betSn;
+		
+		 
+		
+		
+		
+		var betc = bArray[bIndex[betSn]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[betSn]%bArray.length );
+	    var amount = bArray[bIndex[betSn]%bArray.length] ;
+		    
+
+	    
+   		let rbf = reallyBet_11(sn, amount, (phase_now+1) , betc , bet_code.toString() ,formu,betSn);
+   		if(rbf){
+			bIndex[betSn]++;
+			projectBet[(formu*1)][(betSn*1)-1] = true;
+		} 
+		 
+
+	}
+
     function clearLog(){
     	
     	 $.ajax({ url:  u + "/clearLog?user="+document.getElementById("user").value+"bet", 
