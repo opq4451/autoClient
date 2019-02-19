@@ -308,6 +308,10 @@ public class Controller {
                 String s_m = configProperty.getProperty("s_m");
                 String e_h = configProperty.getProperty("e_h");
                 String e_m = configProperty.getProperty("e_m");
+                String s_m_stop = configProperty.getProperty("s_m_stop");
+                String s_h_stop = configProperty.getProperty("s_h_stop");
+                
+                
                 String stoppoint = configProperty.getProperty("stoppoint");
 
                 String stoplose = configProperty.getProperty("stoplose");
@@ -337,6 +341,10 @@ public class Controller {
                 j.addProperty("s_m", s_m);
                 j.addProperty("e_h", e_h);
                 j.addProperty("e_m", e_m);
+                j.addProperty("s_m_stop", s_m_stop);
+                j.addProperty("s_h_stop", s_h_stop);
+                j.addProperty("autoStopCheck", configProperty.getProperty("autoStopCheck"));
+                
                 j.addProperty("stoppoint", stoppoint);
 
             } catch (Exception e) {
@@ -887,11 +895,16 @@ public class Controller {
                             @RequestParam("betlist11") String betlist11, @RequestParam("betlist12") String betlist12,
                             @RequestParam("betproject5") String betproject5,
                             @RequestParam("betproject6") String betproject6,
+                            
 
+                            
                             @RequestParam("stoplose") String stoplose, @RequestParam("stopwin") String stopwin,
-                            @RequestParam("startstatus") String startstatus, @RequestParam("s_h") String s_h,
-                            @RequestParam("s_m") String s_m, @RequestParam("e_h") String e_h,
-                            @RequestParam("e_m") String e_m, @RequestParam("stoppoint") String stoppoint
+                            @RequestParam("startstatus") String startstatus, 
+                            @RequestParam("s_h") String s_h, @RequestParam("s_m") String s_m, 
+                            @RequestParam("e_h") String e_h, @RequestParam("e_m") String e_m, 
+                            @RequestParam("s_h_stop") String s_h_stop, @RequestParam("s_m_stop") String s_m_stop, 
+                            @RequestParam("autoStopCheck") String autoStopCheck,
+                            @RequestParam("stoppoint") String stoppoint
 
     ) {
         FileInputStream fileIn = null;
@@ -931,6 +944,9 @@ public class Controller {
             configProperty.setProperty("s_m", s_m);
             configProperty.setProperty("e_h", e_h);
             configProperty.setProperty("e_m", e_m);
+            configProperty.setProperty("s_h_stop", s_h_stop);
+            configProperty.setProperty("s_m_stop", s_m_stop);
+            configProperty.setProperty("autoStopCheck", autoStopCheck);
             configProperty.setProperty("stoppoint", stoppoint);
             fileOut = new FileOutputStream(file);
             configProperty.store(fileOut, "sample properties");
