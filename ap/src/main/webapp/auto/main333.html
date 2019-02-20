@@ -593,8 +593,8 @@
 					 <div  class="toPhase">loading..</div> 
 			</td>
 			
-			<td width="1%"  nowrap class="s_point" style="border: 1px solid gray; border-collapse: collapse; font-size: 18px; text-align:center;">點數不足</td>
-		    <td class="tdClass" width="1%" > <input  style=" font-size: 15px; text-align: center;" class="stoppoint" type ="text" size=5/> </td> 
+			<td width="1%"  nowrap class="s_point" style="display:none;border: 1px solid gray; border-collapse: collapse; font-size: 18px; text-align:center;">點數不足</td>
+		    <td class="tdClass" width="1%" style="display:none;"> <input  style=" font-size: 15px; text-align: center;" class="stoppoint" type ="text" size=5/> </td> 
 					
 			
 			<td colspan=2 class="tdClass" nowrap>  
@@ -602,6 +602,13 @@
 			 自動啟動 
 			  <input id="s_h" type ="text" size=2 maxlength=2 value='09' style="width:30px; font-size: 15px;text-align: center;"/> : <input id="s_m" type ="text" size=2 maxlength=2 value='30' style="width:30px; font-size: 15px;text-align: center;"/> 
 			  <input id="e_h" type ="text" size=2 maxlength=2 value='23' style="display:none;width:30px; font-size: 15px;text-align: center;"/>  <input id="e_m" type ="text" size=2 maxlength=2 value='30' style="display:none;width:30px; font-size: 15px;text-align: center;"/>
+			 </td>
+
+			 <td colspan=2 class="tdClass" nowrap>  
+			 <input type="checkbox" name="autoStop" id="autoStop" value="2"     style="vertical-align:middle;">
+			 自動關閉
+			  <input id="s_h_stop" type ="text" size=2 maxlength=2 value='09' style="width:30px; font-size: 15px;text-align: center;"/> : <input id="s_m_stop" type ="text" size=2 maxlength=2 value='30' style="width:30px; font-size: 15px;text-align: center;"/> 
+			  
 			 </td>
 			 
 			<td nowrap class="tdClass" bgcolor="666666" width="1%">&nbsp;<input type="checkbox" name="c3" id="c3" value="1"  >&nbsp;&nbsp;計劃二&nbsp;</td> 
@@ -1192,6 +1199,12 @@
 	setbetType(betType);
 		    	 		document.getElementById("s_h").value = json.s_h;
 			    	 	document.getElementById("s_m").value = json.s_m;
+			    	 	document.getElementById("s_h_stop").value = json.s_h_stop;
+			    	 	document.getElementById("s_m_stop").value = json.s_m_stop;
+			    	    if(json.autoStopCheck == '1'){
+			    	    		document.getElementById("autoStop").checked = true;
+			    	    } 
+
 		    	 		$( ".betlist" ).val(json.betlist) ;
 			    	 	$( ".betlist2" ).val(json.betlist2) ;
 			    	 	$( ".betlist3" ).val(json.betlist3) ;
@@ -1980,7 +1993,11 @@
 		
 		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 	    var amount = bArray[bIndex[z]%bArray.length] ;
-		    
+		let wantBet = checkWantBet(betc);    
+		if(!wantBet){
+			projectBet[(formu*1)][(formu*1)] = true;
+			return;
+		}     
 
 	    //bet_n:betn formu:formu, z:display
    		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,formu);
@@ -2412,7 +2429,7 @@
 	 		  (document.getElementById('c9').checked && !(projectBet[8][8]))||
 	 		  (document.getElementById('c10').checked && !(projectBet[9][9]))||
 	 		  (document.getElementById('c11').checked && !(projectBet[10][10]))||
-	 		  (document.getElementById('c12').checked && !(projectBet[12][12]))
+	 		  (document.getElementById('c12').checked && ! checkProjectBetFlagIndex(projectBet[12]))
 					 )
 	 	  ) {
 	 		 return false;
@@ -2554,7 +2571,7 @@
 	        return false;  
 	}
  	function saveParam(){
- 		
+ 		checkPassStop = false;
  		
  		let check_v = '';
  		for(var i= 1 ; i<13 ;i++){
@@ -2598,6 +2615,9 @@
  			+$( ".startstatus" ).val() 
  			+"&s_h="+document.getElementById("s_h").value+"&s_m="+document.getElementById("s_m").value
  			+"&e_h="+document.getElementById("e_h").value+"&e_m="+document.getElementById("e_m").value
+ 			+"&s_h_stop="+document.getElementById("s_h_stop").value+"&s_m_stop="+document.getElementById("s_m_stop").value
+ 			+"&autoStopCheck="+ (document.getElementById("autoStop").checked?"1":'0')
+
  			+"&stoppoint="+$( ".stoppoint" ).val()
  			+"&betproject5="+ ( document.getElementById("betproject5").checked?'1':'0' )
  			+"&betproject6="+ ( document.getElementById("betproject6").checked?'1':'0' )
@@ -2647,7 +2667,7 @@
 
  		}
 		
- 		if((sl*-1 < todayWin*1) && (todayWin*1 < sw*1) && ( $( ".startstatus" ).val() == '1')){
+ 		if((sl*-1 < todayWin*1) && (todayWin*1 < sw*1) && ( $( ".startstatus" ).val() == '1') || checkPassStop == true){
  			return true;
  			
  		}
@@ -2764,7 +2784,7 @@
 			    var checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
 			    
 			    
-	   	 	if( (checkStartHM *1) == 8020 ){ //relogin
+	   	 	if( (checkStartHM *1) == 12030 ){ //relogin
 	   	 		 var auto = "N" ; 
 	   	 		 if(document.getElementById("autoStart").checked){
 	   	 			 auto = "Y";
@@ -2785,13 +2805,15 @@
 		    				$(".startstatus" ).val(1);
 		    				$('select.startstatus').css('background', 'green');  
 		    				clearIndex();
+		    				checkPassStop = false;
 		    				//$('.tdstartstatus').css('background', 'red'); 
 		    				 //document.getElementById("autoStart").checked = false;*///不在區間內不能停用，會影響自動啟用(一直被取消)
 		    			} 
 		    		}
 		    		 
 		     }
-	   	 
+		   	 	checkAutoStopPass();
+
     	        var winFlag = getWinFun(); 
     	        
 			    if(winFlag){
@@ -3084,7 +3106,7 @@
 	        			    	 	  if(formu==9){betIndex9[9] = 0 ;}
 	        			    	 	  if(formu==10){betIndex10[10] = 0 ;}
 	        			    	 	  if(formu==11){betIndex11[sn] = 0 ;}
-	        			    	 	  if(formu==12){betIndex12[10] = 0 ;projectTemp[sn] = '';}
+	        			    	 	  if(formu==12){betIndex12[sn] = 0 ;projectTemp[sn] = '';}
 
 	        			     }
 	        			    	  
@@ -3235,13 +3257,32 @@
 				 	  }  
 		      	  	}
 			    
-			     if(document.getElementById('c12').checked && !(projectBet[12][12]) ) {
-			     	  obj.b = nextPhase - 5 ;
-					  obj.fourTh = nextPhase - 4 ;
-					  const b = obj.b ;
-					  const fourTh = obj.fourTh ;
-			    	compareByType_from_project11(b,n,fourTh,betIndex12,betarray12,'12','12');	   
-	      	  	}
+			    //  if(document.getElementById('c12').checked && !(projectBet[12][12]) ) {
+			    //  	  obj.b = nextPhase - 5 ;
+					  // obj.fourTh = nextPhase - 4 ;
+					  // const b = obj.b ;
+					  // const fourTh = obj.fourTh ;
+			    // 	compareByType_from_project11(b,n,fourTh,betIndex12,betarray12,'12','12');	   
+	      	  	//}
+
+	      	  	if(document.getElementById('c12').checked) {
+			    	for(let i=0;i<10;i++){
+			    		let sn = i + 1;
+			    		console.log('計劃12');
+						console.log('第幾名:'+ sn);
+						if(!projectBet[12][i]){
+							  
+							  obj.b = nextPhase - 5 ;
+							  obj.fourTh = nextPhase - 4 ; 
+							  const b = obj.b ;
+							  const fourTh = obj.fourTh ;
+							  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+								  compareByType_from_project11(b,n,fourTh,betIndex12,betarray12,'12',sn);
+							  } 
+						}
+					}	   
+					  
+			    }
 			    
 			     
 		  
@@ -3291,38 +3332,41 @@
       function compareByType_from_project11(phase_before,phase_now,phase_before4 , bIndex, bArray,formu,betSn){
 		
 
-		var z = '10' ;  
+		var z = betSn ;  
 		//var sn = betSn;
 		//step1
 		let nCodeArra = getCodeByPhase(phase_now*1);
  		let b1 = nCodeArra.split(',');
  		let getBetsn = getBETsnBycode11('2',b1);
 
+		if(bIndex[z] == 0 && getBetsn != (betSn*1)){
+ 			projectBet[(formu*1)][(betSn*1)-1] = true;
+			return;
+ 		}
 
 
 		let bet_code = '1,2,6,7';
-		console.log(bet_code);
-		if(bet_code == null){
-			projectBet[(formu*1)][(formu*1)] = true;
-			return;
-		}
+		 
 		
-		
-		let bet_n = getBetsn;
+		let bet_n = betSn;
 		
 		 
 		
 		
 		
-		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
-	    var amount = bArray[bIndex[z]%bArray.length] ;
-		    
+		var betc = bArray[bIndex[betSn]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[betSn]%bArray.length );
+	    var amount = bArray[bIndex[betSn]%bArray.length] ;
+		let wantBet = checkWantBet(betc);    
+		if(!wantBet){
+			projectBet[(formu*1)][(betSn*1)-1] = true;
+			return;
+		}    
 
 	    //bet_n:betn formu:formu, z:display
    		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,z);
    		if(rbf){
 			bIndex[z]++;
-			projectBet[(formu*1)][(formu*1)] = true;
+			projectBet[(formu*1)][(betSn*1)-1] = true;
 		} 
 
 	}
@@ -3429,5 +3473,36 @@
 
 
     }
+    let checkPassStop = false;
+    function checkAutoStopPass(){
+    	if(document.getElementById('autoStop').checked) { //時間不在起迄，不能運行
+		  let s_h_stop = document.getElementById("s_h_stop").value;
+	 	  let s_m_stop = document.getElementById("s_m_stop").value;
+			if(s_h_stop!='' && s_m_stop!='' ){
+				let s = s_h_stop + '0' + s_m_stop ;
+			    let d = new Date();
+			    let h = d.getHours();
+			    let checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;
+				if( ( (s*1) == (checkStartHM *1) ) ){
+					checkPassStop = true; 
+					$( ".startstatus" ).val(0) ;
+ 					$('select.startstatus').css('background', 'red'); //怕會員不信任程式。還是讓他變紅燈
+					//clearIndex(); //不能歸0。怕影響其它尚在走關的計劃
+				} 
+			}
+		    		 
+	    }
+    }
+    function checkWantBet(mf){
+    	if(mf > 1){ //走關中要下注
+    		return true;
+    	}
+		if(checkPassStop){ //自動關才通電不下注
+		    return false;
+		}  
+		return true; //其餘下注
+
+    }
+
 </script>
  

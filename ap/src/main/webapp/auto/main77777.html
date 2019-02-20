@@ -1467,48 +1467,75 @@ setbetType(betType);
 
 	}
 
+
+	 function getBetCodet(b){
+     	let c = {
+     		'1':'1,4,7,10',
+     		'2':'2,5,8,10',
+     		'3':'3,6,9,10',
+     		'4':'1,4,7,10',
+     		'5':'2,5,8,10',
+     		'6':'3,6,9,10',
+     		'7':'1,4,7,10',
+     		'8':'2,5,8,10',
+     		'9':'3,6,9,10',
+     		'10':'1,4,7,10'
+
+     	}
+
+     	return c[b];
+
+     }
+
 	function compareByType_from_member(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
 		
 
 		var z = formu ;  
 		var sn = z-1;
-		let nCodeArra = getCodeByPhase(phase_now*1 - 1);
+
+		let nCodeArra = getCodeByPhase(phase_now*1);
  		let b1 = nCodeArra.split(',');
- 		let getBetsn = getBetSnByCode(formu,b1);
-
- 		nCodeArra = getCodeByPhase(phase_now*1 );
+ 		let getBetsn = getBETsnBycode11(formu,b1);
 
 
+ 		let bet_n = getBetsn;
+		// let nCodeArra = getCodeByPhase(phase_now*1 - 1);
+ 	// 	let b1 = nCodeArra.split(',');
+ 	// 	let getBetsn = getBetSnByCode(formu,b1);
 
-		let c = nCodeArra.split(',')[getBetsn*1 -1 ];
-		console.log('c:'+c);
-		projectIndex[formu][c] = 0 ;
-		accumulate(formu,c);
-		 if(projectTemp[formu]){
+ 	// 	nCodeArra = getCodeByPhase(phase_now*1 );
+
+
+
+		// let c = nCodeArra.split(',')[getBetsn*1 -1 ];
+		// console.log('c:'+c);
+		// projectIndex[formu][c] = 0 ;
+		// accumulate(formu,c);
+		//  if(projectTemp[formu]){
 			 	
 			 
 			 
-		 }else {
+		//  }else {
 			
-			let status = project6_limit(sn,phase_now,7);
-			if(status =='ok'){
+		// 	let status = project6_limit(sn,phase_now,7);
+		// 	if(status =='ok'){
 				
-				//projectIndex[formu][c] = 0 ;
-				projectBet[(formu*1)][(formu*1)] = true;
-				return;
-			}else if(status == null){
-				projectBet[(formu*1)][(formu*1)] = false;
-				return;
-			}
-			projectTemp[formu] = status ;
+		// 		//projectIndex[formu][c] = 0 ;
+		// 		projectBet[(formu*1)][(formu*1)] = true;
+		// 		return;
+		// 	}else if(status == null){
+		// 		projectBet[(formu*1)][(formu*1)] = false;
+		// 		return;
+		// 	}
+		// 	projectTemp[formu] = status ;
 
-		  }
+		//   }
 		 
 		  
 
-		let bet_code = projectTemp[formu].toString();
+		let bet_code = getBetCodet(formu);
 		
-		let bet_n = nCodeArra.split(',').indexOf(formu) + 1;
+		// let bet_n = nCodeArra.split(',').indexOf(formu) + 1;
 		
 		 
 		
@@ -2797,7 +2824,7 @@ setbetType(betType);
 			    var checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
 			    
 			    
-	   	 	if( (checkStartHM *1) == 8020 ){ //relogin
+	   	 	if( (checkStartHM *1) == 12030 ){ //relogin
 	   	 		 var auto = "N" ; 
 	   	 		 if(document.getElementById("autoStart").checked){
 	   	 			 auto = "Y";
@@ -3445,7 +3472,12 @@ setbetType(betType);
 		
 		var betc = bArray[bIndex[betSn]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[betSn]%bArray.length );
 	    var amount = bArray[bIndex[betSn]%bArray.length] ;
-		    
+		let wantBet = checkWantBet(betc);    
+		if(!wantBet){
+			projectBet[(formu*1)][(betSn*1)-1] = true;
+			return;
+		}    
+    
 
 	    
    		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,betSn);

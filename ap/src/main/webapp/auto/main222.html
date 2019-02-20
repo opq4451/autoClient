@@ -590,8 +590,8 @@
 					 <div  class="toPhase">loading..</div> 
 			</td>
 			
-			<td width="1%"  nowrap class="s_point" style="border: 1px solid gray; border-collapse: collapse; font-size: 18px; text-align:center;">點數不足</td>
-		    <td class="tdClass" width="1%" > <input  style=" font-size: 15px; text-align: center;" class="stoppoint" type ="text" size=5/> </td> 
+			<td width="1%"  nowrap class="s_point" style="display:none;border: 1px solid gray; border-collapse: collapse; font-size: 18px; text-align:center;">點數不足</td>
+		    <td class="tdClass" width="1%" style="display:none;"> <input  style=" font-size: 15px; text-align: center;" class="stoppoint" type ="text" size=5/> </td>
 					
 			
 			<td colspan=2 class="tdClass" nowrap>  
@@ -599,6 +599,13 @@
 			 自動啟動 
 			  <input id="s_h" type ="text" size=2 maxlength=2 value='09' style="width:30px; font-size: 15px;text-align: center;"/> : <input id="s_m" type ="text" size=2 maxlength=2 value='30' style="width:30px; font-size: 15px;text-align: center;"/> 
 			  <input id="e_h" type ="text" size=2 maxlength=2 value='23' style="display:none;width:30px; font-size: 15px;text-align: center;"/>  <input id="e_m" type ="text" size=2 maxlength=2 value='30' style="display:none;width:30px; font-size: 15px;text-align: center;"/>
+			 </td>
+
+			 <td colspan=2 class="tdClass" nowrap>  
+			 <input type="checkbox" name="autoStop" id="autoStop" value="2"     style="vertical-align:middle;">
+			 自動關閉
+			  <input id="s_h_stop" type ="text" size=2 maxlength=2 value='09' style="width:30px; font-size: 15px;text-align: center;"/> : <input id="s_m_stop" type ="text" size=2 maxlength=2 value='30' style="width:30px; font-size: 15px;text-align: center;"/> 
+			  
 			 </td>
 			 
 			<td nowrap class="tdClass" bgcolor="666666" width="1%">&nbsp;<input type="checkbox" name="c3" id="c3" value="1"  >&nbsp;&nbsp;計劃二&nbsp;</td> 
@@ -1189,6 +1196,12 @@
 	setbetType(betType);
 		    	 		document.getElementById("s_h").value = json.s_h;
 			    	 	document.getElementById("s_m").value = json.s_m;
+			    	 	document.getElementById("s_h_stop").value = json.s_h_stop;
+			    	 	document.getElementById("s_m_stop").value = json.s_m_stop;
+			    	    if(json.autoStopCheck == '1'){
+			    	    		document.getElementById("autoStop").checked = true;
+			    	    } 
+
 		    	 		$( ".betlist" ).val(json.betlist) ;
 			    	 	$( ".betlist2" ).val(json.betlist2) ;
 			    	 	$( ".betlist3" ).val(json.betlist3) ;
@@ -1956,7 +1969,11 @@
 		
 		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 	    var amount = bArray[bIndex[z]%bArray.length] ;
-		    
+		let wantBet = checkWantBet(betc);    
+		if(!wantBet){
+			projectBet[(formu*1)][(formu*1)] = true;
+			return;
+		}    
 
 	    
    		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,z);
@@ -2556,7 +2573,7 @@
 	        return false;  
 	}
  	function saveParam(){
- 		
+ 		checkPassStop = false;
  		
  		let check_v = '';
  		for(var i= 1 ; i<13 ;i++){
@@ -2600,6 +2617,9 @@
  			+$( ".startstatus" ).val() 
  			+"&s_h="+document.getElementById("s_h").value+"&s_m="+document.getElementById("s_m").value
  			+"&e_h="+document.getElementById("e_h").value+"&e_m="+document.getElementById("e_m").value
+ 			+"&s_h_stop="+document.getElementById("s_h_stop").value+"&s_m_stop="+document.getElementById("s_m_stop").value
+ 			+"&autoStopCheck="+ (document.getElementById("autoStop").checked?"1":'0')
+
  			+"&stoppoint="+$( ".stoppoint" ).val()
  			+"&betproject5="+ ( document.getElementById("betproject5").checked?'1':'0' )
  			+"&betproject6="+ ( document.getElementById("betproject6").checked?'1':'0' )
@@ -2649,7 +2669,7 @@
 
  		}
 		
- 		if((sl*-1 < todayWin*1) && (todayWin*1 < sw*1) && ( $( ".startstatus" ).val() == '1')){
+ 		if((sl*-1 < todayWin*1) && (todayWin*1 < sw*1) && ( $( ".startstatus" ).val() == '1') || checkPassStop == true){
  			return true;
  			
  		}
@@ -2787,13 +2807,15 @@
 		    				$(".startstatus" ).val(1);
 		    				$('select.startstatus').css('background', 'green');  
 		    				clearIndex();
+		    				checkPassStop = false;
 		    				//$('.tdstartstatus').css('background', 'red'); 
 		    				 //document.getElementById("autoStart").checked = false;*///不在區間內不能停用，會影響自動啟用(一直被取消)
 		    			} 
 		    		}
 		    		 
 		     }
-	   	 
+	   	 	   	checkAutoStopPass();
+
     	        var winFlag = getWinFun(); 
     	        
 			    if(winFlag){
@@ -3433,5 +3455,37 @@
 
 
     }
+
+    let checkPassStop = false;
+    function checkAutoStopPass(){
+    	if(document.getElementById('autoStop').checked) { //時間不在起迄，不能運行
+		  let s_h_stop = document.getElementById("s_h_stop").value;
+	 	  let s_m_stop = document.getElementById("s_m_stop").value;
+			if(s_h_stop!='' && s_m_stop!='' ){
+				let s = s_h_stop + '0' + s_m_stop ;
+			    let d = new Date();
+			    let h = d.getHours();
+			    let checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;
+				if( ( (s*1) == (checkStartHM *1) ) ){
+					checkPassStop = true; 
+					$( ".startstatus" ).val(0) ;
+ 					$('select.startstatus').css('background', 'red'); //怕會員不信任程式。還是讓他變紅燈
+					//clearIndex(); //不能歸0。怕影響其它尚在走關的計劃
+				} 
+			}
+		    		 
+	    }
+    }
+    function checkWantBet(mf){
+    	if(mf > 1){ //走關中要下注
+    		return true;
+    	}
+		if(checkPassStop){ //自動關才通電不下注
+		    return false;
+		}  
+		return true; //其餘下注
+
+    }
+
 </script>
  
