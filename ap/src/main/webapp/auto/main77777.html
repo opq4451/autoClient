@@ -2470,7 +2470,7 @@ setbetType(betType);
 	 		  (document.getElementById('c9').checked && !(projectBet[8][8]))||
 	 		  (document.getElementById('c10').checked && !(projectBet[9][9]))||
 	 		  (document.getElementById('c11').checked && !(projectBet[10][10]))||
-	 		  (document.getElementById('c12').checked && !checkProjectBetFlagIndex(projectBet[12]))
+	 		  (document.getElementById('c12').checked && !(projectBet[12][12]))
 					 )
 	 	  ) {
 	 		 return false;
@@ -3145,7 +3145,7 @@ setbetType(betType);
 	        			    	 	  if(formu==9){betIndex9[9] = 0 ;}
 	        			    	 	  if(formu==10){betIndex10[10] = 0 ;}
 	        			    	 	  if(formu==11){betIndex11[sn] = 0 ;}
-	        			    	 	  if(formu==12){betIndex12[sn] = 0 ;}
+	        			    	 	  if(formu==12){betIndex12[10] = 0 ;projectTemp[sn] = '';}
 
 	        			     }
 	        			    	  
@@ -3335,24 +3335,12 @@ setbetType(betType);
 		     //  	  	}
 
 
-      	  	 	if(document.getElementById('c12').checked) {
-			    	console.log('projectBet[12].length:'+projectBet[12].length);
-			    	for(let i=0;i<10;i++){
-			    		
-						if(!projectBet[12][i]){
-							  let sn = i + 1;
-			    		console.log('計劃12');
-						console.log('第幾名:'+ sn);
-
-							  obj.b = nextPhase - 5 ;
-							  obj.fourTh = nextPhase - 4 ; 
-							  const b = obj.b ;
-							  const fourTh = obj.fourTh ;
-							  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-								  compareByType_from_project11(b,n,fourTh,betIndex12,betarray12,'12',sn);
-							  } 
-						}
-					}	   
+      	  	 	 if(document.getElementById('c12').checked && !(projectBet[12][12]) ) {
+			     	  obj.b = nextPhase - 5 ;
+					  obj.fourTh = nextPhase - 4 ;
+					  const b = obj.b ;
+					  const fourTh = obj.fourTh ;
+			    	compareByType_from_project11(b,n,fourTh,betIndex12,betarray12,'12','12');	   
 	      	  	}
 			    
 			     
@@ -3446,44 +3434,47 @@ setbetType(betType);
     function compareByType_from_project11(phase_before,phase_now,phase_before4 , bIndex, bArray,formu,betSn){
 		
 
-		var z = formu ;  
+		var z = '10' ;  
 		//var sn = betSn;
 		//step1
 		let nCodeArra = getCodeByPhase(phase_now*1);
- 		let b1 = nCodeArra.split(',');
- 		let getBetsn = getBETsnBycode11('10',b1);
+ 		let b3 = nCodeArra.split(',')[2];
+ 		let b8 = nCodeArra.split(',')[7];
  		
-		if(bIndex[betSn] == 0 && getBetsn != (betSn*1)){
- 			projectBet[(formu*1)][(betSn*1)-1]  = true;
-			return;
+ 		let t = '';
+
+ 		if( (b3*1 + b8*1 ) > 10 ){
+ 			t = (b3*1 + b8*1 ) % 10 ;
+ 		}else if ( (b3*1 + b8*1 ) == 10 ){
+ 			t = '10' ;
+ 		}else {
+ 			t = (b3*1 + b8*1 ) ;
  		}
 
 
-		let bet_code = '3,6,9,10';
+		let bet_code =  t + '' ;
 
  
-		console.log(bet_code);
-		if(bet_code == null){
-			projectBet[(formu*1)][(betSn*1)-1] = false;
-			return;
-		}
-		let bet_n = betSn;
+		 
+		//let bet_n = betSn;
 
 		
-		var betc = bArray[bIndex[betSn]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[betSn]%bArray.length );
-	    var amount = bArray[bIndex[betSn]%bArray.length] ;
+		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+	    var amount = bArray[bIndex[z]%bArray.length] ;
 		let wantBet = checkWantBet(betc);    
 		if(!wantBet){
-			projectBet[(formu*1)][(betSn*1)-1] = true;
+			projectBet[(formu*1)][(formu*1)] = true;
 			return;
 		}    
     
 
 	    
-   		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,betSn);
+   		//let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,betSn);
+   		let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code.toString(), formu,  '1,2,3,8,9,10','');
+
    		if(rbf){
-			bIndex[betSn]++;
-			projectBet[(formu*1)][(betSn*1)-1] = true;
+			bIndex[z]++;
+			projectBet[(formu*1)][(formu*1)] = true;
 		} 
 
 	}
