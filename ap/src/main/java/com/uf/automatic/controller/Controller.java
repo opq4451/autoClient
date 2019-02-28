@@ -733,7 +733,7 @@ public class Controller {
             
             String yyymmdd = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
             
-            String url = "http://api.api68.com/pks/getPksHistoryList.do?date="+yyymmdd+"&lotCode=10001";
+            String url = "http://api.api68.com/pks/getPksHistoryList.do?date="+yyymmdd+"&lotCode=10057";
             String ret = Utils.httpClientGet(url);
             JsonParser parser = new JsonParser();
             JsonObject o = parser.parse(ret).getAsJsonObject();
@@ -751,7 +751,7 @@ public class Controller {
             }
             
             
-            url = "http://api.api68.com/pks/getPksHistoryList.do?date="+byyymmdd+"&lotCode=10001";
+            url = "http://api.api68.com/pks/getPksHistoryList.do?date="+byyymmdd+"&lotCode=10057";
             ret = Utils.httpClientGet(url);
             parser = new JsonParser();
             o = parser.parse(ret).getAsJsonObject();
@@ -806,32 +806,32 @@ public class Controller {
 //                JsonObject result = o.get("result").getAsJsonObject();
 //                JsonArray data = result.getAsJsonArray("data");
                 
-//                Map m = combindHistoryMap();
-////                for (JsonElement pa : data) {
-////                    JsonObject paymentObj = pa.getAsJsonObject();
-////                    String     code     = paymentObj.get("preDrawCode").getAsString();
-////                    String     preDrawIssue = paymentObj.get("preDrawIssue").getAsString();
-////                    m.put(preDrawIssue, code);
-////                }
-//                
-//                if(m.get(phase) != null) {
-//                    String[] c = m.get(phase).toString().split(",");
-//                  String c1 = c[0].substring(0, 1).equals("0") ? c[0].substring(1, 2) : c[0] ;
-//                  String c2 = c[1].substring(0, 1).equals("0") ? c[1].substring(1, 2) : c[1] ; 
-//                  String c3 = c[2].substring(0, 1).equals("0") ? c[2].substring(1, 2) : c[2] ; 
-//                  String c4 = c[3].substring(0, 1).equals("0") ? c[3].substring(1, 2) : c[3] ; 
-//                  String c5 = c[4].substring(0, 1).equals("0") ? c[4].substring(1, 2) : c[4] ; 
-//                  String c6 = c[5].substring(0, 1).equals("0") ? c[5].substring(1, 2) : c[5] ; 
-//                  String c7 = c[6].substring(0, 1).equals("0") ? c[6].substring(1, 2) : c[6] ; 
-//                  String c8 = c[7].substring(0, 1).equals("0") ? c[7].substring(1, 2) : c[7] ; 
-//                  String c9 = c[8].substring(0, 1).equals("0") ? c[8].substring(1, 2) : c[8] ; 
-//                  String c0 = c[9].substring(0, 1).equals("0") ? c[9].substring(1, 2) : c[9] ; 
-//                  String code = c1 + "," + c2 + "," + c3+ "," + c4+ "," + c5
-//                          + "," + c6+ "," + c7+ "," + c8+ "," + c9+ "," + c0 ;
-//                  
-//                  Utils.WritePropertiesFile("history", phase, code);
-//                  return code; 
+                Map m = combindHistoryMap();
+//                for (JsonElement pa : data) {
+//                    JsonObject paymentObj = pa.getAsJsonObject();
+//                    String     code     = paymentObj.get("preDrawCode").getAsString();
+//                    String     preDrawIssue = paymentObj.get("preDrawIssue").getAsString();
+//                    m.put(preDrawIssue, code);
 //                }
+                
+                if(m.get(phase) != null) {
+                    String[] c = m.get(phase).toString().split(",");
+                  String c1 = c[0].substring(0, 1).equals("0") ? c[0].substring(1, 2) : c[0] ;
+                  String c2 = c[1].substring(0, 1).equals("0") ? c[1].substring(1, 2) : c[1] ; 
+                  String c3 = c[2].substring(0, 1).equals("0") ? c[2].substring(1, 2) : c[2] ; 
+                  String c4 = c[3].substring(0, 1).equals("0") ? c[3].substring(1, 2) : c[3] ; 
+                  String c5 = c[4].substring(0, 1).equals("0") ? c[4].substring(1, 2) : c[4] ; 
+                  String c6 = c[5].substring(0, 1).equals("0") ? c[5].substring(1, 2) : c[5] ; 
+                  String c7 = c[6].substring(0, 1).equals("0") ? c[6].substring(1, 2) : c[6] ; 
+                  String c8 = c[7].substring(0, 1).equals("0") ? c[7].substring(1, 2) : c[7] ; 
+                  String c9 = c[8].substring(0, 1).equals("0") ? c[8].substring(1, 2) : c[8] ; 
+                  String c0 = c[9].substring(0, 1).equals("0") ? c[9].substring(1, 2) : c[9] ; 
+                  String code = c1 + "," + c2 + "," + c3+ "," + c4+ "," + c5
+                          + "," + c6+ "," + c7+ "," + c8+ "," + c9+ "," + c0 ;
+                  
+                  Utils.WritePropertiesFile("history", phase, code);
+                  return code; 
+                }
                 
 //                int o_1 = ret.indexOf("resultnum3") + 10 ;
 //                int o_2 = ret.indexOf("resultnum3",o_1) + 10 ;

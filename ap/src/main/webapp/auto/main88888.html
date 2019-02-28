@@ -10,6 +10,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1364,9 +1365,10 @@ setbetType(betType);
 	function accumulate(formu,c){
  		for(var i = 1;i<11;i++){
  			console.log(i +":"+c);
- 			if(i==c)
- 				continue;
- 			projectIndex[formu][i] ++ ;
+ 			if(i==c || (projectIndex[formu][i] > 0 )){
+ 				projectIndex[formu][i] ++ ; 
+ 			}//else 
+ 			//	projectIndex[formu][i] = 0 ;
  		}
  	}
  	function getcumulate(formu){
@@ -1374,14 +1376,11 @@ setbetType(betType);
 
  	 
  		for(var i = 1;i<11;i++){
- 			if(projectIndex[formu][i] >=17){ tenArray.push(i);};
+ 			if(projectIndex[formu][i] >=0){ tenArray.push(i);};
  		}
 
- 		console.log('tenArray.length:'+tenArray.length);
+ 		 
 		if(tenArray.length >=4 && tenArray.length <=5){
-			// for(var i = 1;i<11;i++){
-	 	// 		projectIndex[formu][i] = 0 ; 
-	 	// 	}
 
 			return tenArray;
 		}
@@ -1435,33 +1434,67 @@ setbetType(betType);
 
 	// }
 
-	function getCodeByPostionArray(b1_code,positionArray){
+	 
 
-		let betArray=[];
-		for(let i=0;i<positionArray.length;i++){
-			let add  = positionArray[i] ;
-			if(add*1 == 10){
-				betArray.push(b1_code);
-			}else if((b1_code*1 + add*1)>10){
-				betArray.push(((b1_code*1 + add*1) - 10));
+	function getC_By_B2(array,formu){
+		 for(let i = 0 ; i<array.length; i++){
+		 	 if(array[i] == formu){
+		 	 	return i + 1;
+		 	 }
+		 }
+	}
 
-			}else  {
-				betArray.push( (b1_code*1 + add*1) );
-
-			} 
+	function getCode_By_c(array,c){
+		  let code = array[c-1];
+		  return code;
+	}
+	function clearAcc(formu){
+		let tempI = '';
+		let tempMax = '';
+	 	for(let i = 1;i<11;i++){
+			if(projectIndex[formu][i] >=0){
+				if(tempMax == ''){
+					tempI = i;
+					tempMax = projectIndex[formu][i];
+				}else if(projectIndex[formu][i] > tempMax){
+					tempI = i; 
+				}
+			}
 		}
-		return betArray.sort(sortNumber);
+
+		projectIndex[formu][tempI] = 0;
 
 	}
 
-	function checkSubDistance(b1,b2){
-		if(b1 == b2){
-			return 10;
-		}else if (b1*1 > b2*1){
-			return b1*1 - b2*1 ;
-		}else if (b1*1 < b2*1){
-			return (b1*1+10) - b2*1 ;
+	function getCodeByPostionArray(b1_code,phase){
+
+		let betArray=[];
+		for(let i=0;i< phase;i++){
+			let prePhase = phase*1 - i ;
+			let nCodeArra = getCodeByPhase(prePhase*1);
+			if(nCodeArra == ''){
+				return null;
+			}
+ 			let array = nCodeArra.split(',');
+ 			for(let c = 0 ; c<array.length; c++){
+ 				if(array[c] == b1_code){
+ 					let p = prePhase + 1 ;
+ 					nCodeArra = getCodeByPhase(p*1);
+ 					let addCode = nCodeArra.split(',')[c];
+ 					if(betArray.indexOf(addCode) == -1){
+ 						betArray.push(addCode);
+ 					}
+
+
+ 					if(betArray.length == 4) {
+ 						return betArray.sort(sortNumber);
+ 					}
+ 				}
+ 			}
+
+			 
 		}
+		return null;
 
 	}
 
@@ -1470,62 +1503,39 @@ setbetType(betType);
 
 		var z = formu ;  
 		var sn = z-1;
-		console.log('project:'+ formu);
-	    let nCodeArra = getCodeByPhase(phase_now);
 
-		//let c = nCodeArra.split(',')[sn];
-		console.log('formu:'+formu);
- 		let b1 = nCodeArra.split(',');
- 		let b1_code = nCodeArra.split(',')[formu*1-1];
+		 
+ 		let bet_code = getCodeByPostionArray(formu,phase_now*1 - 1);
+ 		if(bet_code == null){
+ 			projectBet[(formu*1)][(formu*1)] = false;
+ 		}
 
-	    let nCodeArra2 = getCodeByPhase(phase_now*1 -1);
-
- 		let b2_code = nCodeArra2.split(',')[formu*1-1];
-
-		let c = checkSubDistance(b1_code,b2_code);
-		console.log('c:'+c);
-		projectIndex[formu][c] = 0 ;
-		accumulate(formu,c);
-		 if(projectTemp[formu]){
-			 	
-			 
-			 
-		 }else {
-			
-			let status = project6_limit(sn,phase_now,7);
-			if(status =='ok'){
-				
-				//projectIndex[formu][c] = 0 ;
-				projectBet[(formu*1)][(formu*1)] = true;
-				return;
-			}else if(status == null){
-				projectBet[(formu*1)][(formu*1)] = false;
-				return;
+		let nCodeArra = getCodeByPhase(phase_now*1);
+		let array = nCodeArra.split(',');
+		let temp = '';
+		for(let c = 0 ; c<array.length; c++){
+			if(array[c] == formu){
+				 temp = c+1;
+				 break;
 			}
-			projectTemp[formu] = status ;
+		}
 
-		  }
-		 
-		 
-		let add_position = projectTemp[formu].toString();
-
-		let bet_code = getCodeByPostionArray (b1_code,add_position.split(','));
-		
-		let bet_n = formu;
-		
-		 
+ 		let bet_n = temp; 
 		
 		
 		
 		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 	    var amount = bArray[bIndex[z]%bArray.length] ;
-	    let wantBet = checkWantBet(betc);    
+		let wantBet = checkWantBet(betc);    
 		if(!wantBet){
 			projectBet[(formu*1)][(formu*1)] = true;
 			return;
-		} 
+		}    
+	    console.log('formu:'+formu);
 
-	    
+	    console.log('bet_n:'+bet_n);
+	    console.log(' bet_code.toString():'+ bet_code.toString());
+
    		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,z);
    		//let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , formu, formu,  bet_code.toString(),'');
    		if(rbf){
