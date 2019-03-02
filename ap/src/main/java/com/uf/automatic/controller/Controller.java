@@ -1077,7 +1077,7 @@ public class Controller {
             if(opencodemp.get(phase) == null) {
                 opencodemp.put(phase, phase);
                 String opencode = getCode(phase);
-                String s = " 🚗️第"+phase+"期🚗️开奖号码" + opencode;
+                String s = " 🔴第"+phase+"期🔴开奖号码" + opencode;
                 robotSend(s);
                 
                 int bef = Integer.parseInt(phase) - 1;
