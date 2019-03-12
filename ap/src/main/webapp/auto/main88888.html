@@ -9,8 +9,6 @@
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -490,7 +488,7 @@
     	        <div style="font-weight:bold;font-size: 18px;">碼</div><br>
     	        <div style="font-weight:bold;font-size: 18px;">計</div><br>
     	        <div style="font-weight:bold;font-size: 18px;">劃</div></td>
-	        <td class="tdClass"  bgcolor="FFFF77" width="1%" nowrap colspan=2>&nbsp;<input type="checkbox" name="c1" id="c1" value="1" style="display:none;" >&nbsp;&nbsp;四碼計劃&nbsp;</td> 
+	        <td class="tdClass"  bgcolor="FFFF77" width="1%" nowrap colspan=2>&nbsp;<input type="checkbox" name="c1" id="c1" value="1" style="display:none;" >&nbsp;&nbsp;三碼計劃&nbsp;</td> 
 		    
 		    <td class="tdClass" style="display:none;text-align:left"> <input class="betlist" type ="text" style="width:98%"/></td>
 	        
@@ -587,6 +585,7 @@
 			  <input id="s_h" type ="text" size=2 maxlength=2 value='09' style="width:30px; font-size: 15px;text-align: center;"/> : <input id="s_m" type ="text" size=2 maxlength=2 value='30' style="width:30px; font-size: 15px;text-align: center;"/> 
 			  <input id="e_h" type ="text" size=2 maxlength=2 value='23' style="display:none;width:30px; font-size: 15px;text-align: center;"/>  <input id="e_m" type ="text" size=2 maxlength=2 value='30' style="display:none;width:30px; font-size: 15px;text-align: center;"/>
 			 </td>
+			 
 
 			 <td colspan=2 class="tdClass" nowrap>  
 			 <input type="checkbox" name="autoStop" id="autoStop" value="2"     style="vertical-align:middle;">
@@ -594,7 +593,8 @@
 			  <input id="s_h_stop" type ="text" size=2 maxlength=2 value='09' style="width:30px; font-size: 15px;text-align: center;"/> : <input id="s_m_stop" type ="text" size=2 maxlength=2 value='30' style="width:30px; font-size: 15px;text-align: center;"/> 
 			  
 			 </td>
-			 
+
+
 			<td nowrap class="tdClass" bgcolor="666666" width="1%">&nbsp;<input type="checkbox" name="c3" id="c3" value="1"  >&nbsp;&nbsp;計劃二&nbsp;</td> 
 			<td style="text-align:left" class="tdClass"><input class="betlist3" type ="text" style="width:98%"/></td>
 			
@@ -1365,10 +1365,9 @@ setbetType(betType);
 	function accumulate(formu,c){
  		for(var i = 1;i<11;i++){
  			console.log(i +":"+c);
- 			if(i==c || (projectIndex[formu][i] > 0 )){
- 				projectIndex[formu][i] ++ ; 
- 			}//else 
- 			//	projectIndex[formu][i] = 0 ;
+ 			if(i==c)
+ 				continue;
+ 			projectIndex[formu][i] ++ ;
  		}
  	}
  	function getcumulate(formu){
@@ -1376,11 +1375,14 @@ setbetType(betType);
 
  	 
  		for(var i = 1;i<11;i++){
- 			if(projectIndex[formu][i] >=0){ tenArray.push(i);};
+ 			if(projectIndex[formu][i] >=20){ tenArray.push(i);};
  		}
 
- 		 
-		if(tenArray.length >=4 && tenArray.length <=5){
+ 		console.log('tenArray.length:'+tenArray.length);
+		if(tenArray.length >=3 && tenArray.length <=4){
+			// for(var i = 1;i<11;i++){
+	 	// 		projectIndex[formu][i] = 0 ; 
+	 	// 	}
 
 			return tenArray;
 		}
@@ -1434,110 +1436,79 @@ setbetType(betType);
 
 	// }
 
-	 
 
-	function getC_By_B2(array,formu){
-		 for(let i = 0 ; i<array.length; i++){
-		 	 if(array[i] == formu){
-		 	 	return i + 1;
-		 	 }
-		 }
-	}
-
-	function getCode_By_c(array,c){
-		  let code = array[c-1];
-		  return code;
-	}
-	function clearAcc(formu){
-		let tempI = '';
-		let tempMax = '';
-	 	for(let i = 1;i<11;i++){
-			if(projectIndex[formu][i] >=0){
-				if(tempMax == ''){
-					tempI = i;
-					tempMax = projectIndex[formu][i];
-				}else if(projectIndex[formu][i] > tempMax){
-					tempI = i; 
-				}
-			}
-		}
-
-		projectIndex[formu][tempI] = 0;
-
-	}
-
-	function getCodeByPostionArray(b1_code,phase){
+	function getCodeByPostionArray(b1array,positionArray){
 
 		let betArray=[];
-		for(let i=0;i< phase;i++){
-			let prePhase = phase*1 - i ;
-			let nCodeArra = getCodeByPhase(prePhase*1);
-			if(nCodeArra == ''){
-				return null;
-			}
- 			let array = nCodeArra.split(',');
- 			for(let c = 0 ; c<array.length; c++){
- 				if(array[c] == b1_code){
- 					let p = prePhase + 1 ;
- 					nCodeArra = getCodeByPhase(p*1);
- 					let addCode = nCodeArra.split(',')[c];
- 					if(betArray.indexOf(addCode) == -1){
- 						betArray.push(addCode);
- 					}
-
-
- 					if(betArray.length == 4) {
- 						return betArray.sort(sortNumber);
- 					}
- 				}
- 			}
-
-			 
+		for(let i=0;i<positionArray.length;i++){
+			let index = positionArray[i] * 1 - 1;
+			betArray.push(b1array[index]);
 		}
-		return null;
+		return betArray.sort(sortNumber);
 
 	}
-
 	function compareByType_from_member(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
 		
 
 		var z = formu ;  
 		var sn = z-1;
+		console.log('project:'+ formu);
+	    let nCodeArra = getCodeByPhase(phase_now);
 
-		 
- 		let bet_code = getCodeByPostionArray(formu,phase_now*1 - 1);
- 		if(bet_code == null){
- 			projectBet[(formu*1)][(formu*1)] = false;
- 		}
+		//let c = nCodeArra.split(',')[sn];
+		console.log('formu:'+formu);
+ 		let b1 = nCodeArra.split(',');
+ 		let b1_code = formu;
 
-		let nCodeArra = getCodeByPhase(phase_now*1);
-		let array = nCodeArra.split(',');
-		let temp = '';
-		for(let c = 0 ; c<array.length; c++){
-			if(array[c] == formu){
-				 temp = c+1;
-				 break;
+		console.log('b1_code:'+b1_code);
+
+
+		let c = getBetSnByCode(b1_code,b1);
+		console.log('getBetSnByCode:'+c);
+		projectIndex[formu][c] = 0 ;
+		accumulate(formu,c);
+		if(projectTemp[formu]){
+			 	
+			 
+			 
+		}else {
+			
+			let status = project6_limit(sn,phase_now,7);
+			if(status =='ok'){
+				
+				//projectIndex[formu][c] = 0 ;
+				projectBet[(formu*1)][(formu*1)] = true;
+				return;
+			}else if(status == null){
+				projectBet[(formu*1)][(formu*1)] = false;
+				return;
 			}
-		}
+			projectTemp[formu] = status ;
 
- 		let bet_n = temp; 
+		}
+		 
+		 
+		let bet_code = projectTemp[formu];
+
+		//let bet_code = getCodeByPostionArray (b1,bet_code_position.split(','));
+		
+		let bet_n = formu;
+		
+		 
 		
 		
 		
 		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 	    var amount = bArray[bIndex[z]%bArray.length] ;
-		let wantBet = checkWantBet(betc);    
+	    let wantBet = checkWantBet(betc);    
 		if(!wantBet){
 			projectBet[(formu*1)][(formu*1)] = true;
 			return;
-		}    
-	    console.log('formu:'+formu);
+		}
 
-	    console.log('bet_n:'+bet_n);
-	    console.log(' bet_code.toString():'+ bet_code.toString());
-
-   		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,z);
-   		//let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , formu, formu,  bet_code.toString(),'');
+	    
+   		//let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,z);
+   		let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , formu, formu,  bet_code.toString(),'');
    		if(rbf){
    			//accumulate(formu);
    			//projectIndex[formu][c] = 0 ;
@@ -1545,12 +1516,6 @@ setbetType(betType);
 			projectBet[(formu*1)][(formu*1)] = true;
 		} 
 		 
-			
-			 
-				
-			 
-		 
-		//console.log(JSON.stringify(betIndex)); 
 			
 			 
 				
@@ -2832,13 +2797,14 @@ setbetType(betType);
 		    				clearIndex();
 		    				checkPassStop = false;
 
+
 		    				//$('.tdstartstatus').css('background', 'red'); 
 		    				 //document.getElementById("autoStart").checked = false;*///不在區間內不能停用，會影響自動啟用(一直被取消)
 		    			} 
 		    		}
 		    		 
 		     }
-		   	 	checkAutoStopPass();
+	   	 	   	checkAutoStopPass();
 
     	        var winFlag = getWinFun(); 
     	        
@@ -3164,19 +3130,8 @@ setbetType(betType);
 			betIndex12 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0,'12' : 0, };
 
 
-			projectIndex = {
-						    	'1' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
-						    	'2' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
-						    	'3' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
-						    	'4' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
-						    	'5' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
-						    	'6' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
-						    	'7' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
-						    	'8' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
-						    	'9' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
-						    	'10' : { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, '10' : 0,} ,
+			 
 
-						    }
 			projectTemp = {
 		    	'1' : '' ,
 		    	'2' : '' ,
@@ -3188,8 +3143,7 @@ setbetType(betType);
 		    	'8' : '' ,
 		    	'9' : '' ,
 		    	'10' : '' ,
-		    }	
-
+		    }		    
 
     }
     function selectTypeToBet(nextPhase){
@@ -3573,6 +3527,7 @@ setbetType(betType);
 
 
     }
+
     let checkPassStop = false;
     function checkAutoStopPass(){
     	if(document.getElementById('autoStop').checked) { //時間不在起迄，不能運行

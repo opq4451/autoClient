@@ -1495,50 +1495,16 @@ setbetType(betType);
 
 		let nCodeArra = getCodeByPhase(phase_now*1);
  		let b1 = nCodeArra.split(',');
- 		let getBetsn = getBETsnBycode11(formu,b1);
+ 		let b1c = b1[z*1-1];
+		let nCodeArra2 = getCodeByPhase(phase_now*1 - 1);
+ 		let b2 = nCodeArra2.split(',');
 
+ 		let getBetsnIndex = getBETsnBycode11(b1c,b2);
 
- 		let bet_n = getBetsn;
-		// let nCodeArra = getCodeByPhase(phase_now*1 - 1);
- 	// 	let b1 = nCodeArra.split(',');
- 	// 	let getBetsn = getBetSnByCode(formu,b1);
+ 		let bet_code = b1[getBetsnIndex];
 
- 	// 	nCodeArra = getCodeByPhase(phase_now*1 );
-
-
-
-		// let c = nCodeArra.split(',')[getBetsn*1 -1 ];
-		// console.log('c:'+c);
-		// projectIndex[formu][c] = 0 ;
-		// accumulate(formu,c);
-		//  if(projectTemp[formu]){
-			 	
-			 
-			 
-		//  }else {
-			
-		// 	let status = project6_limit(sn,phase_now,7);
-		// 	if(status =='ok'){
-				
-		// 		//projectIndex[formu][c] = 0 ;
-		// 		projectBet[(formu*1)][(formu*1)] = true;
-		// 		return;
-		// 	}else if(status == null){
-		// 		projectBet[(formu*1)][(formu*1)] = false;
-		// 		return;
-		// 	}
-		// 	projectTemp[formu] = status ;
-
-		//   }
-		 
-		  
-
-		let bet_code = getBetCodet(formu);
-		
-		// let bet_n = nCodeArra.split(',').indexOf(formu) + 1;
-		
-		 
-		
+ 		let bet_sn = '3,4,7,8';
+	 
 		
 		
 		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
@@ -1550,7 +1516,8 @@ setbetType(betType);
 		}    
 
 	    
-   		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,z);
+   		let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,'');
+
    		//let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , formu, formu,  bet_code.toString(),'');
    		if(rbf){
    			//accumulate(formu);
@@ -3426,7 +3393,7 @@ setbetType(betType);
 	 
 		 for(var s =0 ; s< nCodeArra.length ; s++){
 			 if(nCodeArra[s] == code){
-				 let betsn = s + 1;
+				 let betsn = s ;
 				 return betsn;
 			 }
 		 }
