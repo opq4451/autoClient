@@ -1375,7 +1375,7 @@ setbetType(betType);
 
  	 
  		for(var i = 1;i<11;i++){
- 			if(projectIndex[formu][i] >=21){ tenArray.push(i);};
+ 			if(projectIndex[formu][i] >=20){ tenArray.push(i);};
  		}
 
  		console.log('tenArray.length:'+tenArray.length);
@@ -1447,6 +1447,34 @@ setbetType(betType);
 		return betArray.sort(sortNumber);
 
 	}
+
+
+	function processProjectIndex(formu){
+
+	 
+
+		let arr = [] ;
+		for (let i = 1; i<11; i++) {
+	      arr.push([i, projectIndex[formu][i]]);
+
+	      
+		  //max = (max < (property)) ? (property) : max;
+		}
+
+
+	    arr.sort(function(a, b) {
+		    return a[1] - b[1];
+		});
+
+	    let a = [];
+	    a.push(arr[4][0]);
+	    a.push(arr[3][0]);
+	    a.push(arr[2][0]);
+		
+		return a.sort(sortNumber);
+
+	}
+
 	function compareByType_from_member(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
 		
 
@@ -1483,7 +1511,10 @@ setbetType(betType);
 				projectBet[(formu*1)][(formu*1)] = false;
 				return;
 			}
-			projectTemp[formu] = status ;
+
+
+
+			projectTemp[formu] = processProjectIndex(formu) ;
 
 		}
 		 
@@ -2407,7 +2438,7 @@ setbetType(betType);
 	}
 	
 	function checkProjectBetflag(){
-	 	  if(    (
+	 	   if(    (
 	 		 
 	 		  (document.getElementById('c2').checked && !(projectBet[1][1])) ||
 	 		  (document.getElementById('c3').checked && !(projectBet[2][2])) ||
@@ -2419,7 +2450,7 @@ setbetType(betType);
 	 		  (document.getElementById('c9').checked && !(projectBet[8][8]))||
 	 		  (document.getElementById('c10').checked && !(projectBet[9][9]))||
 	 		  (document.getElementById('c11').checked && !(projectBet[10][10]))||
-	 		  (document.getElementById('c12').checked && !checkProjectBetFlagIndex(projectBet[12]))
+	 		  (document.getElementById('c12').checked && !(projectBet[12][12]))
 					 )
 	 	  ) {
 	 		 return false;
@@ -2774,7 +2805,7 @@ setbetType(betType);
 			    var checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
 			    
 			    
-	   	 	if( (checkStartHM *1) == 12030 ){ //relogin
+	   	 	if( (checkStartHM *1) == 8030 ){ //relogin
 	   	 		 var auto = "N" ; 
 	   	 		 if(document.getElementById("autoStart").checked){
 	   	 			 auto = "Y";
@@ -3130,7 +3161,9 @@ setbetType(betType);
 			betIndex12 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0,'12' : 0, };
 
 
-			 
+		 
+
+	     
 
 			projectTemp = {
 		    	'1' : '' ,
@@ -3275,27 +3308,36 @@ setbetType(betType);
 		     //  	  	}
 
 
-      	  	 	if(document.getElementById('c12').checked) {
-			    	console.log('projectBet[12].length:'+projectBet[12].length);
-			    	for(let i=0;i<10;i++){
+     //  	  	 	if(document.getElementById('c12').checked) {
+			  //   	console.log('projectBet[12].length:'+projectBet[12].length);
+			  //   	for(let i=0;i<10;i++){
 			    		
-						if(!projectBet[12][i]){
-							  let sn = i + 1;
-			    		console.log('計劃12');
-						console.log('第幾名:'+ sn);
+					// 	if(!projectBet[12][i]){
+					// 		  let sn = i + 1;
+			  //   		console.log('計劃12');
+					// 	console.log('第幾名:'+ sn);
 
-							  obj.b = nextPhase - 5 ;
-							  obj.fourTh = nextPhase - 4 ; 
-							  const b = obj.b ;
-							  const fourTh = obj.fourTh ;
-							  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-								  compareByType_from_project11(b,n,fourTh,betIndex12,betarray12,'12',sn);
-							  } 
-						}
-					}	   
-	      	  	}
+					// 		  obj.b = nextPhase - 5 ;
+					// 		  obj.fourTh = nextPhase - 4 ; 
+					// 		  const b = obj.b ;
+					// 		  const fourTh = obj.fourTh ;
+					// 		  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+					// 			  compareByType_from_project11(b,n,fourTh,betIndex12,betarray12,'12',sn);
+					// 		  } 
+					// 	}
+					// }	   
+	    //   	  	}
 			    
-			     
+			     if(document.getElementById('c12').checked  && !(projectBet[12][12]) ) {
+			  		  console.log('project12'+'-betPhase:'+nextPhase);
+					  obj.b = nextPhase - 5 ;
+					  obj.fourTh = nextPhase - 4 ;
+					  const b = obj.b ;
+					  const fourTh = obj.fourTh ;
+					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+						  compareByType_from_project11(b,n,fourTh,betIndex12,betarray12,'12');
+				 	  }  
+		      	  	}
 		  
 			    
 			    
@@ -3387,44 +3429,41 @@ setbetType(betType);
 		
 
 		var z = formu ;  
-		//var sn = betSn;
+		var sn = betSn;
 		//step1
 		let nCodeArra = getCodeByPhase(phase_now*1);
- 		let b1 = nCodeArra.split(',');
- 		let getBetsn = getBETsnBycode11('10',b1);
- 		
-		if(bIndex[betSn] == 0 && getBetsn != (betSn*1)){
- 			projectBet[(formu*1)][(betSn*1)-1]  = true;
-			return;
- 		}
+ 		let b2 = nCodeArra.split(',')[2];
+ 		let b9 = nCodeArra.split(',')[7];
+ 		 
 
-
-		let bet_code = '3,6,9,10';
-
- 
-		console.log(bet_code);
+		let bet_code = (b2*1 + b9*1) > 10 ? (b2*1 + b9*1)%10 : (b2*1 + b9*1);
+		 
+		  
 		if(bet_code == null){
-			projectBet[(formu*1)][(betSn*1)-1] = false;
+			projectBet[(formu*1)][(formu*1)] = true;
 			return;
 		}
-		let bet_n = betSn;
-
 		
-		var betc = bArray[bIndex[betSn]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[betSn]%bArray.length );
-	    var amount = bArray[bIndex[betSn]%bArray.length] ;
+		
+		let bet_sn = '3,5,8,10';
+		
+		 
+		
+		
+		
+		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
+	    var amount = bArray[bIndex[z]%bArray.length] ; 
 		let wantBet = checkWantBet(betc);    
 		if(!wantBet){
-			projectBet[(formu*1)][(betSn*1)-1] = true;
+			projectBet[(formu*1)][(formu*1)] = true;
 			return;
-		}    
+		}
 
-	    
-   		let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,betSn);
+   		let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , bet_code, formu, bet_sn,'');
    		if(rbf){
-			bIndex[betSn]++;
-			projectBet[(formu*1)][(betSn*1)-1] = true;
+			bIndex[z]++;
+			projectBet[(formu*1)][(formu*1)] = true;
 		} 
-
 	}
 
     function clearLog(){
