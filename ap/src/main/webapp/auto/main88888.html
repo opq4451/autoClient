@@ -9,6 +9,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1375,7 +1376,7 @@ setbetType(betType);
 
  	 
  		for(var i = 1;i<11;i++){
- 			if(projectIndex[formu][i] >=20){ tenArray.push(i);};
+ 			if(projectIndex[formu][i] >=25){ tenArray.push(i);};
  		}
 
  		console.log('tenArray.length:'+tenArray.length);
@@ -1447,34 +1448,6 @@ setbetType(betType);
 		return betArray.sort(sortNumber);
 
 	}
-
-
-	function processProjectIndex(formu){
-
-	 
-
-		let arr = [] ;
-		for (let i = 1; i<11; i++) {
-	      arr.push([i, projectIndex[formu][i]]);
-
-	      
-		  //max = (max < (property)) ? (property) : max;
-		}
-
-
-	    arr.sort(function(a, b) {
-		    return a[1] - b[1];
-		});
-
-	    let a = [];
-	    a.push(arr[4][0]);
-	    a.push(arr[3][0]);
-	    a.push(arr[2][0]);
-		
-		return a.sort(sortNumber);
-
-	}
-
 	function compareByType_from_member(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
 		
 
@@ -1511,10 +1484,7 @@ setbetType(betType);
 				projectBet[(formu*1)][(formu*1)] = false;
 				return;
 			}
-
-
-
-			projectTemp[formu] = processProjectIndex(formu) ;
+			projectTemp[formu] = status ;
 
 		}
 		 
