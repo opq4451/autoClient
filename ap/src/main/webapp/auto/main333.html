@@ -10,6 +10,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -489,7 +490,7 @@
     	        <div style="font-weight:bold;font-size: 18px;">碼</div><br>
     	        <div style="font-weight:bold;font-size: 18px;">計</div><br>
     	        <div style="font-weight:bold;font-size: 18px;">劃</div></td>
-	        <td class="tdClass"  bgcolor="FFFF77" width="1%" nowrap colspan=2>&nbsp;<input type="checkbox" name="c1" id="c1" value="1" style="display:none;" >&nbsp;&nbsp;三碼計劃&nbsp;</td> 
+	        <td class="tdClass"  bgcolor="FFFF77" width="1%" nowrap colspan=2>&nbsp;<input type="checkbox" name="c1" id="c1" value="1" style="display:none;" >&nbsp;&nbsp;四碼計劃&nbsp;</td> 
 		    
 		    <td class="tdClass" style="display:none;text-align:left"> <input class="betlist" type ="text" style="width:98%"/></td>
 	        
@@ -901,7 +902,21 @@
     	'8' : '' ,
     	'9' : '' ,
     	'10' : '' ,
+    	'12' : {
+	    	'1' : '' ,
+	    	'2' : '' ,
+	    	'3' : '' ,
+	    	'4' : '' ,
+	    	'5' : '' ,
+	    	'6' : '' ,
+	    	'7' : '' ,
+	    	'8' : '' ,
+	    	'9' : '' ,
+	    	'10' : '' 
+	    	}  
     }
+
+
 
 
     const rangeExist = {
@@ -1033,7 +1048,11 @@
  	}
  	
     $(document).ready(function(){
-   
+   			
+   			$.ajaxSetup({
+				timeout: 3*1000
+			});
+			
     		$('#betproject5').change(function(){
     		    if(document.getElementById("betproject5").checked ){
     		    		document.getElementById("betproject6").checked = false;
@@ -1485,50 +1504,101 @@ setbetType(betType);
 		}
 	}
 
-	function getCarCodes(openSn,arr){
-		let array = {
-			'1': '6,7,8,9',
-			'2': '7,8,9,10',
-			'3': '1,8,9,10',
-			'4': '1,2,9,10',
-			'5': '1,2,3,10',
-			'6': '1,2,3,4',
-			'7': '2,3,4,5',
-			'8': '3,4,5,6',
-			'9': '4,5,6,7',
-			'10': '5,6,7,8',
+	function getCarCodes(formu,arr2,arr1){
+		let snc = {
+			'1': '2,3,4,5',
+			'2': '3,4,5,6',
+			'3': '4,5,6,7',
+			'4': '5,6,7,8',
+			'5': '6,7,8,9',
+			'6': '7,8,9,10',
+			'7': '1,8,9,10',
+			'8': '1,2,9,10',
+			'9': '1,2,3,10',
+			'10': '1,2,3,4',
 		}
 
-		let a =  array[openSn];
-		console.log('a:'+a);
-		let a_ary = a.split(',');
+		// let a =  array[openSn];
+		// console.log('a:'+a);
+		// let a_ary = a.split(',');
 
-		let empty=[];
-		for(let i =0;i<a_ary.length;i++){
-			let index = a_ary[i] * 1 - 1;
-			let code = arr.split(',')[index];
-			empty.push(code);
+		// let empty=[];
+		for(let i =0;i<arr2.length;i++){
+			
+			let code = arr2[i];
+			if(code == formu ){
+				if(code == arr1[i]){
+					let sn = i+1;
+					let c = snc[code];
+					return sn + '@' + c ;
+				}
+			}
 		}
-		 return empty.sort(sortNumber); 
+
+		return null;
+		// return empty.sort(sortNumber); 
 		
 	}
+
+	function getCarCodesBack(formu,arr2,arr1){
+		let snc = {
+			'1': '1,2,3,10',
+			'2': '1,2,3,4',
+			'3': '2,3,4,5',
+			'4': '3,4,5,6',
+			'5': '4,5,6,7',
+			'6': '5,6,7,8',
+			'7': '6,7,8,9',
+			'8': '7,8,9,10',
+			'9': '1,8,9,10',
+			'10': '1,2,9,10',
+		}
+
+		// let a =  array[openSn];
+		// console.log('a:'+a);
+		// let a_ary = a.split(',');
+
+		// let empty=[];
+		for(let i =0;i<arr2.length;i++){
+			
+			let code = arr2[i];
+			if(code == formu ){
+				if(code == arr1[i]){
+					let sn = i+1;
+					let c = snc[code];
+					return sn + '@' + c + '@' + formu ;
+				}
+			}
+		}
+
+		return null;
+		// return empty.sort(sortNumber); 
+		
+	}
+
 	function compareByType_from_member(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
 		
 		var z = formu ;  
 		var sn = formu;
 		//step1
 		let nCodeArra = getCodeByPhase(phase_now*1);
-		let openSn = getCarSn(formu,nCodeArra.split(','));
+		let nCodeArra2 = getCodeByPhase(phase_now*1 -1);
 		 
-		console.log('openSn:'+openSn);
+		if(!projectTemp[formu]){
+			projectTemp[formu] = getCarCodes(formu, nCodeArra2.split(','), nCodeArra.split(','));
+		}
 
-		let bet_code = getCarCodes(openSn,nCodeArra);
+		if(projectTemp[formu] == null){
+			projectBet[(formu*1)][(formu*1)] = true;
+			return;
+		}
+		let bet_code = projectTemp[formu].split('@')[1];
 		
 
 
 	 
 		
-		let bet_sn =  openSn;
+		let bet_sn =  projectTemp[formu].split('@')[0];
 		console.log('formu:'+formu);
 		console.log('bet_code:'+bet_code);
 		 
@@ -2525,7 +2595,7 @@ setbetType(betType);
 	 		  (document.getElementById('c9').checked && !(projectBet[8][8]))||
 	 		  (document.getElementById('c10').checked && !(projectBet[9][9]))||
 	 		  (document.getElementById('c11').checked && !(projectBet[10][10]))||
-	 		  (document.getElementById('c12').checked && !(projectBet[12][12]))
+	 		  (document.getElementById('c12').checked && !checkProject12BetFlagIndex(projectBet[12]))
 					 )
 	 	  ) {
 	 		 return false;
@@ -2534,6 +2604,17 @@ setbetType(betType);
 	 	  }
 	 
 	}
+
+	function checkProject12BetFlagIndex(array){
+
+		for(let i =0 ;i <10;i++){
+			if(!projectBet[12][i]){
+				return false;
+			}
+		}
+		return true;
+	}
+
 	
 	function checkProjectBetFlagIndex(array){
 		for(var i in array){
@@ -2876,11 +2957,13 @@ setbetType(betType);
 			    //var n = d.getMinutes();
 			    var h = d.getHours();
 			    //let nextPhase =  getPhase();
-			    var min = getBetMin();
+			    //var min = getBetMin();
 			    var checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
+		    if( (checkStartHM *1) < 12030 &&  (checkStartHM *1) > 4030){
+			   	 	return ;
+		     }   
 			    
-			    
-	   	 	if( (checkStartHM *1) == 8030 ){ //relogin
+	   	 	if( (checkStartHM *1) == 12040 ){ //relogin
 	   	 		 var auto = "N" ; 
 	   	 		 if(document.getElementById("autoStart").checked){
 	   	 			 auto = "Y";
@@ -2910,6 +2993,10 @@ setbetType(betType);
 		    		}
 		    		 
 		     }
+
+
+		     	 
+
 	   	 	   	checkAutoStopPass();
 
     	        var winFlag = getWinFun(); 
@@ -2930,9 +3017,9 @@ setbetType(betType);
 				    	clearProjectBetFlag();
 				    } 
 				    
-				    if( (checkStartHM *1) < 8030 &&  (checkStartHM *1) > 4030){
-				   	 	deleteHistory();
-				    }
+				    // if( (checkStartHM *1) < 8030 &&  (checkStartHM *1) > 4030){
+				   	//  	deleteHistory();
+				    // }
 				    
 				    
 				     
@@ -2986,6 +3073,18 @@ setbetType(betType);
 	}
     
     function overTimeout() { 
+
+    	   var d = new Date();
+			    //var n = d.getMinutes();
+			    var h = d.getHours();
+			    //let nextPhase =  getPhase();
+			    //var min = getBetMin();
+			    var checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
+		    if( (checkStartHM *1) < 12030 &&  (checkStartHM *1) > 4030){
+			   	 	return ;
+		     }  
+
+
     	workerTimer_timeout.setInterval(function () { 
     			 
     				dynamic_phase =  getPhase(); 
@@ -3002,7 +3101,7 @@ setbetType(betType);
     function checkTimeflag(t){
     	   var d = new Date();
 		 	var h = d.getHours(); 
-		    var min = getBetMin();
+		    //var min = getBetMin();
 		    var checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ; 
 	   	 	if( (checkStartHM *1) > t ){ 
 	   	 		return true;
@@ -3013,7 +3112,15 @@ setbetType(betType);
     
 	function getHistoryTimeout() {
     	
-   		
+   		   var d = new Date();
+			    //var n = d.getMinutes();
+			    var h = d.getHours();
+			    //let nextPhase =  getPhase();
+			    //var min = getBetMin();
+			    var checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
+		    if( (checkStartHM *1) < 12030 &&  (checkStartHM *1) > 4030){
+			   	 	return ;
+		     }  
 		
 		workerTimer_timeout.setInterval(function () {
     	        
@@ -3190,20 +3297,27 @@ setbetType(betType);
 					  
 	        			     let flag = json[letter+''+formu] ;
 	        			     if(flag){
-        			     			  projectTemp[formu] = '';
+        			     			 
 	        			    	 	  //if(formu==1){betIndex[1] = 0 ;}
-	        			    	 	  if(formu==1){betIndex[1] = 0 ;}
-	        			    	 	  if(formu==2){betIndex2[2] = 0 ;}
-	        			    	 	  if(formu==3){betIndex3[3] = 0 ;}
-	        			    	 	  if(formu==4){betIndex4[4] = 0 ;}
-	        			    	 	  if(formu==5){betIndex5[5] = 0 ;}
-	        			    	 	  if(formu==6){betIndex6[6] = 0 ;}
-	        			    	 	  if(formu==7){betIndex7[7] = 0 ;}
-	        			    	 	  if(formu==8){betIndex8[8] = 0 ;}
-	        			    	 	  if(formu==9){betIndex9[9] = 0 ;}
-	        			    	 	  if(formu==10){betIndex10[10] = 0 ;}
+	        			    	 	  if(formu==1){betIndex[1] = 0 ; projectTemp[formu] = '';}
+	        			    	 	  if(formu==2){betIndex2[2] = 0 ; projectTemp[formu] = '';}
+	        			    	 	  if(formu==3){betIndex3[3] = 0 ; projectTemp[formu] = '';}
+	        			    	 	  if(formu==4){betIndex4[4] = 0 ; projectTemp[formu] = '';}
+	        			    	 	  if(formu==5){betIndex5[5] = 0 ; projectTemp[formu] = '';}
+	        			    	 	  if(formu==6){betIndex6[6] = 0 ; projectTemp[formu] = '';}
+	        			    	 	  if(formu==7){betIndex7[7] = 0 ; projectTemp[formu] = '';}
+	        			    	 	  if(formu==8){betIndex8[8] = 0 ; projectTemp[formu] = '';}
+	        			    	 	  if(formu==9){betIndex9[9] = 0 ; projectTemp[formu] = '';}
+	        			    	 	  if(formu==10){betIndex10[10] = 0 ; projectTemp[formu] = '';}
 	        			    	 	  if(formu==11){betIndex11[sn] = 0 ;}
-	        			    	 	  if(formu==12){betIndex12[1] = 0 ;}
+	        			    	 	  if(formu==12){
+	        			    	 	  	console.log('over sn:'+sn);
+										let projectSN = sn;
+	        			    	 	  	//let projectSN = getProjectSNbySn(sn);
+	        			    	 	  	//console.log('zero:'+projectSN);
+	        			    	 	  	betIndex12[projectSN] = 0 ;projectTemp[12][projectSN] = '';
+
+	        			    	 	  }
 
 	        			     }
 	        			    	  
@@ -3219,6 +3333,19 @@ setbetType(betType);
 	        });
     	
     			return check;
+    }
+
+    function getProjectSNbySn(sn){
+    	for(let i =1 ; i<11; i++){
+    		if(projectTemp[12][i] && projectTemp[12][i] != ''){
+    			let bet_sn = projectTemp[12][i].split('@')[0];
+    			if(bet_sn == sn){
+    				return projectTemp[12][i].split('@')[2];
+    			}
+    		}
+    		
+    	}
+     
     }
     
     function clearIndex(){
@@ -3251,6 +3378,18 @@ setbetType(betType);
 		    	'8' : '' ,
 		    	'9' : '' ,
 		    	'10' : '' ,
+		    	'12' : {
+		    	'1' : '' ,
+		    	'2' : '' ,
+		    	'3' : '' ,
+		    	'4' : '' ,
+		    	'5' : '' ,
+		    	'6' : '' ,
+		    	'7' : '' ,
+		    	'8' : '' ,
+		    	'9' : '' ,
+		    	'10' : ''  
+		   		 }
 		    }		    
 
     }
@@ -3403,16 +3542,35 @@ setbetType(betType);
 					// }	   
 	    //   	  	}
 			    
-			     if(document.getElementById('c12').checked  && !(projectBet[12][12]) ) {
-			  		  console.log('project12'+'-betPhase:'+nextPhase);
-					  obj.b = nextPhase - 5 ;
-					  obj.fourTh = nextPhase - 4 ;
-					  const b = obj.b ;
-					  const fourTh = obj.fourTh ;
-					  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
-						  compareByType_from_project11(b,n,fourTh,betIndex12,betarray12,'12');
-				 	  }  
-		      	  	}
+			     if(document.getElementById('c12').checked) {
+			    	for(var i=0;i<10;i++){
+			    		let sn = i + 1;
+			    		console.log('計劃12');
+						console.log('第幾名:'+ sn);
+						if(!projectBet[12][i]){
+							  
+							  obj.b = nextPhase - 5 ;
+							  obj.fourTh = nextPhase - 4 ; 
+							  const b = obj.b ;
+							  const fourTh = obj.fourTh ;
+							  if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+								  compareByType_from_member5678(b,n,fourTh,betIndex12,betarray12,'12',sn);
+							  } 
+						}
+					}	   
+					  
+			    }
+
+			    //  if(document.getElementById('c12').checked  && !(projectBet[12][12]) ) {
+			  		//   console.log('project12'+'-betPhase:'+nextPhase);
+					  // obj.b = nextPhase - 5 ;
+					  // obj.fourTh = nextPhase - 4 ;
+					  // const b = obj.b ;
+					  // const fourTh = obj.fourTh ;
+					  // if(isNumber(nextPhase) && isNumber(n)&& isNumber(b)&& isNumber(fourTh) ){
+						 //  compareByType_from_project11(b,n,fourTh,betIndex12,betarray12,'12');
+				 	 //  }  
+		     //  	  	}
 		  
 			    
 			    
@@ -3478,6 +3636,86 @@ setbetType(betType);
 		  
 	  	  return obj; 
     }
+
+
+
+    function compareByType_from_member5678(phase_before,phase_now,phase_before4 , bIndex, bArray,formu,betSn){
+		
+
+
+    	var z = formu ;  
+		var sn = betSn;
+		//step1
+		let nCodeArra = getCodeByPhase(phase_now*1);
+		let nCodeArra2 = getCodeByPhase(phase_now*1 -1);
+		 
+		if(!projectTemp[formu][sn]){
+			projectTemp[formu][sn] = getCarCodesBack(betSn, nCodeArra2.split(','), nCodeArra.split(','));
+		}
+
+		if(projectTemp[formu][sn] == null){
+			projectBet[(formu*1)][(betSn*1)-1] = true;
+			return;
+		}
+		let bet_code = projectTemp[formu][sn].split('@')[1];
+		
+
+
+	 
+		
+		let bet_sn =  projectTemp[formu][sn].split('@')[0];
+		console.log('formu:'+formu);
+		console.log('bet_code:'+bet_code);
+		 
+		
+	
+		
+		var betc = bArray[bIndex[betSn]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[betSn]%bArray.length );
+	    var amount = bArray[bIndex[betSn]%bArray.length] ;
+		    
+ 		let wantBet = checkWantBet(betc);    
+		if(!wantBet){
+			projectBet[(formu*1)][(betSn*1)-1]  = true;
+			return;
+		}
+	    
+   		let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , bet_code.toString() ,formu,betSn);
+   		if(rbf){
+			bIndex[betSn]++;
+			projectBet[(formu*1)][(betSn*1)-1] = true;
+		} 
+		//
+		// var z = formu ;  
+		// var sn = betSn;
+		 
+		// let nCodeArra = getCodeByPhase(phase_now*1);
+		// console.log('第幾名:'+ betSn);
+		// console.log('index:'+ (sn*1 -1));
+ 	// 	let b1 = nCodeArra.split(',')[(sn*1 -1)];
+		
+		// console.log('b1:'+ b1);
+	 //    let removeCode = getSubCOde(b1);
+
+		// let bet_code = project999_limit(removeCode);
+		// console.log(bet_code);
+		// if(bet_code == null){
+		// 	projectBet[(formu*1)][(betSn*1)-1] = false;
+		// 	return;
+		// }
+
+		
+		// var betc = bArray[bIndex[betSn]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[betSn]%bArray.length );
+	 //    var amount = bArray[bIndex[betSn]%bArray.length] ;
+		    
+
+	    
+  //  		let rbf = reallyBet(sn, amount, (phase_now+1) , betc , bet_code.toString() ,formu,z);
+  //  		if(rbf){
+		// 	bIndex[betSn]++;
+		// 	projectBet[(formu*1)][(betSn*1)-1] = true;
+		// } 
+
+	}
 
 
  //    function getBetSnByCode(project,arr){
@@ -3591,7 +3829,19 @@ setbetType(betType);
     	  if(!document.getElementById('c9').checked) {betIndex8 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };projectTemp[8]='';}
     	  if(!document.getElementById('c10').checked) {betIndex9 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };projectTemp[9]='';}
     	  if(!document.getElementById('c11').checked) {betIndex10 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };projectTemp[10]='';}
-    	  if(!document.getElementById('c12').checked) {betIndex12 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };}
+    	  if(!document.getElementById('c12').checked) {betIndex12 = { '1' : 0, '2' : 0, '3' : 0, '4' : 0, '5' : 0, '6' : 0, '7' : 0, '8' : 0, '9' : 0, 	'10' : 0, };
+    	  		projectTemp[12][1]='';
+    	  		projectTemp[12][2]='';
+    	  		projectTemp[12][3]='';
+    	  		projectTemp[12][4]='';
+    	  		projectTemp[12][5]='';
+    	  		projectTemp[12][6]='';
+    	  		projectTemp[12][7]='';
+    	  		projectTemp[12][8]='';
+    	  		projectTemp[12][9]='';
+    	  		projectTemp[12][10]='';
+
+    	}
 
 
     			
