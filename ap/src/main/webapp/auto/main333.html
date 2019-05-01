@@ -1542,16 +1542,16 @@ setbetType(betType);
 
 	function getCarCodesBack(formu,arr2,arr1){
 		let snc = {
-			'1': '1,2,3,10',
-			'2': '1,2,3,4',
-			'3': '2,3,4,5',
-			'4': '3,4,5,6',
-			'5': '4,5,6,7',
-			'6': '5,6,7,8',
-			'7': '6,7,8,9',
-			'8': '7,8,9,10',
-			'9': '1,8,9,10',
-			'10': '1,2,9,10',
+			'1': '1,2,9,10',
+			'2': '1,2,3,10',
+			'3': '1,2,3,4',
+			'4': '2,3,4,5',
+			'5': '3,4,5,6',
+			'6': '4,5,6,7',
+			'7': '5,6,7,8',
+			'8': '6,7,8,9',
+			'9': '7,8,9,10',
+			'10': '1,8,9,10',
 		}
 
 		// let a =  array[openSn];
@@ -2959,7 +2959,7 @@ setbetType(betType);
 			    //let nextPhase =  getPhase();
 			    //var min = getBetMin();
 			    var checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
-		    if( (checkStartHM *1) < 12030 &&  (checkStartHM *1) > 4030){
+		    if( (checkStartHM *1) < 12030 &&  (checkStartHM *1) > 4000){
 			   	 	return ;
 		     }   
 			    
