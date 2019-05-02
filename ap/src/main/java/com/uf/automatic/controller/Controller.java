@@ -15,6 +15,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -54,6 +55,7 @@ import com.uf.automatic.ap.OrderedProperties;
 import com.uf.automatic.util.Utils;
 import com.uf.automatic.util.httpClientCookie;
 import com.uf.automatic.util.dali.DaliHttpClient;
+import com.uf.automatic.util.dali.NewDaliHttpClient;
 import com.uf.automatic.util.leein.LeeinHttpClient;
 import com.uf.automatic.util.mountain.MoutainHttpClient;
 
@@ -71,6 +73,7 @@ public class Controller {
     String pwd = "";
     String p_id = "";
     String boardType = "";
+    NewDaliHttpClient nd_h = null;
 
     Map<Integer, String> bs = new TreeMap<Integer, String>();
 
@@ -132,6 +135,10 @@ public class Controller {
                                                                     p);
                     System.out.println(futsai_php_cookid);
  
+                } else if (boardType.equals("5")) {
+                    nd_h = NewDaliHttpClient.getInstance(user, pwd);
+                   
+  
                 }
 
                 clearLog(user + "bet");
@@ -224,56 +231,25 @@ public class Controller {
                 }
                 
 
-            } else if (boardType.equals("1")) { //華山
-                String ret = MoutainHttpClient.httpGet(mountain_token_sessid,
-                                                       mountain_url[mountain_index % 4] + "/?m=acc&gameId=2");
-                JsonObject o = parser.parse(ret).getAsJsonObject();
-
-                String usable_credit = o.get("balance").getAsString();
-                String unbalancedMoney = o.get("totalTotalMoney").getAsString();
-                j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
-                j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(unbalancedMoney))));
-
-            } else if (boardType.equals("2")) { //大立
-                String ret = DaliHttpClient.getTodayUse();
-                //System.out.println(ret);
-                int startIndex = ret.lastIndexOf("t_Edit_td");
-                int endIndex = ret.indexOf("<", startIndex);
-                String canuse = ret.substring(startIndex + 11, endIndex);
-                j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(canuse))));
+            } else if (boardType.equals("5")) {
                 
-                String t = DaliHttpClient.getTodayWin();
-                //System.out.println(t);
-                j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(t))));
-
-            } else if (boardType.equals("3")) {
-                String ret = LeeinHttpClient.getTodayWin(leein_url[leein_index % 4]
-                                                         + "/member/accounts?_=1522119266532",
-                                                         leein_php_cookid);
-
-                JsonArray o = parser.parse(ret).getAsJsonArray();
-
-                JsonObject r = o.get(0).getAsJsonObject();
-
-                String usable_credit = r.get("balance").getAsString();
-                String unbalancedMoney = r.get("result")==null?"0":r.get("result").getAsString();
+                
+                JsonObject r =  nd_h.getTodayWin(nd_h.getCookie());
+                
+                String usable_credit = r.get("userInfo").getAsJsonObject().get("currentPoint").getAsString();
+                String unbalancedMoney = r.get("userInfo").getAsJsonObject().get("todayResult")==null?"0":r.get("userInfo").getAsJsonObject().get("todayResult").getAsString();
                 j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
                 j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(unbalancedMoney))));
+                int stop_time = r.get("gameOpenStatus").getAsJsonObject() .get("betTime").getAsInt();
 
-            }else if (boardType.equals("4")) {
-                String ret = LeeinHttpClient.getTodayWin(futsai_url[futsai_index % 4]
-                        + "/member/accounts?_=1522119266532",
-                        futsai_php_cookid);
+                    try {
+                        
+                            j.addProperty("stop_time", stop_time/60 + ":" + stop_time%60 );
             
-            JsonArray o = parser.parse(ret).getAsJsonArray();
-            
-            JsonObject r = o.get(0).getAsJsonObject();
-            
-            String usable_credit = r.get("balance").getAsString();
-            String unbalancedMoney = r.get("result")==null?"0":r.get("result").getAsString();
-            j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
-            j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(unbalancedMoney))));
-            
+                       
+                    }catch(Exception e) {
+                        
+                    }
             }
 
             FileInputStream fileIn = null;
@@ -382,44 +358,8 @@ public class Controller {
             saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : getToday 斷");
             if (boardType.equals("0")) {
                 h = httpClientCookie.getInstance(user, pwd);
-            } else if (boardType.equals("1")) {
-                //mountain_index++;
-
-                if (token.equals("")) {
-                    return "N";
-                }
-
-                mountain_token_sessid = token + getPhpCookie();
-
-            } else if (boardType.equals("2")) {
-                d_h = DaliHttpClient.getInstance(user, pwd);
-            } else if (boardType.equals("3")) {
-                leein_index++;
-                try {
-                    leein_php_cookid = "2a29530a2306=b00b0a238f1bb76547c75c442ce5bc273859ad7904b7bc3e;";
-                    leein_php_cookid = LeeinHttpClient.httpPostInit(leein_url[leein_index % 4],
-                                                                    leein_php_cookid,
-                                                                    "1111",
-                                                                    user,
-                                                                    pwd);
-                } catch (Exception e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
-
-            }else if (boardType.equals("4")) {
-                leein_index++;
-                try {
-                    futsai_php_cookid = "2a29530a2306=b00b0a238f1bb76547c75c442ce5bc273859ad7904b7bc3e;";
-                    futsai_php_cookid = LeeinHttpClient.httpPostInit(futsai_url[futsai_index % 4],
-                                                                    futsai_php_cookid,
-                                                                    "1111",
-                                                                    user,
-                                                                    pwd);
-                } catch (Exception e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
+            } else if (boardType.equals("5")) {
+                nd_h = NewDaliHttpClient.getInstance(user, pwd);
 
             }
 
@@ -682,6 +622,9 @@ public class Controller {
     public String getPhase(@RequestParam("user") String user, @RequestParam("pwd") String pwd,
                            @RequestParam("boardType") String boardType) {
         try {
+            
+            String nexphase = "";
+            if(boardType.equals("0")) {
                 if(h == null) {
                     h = httpClientCookie.getInstance(user, pwd);
                 }
@@ -704,7 +647,34 @@ public class Controller {
 
         
 
-            String nexphase = Utils.getMaxPhase();
+               
+                
+            }else   if(boardType.equals("5")) {
+                if(nd_h == null) {
+                    nd_h = NewDaliHttpClient.getInstance(user, pwd);
+                }
+              
+//                String open = nd_h.getTodayWin(nd_h.getCookie());
+//                JsonParser parser = new JsonParser();
+                JsonObject o = nd_h.getTodayWin(nd_h.getCookie());
+                JsonObject data = o.get("lotteryResult").getAsJsonObject().get("moreResult").getAsJsonObject().get("1").getAsJsonObject();
+                String phase = data.get("pissue").getAsString();
+                 
+                JsonArray draw_result = data.getAsJsonArray("draw_result");
+                String totalcode = "";
+                for(int i = 1; i<11;i++) {
+                    String code = data.get("po"+i).getAsString();
+                    totalcode += code +",";
+                    //Utils.WritePropertiesFile("history", phase, code);
+                }
+                Utils.WritePropertiesFile("history", phase, totalcode.substring(0,totalcode.length()-1));
+
+        
+
+                
+                
+            }
+            nexphase = Utils.getMaxPhase();
             return Long.toString(Long.valueOf(nexphase) + 1 ) ;
 //            long unixTime = System.currentTimeMillis() / 1000L;
 //
@@ -727,6 +697,8 @@ public class Controller {
             saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : getPhase 斷");
             if (boardType.equals("0"))
                 h = httpClientCookie.getInstance(user, pwd);
+            else if (boardType.equals("5"))
+                nd_h = NewDaliHttpClient.getInstance(user, pwd);
             e.printStackTrace();
 
         } finally {
@@ -735,7 +707,67 @@ public class Controller {
         return "null";
 
     }
+    
+    public static Map combindHistoryMap() {
+        Map m = new HashMap();
+        try {
+            Date dNow = new Date();   //当前时间
 
+            Date dBefore = new Date();
+
+            Calendar calendar = Calendar.getInstance(); //得到日历
+            calendar.setTime(dNow);//把当前时间赋给日历
+            calendar.add(Calendar.DAY_OF_MONTH, -1);  //设置为前一天
+            dBefore = calendar.getTime();   //得到前一天的时间
+
+            String byyymmdd = new SimpleDateFormat("yyyy-MM-dd").format(dBefore); 
+            
+            String yyymmdd = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+            
+            String url = "http://api.api68.com/pks/getPksHistoryList.do?date="+yyymmdd+"&lotCode=10057";
+            String ret = Utils.httpClientGet(url);
+            JsonParser parser = new JsonParser();
+            JsonObject o = parser.parse(ret).getAsJsonObject();
+            
+            
+            JsonObject result = o.get("result").getAsJsonObject();
+            JsonArray data = result.getAsJsonArray("data");
+            
+           
+            for (JsonElement pa : data) {
+                JsonObject paymentObj = pa.getAsJsonObject();
+                String     code     = paymentObj.get("preDrawCode").getAsString();
+                String     preDrawIssue = paymentObj.get("preDrawIssue").getAsString();
+                m.put(preDrawIssue, code);
+            }
+            
+            
+            url = "http://api.api68.com/pks/getPksHistoryList.do?date="+byyymmdd+"&lotCode=10057";
+            ret = Utils.httpClientGet(url);
+            parser = new JsonParser();
+            o = parser.parse(ret).getAsJsonObject();
+            
+            
+            result = o.get("result").getAsJsonObject();
+            data = result.getAsJsonArray("data");
+            
+           
+            for (JsonElement pa : data) {
+                JsonObject paymentObj = pa.getAsJsonObject();
+                String     code     = paymentObj.get("preDrawCode").getAsString();
+                String     preDrawIssue = paymentObj.get("preDrawIssue").getAsString();
+                m.put(preDrawIssue, code);
+            }
+            
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+       
+        
+        return m;
+    }
+    
     @RequestMapping("/getCode")
     public String getCode(@RequestParam("phase") String phase) {
         FileInputStream fileIn = null;
@@ -751,6 +783,33 @@ public class Controller {
             configProperty.load(fileIn);
             if (configProperty.getProperty(phase) != null)
                 return configProperty.getProperty(phase);
+            else {
+
+                Map m = combindHistoryMap();
+
+                
+                if(m.get(phase) != null) {
+                    String[] c = m.get(phase).toString().split(",");
+                  String c1 = c[0].substring(0, 1).equals("0") ? c[0].substring(1, 2) : c[0] ;
+                  String c2 = c[1].substring(0, 1).equals("0") ? c[1].substring(1, 2) : c[1] ; 
+                  String c3 = c[2].substring(0, 1).equals("0") ? c[2].substring(1, 2) : c[2] ; 
+                  String c4 = c[3].substring(0, 1).equals("0") ? c[3].substring(1, 2) : c[3] ; 
+                  String c5 = c[4].substring(0, 1).equals("0") ? c[4].substring(1, 2) : c[4] ; 
+                  String c6 = c[5].substring(0, 1).equals("0") ? c[5].substring(1, 2) : c[5] ; 
+                  String c7 = c[6].substring(0, 1).equals("0") ? c[6].substring(1, 2) : c[6] ; 
+                  String c8 = c[7].substring(0, 1).equals("0") ? c[7].substring(1, 2) : c[7] ; 
+                  String c9 = c[8].substring(0, 1).equals("0") ? c[8].substring(1, 2) : c[8] ; 
+                  String c0 = c[9].substring(0, 1).equals("0") ? c[9].substring(1, 2) : c[9] ; 
+                  String code = c1 + "," + c2 + "," + c3+ "," + c4+ "," + c5
+                          + "," + c6+ "," + c7+ "," + c8+ "," + c9+ "," + c0 ;
+                  
+                  Utils.WritePropertiesFile("history", phase, code);
+                  return code; 
+                }
+
+            }
+            
+            
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -1331,7 +1390,46 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                     return specialbet(user, sn, amount, betphase, c, codeList, formu, boardType, betsn);
                 }
 
-            } else if (boardType.equals("1")) { //華山
+            } else if (boardType.equals("5")) {
+                JsonObject r =  nd_h.getTodayWin(nd_h.getCookie());
+                JsonObject betRate = r.get("betRate").getAsJsonObject();
+                JsonArray a = new JsonArray();
+
+                 for (String bsn : betsnArray) {
+                     int computeInt = Integer.parseInt(bsn)*10 +  Integer.parseInt(codeList) + 161;
+                     String codeBetRate =  betRate.get(Integer.toString(computeInt)).getAsString();
+                     JsonObject d = new JsonObject();
+                     d.addProperty("detailID", computeInt);
+                     d.addProperty("betRate", codeBetRate);
+                     d.addProperty("betMoney", amount);
+                     a.add(d);
+                 }
+
+                 JsonObject result = NewDaliHttpClient.httpPostBet(nd_h.getCookie(), a);
+
+                 if (result.get("pass").getAsBoolean() == true) {
+
+                     for (String str : betsnArray) {
+                         String overLog = betphase + "@" + str + "@" + codeList + "@" + formu + "@" + sn;
+                         saveOverLog(user, overLog, c);
+                     }
+
+                     String betlog = "第" + betphase + "期" +
+                             "計劃" +   sn 
+                             + "，第" + betsn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+                             + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
+                     saveLog(user + "bet", betlog);
+
+                 } else {
+                     
+                     String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+                                     + "投注點數(" + amount + ")" + "(失敗)" + "(公式" + formu + ")";
+                     // saveLog(user + "bet", betlog);
+                     saveLog(user + "error", result.toString() + " bet error:" + betlog);
+                     return null;
+                 }
+
+             } else if (boardType.equals("1")) { //華山
                 JsonParser pr = new JsonParser();
                 String r = MoutainHttpClient.httpPostBetBySn(mountain_url[mountain_index % 4] + "/?m=bet",
                                                              mountain_token_sessid,
@@ -1564,110 +1662,30 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                     return recoup(user, sn, amount, betphase, c, codeList, formu);
                 }
 
-            } else if (boardType.equals("1")) { //華山
-                JsonParser pr = new JsonParser();
-                String r = MoutainHttpClient.httpPostBet(mountain_url[mountain_index % 4] + "/?m=bet",
-                                                         mountain_token_sessid,
-                                                         betphase,
-                                                         amount,
-                                                         sn,
-                                                         code);
-                JsonObject po = pr.parse(r).getAsJsonObject();
-                String s = po.get("msg").getAsString();
-                if (s.equals("投注成功")) {
-                    for (String str : code) {
-                        String overLog = betphase + "@" + sn + "@" + str + "@" + formu + "@" + displaysn;
-                        saveOverLog(user, overLog, c);
-                    }
+            } else if (boardType.equals("5")) {
+                JsonObject r =  nd_h.getTodayWin(nd_h.getCookie());
+                JsonObject betRate = r.get("betRate").getAsJsonObject();
 
-                    String betlog = "第" + betphase + "期"  +
-                            "計劃" +   displaysn 
-                            + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
-                    saveLog(user + "bet", betlog);
-                } else {
-                    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(失敗)" + "(公式" + formu + ")";
-                    // saveLog(user + "bet", betlog);
-                    saveLog(user + "error", s.toString() + " bet error:" + betlog);
-
-                    return mountaionRecoup(user, sn, amount, betphase, c, codeList, formu);
-                }
-            } else if (boardType.equals("2")) { //大立
-                JsonParser pr = new JsonParser();
-                JsonObject j = DaliHttpClient.getBetMD5_PL();
-                String MD5 = j.get("MD5").getAsString();
-
-                JsonArray a = j.getAsJsonArray("DATAODDS");
-
-                String betString = "";//40001,9.909,1|40018,9.909,1|40036,9.909,1
-                for (String str : code) {
-                    int index = DaliHttpClient.getPlIndex(sn, str);
-                    JsonObject bet = a.get(index).getAsJsonObject();
-                    String pl = bet.get("OddsValue1").getAsString();
-                    String betItemNo = bet.get("ItemNO").getAsString();
-                    betString += betItemNo + "," + pl + "," + amount + "|";
-                }
-                betString = betString.substring(0, betString.length() - 1);
-
-                String betid = DaliHttpClient.getBetID(betString);
-
-                JsonObject result = DaliHttpClient.dali_bet(betid, MD5);
-
-                if ((result.get("FaildReason").getAsString()).equals("0")) {
-                    for (String str : code) {
-                        String overLog = betphase + "@" + sn + "@" + str + "@" + formu + "@" + displaysn;
-                        saveOverLog(user, overLog, c);
-                    }
-
-                    String betlog = "第" + betphase + "期"  +
-                            "計劃" +   displaysn 
-                            + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
-                    saveLog(user + "bet", betlog);
-                } else {
-                    /*recoup++;
-                    if (recoup == 3) {
-                        recoup = 0;
-                        return "error";
-                    }*/
-                    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(失敗)" + "(公式" + formu + ")";
-                    // saveLog(user + "bet", betlog);
-                    saveLog(user + "error", result.toString() + " bet error:" + betlog);
-                    return "error";
-                }
-
-            } else if (boardType.equals("3") || boardType.equals("4")) {
-                String url = boardType.equals("3")?(leein_url[leein_index % 4]): (futsai_url[futsai_index % 4]) ;
-                String cookie = boardType.equals("3")?(leein_php_cookid): (futsai_php_cookid) ;
-
-                JsonObject pl = LeeinHttpClient.getPl(url, cookie);
+//          
 
                 JsonArray a = new JsonArray();
 
                 for (String str : code) {
-                    String key = "B" + sn + "_" + str;
-                    BigDecimal p = pl.get(key).getAsBigDecimal();
+                    int computeInt = Integer.parseInt(sn)*10 +  Integer.parseInt(str) + 161;
+                    String codeBetRate =  betRate.get(Integer.toString(computeInt)).getAsString();
+                    
                     JsonObject d = new JsonObject();
-                    d.addProperty("game", "B" + sn);
-                    d.addProperty("contents", str);
-                    d.addProperty("amount", amount);
-                    d.addProperty("odds", p);
+                    d.addProperty("detailID", computeInt);
+                    d.addProperty("betRate", codeBetRate);
+                    d.addProperty("betMoney", amount);
                     a.add(d);
                 }
 
-                JsonObject bet = new JsonObject();
-                bet.addProperty("lottery", "BJPK10");
-                bet.addProperty("drawNumber", betphase);
-                bet.add("bets", a);
-                bet.addProperty("ignore", "false");
+              
 
-                String betS = bet.toString();
+                JsonObject result = NewDaliHttpClient.httpPostBet(nd_h.getCookie(), a);
 
-                JsonObject result = LeeinHttpClient.httpPostBet(url, cookie, betS);
-
-                if (result.get("status").getAsString().equals("0")) {
+                if (result.get("pass").getAsBoolean() == true) {
                     for (String str : code) {
                         String overLog = betphase + "@" + sn + "@" + str + "@" + formu + "@" + displaysn;
                         saveOverLog(user, overLog, c);
@@ -1688,6 +1706,8 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                 }
 
             }
+
+            
 
         } catch (Exception e) {
             saveLog(user + "error",
