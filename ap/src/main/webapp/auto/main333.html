@@ -2657,6 +2657,9 @@ setbetType(betType);
 	
 	
 	function getPhase(){ //取得期數
+		 if(checkDead()){
+		 	return;
+		 }
 		 let period=""; 
 		 $.ajax({ url:  u + '/getPhase?user='+document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value+'&boardType='+document.getElementById("boardType").value,
 	         async: false,
@@ -3923,5 +3926,16 @@ setbetType(betType);
 
     }
 
+
+    function checkDead(){
+	    var d = new Date();
+	    var h = d.getHours();
+	    var checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
+	    if( (checkStartHM *1) < 12030 &&  (checkStartHM *1) > 4000){
+		   	 	return true;
+	    }  
+
+	    return false; 
+    }
 </script>
  
