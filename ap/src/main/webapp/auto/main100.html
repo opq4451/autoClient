@@ -1904,7 +1904,7 @@ setbetType(betType);
    		if(rbf){
    			//accumulate(formu);
    			//projectIndex[formu][c] = 0 ;
-			bIndex[z]++;
+			bIndex[betSn]++;
 			projectBet[(formu*1)][(betSn*1)-1] = true;
 		} 
 
@@ -3307,8 +3307,8 @@ setbetType(betType);
 	 		 
 	 		  (document.getElementById('c2').checked && !checkProject12BetFlagIndex(projectBet[1])) ||
 	 		  (document.getElementById('c3').checked && !checkProject12BetFlagIndex(projectBet[2])) ||
-	 		  (document.getElementById('c4').checked && !(projectBet[3][3])) ||
-	 		  (document.getElementById('c5').checked && !(projectBet[4][4]))||
+	 		  (document.getElementById('c4').checked && !checkProject12BetFlagIndex(projectBet[3])) ||
+	 		  (document.getElementById('c5').checked && !checkProject12BetFlagIndex(projectBet[4]))||
 	 		  (document.getElementById('c6').checked && !checkProject12BetFlagIndex(projectBet[5]))||
 	 		  //(document.getElementById('c7').checked && !(projectBet[6][6]))||
 	 		  //右邊
@@ -3664,21 +3664,14 @@ setbetType(betType);
   
 	
     	workerTimer_timeout.setInterval(function () {
-		    	  	//var checkFlag = checkForce();	
-		    		//if(checkFlag == '1'){ //全部停止走關
-		    		//	clearIndex();
-		    		//}
-		    		
-		    		
-		    		//log_betIndex();
-		    		 
     		
-	    		    var d = new Date();
-			    //var n = d.getMinutes();
-			    var h = d.getHours();
-			    //let nextPhase =  getPhase();
-			    //var min = getBetMin();
-			    var checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
+		    let d = new Date();
+		    //let n = d.getMinutes();
+		    let h = d.getHours();
+		    //let nextPhase =  getPhase();
+		    //let min = getBetMin();
+		    let checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
+		    
 		    if( (checkStartHM *1) < 12030 &&  (checkStartHM *1) > 4000){
 			   	 	return ;
 		     }   
@@ -3752,8 +3745,8 @@ setbetType(betType);
 
 							   if((cccheck ==0 ) && cccheck_S<10 && !checkProjectBetflag()){ //到了最後還下注不了，只好關數歸零
 									clearIndex(); //
-									var d = getYYYYMMDDSS();
-					        	    		var log =  d + "error!" ;
+									let d = getYYYYMMDDSS();
+			        	    		let log =  d + "error!" ;
 									saveLog('error_bet','一直無法下注成功' + log);
 									checkSub1 = '';
 								  	clearProjectBetFlag();
@@ -3775,8 +3768,8 @@ setbetType(betType);
 							}*/
 							 
 						} else { 
-							var d = getYYYYMMDDSS();
-				        	    var log =  d + "error!" ;
+							let d = getYYYYMMDDSS();
+			        	    let log =  d + "error!" ;
 							saveLog('error_bet',log);
 						}  
 					}
@@ -3794,28 +3787,30 @@ setbetType(betType);
     
     function overTimeout() { 
 
-    	   var d = new Date();
-			    //var n = d.getMinutes();
-			    var h = d.getHours();
-			    //let nextPhase =  getPhase();
-			    //var min = getBetMin();
-			    var checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
+	   		let d = new Date();
+		    //var n = d.getMinutes();
+		    let h = d.getHours();
+		    //let nextPhase =  getPhase();
+		    //var min = getBetMin();
+		    let checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
 		    if( (checkStartHM *1) < 12030 &&  (checkStartHM *1) > 4030){
+				     console.log('not enter overTimeout')
+
 			   	 	return ;
 		     }  
 
-
-    	workerTimer_timeout.setInterval(function () { 
-    			 
-    				dynamic_phase =  getPhase(); 
-    			    //if(dynamic_phase != 0){
-    			    	//	checkOver(dynamic_phase);
-    			    //} 
-    			    getlogHtml();
-    		 
-	    		
-			    //overTimeout();
-	    }, 20000);
+		    console.log('enter overTimeout')
+	    	workerTimer_timeout.setInterval(function () { 
+	    			 
+	    				dynamic_phase =  getPhase(); 
+	    			    //if(dynamic_phase != 0){
+	    			    	//	checkOver(dynamic_phase);
+	    			    //} 
+	    			    getlogHtml();
+	    		 
+		    		
+				    //overTimeout();
+		    }, 20000);
 	}
     
     function checkTimeflag(t){
@@ -3832,17 +3827,17 @@ setbetType(betType);
     
 	function getHistoryTimeout() {
     	
-   		   var d = new Date();
-			    //var n = d.getMinutes();
-			    var h = d.getHours();
-			    //let nextPhase =  getPhase();
-			    //var min = getBetMin();
-			    var checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
+   		    let d = new Date();
+		    //var n = d.getMinutes();
+		    let h = d.getHours();
+		    //let nextPhase =  getPhase();
+		    //let min = getBetMin();
+		    let checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
 		    if( (checkStartHM *1) < 12030 &&  (checkStartHM *1) > 4030){
 			   	 	return ;
 		     }  
 		
-		workerTimer_timeout.setInterval(function () {
+	    	workerTimer_timeout.setInterval(function () {
     	        
 		 	let url = u + '/getHistory';
 
@@ -3861,7 +3856,7 @@ setbetType(betType);
 		          });
 		        
 			    //getHistoryTimeout();
-	    }, 5000);
+	    	}, 5000);
 	}
 	
 	function getSec(){
