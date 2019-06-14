@@ -11,6 +11,9 @@
 
 
 
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1049,9 +1052,9 @@
  	
     $(document).ready(function(){
    			
-   			$.ajaxSetup({
-				timeout: 3*1000
-			});
+   // 			$.ajaxSetup({
+			// 	timeout: 3*1000
+			// });
 			
     		$('#betproject5').change(function(){
     		    if(document.getElementById("betproject5").checked ){
@@ -1411,34 +1414,38 @@ setbetType(betType);
 
  	}
 
-	function project6_limit(snIndex,phase,length){
+	function project6_limit(snIndex,phase){
 		 let tenArray = [];
-		 let formu = snIndex + 1;
+		 //let formu = snIndex + 1;
 		  //clearIndex();
-		 //for(var i=0;i<=phase;i++){
+		 for(var i=0;i<=phase;i++){
 			  
-			 let p =  phase*1 - 0  ;
-			 //  if(p.toString().substring(8,11) == '000'){
-			 // 	return null;
-			 // }
+			 let p =  phase*1 - i  ;
+		     if(p.toString().substring(8,11) == '000'){
+			 	return null;
+			 }
 			 
-			 // let nCodeArra = getCodeByPhase(p);
-			 // if(nCodeArra=='null'){
-				//  return null;
-			 // }
-			 //let c = nCodeArra.split(',')[snIndex];
+			 let nCodeArra = getCodeByPhase(p);
+			 if(nCodeArra=='null'){
+				 return null;
+			 }
+			 let c = nCodeArra.split(',')[snIndex];
+
+			 if(tenArray.indexOf(c) == -1){
+			 	tenArray.push(c);
+			 }
 			 //accumulate(formu);
 			 //projectIndex[formu][c] = 0 ;
-			 tenArray=getcumulate(formu);
+			 //tenArray=getcumulate(formu);
  			 
- 			 if(tenArray)
+ 			 if(tenArray.length ==9)
  			 	return tenArray.sort(sortNumber);
 	 
- 
+ 		}
 		 
 
 	    
- 		 return 'ok';
+ 		 return null;
 		 //return tenArray.sort(sortNumber);
 			 
 		
@@ -1504,54 +1511,54 @@ setbetType(betType);
 		}
 	}
 
-	function getCarCodes(formu,arr2,arr1){
-		let snc = {
-			'1': '2,3,4,5',
-			'2': '3,4,5,6',
-			'3': '4,5,6,7',
-			'4': '5,6,7,8',
-			'5': '6,7,8,9',
-			'6': '7,8,9,10',
-			'7': '1,8,9,10',
-			'8': '1,2,9,10',
-			'9': '1,2,3,10',
-			'10': '1,2,3,4',
-		}
+	// function getCarCodes(formu,arr2,arr1){
+	// 	let snc = {
+	// 		'1': '2,3,4,5',
+	// 		'2': '3,4,5,6',
+	// 		'3': '4,5,6,7',
+	// 		'4': '5,6,7,8',
+	// 		'5': '6,7,8,9',
+	// 		'6': '7,8,9,10',
+	// 		'7': '1,8,9,10',
+	// 		'8': '1,2,9,10',
+	// 		'9': '1,2,3,10',
+	// 		'10': '1,2,3,4',
+	// 	}
 
-		// let a =  array[openSn];
-		// console.log('a:'+a);
-		// let a_ary = a.split(',');
+	// 	// let a =  array[openSn];
+	// 	// console.log('a:'+a);
+	// 	// let a_ary = a.split(',');
 
-		// let empty=[];
-		for(let i =0;i<arr2.length;i++){
+	// 	// let empty=[];
+	// 	for(let i =0;i<arr2.length;i++){
 			
-			let code = arr2[i];
-			if(code == formu ){
-				if(code == arr1[i]){
-					let sn = i+1;
-					let c = snc[code];
-					return sn + '@' + c ;
-				}
-			}
-		}
+	// 		let code = arr2[i];
+	// 		if(code == formu ){
+	// 			if(code == arr1[i]){
+	// 				let sn = i+1;
+	// 				let c = snc[code];
+	// 				return sn + '@' + c ;
+	// 			}
+	// 		}
+	// 	}
 
-		return null;
-		// return empty.sort(sortNumber); 
+	// 	return null;
+	// 	// return empty.sort(sortNumber); 
 		
-	}
+	// }
 
 	function getCarCodesBack(formu,arr2,arr1){
 		let snc = {
-			'1': '1,2,9,10',
-			'2': '1,2,3,10',
-			'3': '1,2,3,4',
-			'4': '2,3,4,5',
-			'5': '3,4,5,6',
-			'6': '4,5,6,7',
-			'7': '5,6,7,8',
-			'8': '6,7,8,9',
-			'9': '7,8,9,10',
-			'10': '1,8,9,10',
+			'1': '1,4,7,10',
+			'2': '2,5,8,10',
+			'3': '3,6,9,10',
+			'4': '1,4,7,10',
+			'5': '2,5,8,10',
+			'6': '3,6,9,10',
+			'7': '1,4,7,10',
+			'8': '2,5,8,10',
+			'9': '3,6,9,10',
+			'10': '1,4,7,10',
 		}
 
 		// let a =  array[openSn];
@@ -1565,7 +1572,7 @@ setbetType(betType);
 			if(code == formu ){
 				if(code == arr1[i]){
 					let sn = i+1;
-					let c = snc[code];
+					let c = snc[sn];
 					return sn + '@' + c + '@' + formu ;
 				}
 			}
@@ -1575,30 +1582,78 @@ setbetType(betType);
 		// return empty.sort(sortNumber); 
 		
 	}
+	function code147(c){
+		let bet = {
+			'1': '1,4,7,10',
+			'2': '2,5,8,10',
+			'3': '3,6,9,10',
+			'4': '1,4,7,10',
+			'5': '2,5,8,10',
+			'6': '3,6,9,10',
+			'7': '1,4,7,10',
+			'8': '2,5,8,10',
+			'9': '3,6,9,10',
+			'10': '1,4,7,10',
 
+		}
+
+		return bet[c] ;
+	}
 	function compareByType_from_member(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
 		
 		var z = formu ;  
 		var sn = formu;
 		//step1
+
 		let nCodeArra = getCodeByPhase(phase_now*1);
-		let nCodeArra2 = getCodeByPhase(phase_now*1 -1);
-		 
-		if(!projectTemp[formu]){
-			projectTemp[formu] = getCarCodes(formu, nCodeArra2.split(','), nCodeArra.split(','));
+		//let nCodeArra2 = getCodeByPhase(phase_now*1 -1);
+
+		let nowC = nCodeArra.split(',')[formu*1 -1] ;
+
+		//let nCodeArra = getCodeByPhase(phase_now*1);
+		//let nCodeArra2 = getCodeByPhase(phase_now*1 -1);
+		//let op =  nCodeArra.split(',')[formu*1 -1];
+		//projectTemp[formu] = project6_limit(formu*1 -1,phase_now*1);
+		// if(!projectTemp[formu]){
+		// 	projectTemp[formu] = project6_limit(formu*1 -1,phase_now*1);
+		// }
+		if(bIndex[z] > 0){
+
+				if(projectTemp[formu].indexOf(nowC) == -1){
+					projectBet[(formu*1)][(formu*1)] = true;
+					return;
+				} 
+			// let betTempArray = projectTemp[formu].split('@')[1].split(',');
+			// if(betTempArray.indexOf(nowC) == -1){
+			// 	projectBet[(formu*1)][(formu*1)] = true;
+			// 	return;
+			// }else{
+			 	projectTemp[formu] = project6_limit(formu*1 -1,phase_now*1);
+			// }
 		}
 
+
+		if(!projectTemp[formu]){
+			projectTemp[formu] =  project6_limit(formu*1 -1,phase_now*1);
+			// computeCode(nCodeArra.split(',')[(betSn*1)-1], nCodeArra2.split(',')[(betSn*1)-1], nCodeArra3.split(',')[(betSn*1)-1]);//projectTemp[formu].split('@')[1];
+		
+		}
+
+		
 		if(projectTemp[formu] == null){
 			projectBet[(formu*1)][(formu*1)] = true;
 			return;
 		}
-		let bet_code = projectTemp[formu].split('@')[1];
+
+
+
+		let bet_code = projectTemp[formu].toString();
 		
 
 
 	 
 		
-		let bet_sn =  projectTemp[formu].split('@')[0];
+		let bet_sn =  formu;
 		console.log('formu:'+formu);
 		console.log('bet_code:'+bet_code);
 		 
@@ -3026,7 +3081,7 @@ setbetType(betType);
 				    
 				    
 				     
-			        if((cccheck<1 ) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
+			        if((cccheck<3  && cccheck_S<10) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
 			            var phase =  $( "div.toPhase" ).text();
 			            //console.log(phase);
 						if( phase ){  
@@ -3302,16 +3357,16 @@ setbetType(betType);
 	        			     if(flag){
         			     			 
 	        			    	 	  //if(formu==1){betIndex[1] = 0 ;}
-	        			    	 	  if(formu==1){betIndex[1] = 0 ; projectTemp[formu] = '';}
-	        			    	 	  if(formu==2){betIndex2[2] = 0 ; projectTemp[formu] = '';}
-	        			    	 	  if(formu==3){betIndex3[3] = 0 ; projectTemp[formu] = '';}
-	        			    	 	  if(formu==4){betIndex4[4] = 0 ; projectTemp[formu] = '';}
-	        			    	 	  if(formu==5){betIndex5[5] = 0 ; projectTemp[formu] = '';}
-	        			    	 	  if(formu==6){betIndex6[6] = 0 ; projectTemp[formu] = '';}
-	        			    	 	  if(formu==7){betIndex7[7] = 0 ; projectTemp[formu] = '';}
-	        			    	 	  if(formu==8){betIndex8[8] = 0 ; projectTemp[formu] = '';}
-	        			    	 	  if(formu==9){betIndex9[9] = 0 ; projectTemp[formu] = '';}
-	        			    	 	  if(formu==10){betIndex10[10] = 0 ; projectTemp[formu] = '';}
+	        			    	 	  if(formu==1){betIndex[1] = 0 ; }
+	        			    	 	  if(formu==2){betIndex2[2] = 0 ; }
+	        			    	 	  if(formu==3){betIndex3[3] = 0 ; }
+	        			    	 	  if(formu==4){betIndex4[4] = 0 ; }
+	        			    	 	  if(formu==5){betIndex5[5] = 0 ; }
+	        			    	 	  if(formu==6){betIndex6[6] = 0 ; }
+	        			    	 	  if(formu==7){betIndex7[7] = 0 ; }
+	        			    	 	  if(formu==8){betIndex8[8] = 0 ; }
+	        			    	 	  if(formu==9){betIndex9[9] = 0 ; }
+	        			    	 	  if(formu==10){betIndex10[10] = 0 ; }
 	        			    	 	  if(formu==11){betIndex11[sn] = 0 ;}
 	        			    	 	  if(formu==12){
 	        			    	 	  	console.log('over sn:'+sn);
@@ -3641,6 +3696,33 @@ setbetType(betType);
     }
 
 
+    function getCarCodes(openSn,arr){
+		let array = {
+			'1': '1,9,10',
+			'2': '1,2,10',
+			'3': '1,2,3',
+			'4': '2,3,4',
+			'5': '3,4,5',
+			'6': '4,5,6',
+			'7': '5,6,7',
+			'8': '6,7,8',
+			'9': '7,8,9',
+			'10': '8,9,10',
+		}
+
+		let a =  array[openSn];
+		console.log('a:'+a);
+		let a_ary = a.split(',');
+
+		let empty=[];
+		for(let i =0;i<a_ary.length;i++){
+			let index = a_ary[i] * 1 - 1;
+			let code = arr.split(',')[index];
+			empty.push(code);
+		}
+		 return empty.sort(sortNumber); 
+		
+	}
 
     function compareByType_from_member5678(phase_before,phase_now,phase_before4 , bIndex, bArray,formu,betSn){
 		
@@ -3650,26 +3732,31 @@ setbetType(betType);
 		var sn = betSn;
 		//step1
 		let nCodeArra = getCodeByPhase(phase_now*1);
-		let nCodeArra2 = getCodeByPhase(phase_now*1 -1);
-		 
-		if(!projectTemp[formu][sn]){
-			projectTemp[formu][sn] = getCarCodesBack(betSn, nCodeArra2.split(','), nCodeArra.split(','));
-		}
+		let openSn = getCarSn(betSn,nCodeArra.split(','));
+		let bet_code = getCarCodes(openSn,nCodeArra);
+		let bet_sn =  openSn;
 
-		if(projectTemp[formu][sn] == null){
-			projectBet[(formu*1)][(betSn*1)-1] = true;
-			return;
-		}
-		let bet_code = projectTemp[formu][sn].split('@')[1];
+		// if(!projectTemp[formu][sn]){
+		// 	projectTemp[formu][sn] = getCarCodesBack(betSn, nCodeArra2.split(','), nCodeArra.split(','));
+		// 	// computeCode(nCodeArra.split(',')[(betSn*1)-1], nCodeArra2.split(',')[(betSn*1)-1], nCodeArra3.split(',')[(betSn*1)-1]);//projectTemp[formu].split('@')[1];
+		
+		// }
+
+		// if(projectTemp[formu][sn] == null){
+		// 	projectBet[(formu*1)][(betSn*1)-1] = true;
+		// 	return;
+		// }
+
+		 
+		//let bet_code = computeCode(nCodeArra, nCodeArra2, nCodeArra3);//projectTemp[formu].split('@')[1];
 		
 
+		// let bet_code = projectTemp[formu][sn].toString();
+		// // let bet_sn =  betSn;
+		// let bet_code =  projectTemp[formu][sn].split('@')[2];
+		// let bet_sn =   projectTemp[formu][sn].split('@')[1];
 
 	 
-		
-		let bet_sn =  projectTemp[formu][sn].split('@')[0];
-		console.log('formu:'+formu);
-		console.log('bet_code:'+bet_code);
-		 
 		
 	
 		
@@ -3683,40 +3770,12 @@ setbetType(betType);
 		}
 	    
    		let rbf = reallyBet(bet_sn, amount, (phase_now+1) , betc , bet_code.toString() ,formu,betSn);
+   		//let rbf = specialreallyBet(betSn, amount, (phase_now+1) , betc , bet_code, formu,  bet_sn.toString(),'');
    		if(rbf){
 			bIndex[betSn]++;
 			projectBet[(formu*1)][(betSn*1)-1] = true;
 		} 
-		//
-		// var z = formu ;  
-		// var sn = betSn;
 		 
-		// let nCodeArra = getCodeByPhase(phase_now*1);
-		// console.log('第幾名:'+ betSn);
-		// console.log('index:'+ (sn*1 -1));
- 	// 	let b1 = nCodeArra.split(',')[(sn*1 -1)];
-		
-		// console.log('b1:'+ b1);
-	 //    let removeCode = getSubCOde(b1);
-
-		// let bet_code = project999_limit(removeCode);
-		// console.log(bet_code);
-		// if(bet_code == null){
-		// 	projectBet[(formu*1)][(betSn*1)-1] = false;
-		// 	return;
-		// }
-
-		
-		// var betc = bArray[bIndex[betSn]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[betSn]%bArray.length );
-	 //    var amount = bArray[bIndex[betSn]%bArray.length] ;
-		    
-
-	    
-  //  		let rbf = reallyBet(sn, amount, (phase_now+1) , betc , bet_code.toString() ,formu,z);
-  //  		if(rbf){
-		// 	bIndex[betSn]++;
-		// 	projectBet[(formu*1)][(betSn*1)-1] = true;
-		// } 
 
 	}
 

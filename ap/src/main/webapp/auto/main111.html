@@ -28,6 +28,9 @@
 
 
 
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -507,7 +510,7 @@
     	        <div style="font-weight:bold;font-size: 18px;">碼</div><br>
     	        <div style="font-weight:bold;font-size: 18px;">計</div><br>
     	        <div style="font-weight:bold;font-size: 18px;">劃</div></td>
-	        <td class="tdClass"  bgcolor="FFFF77" width="1%" nowrap colspan=2>&nbsp;<input type="checkbox" name="c1" id="c1" value="1" style="display:none;" >&nbsp;&nbsp;四碼計劃&nbsp;</td> 
+	        <td class="tdClass"  bgcolor="FFFF77" width="1%" nowrap colspan=2>&nbsp;<input type="checkbox" name="c1" id="c1" value="1" style="display:none;" >&nbsp;&nbsp;六碼計劃&nbsp;</td> 
 		    
 		    <td class="tdClass" style="display:none;text-align:left"> <input class="betlist" type ="text" style="width:98%"/></td>
 	        
@@ -1970,16 +1973,16 @@
 
 	function getCarCodes(openSn,arr){
 		let array = {
-			'1': '7,8,9,10',
-			'2': '1,8,9,10',
-			'3': '1,2,9,10',
-			'4': '1,2,3,10',
-			'5': '1,2,3,4',
-			'6': '2,3,4,5',
-			'7': '3,4,5,6',
-			'8': '4,5,6,7',
-			'9': '5,6,7,8',
-			'10': '6,7,8,9',
+			'1': '1,8,9,10',
+			'2': '1,2,9,10',
+			'3': '1,2,3,10',
+			'4': '1,2,3,4',
+			'5': '2,3,4,5',
+			'6': '3,4,5,6',
+			'7': '4,5,6,7',
+			'8': '5,6,7,8',
+			'9': '6,7,8,9',
+			'10': '7,8,9,10',
 		}
 
 		let a =  array[openSn];
@@ -2540,6 +2543,9 @@
 	
 	
 	function getPhase(){ //取得期數
+		if(checkDead()){
+		 	return;
+		 }
 		 let period=""; 
 		 $.ajax({ url:  u + '/getPhase?user='+document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value+'&boardType='+document.getElementById("boardType").value,
 	         async: false,
@@ -2899,7 +2905,7 @@
 				    
 				    
 				     
-			        if((cccheck<1 ) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
+			        if((cccheck<2 ) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
 			            var phase =  $( "div.toPhase" ).text();
 			            //console.log(phase);
 						if( phase ){  
@@ -3541,6 +3547,17 @@
 		}  
 		return true; //其餘下注
 
+    }
+
+    function checkDead(){
+	    let d = new Date();
+	    let h = d.getHours();
+	    let checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
+	    if( (checkStartHM *1) < 12030 &&  (checkStartHM *1) > 4000){
+		   	 	return true;
+	    }  
+
+	    return false; 
     }
 
 </script>

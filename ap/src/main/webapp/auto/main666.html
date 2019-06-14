@@ -11,6 +11,11 @@
 
 
 
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1049,9 +1054,9 @@
  	
     $(document).ready(function(){
    			
-   			$.ajaxSetup({
-				timeout: 3*1000
-			});
+   // 			$.ajaxSetup({
+			// 	timeout: 3*1000
+			// });
 			
     		$('#betproject5').change(function(){
     		    if(document.getElementById("betproject5").checked ){
@@ -1558,41 +1563,7 @@ setbetType(betType);
 		
 	}
 
-	function getCarCodesBack(formu,arr2,arr1){
-		let snc = {
-			'1': '1,2,3,10',
-			'2': '1,2,3,4',
-			'3': '2,3,4,5',
-			'4': '3,4,5,6',
-			'5': '4,5,6,7',
-			'6': '5,6,7,8',
-			'7': '6,7,8,9',
-			'8': '7,8,9,10',
-			'9': '1,8,9,10',
-			'10': '1,2,9,10',
-		}
-
-		// let a =  array[openSn];
-		// console.log('a:'+a);
-		// let a_ary = a.split(',');
-
-		// let empty=[];
-		for(let i =0;i<arr2.length;i++){
-			
-			let code = arr2[i];
-			if(checkAdd1(code) == formu ){
-				if(checkAdd1(code) == arr1[i]){
-					let sn = i+1;
-					let c = snc[arr1[i]];
-					return sn + '@' + c + '@' + formu ;
-				}
-			}
-		}
-
-		return null;
-		// return empty.sort(sortNumber); 
-		
-	}
+	 
 
 	function compareByType_from_member(phase_before,phase_now,phase_before4 , bIndex, bArray,formu){
 		
@@ -2675,6 +2646,9 @@ setbetType(betType);
 	
 	
 	function getPhase(){ //取得期數
+		if(checkDead()){
+		 	return;
+		 }
 		 let period=""; 
 		 $.ajax({ url:  u + '/getPhase?user='+document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value+'&boardType='+document.getElementById("boardType").value,
 	         async: false,
@@ -3041,7 +3015,7 @@ setbetType(betType);
 				    
 				    
 				     
-			        if((cccheck<1 ) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
+			        if((cccheck<3  && cccheck_S<10) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
 			            var phase =  $( "div.toPhase" ).text();
 			            //console.log(phase);
 						if( phase ){  
@@ -3657,6 +3631,43 @@ setbetType(betType);
 
 
 
+    function getCarCodesBack(formu,arr2,arr1){
+		let snc = {
+			'1': '2,3,4,5',
+			'2': '3,4,5,6',
+			'3': '4,5,6,7',
+			'4': '5,6,7,8',
+			'5': '6,7,8,9',
+			'6': '7,8,9,10',
+			'7': '1,8,9,10',
+			'8': '1,2,9,10',
+			'9': '1,2,3,10',
+			'10': '1,2,3,4',
+		}
+
+		// let a =  array[openSn];
+		// console.log('a:'+a);
+		// let a_ary = a.split(',');
+
+		// let empty=[];
+		for(let i =0;i<arr2.length;i++){
+			
+			let code = arr2[i];
+			if(code == formu ){
+				if(code == arr1[i]){
+					let sn = i+1;
+					let c = snc[code];
+					return sn + '@' + c ;
+				}
+			}
+		}
+
+		return null;
+		// return empty.sort(sortNumber); 
+		
+	}
+
+
     function compareByType_from_member5678(phase_before,phase_now,phase_before4 , bIndex, bArray,formu,betSn){
 		
 
@@ -3939,6 +3950,18 @@ setbetType(betType);
 		}  
 		return true; //其餘下注
 
+    }
+
+
+    function checkDead(){
+	    let d = new Date();
+	    let h = d.getHours();
+	    let checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
+	    if( (checkStartHM *1) < 12030 &&  (checkStartHM *1) > 4000){
+		   	 	return true;
+	    }  
+
+	    return false; 
     }
 
 </script>
