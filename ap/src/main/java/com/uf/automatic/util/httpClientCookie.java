@@ -70,7 +70,7 @@ public class httpClientCookie {
         // TODO Auto-generated constructor stub
         setId(id);
         setPassword(password); 
-        urli++;
+        //urli++;
         String d =  uraal[urli%5] + "/Handler/LoginHandler.ashx?action=user_login"+
                 "&loginName="+id+"&loginPwd="+password+"";
         setInitCookie(d);//塞 cookie

@@ -4,6 +4,8 @@
 
 
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1237,7 +1239,7 @@
 		if( array_n.length==0  ){
 			return;
 		}  */
-		  
+		console.log('enter member:');  
 		var z = formu ;  
 		var sn = z-1;
 		let bet_n = formu;
@@ -1245,7 +1247,8 @@
 		
 		let id_param = ".betlist" + (z==1?'':z) +"_param";
 		let betCode =  $( id_param ).val() ;
-		 
+		console.log('betCode:',betCode);  
+
 		
 		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 	    var amount = bArray[bIndex[z]%bArray.length] ;
@@ -1885,7 +1888,7 @@
 	   	 //        	    }
 		    	        
 				    console.log(stop + 'cccheck' + cccheck)
-				    if(cccheck*1 >3){
+				    if(cccheck*1 >2){
 				    //	betflag = false; 
 				    	clearProjectBetFlag();
 				    } 
@@ -1893,17 +1896,19 @@
 				    if( (checkStartHM *1) < 8030 &&  (checkStartHM *1) > 4030){
 				   	 	deleteHistory();
 				    }
-				    
-				    
+				    console.log(cccheck);
+				    console.log(cccheck_S);
+
+				    console.log('(cccheck<3  && cccheck_S<10)',(cccheck<3  && cccheck_S<10));
 				     
-			        if((cccheck<2 ) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
+			        if((cccheck<3  && cccheck_S<10) &&!checkProjectBetflag()  && checkWin()  ){ //bet time每5分鐘下注一次
 			            var phase =  $( "div.toPhase" ).text();
 			            //console.log(phase);
 						if( phase ){  
 							if(true){
 								//console.log(JSON.stringify(betIndex)); 
 	
-							   if(cccheck_S<10 && !checkProjectBetflag()){ //到了最後還下注不了，只好關數歸零
+							   if((cccheck ==0 ) && cccheck_S<10 && !checkProjectBetflag()){ //到了最後還下注不了，只好關數歸零
 									clearIndex(); //
 									var d = getYYYYMMDDSS();
 					        	    		var log =  d + "error!" ;
