@@ -415,8 +415,10 @@ public class Controller {
     }
 
     public static void main(String[] args) {
-        String s = new Controller().getPredictLog("aaabet");
-        System.out.println(s);
+       // String s = new Controller().getPredictLog("aaabet");
+       // System.out.println(s);
+        Long bef = Long.parseLong("20190821111") - 1;
+
     }
 
     @RequestMapping("/getPredictLog")
@@ -1080,10 +1082,12 @@ public class Controller {
                 String s = " 🔴第"+phase+"期🔴开奖号码" + opencode;
                 robotSend(s);
                 
-                int bef = Integer.parseInt(phase) - 1;
-                if(opencodemp.get(Integer.toString(bef)) !=null) {
-                    opencodemp.remove(Integer.toString(bef));
-                }
+                //int bef = Integer.parseInt(phase) - 1;
+               // Long bef = Long.parseLong(phase) - 1;
+
+//                if(opencodemp.get(Integer.toString(bef)) !=null) {
+//                    opencodemp.remove(Integer.toString(bef));
+//                }
             }
            
 
