@@ -12,6 +12,9 @@
 
 
 
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1379,7 +1382,7 @@ setbetType(betType);
 
  	 
  		for(var i = 1;i<11;i++){
- 			if(projectIndex[formu][i] >=22){ tenArray.push(i);};
+ 			if(projectIndex[formu][i] >=20){ tenArray.push(i);};
  		}
 
  		console.log('tenArray.length:'+tenArray.length);
@@ -1469,8 +1472,13 @@ setbetType(betType);
 
 		let c = getBetSnByCode(b1_code,b1);
 		console.log('getBetSnByCode:'+c);
+
+
+
 		projectIndex[formu][c] = 0 ;
 		accumulate(formu,c);
+
+
 		if(projectTemp[formu]){
 			 	
 			 
@@ -1490,18 +1498,59 @@ setbetType(betType);
 			projectTemp[formu] = status ;
 
 		}
-		 
-		 
-		let bet_code = projectTemp[formu];
+		
+
+
+
+		let sortarray =  Object.keys(projectIndex[formu]).sort(function(a,b){return projectIndex[formu][a]-projectIndex[formu][b]});
+
+	 
+	 	//if(bIndex[z] == 0){
+ 			let bet_code = [];
+
+			bet_code.push(sortarray[0]);
+			bet_code.push(sortarray[1]);
+			bet_code.push(sortarray[2]);
+			bet_code.push(sortarray[3]);
+
+		    bet_code.sort(sortNumber);
+		    projectTemp[formu] = bet_code.toString() ;
+	 	//}
+	
+		//projectTemp[formu];
 
 		//let bet_code = getCodeByPostionArray (b1,bet_code_position.split(','));
 		
 		let bet_n = formu;
+		//consolelog('bet_n',bet_n); 
+
+		// let max = '';
+		// let maxI = '' ;
+		// for(var i = 1;i<11;i++){
+
+		// 	  let is = i + '';
+		// 	 if(bet_code.indexOf(is)!= -1){
+		// 	 	continue ;
+		// 	 }
+		// 	 if(max == ''){
+		// 	 	max = projectIndex[formu][i] ;
+		// 	 	maxI = i ;
+		// 	 }else {
+		// 	 	if(projectIndex[formu][i] > max){
+		// 	 		max = projectIndex[formu][i] ;
+		// 	 		maxI = i;
+		// 	 	}
+		// 	 }
+ 	// 		//if(projectIndex[formu][i] >=20){ tenArray.push(i);};
+ 	// 	}
+		//consolelog('bet_code_before',bet_code); 
+		//if(bet_code.indexOf(c) == -1)
+		//bet_code.push(maxI);
+		//consolelog('bet_code_after',bet_code); 
+
 		
-		 
-		
-		
-		
+		//consolelog('bet_code',bet_code); 
+
 		var betc = bArray[bIndex[z]%bArray.length] == 0 ? '0' : computeCase(bArray, bIndex[z]%bArray.length );
 	    var amount = bArray[bIndex[z]%bArray.length] ;
 	    let wantBet = checkWantBet(betc);    
@@ -1510,9 +1559,10 @@ setbetType(betType);
 			return;
 		}
 
+
 	    
    		//let rbf = reallyBet(bet_n, amount, (phase_now+1) , betc , bet_code.toString() ,formu,z);
-   		let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , formu, formu,  bet_code.toString(),'');
+   		let rbf = specialreallyBet(z, amount, (phase_now+1) , betc , formu, formu,  projectTemp[formu].toString(),'');
    		if(rbf){
    			//accumulate(formu);
    			//projectIndex[formu][c] = 0 ;

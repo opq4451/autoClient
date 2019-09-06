@@ -10,6 +10,7 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
@@ -106,15 +107,15 @@ public class DaliHttpClient {
 
     }
 
-    static String daliUrl[] = { "http://13561.nptt6729.com", "http://13561.ajjkk6779.com", "http://13561.cppq99638.com",
-                                "http://13561.ctty12369.com", "http://13561.cf36628.com" };
+    static String daliUrl[] = { "http://c21751.ca78896.com", "http://c21751.hj87628.com", "http://c21751.ag688326.com",
+                                "http://c21761.ca78896.com" };
 
     // sd8885 //Aa258369
     static int daliUrl_index = 0;
 
     public static void main(String[] args) {
         try {
-            DaliHttpClient d_h = DaliHttpClient.getInstance("bee6611", "asdf123123");
+            DaliHttpClient d_h = DaliHttpClient.getInstance("kk8811", "zxcv123123");
             
             JsonObject a = getBetMD5_PL();
 
@@ -125,21 +126,61 @@ public class DaliHttpClient {
             
             
             JsonArray o = a.getAsJsonArray("DATAODDS") ;
-            
-            String betString = "";//40001,9.909,1|40018,9.909,1|40036,9.909,1
-            
-            String[] code = {"4"};
-            for (String str : code) { 
-                int index = DaliHttpClient.getPlIndex("4", str) ;
-                JsonObject bet = o.get(index).getAsJsonObject();
-                String pl = bet.get("OddsValue1").getAsString();
-                String betItemNo = bet.get("ItemNO").getAsString();
-                betString += betItemNo+","+pl+","+1+"|"; 
-            }
-            betString = betString.substring(0,betString.length()-1);
-            System.out.println(betString);
-            String betid = DaliHttpClient.getBetID(betString);
-            System.out.println(betid);
+            String ret = DaliHttpClient.getTime();
+//            String time = ret.substring(ret.indexOf("</table>"));
+//            String temp[] = time.split("\\s+");
+//            String next = temp[1].substring(0, 8);
+//            String end = temp[2].substring(0, 8);
+//            String now = temp[3].substring(0, 8);
+//            SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+//            Date date1 = format.parse(end);
+//            Date date2 = format.parse(now);
+//            long difference = date1.getTime() - date2.getTime(); 
+//            long sec = (difference/1000);   
+//            long m = sec/60;
+//            long s = sec - m * 60;
+//            String open[] = ret.split("No_"); 
+//            String c1 = open[1].substring(0,2);
+//            String c2 = open[2].substring(0,2);
+//            String c3 = open[3].substring(0,2);
+//            String c4 = open[4].substring(0,2);
+//            String c5 = open[5].substring(0,2);
+//            String c6 = open[6].substring(0,2);
+//            String c7 = open[7].substring(0,2);
+//            String c8 = open[8].substring(0,2);
+//            String c9 = open[9].substring(0,2);
+//            String c10 = open[10].substring(0,2);
+//            String array[] = {c1,c2,c3,c4,c5,c6,c7,c8,c9,c10};
+//            
+//            String p1 = time.substring(time.indexOf("."));
+//
+//            String phase = p1.substring(4,15);
+             String ball = DaliHttpClient.getBall();
+
+             JsonParser parser = new JsonParser();
+             JsonArray bj = parser.parse(ball).getAsJsonArray();
+             JsonObject b0 = bj.get(0).getAsJsonObject();
+             JsonArray data = b0.get("data").getAsJsonArray();
+             JsonObject first = data.get(0).getAsJsonObject();
+             String PhaseNO = first.get("PhaseNO").getAsString();
+             JsonObject Content = first.get("Content").getAsJsonObject();
+             
+             String d = new SimpleDateFormat("yyyyMMdd").format(new Date());
+             
+//            String betString = "";//40001,9.909,1|40018,9.909,1|40036,9.909,1
+//            
+//            String[] code = {"4"};
+//            for (String str : code) { 
+//                int index = DaliHttpClient.getPlIndex("4", str) ;
+//                JsonObject bet = o.get(index).getAsJsonObject();
+//                String pl = bet.get("OddsValue1").getAsString();
+//                String betItemNo = bet.get("ItemNO").getAsString();
+//                betString += betItemNo+","+pl+","+1+"|"; 
+//            }
+//            betString = betString.substring(0,betString.length()-1);
+//            System.out.println(betString);
+//            String betid = DaliHttpClient.getBetID(betString);
+//            System.out.println(betid);
             
             //dali_bet(betid,MD5);
             // String force = Utils.httpClientGet(forceUrl);
@@ -325,7 +366,7 @@ public class DaliHttpClient {
         Post.setHeader("Cookie", daliCookie);
 
         List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-        params.add(new BasicNameValuePair("No", "400"));
+        params.add(new BasicNameValuePair("No", "800"));
 
         Post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
@@ -377,7 +418,7 @@ public class DaliHttpClient {
         Post.setHeader("Cookie", daliCookie);
 
         List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-        params.add(new BasicNameValuePair("ItemNo", "407"));
+        params.add(new BasicNameValuePair("ItemNo", "807"));
         params.add(new BasicNameValuePair("MD5", "-1"));
 
         Post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
@@ -530,6 +571,55 @@ public class DaliHttpClient {
         }
         return "";
     }
+    
+    
+    public static String getTime() throws Exception {
+
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        HttpGet HttpGet = new HttpGet(daliUrl[daliUrl_index % 5] + "/member/Game_v2/getSyjq");
+
+        HttpGet.setHeader("Cookie", daliCookie);
+
+        CloseableHttpResponse response = httpclient.execute(HttpGet);
+
+        try {
+
+            String content = EntityUtils.toString(response.getEntity());
+            return content;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            response.close();
+        }
+        return "";
+    }
+    
+    public static String getBall() throws Exception {
+
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        HttpGet HttpGet = new HttpGet(daliUrl[daliUrl_index % 5] + "/member/Submit/trend_12");
+
+        HttpGet.setHeader("Cookie", daliCookie);
+
+        CloseableHttpResponse response = httpclient.execute(HttpGet);
+
+        try {
+
+            String content = EntityUtils.toString(response.getEntity());
+            return content;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            response.close();
+        }
+        return "";
+    }
+    
+    
 
     public static String getTodayWin() throws Exception {
 

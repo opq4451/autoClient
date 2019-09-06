@@ -251,8 +251,27 @@ public class Controller {
                 
                 String t = DaliHttpClient.getTodayWin();
                 //System.out.println(t);
-                j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(t))));
+                try {
+                    j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(t))));
 
+                    String r = DaliHttpClient.getTime();
+                    String time = r.substring(r.indexOf("</table>"));
+                    String temp[] = time.split("\\s+");
+                    //String next = temp[1].substring(0, 8);
+                    String end = temp[2].substring(0, 8);
+                    String now = temp[3].substring(0, 8);
+                    SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+                    Date date1 = format.parse(end);
+                    Date date2 = format.parse(now);
+                    long difference = date1.getTime() - date2.getTime(); 
+                    long sec = (difference/1000);   
+                    long m = sec/60;
+                    long s = sec - m * 60;
+                    j.addProperty("stop_time", m + ":" + s);
+
+                }catch(Exception e) {
+                    System.out.println(e.getMessage());
+                }
             } else if (boardType.equals("3")) {
                 String ret = LeeinHttpClient.getTodayWin(leein_url[leein_index % 4]
                                                          + "/member/accounts?_=1522119266532",
@@ -719,7 +738,59 @@ public class Controller {
 
                
                 
-            }else   if(boardType.equals("5")) {
+            }else   if(boardType.equals("2")) {
+                String ball = DaliHttpClient.getBall();
+                JsonParser parser = new JsonParser();
+                JsonArray bj = parser.parse(ball).getAsJsonArray();
+                JsonObject b0 = bj.get(0).getAsJsonObject();
+                JsonArray data = b0.get("data").getAsJsonArray();
+                JsonObject first = data.get(0).getAsJsonObject();
+                String PhaseNO = first.get("PhaseNO").getAsString();
+                JsonObject Content = first.get("Content").getAsJsonObject(); 
+                String c1 = Content.get("1").getAsString();
+                String c2 = Content.get("2").getAsString();
+                String c3 = Content.get("3").getAsString();
+                String c4 = Content.get("4").getAsString();
+                String c5 = Content.get("5").getAsString();
+                String c6 = Content.get("6").getAsString();
+                String c7 = Content.get("7").getAsString();
+                String c8 = Content.get("8").getAsString();
+                String c9 = Content.get("9").getAsString();
+                String c10 = Content.get("10").getAsString();
+                String array[] = {c1,c2,c3,c4,c5,c6,c7,c8,c9,c10};
+                String totalcode = "";
+
+                for(String c : array) {
+                    String code = c.substring(0, 1).equals("0") ?  c.substring(1, 2)  : c;
+                    totalcode += code +",";
+                    //Utils.WritePropertiesFile("history", phase, code);
+                }
+                
+                String d = new SimpleDateFormat("yyyyMMdd").format(new Date());
+                String p = "";
+                if(PhaseNO.length()==1) {
+                    p = d + "00" + PhaseNO;
+                }else if(PhaseNO.length()==2) {
+                    p = d + "0" + PhaseNO;
+                }else if(PhaseNO.length()==3) {
+                    p = d  +  PhaseNO;
+                }
+                
+                String phase = p ;
+                
+                Long pp = Long.parseLong(phase) ;
+                //String phase = Long.toString(p);
+                System.out.println("*****start*******");
+
+                System.out.println(Long.toString(pp));
+                System.out.println(totalcode.substring(0,totalcode.length()-1));
+                System.out.println("*****end*******");
+
+                Utils.WritePropertiesFile("history", Long.toString(pp), totalcode.substring(0,totalcode.length()-1));
+
+              
+              
+          }else   if(boardType.equals("5")) {
                 
 //                String HH = new SimpleDateFormat("HH").format(new Date());
 //                
@@ -741,6 +812,7 @@ public class Controller {
                     totalcode += code +",";
                     //Utils.WritePropertiesFile("history", phase, code);
                 }
+                
                 Utils.WritePropertiesFile("history", phase, totalcode.substring(0,totalcode.length()-1));
 
         
