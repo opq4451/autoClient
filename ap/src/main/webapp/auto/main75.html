@@ -2771,9 +2771,9 @@ setbetType(betType);
 	
 	
 	function getPhase(){ //取得期數
-		 if(checkDead()){
-		 	return;
-		 }
+		 // if(checkDead()){
+		 // 	return;
+		 // }
 		 let period=""; 
 		 $.ajax({ url:  u + '/getPhase?user='+document.getElementById("user").value+'&pwd='+document.getElementById("pwd").value+'&boardType='+document.getElementById("boardType").value,
 	         async: false,
@@ -3197,9 +3197,9 @@ setbetType(betType);
 			    //let nextPhase =  getPhase();
 			    //var min = getBetMin();
 			    var checkStartHM = pad2( h )+ '0'  + pad2( d.getMinutes() ) ;//超過9:30才能運行
-		    if( (checkStartHM *1) < 12030 &&  (checkStartHM *1) > 4030){
-			   	 	return ;
-		     }  
+		    // if( (checkStartHM *1) < 12030 &&  (checkStartHM *1) > 4030){
+			   // 	 	return ;
+		    //  }  
 
 
     	workerTimer_timeout.setInterval(function () { 
@@ -3212,7 +3212,7 @@ setbetType(betType);
     		 
 	    		
 			    //overTimeout();
-	    }, 20000);
+	    }, 3000);
 	}
     
     function checkTimeflag(t){
