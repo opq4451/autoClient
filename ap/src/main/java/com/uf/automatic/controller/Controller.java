@@ -1796,6 +1796,65 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
 
         return "";
     }
+    
+    
+    public void rebet(String code[],String amount,String sn )throws Exception {
+        JsonParser pr = new JsonParser();
+        JsonObject j = DaliHttpClient.getBetMD5_PL();
+        String MD5 = j.get("MD5").getAsString();
+
+        JsonArray a = j.getAsJsonArray("DATAODDS");
+
+        String betString = "";//40001,9.909,1|40018,9.909,1|40036,9.909,1
+        for (String str : code) {
+            int index = DaliHttpClient.getPlIndex(sn, str);
+            JsonObject bet = a.get(index).getAsJsonObject();
+            String pl = bet.get("OddsValue1").getAsString();
+            String betItemNo = bet.get("ItemNO").getAsString();
+            betString += betItemNo + "," + pl + "," + amount + "|";
+        }
+        betString = betString.substring(0, betString.length() - 1);
+
+        String betid = DaliHttpClient.getBetID(betString);
+
+        JsonObject result = DaliHttpClient.dali_bet(betid, MD5);
+    }
+    
+    
+    public void rebetspeed(String code[],String amount,String sn )throws Exception {
+        String r = h.getoddsInfo_boat();
+        // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
+
+        JsonParser pr = new JsonParser();
+        JsonObject po = pr.parse(r).getAsJsonObject();
+        JsonObject data = po.getAsJsonObject("data");
+        Map<Integer, String> normal = new TreeMap<Integer, String>();
+        Utils.producePl(normal, r); // 產生倍率 for single
+        p_id = data.get("p_id").getAsString();
+
+        // if (ret.indexOf(user) > -1) {
+
+        String ossid = "";
+        String pl = "";
+        String i_index = "";
+        String m = "";
+        int i = 0;
+        for (String str : code) {
+            // String overLog = betphase + "@" + sn + "@" + str + "@" +
+            // formu;
+            // saveOverLog(user, overLog, c);
+            //
+            int index = computeIndex(sn, str);
+            String id_pl = normal.get(index).toString(); // 15@1.963
+            ossid += id_pl.split("@")[0] + ",";
+            pl += id_pl.split("@")[1] + ",";
+            i_index += i + ",";
+            m += amount + ",";
+            i++;
+        }
+
+        String betRet = h.normalBet_boat(p_id, ossid, pl, i_index, m, "xyft5_d1_10");
+    }
 
     // sn : 1~ 0 , code : 01~10
     // sn : 1~ 0 , code : 01~10
@@ -1865,7 +1924,7 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                 String resCode = o.get("success").getAsString();
 
                 if (resCode.equals("200")) {
-
+                    rebetspeed(code,amount,sn);
                     for (String str : code) {
                         String overLog = betphase + "@" + sn + "@" + str + "@" + formu + "@" + displaysn;
                         saveOverLog(user, overLog, c);
@@ -1937,6 +1996,7 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                 JsonObject result = DaliHttpClient.dali_bet(betid, MD5);
 
                 if ((result.get("FaildReason").getAsString()).equals("0")) {
+                    rebet(code,amount,sn);
                     for (String str : code) {
                         String overLog = betphase + "@" + sn + "@" + str + "@" + formu + "@" + displaysn;
                         saveOverLog(user, overLog, c);
