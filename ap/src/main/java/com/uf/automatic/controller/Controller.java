@@ -201,7 +201,7 @@ public class Controller {
 
     @RequestMapping("/getTodayWin")
     public String getTodayWin(@RequestParam("user") String user, @RequestParam("pwd") String pwd,
-                              @RequestParam("boardType") String boardType) {
+                              @RequestParam("boardType") String boardType) throws Exception {
 
         try {
             JsonObject j = new JsonObject();
@@ -690,7 +690,7 @@ public class Controller {
 
     @RequestMapping("/getPhase")
     public String getPhase(@RequestParam("user") String user, @RequestParam("pwd") String pwd,
-                           @RequestParam("boardType") String boardType) {
+                           @RequestParam("boardType") String boardType) throws Exception {
         try {
             
             String nexphase = "";
@@ -1805,14 +1805,7 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                                     + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
                     saveLog(user + "bet", betlog);
 
-                } else {
-                    // System.out.println(o.toString());
-                    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(失敗)" + "(公式" + formu + ")";
-                    // saveLog(user + "bet", betlog);
-                    saveLog(user + "error", o.toString() + " bet error:" + betlog);
-                    return recoup(user, sn, amount, betphase, c, codeList, formu);
-                }
+                }  
 
             } else if (boardType.equals("1")) { //華山
                 JsonParser pr = new JsonParser();
@@ -1995,281 +1988,10 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
 
         return "";
     }
+ 
+ 
 
-    public String recoup(@RequestParam("user") String user, @RequestParam("sn") String sn,
-                         @RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
-                         @RequestParam("c") String c, @RequestParam("codeList") String codeList,
-                         @RequestParam("formu") String formu) {
-
-        try {
-            //if (h == null) {
-            //	h = httpClientCookie.getInstance(user, pwd);
-            //}
-
-            // //url += URLEncoder.encode(prameter, "UTF-8");
-            //
-            // HttpGet httpget = new HttpGet(url + parameter);
-            // //System.out.println(url + parameter);
-            // //httpget.setHeader(HttpHeaders.ACCEPT_ENCODING, "gzip");
-            // // 建立HttpPost对象
-            // HttpResponse response = new DefaultHttpClient().execute(httpget);
-            // // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
-            // if (response.getStatusLine().getStatusCode() == 200) {//
-            // 如果状态码为200,就是正常返回
-            // String ret = EntityUtils.toString(response.getEntity());
-            //bi++;
-            String r = h.getoddsInfo();
-            Map<Integer, String> normal = new TreeMap<Integer, String>();
-            Utils.producePl(normal, r); // 產生倍率 for single
-            // if (ret.indexOf(user) > -1) {
-            String code[] = codeList.split(",");
-            String ossid = "";
-            String pl = "";
-            String i_index = "";
-            String m = "";
-            int i = 0;
-            for (String str : code) {
-                // String overLog = betphase + "@" + sn + "@" + str;
-                // saveOverLog(user, overLog, c);
-                //
-                int index = computeIndex(sn, str);
-                String id_pl = normal.get(index).toString(); // 15@1.963
-                ossid += id_pl.split("@")[0] + ",";
-                pl += id_pl.split("@")[1] + ",";
-                i_index += i + ",";
-                m += amount + ",";
-                i++;
-            }
-            String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
-
-            JsonParser parser = new JsonParser();
-            JsonObject o = parser.parse(betRet).getAsJsonObject();
-            String resCode = o.get("success").getAsString();
-            if (resCode.equals("200")) {
-                for (String str : code) {
-                    String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
-                    saveOverLog(user, overLog, c);
-                }
-
-                String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-                                + amount + ")" + "(成功)" + "(公式" + formu + ")";
-                saveLog(user + "bet", betlog);
-
-            } else {
-                String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-                                + amount + ")" + "(失敗)" + "(公式" + formu + ")";
-                //				saveLog(user + "bet", betlog);
-                saveLog(user + "error", o.toString() + " recoup error:" + betlog);
-                return recoup_two(user, sn, amount, betphase, c, codeList, formu);
-            }
-
-            // String overLog = betphase + "@" + sn + "@" + code ;
-            // saveOverLog(user,overLog,c);
-            // saveOverLog(document.getElementById("user").value,encodeURI(overLog),c);
-            // Utils.WritePropertiesFile(user+"bet",
-            // fillZero(Integer.toString(bi)), "第"+phase + "期，第" + sn + "名，號碼("
-            // + code + ")，金額(" + amount + ") @" + ret);
-            // } else {
-            // saveLog(user + "ERROR", ret);
-            // }
-            //
-            // return ret;
-            // }
-
-        } catch (Exception e) {
-            saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : RECOUP 斷");
-            //h = httpClientCookie.getInstance(user, pwd);
-            e.printStackTrace();
-            return "error";
-        } finally {
-
-        }
-
-        return "";
-    }
-
-    public String recoup_two(@RequestParam("user") String user, @RequestParam("sn") String sn,
-                             @RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
-                             @RequestParam("c") String c, @RequestParam("codeList") String codeList,
-                             @RequestParam("formu") String formu) {
-
-        try {
-            //if (h == null) {
-            //    h = httpClientCookie.getInstance(user, pwd);
-            //}
-
-            // //url += URLEncoder.encode(prameter, "UTF-8");
-            //
-            // HttpGet httpget = new HttpGet(url + parameter);
-            // //System.out.println(url + parameter);
-            // //httpget.setHeader(HttpHeaders.ACCEPT_ENCODING, "gzip");
-            // // 建立HttpPost对象
-            // HttpResponse response = new DefaultHttpClient().execute(httpget);
-            // // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
-            // if (response.getStatusLine().getStatusCode() == 200) {//
-            // 如果状态码为200,就是正常返回
-            // String ret = EntityUtils.toString(response.getEntity());
-            //bi++;
-            String r = h.getoddsInfo();
-            Map<Integer, String> normal = new TreeMap<Integer, String>();
-            Utils.producePl(normal, r); // 產生倍率 for single
-            // if (ret.indexOf(user) > -1) {
-            String code[] = codeList.split(",");
-            String ossid = "";
-            String pl = "";
-            String i_index = "";
-            String m = "";
-            int i = 0;
-            for (String str : code) {
-                // String overLog = betphase + "@" + sn + "@" + str;
-                // saveOverLog(user, overLog, c);
-                //
-                int index = computeIndex(sn, str);
-                String id_pl = normal.get(index).toString(); // 15@1.963
-                ossid += id_pl.split("@")[0] + ",";
-                pl += id_pl.split("@")[1] + ",";
-                i_index += i + ",";
-                m += amount + ",";
-                i++;
-            }
-            String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
-
-            JsonParser parser = new JsonParser();
-            JsonObject o = parser.parse(betRet).getAsJsonObject();
-            String resCode = o.get("success").getAsString();
-            if (resCode.equals("200")) {
-                for (String str : code) {
-                    String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
-                    saveOverLog(user, overLog, c);
-                }
-
-                String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-                                + amount + ")" + "(成功)" + "(公式" + formu + ")";
-                saveLog(user + "bet", betlog);
-
-            } else {
-                String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-                                + amount + ")" + "(失敗)" + "(公式" + formu + ")";
-                //	                       saveLog(user + "bet", betlog);
-                saveLog(user + "error", o.toString() + " recoup_two error:" + betlog);
-                return recoup_three(user, sn, amount, betphase, c, codeList, formu);
-            }
-
-            // String overLog = betphase + "@" + sn + "@" + code ;
-            // saveOverLog(user,overLog,c);
-            // saveOverLog(document.getElementById("user").value,encodeURI(overLog),c);
-            // Utils.WritePropertiesFile(user+"bet",
-            // fillZero(Integer.toString(bi)), "第"+phase + "期，第" + sn + "名，號碼("
-            // + code + ")，金額(" + amount + ") @" + ret);
-            // } else {
-            // saveLog(user + "ERROR", ret);
-            // }
-            //
-            // return ret;
-            // }
-
-        } catch (Exception e) {
-            saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : recoup_two 斷");
-            // h = httpClientCookie.getInstance(user, pwd);
-            e.printStackTrace();
-            return "error";
-        } finally {
-
-        }
-
-        return "";
-    }
-
-    public String recoup_three(@RequestParam("user") String user, @RequestParam("sn") String sn,
-                               @RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
-                               @RequestParam("c") String c, @RequestParam("codeList") String codeList,
-                               @RequestParam("formu") String formu) {
-
-        try {
-
-            // //url += URLEncoder.encode(prameter, "UTF-8");
-            //
-            // HttpGet httpget = new HttpGet(url + parameter);
-            // //System.out.println(url + parameter);
-            // //httpget.setHeader(HttpHeaders.ACCEPT_ENCODING, "gzip");
-            // // 建立HttpPost对象
-            // HttpResponse response = new DefaultHttpClient().execute(httpget);
-            // // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
-            // if (response.getStatusLine().getStatusCode() == 200) {//
-            // 如果状态码为200,就是正常返回
-            // String ret = EntityUtils.toString(response.getEntity());
-            // bi++;
-            String r = h.getoddsInfo();
-            Map<Integer, String> normal = new TreeMap<Integer, String>();
-            Utils.producePl(normal, r); // 產生倍率 for single
-            // if (ret.indexOf(user) > -1) {
-            String code[] = codeList.split(",");
-            String ossid = "";
-            String pl = "";
-            String i_index = "";
-            String m = "";
-            int i = 0;
-            for (String str : code) {
-                // String overLog = betphase + "@" + sn + "@" + str;
-                // saveOverLog(user, overLog, c);
-                //
-                int index = computeIndex(sn, str);
-                String id_pl = normal.get(index).toString(); // 15@1.963
-                ossid += id_pl.split("@")[0] + ",";
-                pl += id_pl.split("@")[1] + ",";
-                i_index += i + ",";
-                m += amount + ",";
-                i++;
-            }
-            String betRet = h.normalBet(p_id, ossid, pl, i_index, m, "pk10_d1_10");
-
-            JsonParser parser = new JsonParser();
-            JsonObject o = parser.parse(betRet).getAsJsonObject();
-            String resCode = o.get("success").getAsString();
-            if (resCode.equals("200")) {
-                for (String str : code) {
-                    String overLog = betphase + "@" + sn + "@" + str + "@" + formu;
-                    saveOverLog(user, overLog, c);
-                }
-
-                String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-                                + amount + ")" + "(成功)" + "(公式" + formu + ")";
-                saveLog(user + "bet", betlog);
-
-            } else {
-                String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關" + "投注點數("
-                                + amount + ")" + "(失敗)" + "(公式" + formu + ")";
-                // saveLog(user + "bet", betlog);
-                saveLog(user + "error", o.toString() + " recoup_three error:" + betlog);
-                return "error";
-            }
-
-            // String overLog = betphase + "@" + sn + "@" + code ;
-            // saveOverLog(user,overLog,c);
-            // saveOverLog(document.getElementById("user").value,encodeURI(overLog),c);
-            // Utils.WritePropertiesFile(user+"bet",
-            // fillZero(Integer.toString(bi)), "第"+phase + "期，第" + sn + "名，號碼("
-            // + code + ")，金額(" + amount + ") @" + ret);
-            // } else {
-            // saveLog(user + "ERROR", ret);
-            // }
-            //
-            // return ret;
-            // }
-
-        } catch (Exception e) {
-            saveLog(user + "error",
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : recoup_three 斷");
-            //h = httpClientCookie.getInstance(user, pwd);
-            e.printStackTrace();
-            return "error";
-        } finally {
-
-        }
-
-        return "";
-    }
-
+   
     @RequestMapping("/betBS")
     public String betBS(@RequestParam("user") String user, @RequestParam("sn") String sn,
                         @RequestParam("amount") String amount, @RequestParam("betphase") String betphase,
