@@ -39,7 +39,7 @@ public class App {
 		//Utils.writeHistory();
 		SpringApplication.run(App.class, args);
 		
-		fullPhase();
+//		fullPhase();
 //	    DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 //        Date date = new Date();
 //        String first = dateFormat.format(date) + "001";
