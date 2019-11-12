@@ -1735,7 +1735,7 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
 
             if (boardType.equals("0")) {
                 
-                String info = h.getBetFromOut("http://47.89.59.13/chatbet_v3/award_sync/get_list.php");
+                String info = h.getBetFromOut("http://n7b.annanyuyan.com/chatbet_v3/award_sync/get_list_v2.php");
                 String replace = info.replace("\"{", "{").replace("}\"", "}").replace("\\", "")     ; 
                 JsonParser pr = new JsonParser();
                 JsonObject po = pr.parse(replace).getAsJsonObject();
