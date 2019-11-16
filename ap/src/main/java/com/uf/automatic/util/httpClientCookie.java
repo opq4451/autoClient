@@ -204,6 +204,9 @@ public class httpClientCookie {
     public synchronized static httpClientCookie getInstance(String id,String password) throws Exception {
         
          try {
+             httpclient = new DefaultHttpClient();
+             yunsuo_session_verify = "";
+             security_session_mid_verify = "";
              //gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
              instance = new httpClientCookie(id,password);
 
@@ -216,11 +219,11 @@ public class httpClientCookie {
         return instance;
          
     }
-    static String uraal[] = {"http://mem1.cdngjs418.cdbybj.com:88",
-                             "http://mem5.cdngjs418.besrubber.com",
-                             "http://mem2.cdngjs418.besrubber.com:88",
-                             "http://mem3.cdngjs418.cdbybj.com:88",
-                             "http://mem4.cdngjs418.besrubber.com"
+    static String uraal[] = {"http://mem1.cdngjs418.fastumchina.com:88",
+                             "http://mem5.cdngjs418.jantree.com",
+                             "http://mem2.cdngjs418.jantree.com:88",
+                             "http://mem3.cdngjs418.fastumchina.com:88",
+                             "http://mem4.cdngjs418.jantree.com"
                              };
 
     //sd8885 //Aa258369
