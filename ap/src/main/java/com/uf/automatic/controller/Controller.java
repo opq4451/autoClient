@@ -497,9 +497,9 @@ public class Controller {
 
                     //System.out.println(sn);
 
-                    if (v.indexOf("第0關") > -1) { //下注0的不用顯示在log
-                        continue;
-                    }
+//                    if (v.indexOf("第0關") > -1) { //下注0的不用顯示在log
+//                        continue;
+//                    }
                     String index = "";
                     
                     if (key_form.equals("12")) { //計劃11
@@ -1200,7 +1200,7 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                 if(Long.valueOf(phase)  <= removePhase) {
                     configProperty.remove(key); 
 
-                    System.out.println("remove ok" + key);
+                    //System.out.println("remove ok" + key);
                 }
             }
             
@@ -1214,7 +1214,7 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                 String phase = key.split("@")[1];
                 if(Long.valueOf(phase)  <= removePhase) {
                     overmp.remove(key);
-                    System.out.println("remove map ok" + key);
+                    //System.out.println("remove map ok" + key);
 
                 }
                 
@@ -1671,7 +1671,11 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                     String overLog = betphase + "@" + sn + "@" + str + "@" + formu + "@" + displaysn;
                     saveOverLog(user, overLog, c);
                 }
-                
+                String betlog = "第" + betphase + "期"  +
+                        "計劃" +   displaysn 
+                        + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+                                + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
+                saveLog(user + "bet", betlog);
                 
 //                String betlog = "第" + betphase + "期"  +
 //                        "計劃" +   displaysn 
