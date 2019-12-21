@@ -200,7 +200,7 @@ public class Controller {
     }
 
     @RequestMapping("/getTodayWin")
-    public String getTodayWin(@RequestParam("user") String user, @RequestParam("pwd") String pwd,
+    public synchronized String getTodayWin(@RequestParam("user") String user, @RequestParam("pwd") String pwd,
                               @RequestParam("boardType") String boardType) throws Exception {
 
         try {
@@ -387,6 +387,7 @@ public class Controller {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : getToday 斷");
             if (boardType.equals("0")) {
+                
                 h = httpClientCookie.getInstance(user, pwd);
             } else if (boardType.equals("1")) {
                 //mountain_index++;
@@ -474,8 +475,14 @@ public class Controller {
                 for (Enumeration e = configProperty.propertyNames(); e.hasMoreElements();) {
 
                     String v = configProperty.getProperty(e.nextElement().toString());
+                    int projectS = v.lastIndexOf("計劃") + 2;
+                    int projectE = v.indexOf("，",0);
+                    System.out.println(v);
+                    System.out.println(projectS);
+                    System.out.println(projectE);
 
-                    //String formuStr = v.substring(v.length() - 5, v.length()); // (公式1)
+                    String formuStr = v.substring(projectS, projectE); // (計劃)
+                    System.out.println(formuStr);
                     String phase = v.substring(v.indexOf("第")+1,v.indexOf("期") ); //期別
                     String key_form = v.substring(v.lastIndexOf("式") + 1, v.lastIndexOf(")")); //公式
 
@@ -552,8 +559,11 @@ public class Controller {
                     
                     
 
-                    String k = phase + "@" + index + "@" + sn + "@" + c + "@" + cc;
-
+                    String k = phase + "@" + index + "@" + sn + "@" + c + "@" + cc + "@" + formuStr;
+                    System.out.println(k);
+                    System.out.println(formuStr);
+                    
+                    
                     treemap.put(k, v);
 
                     //					{

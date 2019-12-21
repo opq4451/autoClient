@@ -272,7 +272,7 @@ public class httpClientCookie {
 		try {
 		  //  mainPage();
 		    
- 		        httpClientCookie a = httpClientCookie.getInstance("asd598598","zxc123123");
+ 		        httpClientCookie a = httpClientCookie.getInstance("ayy5577","zxc123123");
 //	          //  httpClientCookie t = httpClientCookie.getInstance("qq7711","qaz123123");
 //	            //Thread.sleep(3000);
 //	            //runnable.run();
@@ -680,7 +680,7 @@ public class httpClientCookie {
         Header[] headers1 =  response.getAllHeaders();
         Header[] headers = response.getHeaders("Set-Cookie");
         for (Header h : headers) {
-            yunsuo_session_verify+=h.getValue().toString().split(";")[0]+";";
+            yunsuo_session_verify = h.getValue().toString().split(";")[0]+";";
         
         }
          
@@ -689,6 +689,7 @@ public class httpClientCookie {
        // System.out.println(response.getStatusLine());
         HttpEntity entity = response.getEntity();
         String  result = EntityUtils.toString(entity);
+       
         System.out.println(result);
         //httpclient.close();
        // return cookieString;
@@ -716,6 +717,10 @@ public class httpClientCookie {
           // System.out.println(response.getStatusLine());
            HttpEntity entity = response.getEntity();
            String  result = EntityUtils.toString(entity);
+           
+           if(result.indexOf("security_verify_data=") > -1) {
+               mainPage();
+           }
            System.out.println(result);
        }catch(Exception e) {
            System.out.println(e.getMessage());
