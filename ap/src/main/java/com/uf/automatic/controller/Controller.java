@@ -460,12 +460,12 @@ public class Controller {
                     String v = configProperty.getProperty(e.nextElement().toString());
                     int projectS = v.lastIndexOf("計劃") + 2;
                     int projectE = v.indexOf("，",0);
-                    System.out.println(v);
-                    System.out.println(projectS);
-                    System.out.println(projectE);
+//                    System.out.println(v);
+//                    System.out.println(projectS);
+//                    System.out.println(projectE);
 
                     String formuStr = v.substring(projectS, projectE); // (計劃)
-                    System.out.println(formuStr);
+//                    System.out.println(formuStr);
                     String phase = v.substring(v.indexOf("第")+1,v.indexOf("期") ); //期別
                     String key_form = v.substring(v.lastIndexOf("式") + 1, v.lastIndexOf(")")); //公式
 
@@ -487,9 +487,9 @@ public class Controller {
 
                     //System.out.println(sn);
 
-//                    if (v.indexOf("第0關") > -1) { //下注0的不用顯示在log
-//                        continue;
-//                    }
+                    if (v.indexOf("第0關") > -1) { //下注0的不用顯示在log
+                        continue;
+                    }
                     String index = "";
                     
                     if (key_form.equals("12")) { //計劃11
@@ -543,8 +543,8 @@ public class Controller {
                     
 
                     String k = phase + "@" + index + "@" + sn + "@" + c + "@" + cc + "@" + formuStr;
-                    System.out.println(k);
-                    System.out.println(formuStr);
+//                    System.out.println(k);
+//                    System.out.println(formuStr);
                     
                     
                     treemap.put(k, v);
