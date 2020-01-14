@@ -67,7 +67,7 @@ import com.uf.automatic.util.Utils;
 
 public class LeeinHttpClient {
     private static String id;
-    private static String password;
+    private static String staticpassword;
     private String cookie = null;
 
     private static LeeinHttpClient instance;
@@ -238,9 +238,15 @@ public class LeeinHttpClient {
             e.printStackTrace();
         }
     }
- 
+    
+    public synchronized static void initPage() throws Exception {
+        if(!id.isEmpty() && !staticpassword.isEmpty())
+            initPage(id, staticpassword);
+    }
+    
     public synchronized static void initPage(String user,String password) throws Exception {
-        
+        id = user;
+        staticpassword = password;
         futsai_index++;
         httpclient = new DefaultHttpClient();
         cookieStore = new BasicCookieStore();
@@ -251,9 +257,10 @@ public class LeeinHttpClient {
         BasicClientCookie cookie = new BasicClientCookie("defaultLT", boardName);
         cookieStore.addCookie(cookie);
         //LeeinHttpClient.httpPostInit(futsai_url[futsai_index % 4], "1111", "asd1212", "aSD123123");
-        LeeinHttpClient.httpPostInit(futsai_url[futsai_index % 4], "1111", user, password);
+        LeeinHttpClient.httpPostInit(futsai_url[futsai_index % 4], "1111", id, staticpassword);
         LeeinHttpClient.index(futsai_url[futsai_index % 4]);
-   
+        Controller.saveLog("initPage", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : " + futsai_url[futsai_index % 4]);
+        
         checkCookie = true;
     
     }
@@ -761,11 +768,11 @@ public class LeeinHttpClient {
     }
 
     public String getPassword() {
-        return password;
+        return staticpassword;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.staticpassword = password;
     }
 
     public void setCookie(String cookie) {

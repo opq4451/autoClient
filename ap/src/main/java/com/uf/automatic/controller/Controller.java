@@ -64,7 +64,7 @@ public class Controller {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    int i = 0;
+    static int i = 0;
     int bi = 0;
     int over_i = 0;
     httpClientCookie h = null;
@@ -272,10 +272,15 @@ public class Controller {
             j.addProperty("usable_credit", Double.parseDouble(df.format(Double.valueOf(usable_credit))));
             j.addProperty("todayWin", Double.parseDouble(df.format(Double.valueOf(unbalancedMoney))));
             
-
+            
             JsonObject ret2 = LeeinHttpClient.getNextTime();
-            j.addProperty("stop_time", ret2.get("min").getAsString() + ":" + ret2.get("sec").getAsString() );
-
+            try {
+                j.addProperty("stop_time", ret2.get("min").getAsString() + ":" + ret2.get("sec").getAsString() );
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+                
+         
             }else if (boardType.equals("5")) {
               
             
@@ -1011,7 +1016,7 @@ public class Controller {
     }
 
     @RequestMapping("/saveLog")
-    public String saveLog(String user, String log) {
+    public static String saveLog(String user, String log) {
         FileInputStream fileIn = null;
         FileOutputStream fileOut = null;
 
@@ -1829,9 +1834,7 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                 }
 
             } else if (boardType.equals("3") || boardType.equals("4")) {
-                String url = boardType.equals("3")?(leein_url[leein_index % 4]): (futsai_url[futsai_index % 4]) ;
-                String cookie = boardType.equals("3")?(leein_php_cookid): (futsai_php_cookid) ;
-
+               
                 JsonObject pl = LeeinHttpClient.getPl();
 
                 JsonArray a = new JsonArray();
@@ -1918,6 +1921,14 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
             }
 
         } catch (Exception e) {
+            if(boardType.equals("4")) {
+                try {
+                    LeeinHttpClient.initPage();
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            }
             saveLog(user + "error",
                     new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + e.getMessage() + " : bet 斷"
                                     + boardType);
@@ -2195,7 +2206,7 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
         return encode;
     }
 
-    public String fillZero(String str) {
+    public static String fillZero(String str) {
         if (str.length() == 1)
             return "0000" + str;
         else if (str.length() == 2)
