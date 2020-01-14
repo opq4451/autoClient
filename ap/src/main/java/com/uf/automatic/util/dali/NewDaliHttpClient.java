@@ -114,7 +114,7 @@ public class NewDaliHttpClient {
 
     public static void main(String[] args) {
         try {
-            NewDaliHttpClient d_h = NewDaliHttpClient.getInstance("avb1688", "asd123123");
+            NewDaliHttpClient d_h = NewDaliHttpClient.getInstance("ssd3317", "asd123123");
             
             JsonObject r =  d_h.getTodayWin(d_h.getCookie());
             JsonObject betRate = r.get("betRate").getAsJsonObject();
@@ -460,6 +460,7 @@ public class NewDaliHttpClient {
 
 
         Post.setHeader("Cookie", cookie);
+        Post.setHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36");
 
 //        List<NameValuePair> params = new ArrayList<NameValuePair>(2);
 //        params.add(new BasicNameValuePair("ItemNo", "407"));
@@ -505,6 +506,7 @@ public class NewDaliHttpClient {
         HttpPost httpPost = new HttpPost(daliUrl[daliUrl_index % 5]  + "/xyft/bet");
 
         httpPost.setHeader("Cookie", cookie);
+        httpPost.setHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36");
 
         List<NameValuePair> nvps = new ArrayList<NameValuePair>();
         for(int i = 0 ;i< j.size();i++) {
@@ -588,12 +590,18 @@ public class NewDaliHttpClient {
   //      RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(20000).setConnectTimeout(20000).build();
         System.out.println(uri);
         HttpPost httppost = new HttpPost(uri);
+       // httppost.setHeader("Referer", "https://www.1988990.com/search.php");
+        httppost.setHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36");
+
         // Request parameters and other properties.
         List<NameValuePair> params = new ArrayList<NameValuePair>(2);
         params.add(new BasicNameValuePair("account", id));
         params.add(new BasicNameValuePair("password", password));
         params.add(new BasicNameValuePair("userLang", "tw"));
 
+        
+        
+        
         httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
   //      httppost.setConfig(requestConfig);

@@ -1016,7 +1016,7 @@ public class Controller {
     }
 
     @RequestMapping("/saveLog")
-    public static String saveLog(String user, String log) {
+    public synchronized static String saveLog(String user, String log) {
         FileInputStream fileIn = null;
         FileOutputStream fileOut = null;
 
