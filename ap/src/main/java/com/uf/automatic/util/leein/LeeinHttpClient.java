@@ -276,6 +276,8 @@ public class LeeinHttpClient {
     
     // 兩面ＺＲＵＦ
      public synchronized static JsonObject getTodayWin() throws Exception {
+         
+       
          httpclient = new DefaultHttpClient();
          httpclient = HttpClients.custom().setDefaultCookieStore(cookieStore).build();
          Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -335,6 +337,61 @@ public class LeeinHttpClient {
      
      
      }
+    
+//     public synchronized static JsonObject getfirst12Phase() throws Exception {
+//         httpclient = new DefaultHttpClient();
+//         httpclient = HttpClients.custom().setDefaultCookieStore(cookieStore).build();
+//         //Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+//
+//         String u = futsai_url[futsai_index % 4] + "/member/dresult?lottery="+boardName;
+//         HttpGet HttpGet = new HttpGet(u);
+//         
+//         CloseableHttpResponse response = httpclient.execute(HttpGet);
+//         try {
+//
+//             String content = EntityUtils.toString(response.getEntity());
+//             
+//             
+//             Document doc = Jsoup.parse(source);
+//             JSONObject jsonParentObject = new JSONObject();
+//             //JSONArray list = new JSONArray();
+//             for (Element table : doc.select("table")) {
+//                 for (Element row : table.select("tr")) {
+//                     JSONObject jsonObject = new JSONObject();
+//                     Elements tds = row.select("td");
+//                     String Name = tds.get(0).text();
+//                     String Group = tds.get(1).text();
+//                     String Code = tds.get(2).text();
+//                     String Lesson = tds.get(3).text();
+//                     String Day1 = tds.get(4).text();
+//                     String Day2 = tds.get(5).text();
+//                     String Day3= tds.get(6).text();        
+//                     jsonObject.put("Group", Group);
+//                     jsonObject.put("Code", Code);
+//                     jsonObject.put("Lesson", Lesson);
+//                     jsonObject.put("Day1", Day1);
+//                     jsonObject.put("Day2", Day2);
+//                     jsonObject.put("Day3", Day3);
+//                     jsonParentObject.put(Name,jsonObject);
+//                  }
+//             }
+//         return jsonParentObject.toString();
+//             
+//             
+//             
+//             return content;
+//
+//         } catch (Exception e) {
+//             e.printStackTrace();
+//         } finally {
+//             response.close();
+//         }
+//         
+//       
+//         return null;
+//     
+//     
+//     }
      
     public synchronized static JsonObject getNextTime() throws Exception {
         httpclient = new DefaultHttpClient();
@@ -396,14 +453,18 @@ public class LeeinHttpClient {
  
     // "http://w1.5a1234.com/?m=acc&gameId=2"
     public synchronized static String httpGet(String url) throws Exception {
-
+        RequestConfig requestConfig = RequestConfig.custom()  
+                .setConnectTimeout(15000).setConnectionRequestTimeout(15000)  
+                .setSocketTimeout(5000).build();
+      
+        
         //CloseableHttpClient httpclient = HttpClients.createDefault();
 //        httpclient = new DefaultHttpClient();
 //        httpclient = HttpClients.custom().setDefaultCookieStore(cookieStore).build();
         httpclient = new DefaultHttpClient();
         httpclient = HttpClients.custom().setDefaultCookieStore(cookieStore).build();
         HttpGet HttpGet = new HttpGet(url);
-
+        HttpGet.setConfig(requestConfig);
        // HttpGet.setHeader("Cookie", cookie);
 
         CloseableHttpResponse response = httpclient.execute(HttpGet);

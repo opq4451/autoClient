@@ -448,7 +448,7 @@ public class NewDaliHttpClient {
 //        }
 //        return "";
 //    }
-    
+    static String Refer = "/?cID=367";
     public static JsonObject getTodayWin(String cookie) throws Exception {
         HttpPost Post = new HttpPost(daliUrl[daliUrl_index % 5]  + "/xyft/renewInfo");
 
@@ -461,6 +461,7 @@ public class NewDaliHttpClient {
 
         Post.setHeader("Cookie", cookie);
         Post.setHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36");
+        Post.setHeader("Referer", daliUrl[daliUrl_index % 5] + Refer);
 
 //        List<NameValuePair> params = new ArrayList<NameValuePair>(2);
 //        params.add(new BasicNameValuePair("ItemNo", "407"));
@@ -507,6 +508,7 @@ public class NewDaliHttpClient {
 
         httpPost.setHeader("Cookie", cookie);
         httpPost.setHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36");
+        httpPost.setHeader("Referer", daliUrl[daliUrl_index % 5] + Refer);
 
         List<NameValuePair> nvps = new ArrayList<NameValuePair>();
         for(int i = 0 ;i< j.size();i++) {
@@ -592,6 +594,7 @@ public class NewDaliHttpClient {
         HttpPost httppost = new HttpPost(uri);
        // httppost.setHeader("Referer", "https://www.1988990.com/search.php");
         httppost.setHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36");
+        httppost.setHeader("Referer", daliUrl[daliUrl_index % 5] + Refer);
 
         // Request parameters and other properties.
         List<NameValuePair> params = new ArrayList<NameValuePair>(2);
