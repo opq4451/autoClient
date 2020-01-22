@@ -104,7 +104,7 @@ public class Controller {
                 boardType = bd;
 
                 if (boardType.equals("0")) {
-                    h = httpClientCookie.getInstance(user, pwd);
+                    httpClientCookie.initPage(user, pwd);
                 } else if (boardType.equals("1")) {
                     token = MoutainHttpClient.httpPostGetToken(mountain_url[mountain_index % 4] + "/?m=logined",
                                                                mountain_php_cookid,
@@ -201,9 +201,15 @@ public class Controller {
             DecimalFormat df = new DecimalFormat("##.00");
 
             if (boardType.equals("0")) {
-                if (h == null) {
-                    h = httpClientCookie.getInstance(user, pwd);
+//                if (h == null) {
+//                    h = httpClientCookie.getInstance(user, pwd);
+//                }
+                if(!httpClientCookie.checkCookie) {
+                    httpClientCookie.initPage(user, pwd);
+
+                    return "";
                 }
+                
                 String ret = h.getoddsInfo_boat();
                 JsonObject o = parser.parse(ret).getAsJsonObject();
 
@@ -280,6 +286,9 @@ public class Controller {
                 e.printStackTrace();
             }
                 
+            if(!LeeinHttpClient.checkWrite12) {
+                LeeinHttpClient.getfirst12Phase();
+            }
          
             }else if (boardType.equals("5")) {
               
@@ -388,7 +397,7 @@ public class Controller {
             saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : getToday 斷");
             if (boardType.equals("0")) {
                 
-                h = httpClientCookie.getInstance(user, pwd);
+                httpClientCookie.initPage(user, pwd);
             } else if (boardType.equals("1")) {
                 //mountain_index++;
 
@@ -693,11 +702,11 @@ public class Controller {
             
             String nexphase = "";
             if(boardType.equals("0")) {
-                if(h == null) {
-                    h = httpClientCookie.getInstance(user, pwd);
+                if(!httpClientCookie.checkCookie) {
+                    return "";
                 }
               
-                String open = h.getOpenBall_boat();
+                String open = httpClientCookie.getOpenBall_boat();
                 JsonParser parser = new JsonParser();
                 JsonObject o = parser.parse(open).getAsJsonObject();
                 JsonObject data = o.get("data").getAsJsonObject();
@@ -713,7 +722,7 @@ public class Controller {
                 }
                 Utils.WritePropertiesFile("history", phase, totalcode.substring(0,totalcode.length()-1));
 
-        
+                
 
                
                 
@@ -734,7 +743,7 @@ public class Controller {
 //              }
               Utils.WritePropertiesFile("history", phase, code);
 
-      
+              
 
               
               
@@ -789,7 +798,7 @@ public class Controller {
         } catch (Exception e) {
             saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : getPhase 斷");
             if (boardType.equals("0"))
-                h = httpClientCookie.getInstance(user, pwd);
+                httpClientCookie.initPage(user, pwd);
             else if (boardType.equals("4"))
                 LeeinHttpClient.initPage(user, pwd);
             else if (boardType.equals("5"))
@@ -1708,7 +1717,7 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
 
             if (boardType.equals("0")) {
               
-                String r = h.getoddsInfo_boat();
+                String r = httpClientCookie.getoddsInfo_boat();
                 // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
 
                 JsonParser pr = new JsonParser();
@@ -1739,7 +1748,7 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                     i++;
                 }
 
-                String betRet = h.normalBet_boat(p_id, ossid, pl, i_index, m, "xyft5_d1_10");
+                String betRet = httpClientCookie.normalBet_boat(p_id, ossid, pl, i_index, m, "xyft5_d1_10");
                 JsonParser parser = new JsonParser();
                 JsonObject o = parser.parse(betRet).getAsJsonObject();
                 String resCode = o.get("success").getAsString();
@@ -1921,6 +1930,15 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
             }
 
         } catch (Exception e) {
+            if(boardType.equals("0")) {
+                try {
+                    httpClientCookie.initPage();
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            }
+            
             if(boardType.equals("4")) {
                 try {
                     LeeinHttpClient.initPage();

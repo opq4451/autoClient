@@ -51,6 +51,10 @@ import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -162,9 +166,11 @@ public class LeeinHttpClient {
 //
 //            LeeinHttpClient.LoadPage(futsai_url[futsai_index % 4],"XYFT");
              initPage("asd1212", "aSD123123");
+             LeeinHttpClient.getfirst12Phase();
              JsonObject ret = LeeinHttpClient.getTodayWin();
+             
 //             JsonParser parser = new JsonParser();
-//
+//  LeeinHttpClient.getfirst12Phase();
 //            JsonArray o = parser.parse(ret).getAsJsonArray();
 //        
 //            JsonObject r = o.get(0).getAsJsonObject();
@@ -337,29 +343,52 @@ public class LeeinHttpClient {
      
      
      }
-    
-//     public synchronized static JsonObject getfirst12Phase() throws Exception {
-//         httpclient = new DefaultHttpClient();
-//         httpclient = HttpClients.custom().setDefaultCookieStore(cookieStore).build();
-//         //Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-//
-//         String u = futsai_url[futsai_index % 4] + "/member/dresult?lottery="+boardName;
-//         HttpGet HttpGet = new HttpGet(u);
-//         
-//         CloseableHttpResponse response = httpclient.execute(HttpGet);
-//         try {
-//
-//             String content = EntityUtils.toString(response.getEntity());
-//             
-//             
-//             Document doc = Jsoup.parse(source);
-//             JSONObject jsonParentObject = new JSONObject();
-//             //JSONArray list = new JSONArray();
-//             for (Element table : doc.select("table")) {
-//                 for (Element row : table.select("tr")) {
+     public static boolean checkWrite12 = false;
+     public synchronized static JsonObject getfirst12Phase() throws Exception {
+         httpclient = new DefaultHttpClient();
+         httpclient = HttpClients.custom().setDefaultCookieStore(cookieStore).build();
+         //Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+         String u = futsai_url[futsai_index % 4] + "/member/dresult?lottery="+boardName;
+         HttpGet HttpGet = new HttpGet(u);
+         
+         CloseableHttpResponse response = httpclient.execute(HttpGet);
+         try {
+
+             String content = EntityUtils.toString(response.getEntity());
+             
+             
+             Document doc = Jsoup.parse(content);
+             JsonObject c = new JsonObject();
+             //JSONArray list = new JSONArray();
+             int check = 0;
+             for (Element table : doc.select("table")) {
+                 for (Element tb : table.select("tbody")) { 
+                     for (Element row : tb.select("tr")) {
+                         Elements tds = row.select("td");
+                         String phase = tds.get(0).text();
+                         Long p = Long.valueOf(phase.substring(8,11));
+                         if(p>12)
+                             continue;
+                         String c1 = tds.get(2).text();
+                         String c2 = tds.get(3).text();
+                         String c3 = tds.get(4).text();
+                         String c4 = tds.get(5).text();
+                         String c5 = tds.get(6).text();
+                         String c6 = tds.get(7).text();
+                         String c7 = tds.get(8).text();
+                         String c8 = tds.get(9).text();
+                         String c9 = tds.get(10).text();
+                         String c10 = tds.get(11).text();
+                         String totalcode = c1 + "," + c2  + "," + c3 + "," + c4
+                                 + "," + c5 + "," + c6 + "," + c7+ "," + c8 + "," + c9 + "," + c10;
+                         Utils.WritePropertiesFile("history", phase, totalcode);
+                         check ++;
+                     }
+                     if(check ==12)
+                         checkWrite12 = true;
 //                     JSONObject jsonObject = new JSONObject();
-//                     Elements tds = row.select("td");
-//                     String Name = tds.get(0).text();
+                      
 //                     String Group = tds.get(1).text();
 //                     String Code = tds.get(2).text();
 //                     String Lesson = tds.get(3).text();
@@ -373,25 +402,25 @@ public class LeeinHttpClient {
 //                     jsonObject.put("Day2", Day2);
 //                     jsonObject.put("Day3", Day3);
 //                     jsonParentObject.put(Name,jsonObject);
-//                  }
-//             }
-//         return jsonParentObject.toString();
-//             
-//             
-//             
-//             return content;
-//
-//         } catch (Exception e) {
-//             e.printStackTrace();
-//         } finally {
-//             response.close();
-//         }
-//         
-//       
-//         return null;
-//     
-//     
-//     }
+                  }
+             }
+        // return jsonParentObject.toString();
+             
+             
+             
+             return c;
+
+         } catch (Exception e) {
+             e.printStackTrace();
+         } finally {
+             response.close();
+         }
+         
+       
+         return null;
+     
+     
+     }
      
     public synchronized static JsonObject getNextTime() throws Exception {
         httpclient = new DefaultHttpClient();
