@@ -146,7 +146,7 @@ public class LeeinHttpClient {
      static CloseableHttpClient httpclient = new DefaultHttpClient();
      static BasicCookieStore cookieStore = new BasicCookieStore();
      static String firmcName = "";
-     static String boardName = "XYFT";
+     static String boardName = "PK10JSC";
     public static boolean checkCookie = false;
     // static Cookie initCookie  = new Cookie(firmcName, null);
     public static void main(String[] args) {
@@ -166,7 +166,7 @@ public class LeeinHttpClient {
 //
 //            LeeinHttpClient.LoadPage(futsai_url[futsai_index % 4],"XYFT");
              initPage("asd1212", "aSD123123");
-             LeeinHttpClient.getfirst12Phase();
+            // LeeinHttpClient.getfirst12Phase();
              JsonObject ret = LeeinHttpClient.getTodayWin();
              
 //             JsonParser parser = new JsonParser();

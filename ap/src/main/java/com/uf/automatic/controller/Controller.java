@@ -286,9 +286,9 @@ public class Controller {
                 e.printStackTrace();
             }
                 
-            if(!LeeinHttpClient.checkWrite12) {
-                LeeinHttpClient.getfirst12Phase();
-            }
+//            if(!LeeinHttpClient.checkWrite12) {
+//                LeeinHttpClient.getfirst12Phase();
+//            }
          
             }else if (boardType.equals("5")) {
               
@@ -1860,7 +1860,7 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                 }
 
                 JsonObject bet = new JsonObject();
-                bet.addProperty("lottery", "XYFT");
+                bet.addProperty("lottery", "PK10JSC");
                 bet.addProperty("drawNumber", betphase);
                 bet.add("bets", a);
                 bet.addProperty("ignore", "false");
