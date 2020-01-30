@@ -243,14 +243,14 @@ public class httpClientCookie {
          
     }
     static String uraal[] = {"http://mem1.cdngjs418.fastumchina.com:88",
-                             "http://mem5.cdngjs418.jantree.com",
+                             "http://mem1.cdngjs418.fastumchina.com:88",
                              "http://mem2.cdngjs418.jantree.com:88",
                              "http://mem3.cdngjs418.fastumchina.com:88",
                              "http://mem4.cdngjs418.jantree.com"
                              };
 
     //sd8885 //Aa258369
-    static int urli = 0 ;
+    public static int urli = 0 ;
     private String setInitCookie(String url, Map params) {
        
         try {
@@ -301,6 +301,7 @@ public class httpClientCookie {
     }
     
     public synchronized static void initPage(String user,String password) throws Exception {
+        checkCookie = false;
         urli++;
         id = user;
         staticpassword = password;

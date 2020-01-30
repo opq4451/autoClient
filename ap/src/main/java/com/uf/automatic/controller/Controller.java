@@ -104,6 +104,7 @@ public class Controller {
                 boardType = bd;
 
                 if (boardType.equals("0")) {
+                    httpClientCookie.urli = 0 ;
                     httpClientCookie.initPage(user, pwd);
                 } else if (boardType.equals("1")) {
                     token = MoutainHttpClient.httpPostGetToken(mountain_url[mountain_index % 4] + "/?m=logined",
