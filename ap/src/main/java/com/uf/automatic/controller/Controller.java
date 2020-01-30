@@ -104,7 +104,8 @@ public class Controller {
                 boardType = bd;
 
                 if (boardType.equals("0")) {
-                    h = httpClientCookie.getInstance(user, pwd);
+                    httpClientCookie.urli = 0 ;
+                    httpClientCookie.initPage(user, pwd);
                 } else if (boardType.equals("1")) {
                     token = MoutainHttpClient.httpPostGetToken(mountain_url[mountain_index % 4] + "/?m=logined",
                                                                mountain_php_cookid,
@@ -209,8 +210,10 @@ public class Controller {
             DecimalFormat df = new DecimalFormat("##.00");
 
             if (boardType.equals("0")) {
-                if (h == null) {
-                    h = httpClientCookie.getInstance(user, pwd);
+                if(!httpClientCookie.checkCookie) {
+                    httpClientCookie.initPage(user, pwd);
+
+                    return "";
                 }
                 String ret = h.getoddsInfo_boat();
                 JsonObject o = parser.parse(ret).getAsJsonObject();
@@ -357,7 +360,7 @@ public class Controller {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : getToday 斷");
             if (boardType.equals("0")) {
-                h = httpClientCookie.getInstance(user, pwd);
+                httpClientCookie.initPage(user, pwd);
             } else if (boardType.equals("5")) {
                 nd_h = NewDaliHttpClient.getInstance(user, pwd);
 
@@ -625,11 +628,11 @@ public class Controller {
             
             String nexphase = "";
             if(boardType.equals("0")) {
-                if(h == null) {
-                    h = httpClientCookie.getInstance(user, pwd);
+                if(!httpClientCookie.checkCookie) {
+                    return "";
                 }
               
-                String open = h.getOpenBall_boat();
+                String open = httpClientCookie.getOpenBall_boat();
                 JsonParser parser = new JsonParser();
                 JsonObject o = parser.parse(open).getAsJsonObject();
                 JsonObject data = o.get("data").getAsJsonObject();
@@ -645,11 +648,36 @@ public class Controller {
                 }
                 Utils.WritePropertiesFile("history", phase, totalcode.substring(0,totalcode.length()-1));
 
-        
+                
 
                
                 
-            }else   if(boardType.equals("5")) {
+            }else   if(boardType.equals("4")) {//福財神
+      
+//              String open = nd_h.getTodayWin(nd_h.getCookie());
+//              JsonParser parser = new JsonParser();
+//              JsonObject o = LeeinHttpClient.getLastPhase();
+//              
+//               String phase = o.get("drawNumber").getAsString();
+//               String code =  o.get("code").getAsString();
+////              JsonArray draw_result = data.getAsJsonArray("draw_result");
+////              String totalcode = "";
+////              for(int i = 1; i<11;i++) {
+////                  String code = data.get("po"+i).getAsString();
+////                  totalcode += code +",";
+////                  //Utils.WritePropertiesFile("history", phase, code);
+////              }
+//              Utils.WritePropertiesFile("history", phase, code);
+
+              
+
+              
+              
+          }else   if(boardType.equals("5")) {
+                
+//                String HH = new SimpleDateFormat("HH").format(new Date());
+//                
+//                writeOpenSource();
                 if(nd_h == null) {
                     nd_h = NewDaliHttpClient.getInstance(user, pwd);
                 }
@@ -696,7 +724,7 @@ public class Controller {
         } catch (Exception e) {
             saveLog(user + "error", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " : getPhase 斷");
             if (boardType.equals("0"))
-                h = httpClientCookie.getInstance(user, pwd);
+                httpClientCookie.initPage(user, pwd);
             else if (boardType.equals("5"))
                 nd_h = NewDaliHttpClient.getInstance(user, pwd);
             e.printStackTrace();
@@ -784,31 +812,8 @@ public class Controller {
             if (configProperty.getProperty(phase) != null)
                 return configProperty.getProperty(phase);
             else {
-                  Utils.WritePropertiesFile("errorPhase", phase, "");
-                  return "null";
-
-//                Map m = combindHistoryMap();
-//
-//                
-//                if(m.get(phase) != null) {
-//                    String[] c = m.get(phase).toString().split(",");
-//                  String c1 = c[0].substring(0, 1).equals("0") ? c[0].substring(1, 2) : c[0] ;
-//                  String c2 = c[1].substring(0, 1).equals("0") ? c[1].substring(1, 2) : c[1] ; 
-//                  String c3 = c[2].substring(0, 1).equals("0") ? c[2].substring(1, 2) : c[2] ; 
-//                  String c4 = c[3].substring(0, 1).equals("0") ? c[3].substring(1, 2) : c[3] ; 
-//                  String c5 = c[4].substring(0, 1).equals("0") ? c[4].substring(1, 2) : c[4] ; 
-//                  String c6 = c[5].substring(0, 1).equals("0") ? c[5].substring(1, 2) : c[5] ; 
-//                  String c7 = c[6].substring(0, 1).equals("0") ? c[6].substring(1, 2) : c[6] ; 
-//                  String c8 = c[7].substring(0, 1).equals("0") ? c[7].substring(1, 2) : c[7] ; 
-//                  String c9 = c[8].substring(0, 1).equals("0") ? c[8].substring(1, 2) : c[8] ; 
-//                  String c0 = c[9].substring(0, 1).equals("0") ? c[9].substring(1, 2) : c[9] ; 
-//                  String code = c1 + "," + c2 + "," + c3+ "," + c4+ "," + c5
-//                          + "," + c6+ "," + c7+ "," + c8+ "," + c9+ "," + c0 ;
-//                  
-//                  Utils.WritePropertiesFile("history", phase, code);
-//                  return code; 
-//                }
-
+                Utils.WritePropertiesFile("errorPhase", phase, "");
+                return "null";
             }
             
             
@@ -1605,7 +1610,7 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
             }
 
             if (boardType.equals("0")) {
-                String r = h.getoddsInfo_boat();
+                String r = httpClientCookie.getoddsInfo_boat();
                 // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
 
                 JsonParser pr = new JsonParser();
@@ -1636,7 +1641,7 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                     i++;
                 }
 
-                String betRet = h.normalBet_boat(p_id, ossid, pl, i_index, m, "xyft5_d1_10");
+                String betRet = httpClientCookie.normalBet_boat(p_id, ossid, pl, i_index, m, "xyft5_d1_10");
 
                 JsonParser parser = new JsonParser();
                 JsonObject o = parser.parse(betRet).getAsJsonObject();
