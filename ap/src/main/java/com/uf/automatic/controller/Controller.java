@@ -697,7 +697,7 @@ public class Controller {
     }
 
     @RequestMapping("/getPhase")
-    public String getPhase(@RequestParam("user") String user, @RequestParam("pwd") String pwd,
+    public synchronized String getPhase(@RequestParam("user") String user, @RequestParam("pwd") String pwd,
                            @RequestParam("boardType") String boardType) throws Exception {
         try {
             

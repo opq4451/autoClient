@@ -166,8 +166,9 @@ public class httpClientCookie {
      
             
             String result = null; 
+            CloseableHttpResponse httpresponse = null;
             try {
-                HttpResponse httpresponse = httpclient.execute(httpget);
+                 httpresponse = httpclient.execute(httpget);
                 HttpEntity entity = httpresponse.getEntity();
                 result = EntityUtils.toString(entity);
 //              System.out.println(result);
@@ -175,7 +176,7 @@ public class httpClientCookie {
             } catch (Exception e) {
                 throw e;
             } finally {
-              //  httpClient.close();
+                //httpresponse.close();
             }
             
             
@@ -310,14 +311,19 @@ public class httpClientCookie {
         httpclient = new DefaultHttpClient();
         cookieStore = new BasicCookieStore();
         httpclient = HttpClients.custom().setDefaultCookieStore(cookieStore).build();
+        System.out.println(uraal[urli%5] + "****getFirstCookie***********");
 
         String firCookie = httpClientCookie.getFirstCookie(uraal[urli%5]);
-        Thread.sleep(3000);
+       // Thread.sleep(3000);
+        System.out.println(uraal[urli%5] + "****getSecondCookie***********");
+
         String secCookie = httpClientCookie.getSecondCookie(uraal[urli%5]);
-        Thread.sleep(3000);
+        //Thread.sleep(3000);
+        System.out.println(uraal[urli%5] + "****getThirdCookie***********");
 
         String thirdCookie = httpClientCookie.getThirdCookie(uraal[urli%5]);
-        Thread.sleep(3000);
+       // Thread.sleep(3000);
+        System.out.println(uraal[urli%5] + "****Login***********");
 
         Login(id,staticpassword,uraal[urli%5]);
        // urli++;
@@ -332,16 +338,19 @@ public class httpClientCookie {
        
     }
     
-    public static String getFirstCookie(String url) throws Exception {
+    public synchronized static String getFirstCookie(String url) throws Exception {
        // httpclient = new DefaultHttpClient();
-        httpclient = HttpClients.custom().setDefaultCookieStore(cookieStore).build();
+        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(1000).setConnectTimeout(1000).build();
+
+        httpclient = HttpClients.custom().setDefaultRequestConfig(requestConfig).setDefaultCookieStore(cookieStore).build();
        // CloseableHttpClient httpclient = HttpClients.createDefault();
 //        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 //        
 //        url = url + "/code?_=" + timestamp.getTime() ;
 
         HttpGet httpPost = new HttpGet(url);
-         //httpPost.setHeader("Cookie", PHPSESSID_COOKIE);
+        //httpPost.setConfig(requestConfig);
+         httpPost.setHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36");
 
        
         CloseableHttpResponse response = httpclient.execute(httpPost);
@@ -362,21 +371,24 @@ public class httpClientCookie {
         }catch(Exception e) {
             e.printStackTrace();
         } finally {
-            response.close();
+            //response.close();
         }
        
         return null;
     }
     
-    public static String getThirdCookie(String url) throws Exception {
+    public synchronized static String getThirdCookie(String url) throws Exception {
         // httpclient = new DefaultHttpClient();
          httpclient = HttpClients.custom().setDefaultCookieStore(cookieStore).build();
+         RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(1000).setConnectTimeout(1000).build();
+
         // CloseableHttpClient httpclient = HttpClients.createDefault();
 //         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 //         
 //         url = url + "/code?_=" + timestamp.getTime() ;
 
          HttpGet httpPost = new HttpGet(url);
+         httpPost.setConfig(requestConfig);
          httpPost.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
          //Accept: 
 
@@ -387,7 +399,7 @@ public class httpClientCookie {
          }catch(Exception e) {
              e.printStackTrace();
          } finally {
-             response.close();
+             //response.close();
          }
         
          return null;
@@ -412,14 +424,14 @@ public class httpClientCookie {
          }catch(Exception e) {
              e.printStackTrace();
          } finally {
-             response.close();
+             //response.close();
          }
         
          return null;
      }
     
     
-    public static String getSecondCookie(String url) throws Exception {
+    public synchronized static String getSecondCookie(String url) throws Exception {
         // BasicCookieStore cookieStore = new BasicCookieStore();
          httpclient = HttpClients.custom().setDefaultCookieStore(cookieStore).build();
          String c = stringToHex(url+"/");
@@ -428,6 +440,8 @@ public class httpClientCookie {
          HttpGet httpget = new HttpGet(url);
          BasicClientCookie cookie = new BasicClientCookie("srcurl", c);
          cookieStore.addCookie(cookie);
+         httpget.setHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36");
+
         // String t = yunsuo_session_verify + " srcurl=" + c;
         // httpget.setHeader("Cookie",t ); 
 //          httpclient = HttpClientBuilder.create()
@@ -452,7 +466,7 @@ public class httpClientCookie {
 
          }catch(Exception e) { 
          } finally {
-            // response.close();
+             //response.close();
          }
         
          return null;
@@ -698,12 +712,12 @@ public class httpClientCookie {
 //    
 //            //CloseableHttpClient httpClient = HttpClients.createDefault();
 //            HttpClientContext context = HttpClientContext.create();
-            RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(10000).setConnectTimeout(10000).build();
+            //RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(10000).setConnectTimeout(10000).build();
             
             HttpPost httpget = new HttpPost(query);
             httpget.setEntity(formdata);
     
-            httpget.setConfig(requestConfig);
+           // httpget.setConfig(requestConfig);
     
 //            httpget.setHeader("Cookie",cookie );
      
@@ -826,20 +840,22 @@ public class httpClientCookie {
 	
 	public synchronized static String getCookieHttpClient(String uri, Map params) throws Exception {
           
-	    //RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(5000).setConnectTimeout(5000).build();
+	    RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(1000).setConnectTimeout(1000).build();
        // System.out.println(uri);
         //HttpGet httpPost = new HttpGet(uri);
-        httpclient = HttpClients.custom().setDefaultCookieStore(cookieStore).build();
+        httpclient = HttpClients.custom().setDefaultRequestConfig(requestConfig).setDefaultCookieStore(cookieStore).build();
 
        // String c = stringToHex(uraal[urli%5]+"/");
         HttpPost httpPost = new HttpPost(uri );
         //httpPost.setHeader("Cookie",yunsuo_session_verify  + "srcurl=" + c + ";"+security_session_mid_verify); 
       
-        
+        httpPost.setHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36");
+
         //httpget.setHeader("Cookie",yunsuo_session_verify); 
         
         String result = null;
         String cookieString="";
+        CloseableHttpResponse httpresponse = null;
         try {
             
             List<NameValuePair> nvps = new ArrayList<NameValuePair>();
@@ -852,8 +868,8 @@ public class httpClientCookie {
             httpPost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
             //HttpClient httpclient = new DefaultHttpClient();
 
-            HttpResponse httpresponse = httpclient.execute(httpPost);
-            
+           // HttpResponse httpresponse = httpclient.execute(httpPost);
+            httpresponse = httpclient.execute(httpPost);
             HttpEntity entity = httpresponse.getEntity();
             result = EntityUtils.toString(entity);
             //System.out.println(result);
@@ -869,7 +885,7 @@ public class httpClientCookie {
         } catch (Exception e) {
             
         } finally {
-            //httpClient.close();
+            //httpresponse.close();
         }
         return cookieString;
     } 
