@@ -134,7 +134,8 @@ public class httpClientCookie {
         params.put("ValidateCode", "");
         getCookieHttpClient(urla, params);
     }
-    
+    static RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(3000).setConnectTimeout(1000).build();
+
     public  static synchronized String getoddsInfo_boat() {
         //String query = uraal[urli%5] + "/L_XYFT5/Handler/Handler.ashx?action=get_oddsinfo&playid=1%2C5%2C9%2C13%2C17%2C21%2C24%2C27%2C30%2C33&playpage=xyft5_d1_10";
         String query = uraal[urli%5] + "/L_XYFT5/Handler/Handler.ashx";
@@ -156,8 +157,13 @@ public class httpClientCookie {
             //CloseableHttpClient httpClient = HttpClients.createDefault();
 //            HttpClientContext context = HttpClientContext.create();
 //            RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(10000).setConnectTimeout(10000).build();
+
+            httpclient = HttpClients.custom().setDefaultRequestConfig(requestConfig).setDefaultCookieStore(cookieStore).build();
+         
             
             HttpPost httpget = new HttpPost(query);
+            httpget.setHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36");
+           
             httpget.setEntity(formdata);
 
            // httpget.setConfig(requestConfig);
@@ -340,7 +346,7 @@ public class httpClientCookie {
     
     public synchronized static String getFirstCookie(String url) throws Exception {
        // httpclient = new DefaultHttpClient();
-        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(1000).setConnectTimeout(1000).build();
+       // RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(1000).setConnectTimeout(1000).build();
 
         httpclient = HttpClients.custom().setDefaultRequestConfig(requestConfig).setDefaultCookieStore(cookieStore).build();
        // CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -478,7 +484,7 @@ public class httpClientCookie {
     public static void main(String[] args ){
         try {
           //  mainPage();
-                initPage("sdf1122","qaz123123");
+                initPage("sdf3313","asd123123");
                // httpClientCookie a = httpClientCookie.getInstance("sdf1122","qaz123123");
 //            //  httpClientCookie t = httpClientCookie.getInstance("qq7711","qaz123123");
 //              //Thread.sleep(3000);
@@ -840,7 +846,7 @@ public class httpClientCookie {
     
     public synchronized static String getCookieHttpClient(String uri, Map params) throws Exception {
           
-        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(1000).setConnectTimeout(1000).build();
+       // RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(1000).setConnectTimeout(1000).build();
        // System.out.println(uri);
         //HttpGet httpPost = new HttpGet(uri);
         httpclient = HttpClients.custom().setDefaultRequestConfig(requestConfig).setDefaultCookieStore(cookieStore).build();
