@@ -450,7 +450,7 @@ public class NewDaliHttpClient {
 //    }
     static String Refer = "/?cID=367";
     public static JsonObject getTodayWin(String cookie) throws Exception {
-        HttpPost Post = new HttpPost(daliUrl[daliUrl_index % 5]  + "/xyft/renewInfo");
+        HttpPost Post = new HttpPost(daliUrl[daliUrl_index % 5]  + "/sp10/renewInfo");
 
         RequestConfig requestConfig = RequestConfig.custom()  
                 .setConnectTimeout(5000).setConnectionRequestTimeout(1000)  
@@ -504,7 +504,7 @@ public class NewDaliHttpClient {
          
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
-        HttpPost httpPost = new HttpPost(daliUrl[daliUrl_index % 5]  + "/xyft/bet");
+        HttpPost httpPost = new HttpPost(daliUrl[daliUrl_index % 5]  + "/sp10/bet");
 
         httpPost.setHeader("Cookie", cookie);
         httpPost.setHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36");
