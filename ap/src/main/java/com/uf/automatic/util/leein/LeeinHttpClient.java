@@ -483,7 +483,7 @@ public class LeeinHttpClient {
     // "http://w1.5a1234.com/?m=acc&gameId=2"
     public synchronized static String httpGet(String url) throws Exception {
         RequestConfig requestConfig = RequestConfig.custom()  
-                .setConnectTimeout(15000).setConnectionRequestTimeout(15000)  
+                .setConnectTimeout(5000).setConnectionRequestTimeout(5000)  
                 .setSocketTimeout(5000).build();
       
         

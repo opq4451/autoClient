@@ -1701,11 +1701,11 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                     String overLog = betphase + "@" + sn + "@" + str + "@" + formu + "@" + displaysn;
                     saveOverLog(user, overLog, c);
                 }
-                String betlog = "第" + betphase + "期"  +
-                        "計劃" +   displaysn 
-                        + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
-                saveLog(user + "bet", betlog);
+//                String betlog = "第" + betphase + "期"  +
+//                        "計劃" +   displaysn 
+//                        + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+//                                + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
+//                saveLog(user + "bet", betlog);
                 
 //                String betlog = "第" + betphase + "期"  +
 //                        "計劃" +   displaysn 
