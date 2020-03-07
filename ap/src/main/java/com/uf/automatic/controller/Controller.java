@@ -1155,12 +1155,18 @@ public class Controller {
                                     // fillZero(Integer.toString(over_i)), "第"+phase +
                                     // "期，第" + sn + "名，號碼(" + code + ") 已過關!(第"+c+"關)");
                                     String t = new SimpleDateFormat("HH:mm:ss").format(new Date());
-                                    Utils.WritePropertiesFile(user + "overLOGDIS_log",
-                                                              fillZero(Integer.toString(over_i)),
-                                                              "第" + phase + "期，第" + sn + "名，號碼(" + c[i] + ")已過關!(第"
-                                                                                                  + configProperty.getProperty(key)
-                                                                                                  + "關)" + "(公式" + x
-                                                                                                  + ")");
+                                    
+                                    int overNumber = Integer.parseInt(configProperty.getProperty(key));
+                                    if(overNumber !=0) {
+                                        Utils.WritePropertiesFile(user + "overLOGDIS_log",
+                                                                  fillZero(Integer.toString(over_i)),
+                                                                  "第" + phase + "期，第" + sn + "名，號碼(" + c[i] + ")已過關!(第"
+                                                                                                      + configProperty.getProperty(key)
+                                                                                                      + "關)" + "(公式" + x
+                                                                                                      + ")");
+                                    }
+                                    
+                                    
 
                                     j.addProperty(covertIntToLatter(overi) + x , "Y");
                                 }
@@ -1748,7 +1754,7 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                     i++;
                 }
 
-                String betRet = httpClientCookie.normalBet_boat(p_id, ossid, pl, i_index, m, "xyft5_d1_10");
+                String betRet = httpClientCookie.normalBet_boat(p_id, ossid, pl, i_index, m, "car168_d1_10");
                 JsonParser parser = new JsonParser();
                 JsonObject o = parser.parse(betRet).getAsJsonObject();
                 String resCode = o.get("success").getAsString();

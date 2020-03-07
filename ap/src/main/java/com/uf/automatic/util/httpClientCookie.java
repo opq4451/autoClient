@@ -137,15 +137,19 @@ public class httpClientCookie {
     
     public  static synchronized String getoddsInfo_boat() {
         //String query = uraal[urli%5] + "/L_XYFT5/Handler/Handler.ashx?action=get_oddsinfo&playid=1%2C5%2C9%2C13%2C17%2C21%2C24%2C27%2C30%2C33&playpage=xyft5_d1_10";
-        String query = uraal[urli%5] + "/L_XYFT5/Handler/Handler.ashx";
+        String query = uraal[urli%5] + "/L_CAR168/Handler/Handler.ashx";
        
         try {
             List<NameValuePair> form = new ArrayList<NameValuePair>();
             form.add(new BasicNameValuePair("action", "get_oddsinfo"));
             form.add(new BasicNameValuePair("playid", "1,5,9,13,17,21,24,27,30,33"));
-            form.add(new BasicNameValuePair("playpage", "xyft5_d1_10"));
+            form.add(new BasicNameValuePair("playpage", "car168_d1_10"));
             UrlEncodedFormEntity formdata = new UrlEncodedFormEntity(form, Consts.UTF_8);
-
+            
+            RequestConfig requestConfig = RequestConfig.custom()  
+                    .setConnectTimeout(2000).setConnectionRequestTimeout(2000)  
+                    .setSocketTimeout(5000).build();
+            
             
             
 //            BasicCookieStore cookieStore = new BasicCookieStore();
@@ -167,6 +171,7 @@ public class httpClientCookie {
             
             String result = null; 
             try {
+                httpget.setConfig(requestConfig);
                 HttpResponse httpresponse = httpclient.execute(httpget);
                 HttpEntity entity = httpresponse.getEntity();
                 result = EntityUtils.toString(entity);
@@ -197,7 +202,7 @@ public class httpClientCookie {
     public static synchronized String normalBet_boat(String phaseid,String ossid,  String pl , String i_index , String m ,String type) {
         
         
-        String query = uraal[urli%5] + "/L_XYFT5/Handler/Handler.ashx";
+        String query = uraal[urli%5] + "/L_CAR168/Handler/Handler.ashx";
         try {
            
 
@@ -243,7 +248,7 @@ public class httpClientCookie {
          
     }
     static String uraal[] = {"http://mem1.cdngjs418.fastumchina.com:88",
-                             "http://mem5.cdngjs418.jantree.com",
+                             "http://mem1.cdngjs418.fastumchina.com:88",
                              "http://mem2.cdngjs418.jantree.com:88",
                              "http://mem3.cdngjs418.fastumchina.com:88",
                              "http://mem4.cdngjs418.jantree.com"
@@ -301,7 +306,7 @@ public class httpClientCookie {
     }
     
     public synchronized static void initPage(String user,String password) throws Exception {
-        urli++;
+        //urli++;
         id = user;
         staticpassword = password;
         System.out.println("***************");
@@ -463,7 +468,7 @@ public class httpClientCookie {
 	public static void main(String[] args ){
 		try {
 		  //  mainPage();
-		        initPage("sdf1122","qaz123123");
+		        initPage("sdf7711","zxc123123");
  		       // httpClientCookie a = httpClientCookie.getInstance("sdf1122","qaz123123");
 //	          //  httpClientCookie t = httpClientCookie.getInstance("qq7711","qaz123123");
 //	            //Thread.sleep(3000);
@@ -680,12 +685,12 @@ public class httpClientCookie {
 //    }
 	
 	public synchronized static String getOpenBall_boat() {
-    	String query = uraal[urli%5] + "/L_XYFT5/Handler/Handler.ashx";
+    	String query = uraal[urli%5] + "/L_CAR168/Handler/Handler.ashx";
         
         try {
             List<NameValuePair> form = new ArrayList<NameValuePair>();
             form.add(new BasicNameValuePair("action", "get_openball"));
-            form.add(new BasicNameValuePair("playpage", "xyft5_d1_10"));
+            form.add(new BasicNameValuePair("playpage", "car168_d1_10"));
             UrlEncodedFormEntity formdata = new UrlEncodedFormEntity(form, Consts.UTF_8);
     
             
@@ -697,7 +702,9 @@ public class httpClientCookie {
 //    
 //            //CloseableHttpClient httpClient = HttpClients.createDefault();
 //            HttpClientContext context = HttpClientContext.create();
-            RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(10000).setConnectTimeout(10000).build();
+            RequestConfig requestConfig = RequestConfig.custom()  
+                    .setConnectTimeout(2000).setConnectionRequestTimeout(2000)  
+                    .setSocketTimeout(5000).build();
             
             HttpPost httpget = new HttpPost(query);
             httpget.setEntity(formdata);
@@ -791,7 +798,10 @@ public class httpClientCookie {
 		//CloseableHttpClient httpClient = HttpClients.createDefault();
 		//HttpClientContext context = HttpClientContext.create();
 		//RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(10000).setConnectTimeout(10000).build();
-		
+	    RequestConfig requestConfig = RequestConfig.custom()  
+                .setConnectTimeout(2000).setConnectionRequestTimeout(2000)  
+                .setSocketTimeout(5000).build();
+	    
 		HttpPost httpPost = new HttpPost(uri);
 		
 		  List<NameValuePair> nvps = new ArrayList<NameValuePair>();
@@ -803,7 +813,7 @@ public class httpClientCookie {
           }
           httpPost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
 
-		//httpget.setConfig(requestConfig);
+          httpPost.setConfig(requestConfig);
 
        //   httpPost.setHeader("Cookie",cookie );
  
