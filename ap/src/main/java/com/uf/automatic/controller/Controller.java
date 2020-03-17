@@ -1491,19 +1491,7 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                             + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
                     saveLog(user + "bet", betlog);
 
-                } else {
-                    recoup++;
-                    if (recoup == 3) {
-                        recoup = 0;
-                        return "error";
-                    }
-                    // System.out.println(o.toString());
-                    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(失敗)" + "(公式" + formu + ")";
-                    // saveLog(user + "bet", betlog);
-                    saveLog(user + "error", o.toString() + " bet error:" + betlog);
-                    return specialbet(user, sn, amount, betphase, c, codeList, formu, boardType, betsn);
-                }
+                } 
 
             }else if (boardType.equals("5")) {
                JsonObject r =  nd_h.getTodayWin(nd_h.getCookie());
@@ -1627,9 +1615,8 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                 }
 
             }else if (boardType.equals("3")|| boardType.equals("4") ) {
-                String url = boardType.equals("3")?(leein_url[leein_index % 4]): (futsai_url[futsai_index % 4]) ;
-                String cookie = boardType.equals("3")?(leein_php_cookid): (futsai_php_cookid) ;
-
+                
+                
                 JsonObject pl = LeeinHttpClient.getPl();
 
                 JsonArray a = new JsonArray();
@@ -1646,7 +1633,7 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                 }
 
                 JsonObject bet = new JsonObject();
-                bet.addProperty("lottery", "XYFT");
+                bet.addProperty("lottery", "SGFT");
                 bet.addProperty("drawNumber", betphase);
                 bet.add("bets", a);
                 bet.addProperty("ignore", "false");
@@ -1866,7 +1853,7 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
                 }
 
                 JsonObject bet = new JsonObject();
-                bet.addProperty("lottery", "PK10JSC");
+                bet.addProperty("lottery", "SGFT");
                 bet.addProperty("drawNumber", betphase);
                 bet.add("bets", a);
                 bet.addProperty("ignore", "false");

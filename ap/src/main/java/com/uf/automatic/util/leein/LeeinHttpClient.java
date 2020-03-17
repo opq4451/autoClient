@@ -146,7 +146,7 @@ public class LeeinHttpClient {
      static CloseableHttpClient httpclient = new DefaultHttpClient();
      static BasicCookieStore cookieStore = new BasicCookieStore();
      static String firmcName = "";
-     static String boardName = "PK10JSC";
+     static String boardName = "SGFT";
     public static boolean checkCookie = false;
     // static Cookie initCookie  = new Cookie(firmcName, null);
     public static void main(String[] args) {
@@ -427,7 +427,7 @@ public class LeeinHttpClient {
         httpclient = HttpClients.custom().setDefaultCookieStore(cookieStore).build();
          Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-         String u = futsai_url[futsai_index % 4] + "/member/period?lottery="+boardName+"&games=DX1%2CDX2%2CDX3%2CDX4%2CDX5%2CDX6%2CDX7%2CDX8%2CDX9%2CDX10%2CDS1%2CDS2%2CDS3%2CDS4%2CDS5%2CDS6%2CDS7%2CDS8%2CDS9%2CDS10%2CGDX%2CGDS%2CLH1%2CLH2%2CLH3%2CLH4%2CLH5&_=" + timestamp.getTime();
+         String u = futsai_url[futsai_index % 4] + "/member/period?lottery="+boardName+"&games=B1%2CB2%2CB3%2CB4%2CB5%2CB6%2CB7%2CB8%2CB9%2CB10&_=" + timestamp.getTime();
          HttpGet HttpGet = new HttpGet(u);
          
          CloseableHttpResponse response = httpclient.execute(HttpGet);
