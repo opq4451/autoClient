@@ -1,5 +1,10 @@
 package com.uf.automatic.controller;
 
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -1157,6 +1162,15 @@ public class Controller {
                                     String t = new SimpleDateFormat("HH:mm:ss").format(new Date());
                                     
                                     int overNumber = Integer.parseInt(configProperty.getProperty(key));
+                                    int cc = Integer.parseInt(configProperty.getProperty(key));
+                                    if(cc>0) {
+                                        String string = " 第" + phase + "期， 第" + sn + "名， (" + c[i] + ")， ⭐️第"
+                                                + configProperty.getProperty(key)
+                                                + "关(中)⭐️";
+                                        //String query = "https://api.telegram.org/bot668240617:AAFJWiD1CobTKPsnNprqMVViUXrqIGwNs4c/sendMessage?chat_id=-310171214&text=%3Ca%20href=%22http://www.example.com/%22%3E"+string+"%3C/a%3E%20&parse_mode=HTML" ;
+                                        robotSend(string);
+                                    }
+                                    
                                     if(overNumber !=0) {
                                         Utils.WritePropertiesFile(user + "overLOGDIS_log",
                                                                   fillZero(Integer.toString(over_i)),
@@ -1687,7 +1701,42 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
 
         return "";
     }
-
+    
+    
+    public String robotSend(String text) {
+        try {
+            System.setProperty("java.awt.headless", "false");
+            if(robot == null) {
+                System.setProperty("java.awt.headless", "false");
+                robot = new Robot();
+            }
+//            robot.mouseMove(900, 650); // x,y為螢幕像素位置
+//            Thread.sleep(3000);  // 讓執行緒睡3秒
+//            robot.mousePress(InputEvent.BUTTON1_MASK);
+//            robot.mouseRelease(InputEvent.BUTTON1_MASK);
+            
+            //String text ="Hello World";
+            StringSelection stringSelection = new StringSelection(text);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection, stringSelection);
+            Thread.sleep(3000);  // 讓執行緒睡3秒
+            robot.keyPress(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_CONTROL);
+            
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+            Thread.sleep(3000);  // 讓執行緒睡3秒
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+      
+        
+        return "";
+    }
+    
+    Robot robot = null ;
     // sn : 1~ 0 , code : 01~10
     // sn : 1~ 0 , code : 01~10
     @RequestMapping("/bet")
@@ -1700,239 +1749,49 @@ public static void removeOverLog(String user,String checkPhase,Map<String,String
     ) {
 
         try {
+            if(robot == null) {
+                System.setProperty("java.awt.headless", "false");
+                robot = new Robot();
+            }
+            
             String code[] = codeList.split(",");
             bi++;
-            if (amount.equals("0") || (amount.equals("1") && boardType.equals("0"))) {
+            if (amount.equals("0") ) {
                 for (String str : code) {
                     String overLog = betphase + "@" + sn + "@" + str + "@" + formu + "@" + displaysn;
                     saveOverLog(user, overLog, c);
+                    
                 }
-//                String betlog = "第" + betphase + "期"  +
-//                        "計劃" +   displaysn 
-//                        + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-//                                + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
-//                saveLog(user + "bet", betlog);
+
+               
+                
                 
 //                String betlog = "第" + betphase + "期"  +
 //                        "計劃" +   displaysn 
 //                        + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
 //                                + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
 //                saveLog(user + "bet", betlog);
-                return "";
-            }
-
-            if (boardType.equals("0")) {
-              
-                String r = httpClientCookie.getoddsInfo_boat();
-                // 发送GET,并返回一个HttpResponse对象，相对于POST，省去了添加NameValuePair数组作参数
-
-                JsonParser pr = new JsonParser();
-                JsonObject po = pr.parse(r).getAsJsonObject();
-                JsonObject data = po.getAsJsonObject("data");
-                Map<Integer, String> normal = new TreeMap<Integer, String>();
-                Utils.producePl(normal, r); // 產生倍率 for single
-                p_id = data.get("p_id").getAsString();
-
-                // if (ret.indexOf(user) > -1) {
-
-                String ossid = "";
-                String pl = "";
-                String i_index = "";
-                String m = "";
-                int i = 0;
+                //return "";
+            }else {
                 for (String str : code) {
-                    // String overLog = betphase + "@" + sn + "@" + str + "@" +
-                    // formu;
-                    // saveOverLog(user, overLog, c);
-                    //
-                    int index = computeIndex(sn, str);
-                    String id_pl = normal.get(index).toString(); // 15@1.963
-                    ossid += id_pl.split("@")[0] + ",";
-                    pl += id_pl.split("@")[1] + ",";
-                    i_index += i + ",";
-                    m += amount + ",";
-                    i++;
-                }
-
-                String betRet = httpClientCookie.normalBet_boat(p_id, ossid, pl, i_index, m, "car168_d1_10");
-                JsonParser parser = new JsonParser();
-                JsonObject o = parser.parse(betRet).getAsJsonObject();
-                String resCode = o.get("success").getAsString();
-
-                if (resCode.equals("200")) {
-
-                    for (String str : code) {
-                        String overLog = betphase + "@" + sn + "@" + str + "@" + formu + "@" + displaysn;
-                        saveOverLog(user, overLog, c);
-                    }
-
-                    String betlog = "第" + betphase + "期"  +
-                            "計劃" +   displaysn 
-                            + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
-                    saveLog(user + "bet", betlog);
-
-                }  
-
-            } else if (boardType.equals("1")) { //華山
-                JsonParser pr = new JsonParser();
-                String r = MoutainHttpClient.httpPostBet(mountain_url[mountain_index % 4] + "/?m=bet",
-                                                         mountain_token_sessid,
-                                                         betphase,
-                                                         amount,
-                                                         sn,
-                                                         code);
-                JsonObject po = pr.parse(r).getAsJsonObject();
-                String s = po.get("msg").getAsString();
-                if (s.equals("投注成功")) {
-                    for (String str : code) {
-                        String overLog = betphase + "@" + sn + "@" + str + "@" + formu + "@" + displaysn;
-                        saveOverLog(user, overLog, c);
-                    }
-
-                    String betlog = "第" + betphase + "期"  +
-                            "計劃" +   displaysn 
-                            + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
-                    saveLog(user + "bet", betlog);
-                } else {
-                    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(失敗)" + "(公式" + formu + ")";
-                    // saveLog(user + "bet", betlog);
-                    saveLog(user + "error", s.toString() + " bet error:" + betlog);
-
-                    return mountaionRecoup(user, sn, amount, betphase, c, codeList, formu);
-                }
-            } else if (boardType.equals("2")) { //大立
-                JsonParser pr = new JsonParser();
-                JsonObject j = DaliHttpClient.getBetMD5_PL();
-                String MD5 = j.get("MD5").getAsString();
-
-                JsonArray a = j.getAsJsonArray("DATAODDS");
-
-                String betString = "";//40001,9.909,1|40018,9.909,1|40036,9.909,1
-                for (String str : code) {
-                    int index = DaliHttpClient.getPlIndex(sn, str);
-                    JsonObject bet = a.get(index).getAsJsonObject();
-                    String pl = bet.get("OddsValue1").getAsString();
-                    String betItemNo = bet.get("ItemNO").getAsString();
-                    betString += betItemNo + "," + pl + "," + amount + "|";
-                }
-                betString = betString.substring(0, betString.length() - 1);
-
-                String betid = DaliHttpClient.getBetID(betString);
-
-                JsonObject result = DaliHttpClient.dali_bet(betid, MD5);
-
-                if ((result.get("FaildReason").getAsString()).equals("0")) {
-                    for (String str : code) {
-                        String overLog = betphase + "@" + sn + "@" + str + "@" + formu + "@" + displaysn;
-                        saveOverLog(user, overLog, c);
-                    }
-
-                    String betlog = "第" + betphase + "期"  +
-                            "計劃" +   displaysn 
-                            + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
-                    saveLog(user + "bet", betlog);
-                } else {
-                    /*recoup++;
-                    if (recoup == 3) {
-                        recoup = 0;
-                        return "error";
-                    }*/
-                    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(失敗)" + "(公式" + formu + ")";
-                    // saveLog(user + "bet", betlog);
-                    saveLog(user + "error", result.toString() + " bet error:" + betlog);
-                    return "error";
-                }
-
-            } else if (boardType.equals("3") || boardType.equals("4")) {
-               
-                JsonObject pl = LeeinHttpClient.getPl();
-
-                JsonArray a = new JsonArray();
-
-                for (String str : code) {
-                    String key = "B" + sn + "_" + str;
-                    BigDecimal p = pl.get(key).getAsBigDecimal();
-                    JsonObject d = new JsonObject();
-                    d.addProperty("game", "B" + sn);
-                    d.addProperty("contents", str);
-                    d.addProperty("amount", amount);
-                    d.addProperty("odds", p);
-                    a.add(d);
-                }
-
-                JsonObject bet = new JsonObject();
-                bet.addProperty("lottery", "PK10JSC");
-                bet.addProperty("drawNumber", betphase);
-                bet.add("bets", a);
-                bet.addProperty("ignore", "false");
-
-                String betS = bet.toString();
-
-                JsonObject result = LeeinHttpClient.httpPostBet(betS);
-
-                if (result.get("status").getAsString().equals("0")) {
-                    for (String str : code) {
-                        String overLog = betphase + "@" + sn + "@" + str + "@" + formu + "@" + displaysn;
-                        saveOverLog(user, overLog, c);
-                    }
-
-                    String betlog = "第" + betphase + "期"  +
-                            "計劃" +   displaysn 
-                            + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
-                    saveLog(user + "bet", betlog);
-
-                }  
-
-
-            } else if (boardType.equals("5")) {
-                JsonObject r =  nd_h.getTodayWin(nd_h.getCookie());
-                JsonObject betRate = r.get("betRate").getAsJsonObject();
-
-//          
-
-                JsonArray a = new JsonArray();
-
-                for (String str : code) {
-                    int computeInt = Integer.parseInt(sn)*10 +  Integer.parseInt(str) + 161;
-                    String codeBetRate =  betRate.get(Integer.toString(computeInt)).getAsString();
+                    String overLog = betphase + "@" + sn + "@" + str + "@" + formu + "@" + displaysn;
+                    saveOverLog(user, overLog, c);
                     
-                    JsonObject d = new JsonObject();
-                    d.addProperty("detailID", computeInt);
-                    d.addProperty("betRate", codeBetRate);
-                    d.addProperty("betMoney", amount);
-                    a.add(d);
                 }
 
-              
-
-                JsonObject result = NewDaliHttpClient.httpPostBet(nd_h.getCookie(), a);
-
-                if (result.get("pass").getAsBoolean() == true) {
-                    for (String str : code) {
-                        String overLog = betphase + "@" + sn + "@" + str + "@" + formu + "@" + displaysn;
-                        saveOverLog(user, overLog, c);
-                    }
-
-                    String betlog = "第" + betphase + "期"  +
-                            "計劃" +   displaysn 
-                            + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
-                    saveLog(user + "bet", betlog);
-                } else {
-                     
-                    String betlog = "第" + betphase + "期" + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
-                                    + "投注點數(" + amount + ")" + "(失敗)" + "(公式" + formu + ")";
-                    // saveLog(user + "bet", betlog);
-                    saveLog(user + "error", result.toString() + " bet error:" + betlog);
-                    return "error";
-                }
-
+                String betlog = "第" + betphase + "期"  +
+                        "計劃" +   displaysn 
+                        + "，第" + sn + "名，號碼(" + codeList + ")" + "，第" + c + "關"
+                                + "投注點數(" + amount + ")" + "(成功)" + "(公式" + formu + ")";
+                saveLog(user + "bet", betlog);
+                
+                String sendStr =  " 📣第" + betphase + "期📣"  
+                + "第" + sn + "名，(" + codeList + ")" + "，第" + c + "关";
+                robotSend(sendStr);
+                //h.sendTelegram(sendStr,false);
+                
+                return "";
+                
             }
 
         } catch (Exception e) {
